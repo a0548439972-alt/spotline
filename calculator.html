@@ -1,0 +1,1791 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>מחשבון תאורה | ספוטליין</title>
+<meta name="description" content="מחשבון התאורה של ספוטליין: מכניסים את מידות החדר, בוחרים גופים ורואים כמה וואט לד צריך, כמה לומן ואיזה גוון אור מתאים.">
+<meta name="theme-color" content="#070707">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 fill=%22%23070707%22/%3E%3Cpath d=%22M6 14h20a10 10 0 0 1-20 0z%22 fill=%22%23FFBD00%22/%3E%3C/svg%3E">
+<link rel="preload" href="assets/fonts/primaries-regular-aaa.otf" as="font" type="font/otf" crossorigin>
+<link rel="preload" href="assets/fonts/primaries-medium-aaa.otf" as="font" type="font/otf" crossorigin>
+<link rel="preload" href="assets/fonts/placebo-bold-fm.otf" as="font" type="font/otf" crossorigin>
+<script>
+(function(d){var h=d.documentElement;h.classList.add('js');
+if(matchMedia('(prefers-reduced-motion: reduce)').matches)h.classList.add('no-motion');
+/* safety net: if the main script never finished, show everything */
+setTimeout(function(){if(!window.__sl)h.classList.add('reveal-all')},3000);
+})(document);
+</script>
+<style>
+@font-face{font-family:"Primaries";src:url("assets/fonts/primaries-ultralight-aaa.otf") format("opentype");font-weight:200;font-display:swap}
+@font-face{font-family:"Primaries";src:url("assets/fonts/primaries-light-aaa.otf") format("opentype");font-weight:300;font-display:swap}
+@font-face{font-family:"Primaries";src:url("assets/fonts/primaries-regular-aaa.otf") format("opentype");font-weight:400;font-display:swap}
+@font-face{font-family:"Primaries";src:url("assets/fonts/primaries-medium-aaa.otf") format("opentype");font-weight:500;font-display:swap}
+@font-face{font-family:"Primaries";src:url("assets/fonts/primaries-bold-aaa.otf") format("opentype");font-weight:700;font-display:swap}
+@font-face{font-family:"Primaries";src:url("assets/fonts/primaries-black-aaa.otf") format("opentype");font-weight:900;font-display:swap}
+@font-face{font-family:"Placebo";src:url("assets/fonts/placebo-regular-fm.otf") format("opentype");font-weight:400;font-display:swap}
+@font-face{font-family:"Placebo";src:url("assets/fonts/placebo-bold-fm.otf") format("opentype");font-weight:700;font-display:swap}
+
+@property --lf{syntax:"<color>";inherits:true;initial-value:transparent}
+@property --ro{syntax:"<number>";inherits:true;initial-value:0}
+
+:root{
+  --bg:#070707; --bg2:#0d0c0b; --panel:#121110;
+  --line:rgba(255,244,225,.10); --line2:rgba(255,244,225,.2);
+  --tx:#f3efe7; --mut:#a39e94; --dim:#8f897f;
+  --y:#FFBD00;
+  --g:clamp(16px,4vw,56px); --max:1320px; --hdr:92px;
+  --ease:cubic-bezier(.16,1,.3,1); --expo:cubic-bezier(.19,1,.22,1); --p3:cubic-bezier(.215,.61,.355,1); --p2:cubic-bezier(.25,.46,.45,.94); --io:cubic-bezier(.87,0,.13,1);
+  --f:"Placebo","Primaries",system-ui,sans-serif;
+  --fd:"Placebo","Primaries",system-ui,sans-serif;
+  --mbar:0px;
+}
+@media (max-width:900px){:root{--hdr:68px}}
+@media (max-width:999px){:root{--mbar:64px}}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg);-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--tx);font-family:var(--f);font-weight:400;font-size:17px;line-height:1.6;overflow-x:clip;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+input,textarea,output{font:inherit;color:inherit}
+img,video{display:block;max-width:100%}
+svg{display:block}
+:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.skip{position:fixed;top:-60px;right:16px;z-index:200;background:#fff;color:#000;padding:10px 16px;font-weight:700}
+.skip:focus{top:12px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--g)}
+.yl{color:var(--y)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+section[id],[id^="st"]{scroll-margin-top:calc(var(--hdr) + 12px)}
+
+/* ---------- logo ---------- */
+.logo{display:flex;align-items:center;color:#fff;width:max-content}
+.logo .lg{height:var(--lgh,68px);width:auto;display:block;color:#fff;overflow:visible;transition:height .45s var(--ease)}
+.lg-stem,.lg-arc{fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:butt}
+.lg-arc{stroke-dasharray:1 1;stroke-dashoffset:0}
+.lg-bulb{transition:filter .4s}
+.logo:hover .lg-bulb,.logo.lit .lg-bulb{filter:drop-shadow(0 0 3px rgba(255,189,0,.85))}
+.hdr:has(.nav>a:hover,.mtrig:hover) .logo.lit .lg-bulb{filter:drop-shadow(0 0 6px rgba(255,189,0,.95))}
+.js:not(.seen) .hdr .lg-arc{animation:arcDraw .7s cubic-bezier(.455,.03,.515,.955) .15s both}
+.js:not(.seen) .hdr .lg-bulb{animation:bulbOn .28s linear .85s both}
+@keyframes arcDraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes bulbOn{0%{opacity:.18}33%{opacity:.85}66%{opacity:.3}100%{opacity:1}}
+/* v7: the header logo rebuilds itself in a loop (like the studio's own logo): each piece of the word slides in
+   from its own side, then the arc stretches over it and the bulb flickers on */
+.hdr .logo.out .lg-word,.hdr .logo.out .lg-arc,.hdr .logo.out .lg-stem,.hdr .logo.out .lg-bulb,.hdr .logo.out .lg-pcs{opacity:0;transition:opacity .35s}
+.hdr .logo .lg-pcs{display:none}
+.hdr .logo.replay .lg-pcs{display:inline}
+.hdr .logo.replay .lg-word{opacity:0}
+.hdr .logo.replay .lg-stem{animation:stemIn .3s linear var(--ad,1.3s) both}
+.hdr .logo.replay .lg-arc{animation:arcDraw .75s cubic-bezier(.455,.03,.515,.955) var(--ad,1.3s) both}
+.hdr .logo.replay .lg-bulb{animation:bulbOn .32s linear calc(var(--ad,1.3s) + .75s) both}
+@keyframes stemIn{from{opacity:0}to{opacity:1}}
+.hdr .logo.lit:not(.replay) .lg-arc,.hdr .logo.lit:not(.replay) .lg-bulb,.hdr .logo.lit:not(.replay) .lg-stem{animation:none}
+
+
+/* ---------- header ---------- */
+.hdr{--lgh:68px;position:fixed;inset:0 0 auto 0;z-index:60;height:var(--hdr);display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:28px;padding:0 var(--g);border-bottom:1px solid transparent;transition:background-color .4s,border-color .4s,height .45s var(--ease)}
+.hdr.solid{--lgh:54px;background:#080808;border-bottom-color:rgba(255,255,255,.06);height:72px}
+.hdr .logo .lg{translate:0 calc(var(--lgh) * -.0785);transition:height .45s var(--ease),translate .45s var(--ease)}
+.hdr>.nav,.hdr>.acts{translate:0 calc(var(--lgh) * .0785);transition:translate .45s var(--ease)}
+.nav{display:flex;justify-content:center;gap:clamp(18px,2vw,32px)}
+.nav>a,.nav .mtrig{position:relative;font-size:15.5px;font-weight:500;color:#e2ddd3;padding:8px 0;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:color .3s}
+.nav>a::after,.nav .mtrig::after{content:"";position:absolute;right:0;left:0;bottom:3px;height:1px;background:#fff;transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease)}
+.nav>a:hover,.nav .mtrig:hover,.has-mega.open .mtrig,.nav>a[aria-current]{color:#fff}
+.nav>a:hover::after,.nav .mtrig:hover::after,.has-mega.open .mtrig::after,.nav>a[aria-current]::after{transform:scaleX(1)}
+.chev{width:10px;height:10px;transition:transform .35s var(--ease)}
+.has-mega.open .chev{transform:rotate(180deg)}
+.acts{display:flex;align-items:center;gap:4px}
+.ibtn{position:relative;height:44px;min-width:44px;display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:0 10px;color:#e2ddd3;transition:color .3s}
+.ibtn:hover{color:#fff}
+.ibtn svg{width:20px;height:20px;flex:none}
+.ibtn .lbl{font-size:14.5px;font-weight:500;white-space:nowrap}
+.ibtn .iw{position:relative;display:block}
+.tel{direction:ltr;letter-spacing:.03em}
+.badge{position:absolute;top:-8px;left:-10px;min-width:18px;height:18px;border-radius:9px;background:#fff;color:#000;font-size:11px;font-weight:700;line-height:18px;text-align:center;padding:0 5px;transform:scale(0);transition:transform .4s var(--ease)}
+.badge.on{transform:scale(1)}
+.badge.pop{animation:pop .35s ease-out}
+@keyframes pop{50%{transform:scale(1.3)}}
+.burger{display:none}
+
+/* mega menu */
+.mega{position:fixed;top:var(--hdr);inset-inline:0;z-index:55;background:#0a0a09;border-bottom:1px solid var(--line);clip-path:inset(0 0 100% 0);visibility:hidden;transition:clip-path .5s var(--ease),visibility 0s .5s}
+.hdr.solid~.mega{top:72px}
+.mega.open{clip-path:inset(0 0 0 0);visibility:visible;transition:clip-path .5s var(--ease)}
+.mega-in{max-width:var(--max);margin:0 auto;padding:26px var(--g) 36px;display:grid;grid-template-columns:1fr 240px;gap:48px}
+.mega-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;font-size:13.5px;color:var(--mut)}
+.mega-all{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:500;color:#fff}
+.mega-all svg{width:16px;height:16px;transition:transform .4s var(--ease)}
+.mega-all:hover svg{transform:translateX(-4px)}
+.mega-cats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-right:1px solid var(--line)}
+.mega-cats a{display:flex;align-items:center;gap:14px;padding:16px 18px;border-left:1px solid var(--line);border-bottom:1px solid var(--line);font-weight:500;font-size:15.5px;color:#d9d3c8;transition:background-color .3s,color .3s}
+.mega-cats a:hover{background:#121110;color:#fff}
+.mega-cats .ico{width:30px;height:30px;stroke-width:2.2}
+.mega-cats a:hover .ico{--lf:#ffe3ad;--ro:.7}
+.mega-side{display:flex;flex-direction:column;gap:12px}
+.mega-side h4{font-size:13.5px;font-weight:500;color:var(--mut);margin-bottom:2px}
+.mega-side a.room{font-size:15.5px;color:#d9d3c8;transition:color .3s,translate .3s var(--ease)}
+.mega-side a.room:hover{color:#fff;translate:-4px 0}
+.mega-help{margin-top:auto;padding-top:16px;border-top:1px solid var(--line);font-size:14px;color:var(--mut)}
+.mega-help a{color:#fff;font-weight:700;direction:ltr;display:inline-block}
+
+/* ---------- icons ---------- */
+.ico{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:--lf .45s,--ro .45s,color .35s}
+
+/* ---------- search ---------- */
+.sbox{display:flex;align-items:center;height:60px;background:rgba(16,15,14,.86);border:1px solid var(--line2);transition:border-color .3s,box-shadow .3s}
+.sbox:focus-within{border-color:rgba(255,255,255,.7);box-shadow:0 14px 40px rgba(0,0,0,.5)}
+.sbox>svg{width:20px;height:20px;margin:0 18px 0 4px;color:var(--mut);flex:none}
+.sbox input{flex:1;min-width:0;height:100%;background:none;border:0;outline:0;font-size:16px}
+.sbox input::placeholder{color:#8a857b}
+.sbox input::-webkit-search-cancel-button{-webkit-appearance:none}
+.sbtn{height:100%;padding:0 26px;background:var(--y);color:#0a0a0a;font-weight:700;font-size:16px;transition:background-color .3s;flex:none}
+.sbtn:hover{background:#fff}
+.sugg{position:absolute;top:calc(100% + 8px);inset-inline:0;z-index:30;background:#121110;border:1px solid var(--line2);box-shadow:0 24px 60px rgba(0,0,0,.6);opacity:0;translate:0 -6px;pointer-events:none;visibility:hidden;transition:opacity .2s,translate .3s var(--ease),visibility 0s .3s;max-height:min(60vh,420px);overflow:auto;overscroll-behavior:contain}
+.sugg.open{opacity:1;translate:none;pointer-events:auto;visibility:visible;transition:opacity .2s,translate .3s var(--ease)}
+.sg-h{font-size:12.5px;font-weight:500;color:var(--dim);padding:12px 16px 6px}
+.sg{display:flex;align-items:center;gap:14px;padding:9px 16px;cursor:pointer;animation:sgIn .3s both;animation-delay:calc(var(--i,0) * 40ms)}
+@keyframes sgIn{from{opacity:0}}
+.sg img{width:42px;height:52px;object-fit:cover;flex:none;background:#000}
+.sg .si{width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--line);flex:none;color:#d6d0c4}
+.sg .si svg{width:24px;height:24px;stroke-width:2.2}
+.sg b{display:block;font-weight:500;font-size:15.5px;line-height:1.35}
+.sg small{display:block;color:var(--mut);font-size:13px}
+.sg small span{direction:ltr;display:inline-block}
+.sg mark{background:none;color:#fff;font-weight:700;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.sg.act,.sg:hover{background:#1c1a18}
+.sg-empty{padding:16px;color:#cfc9bd;font-size:15px;line-height:1.55}
+.sg-empty a{color:#fff;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.sg-ex{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:14px 16px}
+.sg-ex span{font-size:13.5px;color:var(--mut);margin-inline-end:2px}
+.sg-ex button{font-size:14px;padding:5px 12px;border:1px solid var(--line2);color:#e2ddd3;transition:border-color .3s,color .3s}
+.sg-ex button:hover{border-color:#fff;color:#fff}
+
+/* ---------- headings, sections, buttons ---------- */
+.sec{position:relative;padding:var(--pt,120px) 0 var(--pb,120px)}
+#bulbs{--pt:96px;--pb:110px}
+#cct{--pt:96px;--pb:110px}
+#tips{--pt:96px;--pb:150px}
+@media (max-width:900px){.sec{padding:calc(var(--pt,120px) * .6) 0 calc(var(--pb,120px) * .6)}}
+.h2{font-family:var(--fd);font-size:clamp(40px,4.6vw,72px);line-height:1.02;letter-spacing:-.01em;font-weight:400}
+.h2 .l1,.h2 .l2{display:block;overflow:hidden;padding-bottom:.12em;margin-bottom:-.12em}
+.h2 .l1>span,.h2 .l2>span{display:inline-block}
+.h2 .l1{font-weight:400;color:#fff}
+.h2 .l2{font-weight:700}
+.h2 .l2>span{color:var(--y);background:linear-gradient(90deg,var(--y) 0 42%,#fff4cf 50%,var(--y) 58% 100%) 0 0/260% 100% no-repeat;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.shead{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;margin-bottom:clamp(36px,4vw,56px)}
+.shead p{max-width:440px;color:#b3ada1;font-size:17px}
+
+.btn{position:relative;display:inline-flex;align-items:center;gap:12px;height:56px;padding:0 28px;font-weight:700;font-size:16px;overflow:hidden;isolation:isolate;white-space:nowrap;transition:color .45s var(--ease),border-color .45s,opacity .3s}
+.btn .bl{position:relative;display:inline-block}
+.btn svg{width:18px;height:18px;flex:none;transition:transform .45s var(--ease)}
+.btn:hover svg{transform:translateX(-5px)}
+.btn::before{content:"";position:absolute;inset:0;z-index:-1;transform:scaleX(0);transform-origin:left;transition:transform .55s var(--ease)}
+.btn:hover::before{transform:scaleX(1);transform-origin:right}
+.btn-y{background:var(--y);color:#0a0a0a}.btn-y::before{background:#fff}
+.btn-k{background:#0a0a0a;color:#fff}.btn-k::before{background:#fff}.btn-k:hover{color:#0a0a0a}
+.btn-o{border:1px solid rgba(255,255,255,.32);color:#f1ece3}.btn-o::before{background:#fff}.btn-o:hover{color:#0a0a0a;border-color:#fff}
+.btn-ok{border:1px solid rgba(0,0,0,.4);color:#0a0a0a}.btn-ok::before{background:#0a0a0a}.btn-ok:hover{color:#fff;border-color:#0a0a0a}
+.btn:disabled{opacity:.35;cursor:default}
+.btn:disabled::before{display:none}
+.btn:disabled:hover{color:#f1ece3;border-color:rgba(255,255,255,.32)}
+.lnk{font-size:13.5px;color:#e2ddd3;text-decoration:underline;text-decoration-color:rgba(255,255,255,.3);text-underline-offset:4px;transition:text-decoration-color .3s,color .3s;padding:4px 0}
+.lnk:hover{color:#fff;text-decoration-color:#fff}
+
+/* reveal system */
+@keyframes fadeUp{from{opacity:0;translate:0 14px}to{opacity:1;translate:none}}
+@keyframes lineUp{from{translate:0 105%}to{translate:none}}
+@keyframes txSweep{from{background-position:100% 0}to{background-position:0 0}}
+.anim [data-fade]:not(.in){opacity:0;translate:0 14px}
+.anim [data-fade].in{animation:fadeUp .8s var(--p3) var(--dl,0s) both}
+.anim [data-split]:not(.in) .l1>span,.anim [data-split]:not(.in) .l2>span{translate:0 105%}
+.anim [data-split].in .l1>span{animation:lineUp .9s var(--expo) both}
+.anim [data-split].in .l2>span{animation:lineUp .9s var(--expo) .12s both,txSweep .7s var(--p2) .75s both}
+.reveal-all [data-fade],.reveal-all [data-split] .l1>span,.reveal-all [data-split] .l2>span{opacity:1!important;translate:none!important;animation:none!important}
+.reveal-all .lg-arc{stroke-dashoffset:0!important;animation:none!important}
+.reveal-all .lg-bulb{opacity:1!important;animation:none!important}
+
+/* ---------- chips and ranges (same language as the homepage calculator) ---------- */
+.fld{margin-bottom:26px}
+.fld:last-child{margin-bottom:0}
+.lb{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:14px;font-weight:500;color:var(--mut);margin-bottom:10px}
+.lb small{font-size:13px;font-weight:400;color:var(--dim)}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts button{min-height:40px;padding:6px 15px;border:1px solid var(--line2);font-size:15px;color:#d6d0c4;transition:background-color .3s,border-color .3s,color .3s;display:inline-flex;align-items:center}
+.opts button:hover{border-color:#fff;color:#fff}
+.opts button[aria-pressed="true"]{background:#fff;border-color:#fff;color:#0a0a0a;font-weight:700}
+.opts.sm{gap:6px}
+.opts.sm button{min-height:36px;padding:4px 12px;font-size:14.5px;direction:ltr}
+.opts .swt{display:inline-block;width:12px;height:12px;border-radius:50%;margin-inline-end:8px;border:1px solid rgba(255,255,255,.3);flex:none}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:32px;background:none;cursor:pointer;direction:rtl}
+input[type=range]:focus{outline:0}
+input[type=range]::-webkit-slider-runnable-track{height:1px;background:linear-gradient(to left,#fff var(--p,50%),rgba(255,255,255,.22) var(--p,50%))}
+input[type=range]::-moz-range-track{height:1px;background:rgba(255,255,255,.22)}
+input[type=range]::-moz-range-progress{height:1px;background:#fff}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:0;background:#fff;margin-top:-6.5px;border:0}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border:0;border-radius:0;background:#fff}
+input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px #000,0 0 0 6px #fff}
+input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 0 6px #fff}
+/* colour temperature track: the scale itself is the information */
+.krange{--kg:linear-gradient(to left,#ff932c 0,#ffb46b 18%,#ffd1a3 42%,#ffe9d8 65%,#f4f3ff 86%,#dfe7ff 100%)}
+.krange::-webkit-slider-runnable-track{height:2px;background:var(--kg)}
+.krange::-moz-range-track{height:2px;background:var(--kg)}
+.krange::-moz-range-progress{background:transparent}
+.krange::-webkit-slider-thumb{margin-top:-6px}
+
+/* ---------- page hero ---------- */
+.phero{position:relative;padding:calc(var(--hdr) + clamp(36px,5.4vw,84px)) 0 clamp(20px,2.4vw,36px)}
+.phero .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:40px}
+.crumb{display:flex;gap:10px;font-size:13.5px;color:var(--mut);margin-bottom:22px}
+.crumb a{transition:color .3s}
+.crumb a:hover{color:#fff}
+.crumb [aria-current]{color:#d6d0c4}
+.phero .h2{font-size:clamp(46px,5.6vw,88px)}
+.phero .lead{margin-top:22px;max-width:540px;color:#c4beb2;font-size:18px;line-height:1.6}
+.toc{list-style:none;min-width:230px;border-top:1px solid var(--line)}
+.toc a{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:11px 2px;border-bottom:1px solid var(--line);font-size:15px;color:#d6d0c4;transition:color .3s,padding .45s var(--ease)}
+.toc a svg{width:16px;height:16px;opacity:.45;transition:opacity .3s,transform .45s var(--ease)}
+.toc a:hover{color:#fff;padding-inline-start:8px}
+.toc a:hover svg{opacity:1;transform:translateX(-4px)}
+.parc{position:relative;height:56px;pointer-events:none}
+.parc svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.parc path{fill:none;stroke:var(--y);stroke-width:1.4;vector-effect:non-scaling-stroke}
+.parc .gl{stroke-width:6;opacity:.18}
+.js:not(.no-motion) .parc path{stroke-dasharray:1 1;animation:arcDraw 1.6s var(--io) .35s both}
+
+/* ---------- tool layout ---------- */
+.tool-sec{padding:clamp(18px,2.4vw,34px) 0 clamp(72px,8vw,128px)}
+.tool{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.04fr);grid-template-areas:"room stage" "fix stage";column-gap:clamp(36px,4.6vw,76px);align-items:start}
+.st-room{grid-area:room}
+.st-fix{grid-area:fix;margin-top:clamp(56px,6vw,88px)}
+.stage{grid-area:stage;position:sticky;top:88px}
+.st-h{display:flex;align-items:baseline;justify-content:space-between;gap:20px;padding-bottom:16px;margin-bottom:26px;border-bottom:1px solid var(--line2)}
+.st-h h2{font-family:var(--fd);font-weight:700;font-size:clamp(30px,2.7vw,42px);line-height:1.05}
+.st-h p{font-size:14.5px;color:var(--mut);max-width:300px;line-height:1.5}
+.st-h .lnk{flex:none}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:26px 28px}
+.dim .top{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.dim .top label,.dim .top .t{font-size:14px;font-weight:500;color:var(--mut);padding-bottom:6px}
+.nbox{display:inline-flex;align-items:baseline;gap:6px;color:var(--mut);font-size:14px}
+.nbox input,.nbox output{width:76px;height:42px;background:none;border:0;border-bottom:1px solid var(--line2);font-family:var(--fd);font-weight:700;font-size:28px;line-height:42px;color:#fff;text-align:center;direction:ltr;outline:0;-moz-appearance:textfield;appearance:textfield;border-radius:0;transition:border-color .3s}
+.nbox output{display:inline-block;border-bottom-color:transparent}
+.nbox input:focus{border-color:#fff}
+.nbox input::-webkit-inner-spin-button,.nbox input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.nbox.big input{width:150px;font-size:34px}
+
+/* ---------- stage: room view + result ---------- */
+.viz{position:relative;height:clamp(250px,40vh,440px);background:#080807;border:1px solid var(--line);overflow:hidden}
+.viz canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hud{position:absolute;z-index:2;top:0;inset-inline:0;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px 16px;padding:10px 14px;font-size:13px;color:var(--mut);pointer-events:none}
+.hud #hudRoom{color:#d6d0c4}
+.kmini{pointer-events:auto;display:flex;align-items:center;gap:10px;font-size:13px}
+.kmini input{width:112px;height:26px}
+.kmini b{font-weight:500;color:#e9e4da;direction:ltr;min-width:44px;text-align:left}
+.viz-msg{position:absolute;z-index:2;left:0;right:0;top:50%;translate:0 -50%;text-align:center;font-size:15px;color:#cfc9bd;padding:0 24px;pointer-events:none;transition:opacity .6s}
+.viz.lit .viz-msg{opacity:0}
+.res{padding-top:20px}
+.res-top{display:flex;align-items:flex-end;justify-content:space-between;gap:16px 28px;flex-wrap:wrap}
+.need .lb{margin-bottom:6px}
+.need .v{display:flex;align-items:baseline;gap:10px}
+.need .ca{font-family:var(--fd);font-size:28px;color:#e9e4da}
+.need .big{font-family:var(--fd);font-weight:700;font-size:clamp(66px,5.8vw,104px);line-height:.84;color:#fff;direction:ltr;font-variant-numeric:tabular-nums}
+.need .u{font-family:var(--fd);font-size:30px;font-weight:700;color:var(--y)}
+.need-2{padding-bottom:4px}
+.need-2 b{display:block;font-family:var(--fd);font-weight:700;font-size:26px;color:#e9e4da;line-height:1.1}
+.need-2 small{display:block;font-size:13.5px;color:var(--mut);margin-top:4px}
+.eqn{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:14.5px;color:#d6d0c4;line-height:1.55}
+.eqn small{display:block;font-size:13px;color:var(--dim)}
+.chosen{margin-top:16px}
+.ch-top{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:15.5px;color:#d6d0c4;min-height:30px}
+.ch-top b{font-weight:700;color:#fff}
+.state{flex:none;font-size:13px;font-weight:700;line-height:1;padding:7px 11px;border:1px solid var(--line2);color:#e2ddd3}
+.state[data-s="ok"]{background:var(--y);border-color:var(--y);color:#0a0a0a}
+.state[data-s="over"]{border-color:#ff9d8f;color:#ff9d8f}
+.meter{position:relative;margin-top:22px;height:2px;background:rgba(255,255,255,.14)}
+.meter i{position:absolute;top:0;bottom:0;right:0;width:0;background:#fff;transition:width .6s var(--ease),background-color .4s}
+.meter[data-s="ok"] i{background:var(--y)}
+.meter[data-s="over"] i{background:#ff9d8f}
+.meter .zone{position:absolute;top:-1px;height:4px;right:60%;width:26.667%;background:rgba(255,189,0,.16)}
+.meter .tg{position:absolute;top:-6px;right:66.667%;width:1px;height:14px;background:#fff}
+.meter .tg::after{content:"היעד";position:absolute;bottom:calc(100% + 3px);right:0;translate:50% 0;font-size:11.5px;color:var(--mut);white-space:nowrap}
+.pct{margin-top:9px;font-size:13px;color:var(--mut)}
+.hint{margin-top:8px;font-size:14.5px;color:#e2ddd3;line-height:1.55}
+.hint:empty{display:none}
+.note{margin-top:6px;font-size:13px;color:var(--dim);line-height:1.5}
+.res-acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.res-acts .btn{height:48px;padding:0 20px;font-size:15px}
+
+/* ---------- fixtures ---------- */
+.fxl{list-style:none;border-top:1px solid var(--line)}
+.fx{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:14px 18px;padding:18px 16px;border-bottom:1px solid var(--line);transition:background-color .45s var(--ease)}
+.fx::before{content:"";position:absolute;top:-1px;bottom:0;inset-inline-start:0;width:2px;background:var(--y);transform:scaleY(0);transition:transform .45s var(--ease)}
+.fx.on{background:#0f0e0d}
+.fx.on::before{transform:none}
+.fx-h{display:flex;align-items:center;gap:14px;min-width:0}
+.fx-h .ico{width:38px;height:38px;flex:none;stroke-width:2.2;color:#a8a296}
+.fx.on .fx-h .ico{--lf:#ffe3ad;--ro:.7;color:#fff}
+.fx-h h3{font-size:17px;font-weight:500;line-height:1.3;color:#e2ddd3;transition:color .3s}
+.fx.on .fx-h h3{color:#fff}
+.fx-h small{display:block;font-size:13px;color:var(--mut)}
+.fx-r{display:flex;align-items:center;gap:14px;justify-self:end}
+.fx-sum{font-size:13px;color:var(--mut);text-align:left;line-height:1.35;white-space:nowrap}
+.fx-sum b{display:block;font-size:15px;font-weight:700;color:#fff}
+.fx-add{height:38px;padding:0 13px;border:1px solid rgba(255,255,255,.28);color:#fff;font-weight:500;font-size:14px;display:inline-flex;align-items:center;gap:7px;transition:background-color .3s,color .3s,border-color .3s,opacity .3s;white-space:nowrap}
+.fx-add svg{width:15px;height:15px;flex:none}
+.fx-add:hover:not(:disabled){background:#fff;color:#000;border-color:#fff}
+.fx-add:disabled{opacity:.3;cursor:default}
+.fx-add.done{border-color:rgba(255,255,255,.6)}
+.fx-ctl{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px}
+.fx-w{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px}
+.fx-u{font-size:13px;color:var(--mut);white-space:nowrap}
+.fx-q{display:flex;align-items:center;gap:10px}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line2)}
+.qty button{width:42px;height:38px;display:grid;place-items:center;transition:background-color .25s}
+.qty button:hover{background:#1c1a18}
+.qty button svg{width:14px;height:14px}
+.qty input{width:52px;height:38px;text-align:center;background:none;border:0;border-inline:1px solid var(--line);font-size:16px;-moz-appearance:textfield;appearance:textfield;direction:ltr;outline:0}
+.qty input:focus-visible{background:#1c1a18}
+.qty input::-webkit-inner-spin-button,.qty input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.fx-mode{flex-basis:100%}
+.fx-mode button{direction:rtl}
+.fx-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px;padding:18px 0 0;font-size:15px;color:#d6d0c4}
+.fx-foot b{color:#fff}
+.side-notes{margin-top:30px;border-top:1px solid var(--line)}
+.side-notes h3{font-size:14px;font-weight:500;color:var(--mut);padding:16px 0 4px}
+.side-notes li{list-style:none;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px;color:#d6d0c4;line-height:1.55}
+
+/* ---------- old bulbs ---------- */
+.conv{display:grid;grid-template-columns:1fr 1fr;border-block:1px solid var(--line)}
+.cv-a{padding-block:36px 40px;padding-inline-end:clamp(28px,4vw,64px);border-inline-end:1px solid var(--line)}
+.cv-b{padding-block:36px 40px;padding-inline-start:clamp(28px,4vw,64px)}
+.cv-h{font-family:var(--fd);font-size:26px;font-weight:700;line-height:1.2;margin-bottom:24px}
+.cv-res{margin-top:26px;padding-top:20px;border-top:1px solid var(--line)}
+.cv-big{font-family:var(--fd);font-weight:700;font-size:clamp(56px,5vw,84px);line-height:.9;color:#fff;direction:ltr;display:inline-block}
+.cv-u{font-family:var(--fd);font-size:26px;font-weight:700;color:var(--y);margin-inline-start:10px}
+.cv-res p{margin-top:12px;font-size:16px;color:#d6d0c4;max-width:420px}
+.cv-res p b{color:#fff}
+.bars{list-style:none;margin-top:22px;border-top:1px solid var(--line)}
+.bars li{display:grid;grid-template-columns:84px 1fr 74px;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px;color:#d6d0c4}
+.bars .b{position:relative;height:2px;background:rgba(255,255,255,.1)}
+.bars .b i{position:absolute;top:0;bottom:0;right:0;width:0;background:#fff;transition:width .6s var(--ease)}
+.bars li:first-child .b i{background:var(--y)}
+.bars li:first-child{color:#fff}
+.bars b{font-family:var(--fd);font-weight:700;font-size:21px;color:#fff;text-align:left;white-space:nowrap}
+.bars b small{font-family:var(--f);font-weight:400;font-size:13px;color:var(--mut);margin-inline-start:4px}
+.cv-note{margin-top:14px;font-size:13.5px;color:var(--dim);line-height:1.55}
+
+/* ---------- colour temperature ---------- */
+.cct{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:clamp(28px,4vw,64px);align-items:start}
+.cct-ph{position:relative;aspect-ratio:16/9;overflow:hidden;background:#0b0a09;border:1px solid var(--line)}
+.cct-ph img{width:100%;height:100%;object-fit:cover;filter:url(#wb) brightness(var(--kb,1))}
+.cct-ph .tint{position:absolute;inset:0;mix-blend-mode:soft-light;background:var(--kc,#ffb46b);opacity:.42;transition:background-color .25s}
+.cct-ph .glow{position:absolute;inset:0;mix-blend-mode:screen;background:radial-gradient(70% 55% at 50% 0,rgba(var(--kr,255,180,107),.16),rgba(var(--kr,255,180,107),0) 70%)}
+.cct-tag{position:absolute;z-index:2;bottom:14px;right:14px;background:rgba(7,7,7,.72);padding:6px 12px;font-size:14px;color:#f3efe7}
+.cct-tag span{direction:ltr;display:inline-block}
+.rec{padding-bottom:22px;border-bottom:1px solid var(--line)}
+.rec-k{display:block;font-family:var(--fd);font-weight:700;font-size:clamp(40px,3.6vw,56px);line-height:1;color:#fff;direction:ltr;text-align:right}
+.rec p{margin-top:10px;font-size:15px;color:#cfc9bd;line-height:1.55}
+.rec .btn{height:46px;padding:0 18px;font-size:14.5px;margin-top:16px}
+.kfld{margin-top:22px}
+.kfld .lb b{color:#fff;font-weight:700;direction:ltr}
+.kwrap{position:relative}
+.krec{position:absolute;top:4px;width:2px;height:8px;background:var(--y);translate:50% 0;pointer-events:none;transition:right .5s var(--ease)}
+.klab{position:relative;height:20px;font-size:13px;color:var(--mut)}
+.klab span{position:absolute;top:0;translate:50% 0;white-space:nowrap}
+.ktip{margin-top:16px;font-size:15px;color:#d6d0c4;line-height:1.6}
+
+/* ---------- tips list ---------- */
+.why-row{margin-top:clamp(36px,4.4vw,56px);border-bottom:1px solid var(--line)}
+.wl{position:relative;display:grid;grid-template-columns:minmax(0,520px) minmax(0,1fr);align-items:baseline;gap:48px;padding:30px 4px}
+.wl::before{content:"";position:absolute;top:0;right:0;left:0;height:1px;background:var(--line2);transform-origin:right}
+.anim .wl:not(.in)::before{transform:scaleX(0)}
+.anim .wl.in::before{transition:transform 1.1s var(--expo) var(--dl,0s)}
+.wl h3{font-family:var(--fd);font-size:clamp(28px,2.8vw,40px);font-weight:400;line-height:1.1;color:#fff}
+.wl p{color:var(--mut);font-size:16.5px;line-height:1.6;max-width:52ch}
+.disc{margin-top:28px;font-size:14px;color:var(--dim);max-width:760px;line-height:1.6}
+
+/* ---------- send band ---------- */
+.pro{position:relative;background:var(--y);color:#0a0a0a;overflow:hidden;border-top-left-radius:50% 120px;border-top-right-radius:50% 120px;padding:170px 0 110px}
+.pro :focus-visible{outline-color:#000}
+.pro .wrap{position:relative;z-index:1;display:grid;grid-template-columns:1.2fr 1fr;gap:56px;align-items:end}
+.pro .h2 .l1,.pro .h2 .l1>span{color:#000}
+.pro .h2 .l2>span{background:none;color:#000;-webkit-text-fill-color:#000}
+.anim .pro [data-split].in .l2>span{animation:lineUp .9s var(--expo) .12s both}
+.pro p{margin-top:22px;font-size:18px;line-height:1.65;max-width:520px;color:#1a170e}
+.pro .row{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.pro-list{list-style:none;border-top:1px solid rgba(0,0,0,.22)}
+.pro-list li{padding:15px 0;border-bottom:1px solid rgba(0,0,0,.22);font-size:16px;display:flex;gap:16px;justify-content:space-between;align-items:baseline}
+.pro-list li span{color:#3a3320}
+.pro-list li b{font-weight:700;text-align:left}
+
+/* ---------- footer ---------- */
+.ftr{position:relative;border-top:1px solid var(--line);padding-top:clamp(64px,7vw,100px);overflow:hidden}
+.ftr-top{display:grid;grid-template-columns:1.3fr repeat(3,1fr);gap:40px}
+.ftr .logo .lg{height:88px}
+.ftr .lg-arc,.ftr .lg-stem{stroke-width:2.4}
+.anim .ftr .logo:not(.in) .lg-arc{stroke-dashoffset:1}
+.anim .ftr .logo:not(.in) .lg-bulb{opacity:.18}
+.anim .ftr .logo.in .lg-arc{animation:arcDraw .9s cubic-bezier(.455,.03,.515,.955) .1s both}
+.anim .ftr .logo.in .lg-bulb{animation:bulbOn .28s linear 1s both}
+.ftr .tagl{margin-top:12px;font-family:var(--fd);color:rgba(255,255,255,.7);font-size:19px}
+.ftr .slog{margin-top:22px;font-size:16px;color:#e2ddd3}
+.ftr .addr{margin-top:2px;font-size:15px;color:var(--mut)}
+.ftr h4{font-size:13.5px;font-weight:500;color:var(--mut);margin-bottom:16px}
+.ftr ul{list-style:none;display:grid;gap:9px}
+.ftr ul a{font-size:15.5px;color:#d6d0c4;transition:color .3s}
+.ftr ul a:hover{color:#fff}
+.ftr-bot{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px 20px;flex-wrap:wrap;font-size:13.5px;color:var(--dim)}
+.bye{max-width:var(--max);margin:64px auto 0;padding:0 var(--g);font-family:"Primaries",sans-serif;font-weight:900;font-size:16vw;line-height:.8;color:var(--y);height:.62em;overflow:hidden;white-space:nowrap}
+.bye span{display:inline-block}
+.bye em{color:#fff;font-style:normal}
+
+/* ---------- overlays ---------- */
+.scrim{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.62);opacity:0;visibility:hidden;transition:opacity .4s,visibility 0s .4s}
+.scrim.on{opacity:1;visibility:visible;transition:opacity .4s}
+.drawer{position:fixed;z-index:90;top:0;bottom:0;left:0;width:min(460px,100vw);background:#0f0e0d;border-right:1px solid var(--line);display:flex;flex-direction:column;transform:translateX(-102%);visibility:hidden;transition:transform .5s var(--ease),visibility 0s .5s}
+.drawer.on{transform:none;visibility:visible;transition:transform .5s var(--ease),visibility 0s 0s}
+.dr-h{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:22px 24px;border-bottom:1px solid var(--line)}
+.dr-h h2{font-family:var(--fd);font-size:24px;font-weight:700;line-height:1.2}
+.dr-h small{display:block;margin-top:6px;font-family:var(--f);font-size:14px;line-height:1.5;color:var(--mut);font-weight:400}
+.x{width:44px;height:44px;flex:none;display:grid;place-items:center;border:1px solid var(--line2);transition:border-color .3s,transform .4s var(--ease)}
+.x:hover{border-color:#fff;transform:rotate(90deg)}
+.x svg{width:16px;height:16px}
+.dr-b{flex:1;overflow:auto;overscroll-behavior:contain;padding:4px 24px}
+.ci{display:grid;grid-template-columns:64px 1fr;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+.ci img{width:64px;height:80px;object-fit:cover}
+.ci-ico{width:64px;height:64px;display:grid;place-items:center;border:1px solid var(--line);color:#fff;--lf:#ffe3ad;--ro:.7}
+.ci-ico .ico{width:36px;height:36px;stroke-width:2.2}
+.ci b{display:block;font-weight:500;font-size:15.5px;line-height:1.35}
+.ci small{display:block;color:var(--mut);font-size:13px;line-height:1.5}
+.ci small span{direction:ltr;display:inline-block}
+.ci-a{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:8px}
+.ci .qty button{width:44px;height:42px}
+.ci .qty input{width:44px;height:42px}
+.rm{min-height:44px;padding:0 4px;font-size:14px;color:var(--mut);text-decoration:underline;text-underline-offset:3px}
+.rm:hover{color:#fff}
+.empty{padding:44px 0;text-align:center;color:#cfc9bd}
+.empty b{display:block;font-family:var(--fd);font-size:22px;color:#fff;margin-bottom:8px}
+.empty p{font-size:15px;color:var(--mut);max-width:300px;margin:0 auto 22px}
+.dr-f{padding:18px 24px 22px;border-top:1px solid var(--line);background:#0b0a09}
+.drawer.empty .dr-f{display:none}
+.inp{display:block;margin-bottom:12px}
+.inp>span{display:block;font-size:13.5px;color:var(--mut);margin-bottom:5px}
+.inp input,.inp textarea{width:100%;height:46px;background:#151413;border:1px solid var(--line2);padding:0 14px;font-size:16px;outline:0;transition:border-color .3s;border-radius:0}
+.inp textarea{height:64px;padding:10px 14px;resize:none;line-height:1.5}
+.inp input:focus,.inp textarea:focus{border-color:#fff}
+.inp input::placeholder,.inp textarea::placeholder{color:#7d786f}
+.inp .err{display:none;font-style:normal;font-size:13.5px;color:#ff9d8f;margin-top:5px}
+.inp.bad .err{display:block}.inp.bad input{border-color:#ff9d8f}
+.dr-f .btn{width:100%;justify-content:center;height:52px;margin-top:4px}
+.dr-f .fine{margin-top:8px;text-align:center;font-size:13.5px;color:var(--mut)}
+.sent{display:none;padding:56px 24px;text-align:center;outline:0}
+.sent b{display:block;font-family:var(--fd);font-size:26px;color:#fff;margin-bottom:8px}
+.sent p{color:#cfc9bd;font-size:16px}
+.sent a{direction:ltr;display:inline-block;color:#fff;text-decoration:underline;text-underline-offset:3px}
+.drawer.done .sent{display:block}.drawer.done .dr-b,.drawer.done .dr-f{display:none}
+
+.sover{position:fixed;z-index:95;inset:0;display:flex;justify-content:center;align-items:flex-start;padding:14vh var(--g) 0;opacity:0;visibility:hidden;transition:opacity .3s,visibility 0s .3s;background:rgba(5,5,5,.94)}
+.sover.on{opacity:1;visibility:visible;transition:opacity .3s}
+.sover .search{position:relative;width:min(720px,100%);translate:0 -14px;transition:translate .5s var(--ease)}
+.sover.on .search{translate:none}
+.sover .x{position:absolute;top:20px;left:var(--g)}
+
+.toast{position:fixed;z-index:99;bottom:calc(26px + var(--mbar) + env(safe-area-inset-bottom));left:50%;translate:-50% 30px;background:#fff;color:#0a0a0a;padding:12px 18px;font-weight:500;font-size:15px;display:flex;gap:14px;align-items:center;opacity:0;visibility:hidden;transition:opacity .4s,translate .5s var(--ease),visibility 0s .5s;max-width:calc(100vw - 32px)}
+.toast.on{opacity:1;translate:-50% 0;visibility:visible;transition:opacity .4s,translate .5s var(--ease)}
+.toast button{font-weight:700;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+
+.mnav{position:fixed;z-index:58;inset:0;background:#080808;padding:calc(var(--hdr) + 12px) var(--g) calc(30px + env(safe-area-inset-bottom));overflow:auto;overscroll-behavior:contain;clip-path:circle(0 at calc(100% - 40px) 32px);visibility:hidden;transition:clip-path .6s var(--ease),visibility 0s .6s}
+.mnav.on{clip-path:circle(150% at calc(100% - 40px) 32px);visibility:visible;transition:clip-path .6s var(--ease)}
+.mnav .search{position:relative;z-index:5;margin-bottom:12px}
+.mnav .sbox{height:52px}
+.mnav .sbtn{padding:0 18px}
+.mnav nav>a{display:block;font-family:var(--fd);font-size:28px;line-height:1.2;padding:12px 0;border-bottom:1px solid var(--line)}
+.mnav .mcat{display:grid;grid-template-columns:1fr 1fr;gap:0 16px;padding:8px 0 16px;border-bottom:1px solid var(--line)}
+.mnav .mcat a{font-size:15.5px;font-weight:500;padding:8px 0;color:#cfc9bd}
+.mnav .mcall{width:100%;justify-content:center;padding:0 20px;margin-top:26px}
+
+/* floating WhatsApp */
+.waf{position:fixed;z-index:52;left:24px;bottom:24px;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:#121110;border:1px solid var(--line2);color:#fff;box-shadow:0 10px 30px rgba(0,0,0,.45);transition:background-color .3s,color .3s,border-color .3s}
+.waf:hover{background:var(--y);border-color:var(--y);color:#0a0a0a}
+.waf svg{width:24px;height:24px}
+
+/* mobile result bar */
+.mbar{display:none}
+
+/* ---------- responsive ---------- */
+@media (max-width:1360px){.ibtn .lbl.tel{display:none}}
+@media (max-width:1180px){
+  .nav{display:none}
+  .burger{display:inline-flex}
+  .hdr{grid-template-columns:auto 1fr}
+  .acts{justify-self:end}
+  .mega{display:none}
+  .ftr-top{grid-template-columns:1fr 1fr}
+  .wl{grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:32px}
+  .row2{grid-template-columns:1fr}
+}
+@media (max-width:999px){
+  .tool{grid-template-columns:minmax(0,1fr);grid-template-areas:"room" "stage" "fix"}
+  .stage{position:relative;top:auto;margin-top:clamp(48px,7vw,72px)}
+  .st-fix{margin-top:clamp(48px,7vw,72px)}
+  .viz{height:clamp(240px,58vw,440px)}
+  .row2{grid-template-columns:1fr 1fr}
+  .mbar{position:fixed;z-index:50;left:0;right:0;bottom:0;display:block;background:#0d0c0b;border-top:1px solid var(--line2);padding-bottom:env(safe-area-inset-bottom)}
+  .mb-in{width:100%;height:64px;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:18px;padding:0 16px;text-align:right}
+  .mb-need small{display:block;font-size:11.5px;color:var(--mut);line-height:1.25}
+  .mb-need b{display:block;font-family:var(--fd);font-weight:700;font-size:24px;line-height:1.1;color:#fff;white-space:nowrap}
+  .mb-need b em{font-style:normal;color:var(--y);font-size:16px;margin-inline-start:5px}
+  .mb-t{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;color:#d6d0c4;margin-bottom:8px;white-space:nowrap}
+  .mb-t em{font-style:normal;font-weight:700;color:#fff}
+  .mb-t em[data-s="ok"]{color:var(--y)}
+  .mb-t em[data-s="over"]{color:#ff9d8f}
+  .mb-bar{position:relative;display:block;height:2px;background:rgba(255,255,255,.14)}
+  .mb-bar i{position:absolute;top:0;bottom:0;right:0;width:0;background:#fff;transition:width .6s var(--ease)}
+  .mb-bar[data-s="ok"] i{background:var(--y)}
+  .mb-bar[data-s="over"] i{background:#ff9d8f}
+  .mb-bar u{position:absolute;top:-4px;right:66.667%;width:1px;height:10px;background:#fff}
+  body{padding-bottom:calc(var(--mbar) + env(safe-area-inset-bottom))}
+  .waf{left:16px;bottom:calc(var(--mbar) + 10px + env(safe-area-inset-bottom));width:52px;height:52px}
+  .conv{grid-template-columns:1fr}
+  .cv-a{padding-inline-end:0;border-inline-end:0;border-bottom:1px solid var(--line)}
+  .cv-b{padding-inline-start:0}
+  .cct{grid-template-columns:1fr}
+}
+@media (max-width:900px){
+  .hdr{gap:12px}
+  .hdr,.hdr.solid{--lgh:50px}
+  .hdr.solid{height:64px}
+  .phero .wrap{grid-template-columns:1fr;gap:28px}
+  .toc{display:none}
+  .shead{flex-direction:column;align-items:flex-start;gap:18px}
+  .wl{grid-template-columns:1fr;gap:8px;padding:22px 2px}
+  .wl h3{font-size:26px}
+  .wl p{font-size:15.5px}
+  .pro{border-top-left-radius:50% 60px;border-top-right-radius:50% 60px;padding:96px 0 72px}
+  .pro .wrap{grid-template-columns:1fr;gap:40px}
+  .ftr-top{grid-template-columns:1fr 1fr}
+  .ftr-top>div:first-child{grid-column:1/-1}
+  .stage{top:auto}
+}
+@media (max-width:560px){
+  .hdr{gap:8px}
+  .ibtn{min-width:44px;height:44px;padding:0 6px}
+  .ibtn .lbl{display:none}
+  .sbtn{padding:0 18px}
+  .sbox>svg{margin:0 14px 0 2px}
+  .ftr-top{grid-template-columns:1fr 1fr;gap:36px 20px}
+  .ftr-top>div:nth-child(2){grid-column:1/-1}
+  .row2{grid-template-columns:1fr;gap:22px}
+  .st-h{flex-direction:column;align-items:flex-start;gap:6px}
+  .fx{padding:16px 12px}
+  .fx-r{gap:10px}
+  .fx-ctl{gap:12px}
+  .fx-sum{font-size:12.5px}
+  .hud #hudRoom{font-size:12px}
+  .kmini input{width:92px}
+  .need .big{font-size:64px}
+  .need .ca,.need .u{font-size:24px}
+  .bars li{grid-template-columns:72px 1fr 68px;gap:10px}
+  .res-acts .btn{flex:1 1 auto;justify-content:center}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">דילוג לתוכן</a>
+
+<!-- ============ icon sprite ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M20 12H4m6-6-6 6 6 6"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4.2-4.2"/></g></symbol>
+    <symbol id="i-bag" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></g></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M5 12h14"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m5 12.5 4.5 4.5L19 7"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 12 12"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="m3 4.5 3 3 3-3"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M4 8h16M8 16h12"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2a8.8 8.8 0 0 0-7.6 13.2L3.2 20.8l4.5-1.2A8.8 8.8 0 1 0 12 3.2z"/><path d="M9.1 8.2c.4-.4.9-.3 1.1.1l.7 1.6c.1.3 0 .6-.2.8l-.5.5a6 6 0 0 0 2.7 2.7l.5-.5c.2-.2.5-.3.8-.2l1.6.7c.4.2.5.7.1 1.1-.6.7-1.5 1-2.4.7a8.2 8.2 0 0 1-5.1-5.1c-.3-.9 0-1.8.7-2.4z"/></g></symbol>
+
+    <!-- fixture icons (64). The light parts read --lf / --ro so a selected line can switch them on -->
+    <symbol id="c-pendant" viewBox="0 0 64 64"><path d="M32 4v15"/><path d="M28 19h8v4h-8z"/><path d="M15 38a17 15 0 0 1 34 0z"/><circle cx="32" cy="42" r="4" style="fill:var(--lf)"/><path d="M24 48l-5 10M32 50v10M40 48l5 10" style="opacity:var(--ro)"/></symbol>
+    <symbol id="c-ceiling" viewBox="0 0 64 64"><path d="M6 12h52"/><path d="M22 12v5h20v-5"/><path d="M12 17h40c0 6-9 10-20 10S12 23 12 17z" style="fill:var(--lf)"/><path d="M20 34l-4 10M32 36v12M44 34l4 10" style="opacity:var(--ro)"/></symbol>
+    <symbol id="c-recessed" viewBox="0 0 64 64"><path d="M4 16h56"/><path d="M20 16v5h24v-5z" style="fill:var(--lf)"/><path d="M25 26 15 56M39 26l10 30M32 28v28" style="opacity:var(--ro)"/></symbol>
+    <symbol id="c-gimbal" viewBox="0 0 64 64"><path d="M4 14h56"/><path d="M20 14v4h24v-4"/><path d="m25 19 13-1 1 9-13 1z" style="fill:var(--lf)"/><path d="M33 31l8 24M28 31l-2 25M38 29l16 20" style="opacity:var(--ro)"/></symbol>
+    <symbol id="c-track" viewBox="0 0 64 64"><path d="M4 10h56v5H4z"/><path d="M16 15v6M32 15v6M48 15v6"/><path d="m10.5 22 9-2.4 3.6 13.6-9 2.4z" style="fill:var(--lf)"/><path d="M27.5 21h9v14h-9z" style="fill:var(--lf)"/><path d="m44.5 19.6 9 2.4-3.6 13.6-9-2.4z" style="fill:var(--lf)"/><path d="M18 40l-4 14M32 40v16M46 40l4 14" style="opacity:var(--ro)"/></symbol>
+    <symbol id="c-maglin" viewBox="0 0 64 64"><path d="M4 10h56v5H4z"/><path d="M18 15v5M46 15v5"/><path d="M12 20h40v6H12z" style="fill:var(--lf)"/><path d="M16 32l-4 18M26 32l-1 20M38 32l1 20M48 32l4 18" style="opacity:var(--ro)"/></symbol>
+    <symbol id="c-wall" viewBox="0 0 64 64"><path d="M12 10v44"/><path d="M12 14h6v36h-6"/><path d="M18 32h9"/><circle cx="38" cy="32" r="11" style="fill:var(--lf)"/><path d="M52 22l5-4M54 32h6M52 42l5 4" style="opacity:var(--ro)"/></symbol>
+    <symbol id="c-profile" viewBox="0 0 64 64"><path d="M4 20h56"/><path d="M8 20v6h48v-6z" style="fill:var(--lf)"/><path d="M14 32l-4 16M26 32l-1 18M38 32l1 18M50 32l4 16" style="opacity:var(--ro)"/></symbol>
+    <symbol id="c-strip" viewBox="0 0 64 64"><path d="M6 34h52v7H6z" style="fill:var(--lf)"/><path d="M13 37.5h2M23 37.5h2M33 37.5h2M43 37.5h2M53 37.5h-2"/><path d="M14 28l-4-8M32 27V17M50 28l4-8" style="opacity:var(--ro)"/></symbol>
+    <symbol id="c-outdoor" viewBox="0 0 64 64"><path d="M24 58h16"/><path d="M29 58V36h6v22"/><path d="M21 16h22v20H21z"/><path d="M18 16 32 7l14 9"/><path d="M26 21h12v10H26z" style="fill:var(--lf)"/><path d="M14 24H8M14 32l-5 3M50 24h6M50 32l5 3" style="opacity:var(--ro)"/></symbol>
+    <symbol id="c-table" viewBox="0 0 64 64"><path d="M23 8h18l7 20H16z" style="fill:var(--lf)"/><path d="M32 28v24"/><path d="M22 56h20"/><path d="M18 34l-5 9M46 34l5 9" style="opacity:var(--ro)"/></symbol>
+    <symbol id="c-bulb" viewBox="0 0 64 64"><path d="M25 46h14M26 51h12M28 56h8"/><path d="M25 46c0-7-9-11-9-22a16 16 0 0 1 32 0c0 11-9 15-9 22z" style="fill:var(--lf)"/><path d="M28 40v-9l4-4 4 4v9"/><path d="M32 1v2M10 10l2 2M54 10l-2 2M4 26h3M57 26h3" style="opacity:var(--ro)"/></symbol>
+  </defs>
+</svg>
+<!-- white balance for the colour temperature photo (values are set by the script) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="wb" color-interpolation-filters="sRGB"><feColorMatrix id="wbM" type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0"/></filter>
+</svg>
+
+<!-- ============ header ============ -->
+<header class="hdr" id="hdr">
+  <a class="logo" id="hdrLogo" href="index.html" aria-label="ספוטליין - לעמוד הבית">
+    <svg class="lg" viewBox="0 0 306.29 164.94" aria-hidden="true" focusable="false">
+      <defs><clipPath id="lgCut-h"><rect x="0" y="66" width="306.29" height="98.94"/></clipPath></defs>
+      <path class="lg-word" fill="currentColor" clip-path="url(#lgCut-h)" d="M304.29 109.67C304.29 116.82 301.88 122.66 297.04 127.18C292.21 131.710 285.97 133.97 278.31 133.97C270.66 133.97 264.41 131.71 259.58 127.18C254.75 122.66 252.33 116.82 252.33 109.67L252.33 82.85L304.29 82.85ZM111.08 109.00C111.08 116.32 108.75 122.31 104.08 126.97C99.42 131.64 93.37 133.97 85.94 133.97C78.51 133.97 72.46 131.64 67.79 126.97C63.13 122.31 60.80 116.32 60.80 109.00L74.79 109.00C74.79 112.74 75.80 115.74 77.81 118.01C79.82 120.27 82.53 121.40 85.94 121.40C89.35 121.40 92.06 120.27 94.07 118.01C96.08 115.74 97.09 112.74 97.09 109.00L97.09 95.42L60.80 95.42L60.80 74.66L72.82 72.23C72.86 71.73 72.88 71.22 72.88 70.72L72.88 56.98C72.88 26.66 98.41 2.00 129.78 2.00C161.13 2.00 186.66 26.66 186.66 56.98L186.66 66.02L191.80 66.02C192.55 66.02 193.16 66.61 193.16 67.34C193.16 67.70 193.01 68.03 192.77 68.27L193.04 68.27C193.95 68.27 194.69 68.99 194.69 69.87C194.69 70.23 194.56 70.57 194.35 70.84C195.39 70.87 196.23 71.71 196.23 72.72C196.23 73.33 195.93 73.87 195.47 74.22L196.02 74.22C197.30 74.22 198.35 75.24 198.35 76.49C198.35 77.74 197.30 78.76 196.02 78.76L175.71 78.76C174.42 78.76 173.38 77.74 173.38 76.49C173.38 75.24 174.42 74.22 175.71 74.22L176.25 74.22C175.79 73.87 175.49 73.33 175.49 72.72C175.49 71.71 176.33 70.87 177.38 70.84C177.17 70.57 177.04 70.23 177.04 69.87C177.04 68.99 177.78 68.27 178.68 68.27L178.95 68.27C178.71 68.03 178.56 67.70 178.56 67.34C178.56 66.61 179.17 66.02 179.93 66.02L185.15 66.02L185.15 56.98C185.15 27.48 160.30 3.46 129.76 3.46C99.24 3.46 74.41 27.48 74.41 56.98L74.41 82.85L111.08 82.85ZM173.28 109.67C173.28 116.82 170.79 122.66 165.82 127.18C160.85 131.71 154.48 133.97 146.71 133.97C138.94 133.97 132.58 131.71 127.60 127.18C122.63 122.66 120.14 116.82 120.14 109.67L120.14 82.85L134.14 82.85L134.14 108.83C134.14 112.63 135.30 115.67 137.62 117.96C139.94 120.26 142.97 121.40 146.71 121.40C150.46 121.40 153.49 120.26 155.81 117.96C158.12 115.67 159.28 112.63 159.28 108.83L159.28 97.51L142.86 110.50L142.86 95.84L159.28 82.85L173.28 82.85ZM224.21 133.13L198.57 133.13L198.57 120.56L221.95 120.56C226.25 120.56 229.56 119.47 231.88 117.29C234.20 115.11 235.36 112.04 235.36 108.07C235.36 104.05 234.20 100.94 231.88 98.73C229.56 96.52 226.25 95.42 221.95 95.42L212.31 95.42L212.31 108.41L198.57 108.41L198.57 82.85L224.21 82.85C232.37 82.85 238.61 85.07 242.94 89.51C247.27 93.95 249.41 100.14 249.36 108.07C249.30 116.01 247.11 122.17 242.78 126.55C238.44 130.94 232.26 133.13 224.21 133.13ZM2.00 82.85L16.00 82.85L16.00 162.94L2.00 162.94ZM178.78 82.85L192.78 82.85L192.78 133.13L178.78 133.13ZM266.33 95.42L266.33 108.83C266.33 112.63 267.42 115.67 269.59 117.96C271.78 120.26 274.68 121.40 278.31 121.40C281.94 121.40 284.85 120.26 287.03 117.96C289.21 115.67 290.30 112.63 290.30 108.83L290.30 95.42ZM55.43 111.18L41.44 111.18L41.44 86.46L55.43 82.85ZM35.75 111.18L21.76 111.18L21.76 86.91L35.75 82.85Z"/>
+      <path class="lg-stem" d="M72.95 73.2V56.98"/>
+      <path class="lg-arc" pathLength="1" d="M72.95 56.98A56.475 54.25 0 0 1 185.9 56.98V66.6"/>
+      <path class="lg-bulb" fill="#FFBD00" d="M178.61 78.85L193.15 78.85C193.19 79.11 193.21 79.37 193.21 79.64C193.21 83.58 189.92 86.78 185.88 86.78C181.83 86.78 178.55 83.58 178.55 79.64C178.55 79.37 178.56 79.11 178.61 78.85Z"/>
+    </svg>
+  </a>
+  <nav class="nav" aria-label="ניווט ראשי">
+    <div class="has-mega" id="megaTrig">
+      <button class="mtrig" type="button" aria-expanded="false" aria-controls="mega">מוצרים <svg class="chev" aria-hidden="true"><use href="#i-chev"/></svg></button>
+    </div>
+    <a href="index.html#rooms">תאורה לפי חלל</a>
+    <a href="#top" aria-current="page">מחשבון תאורה</a>
+    <a href="index.html#why">למה ספוטליין</a>
+    <a href="index.html#visit">הגעה ויצירת קשר</a>
+  </nav>
+  <div class="acts">
+    <a class="ibtn" href="tel:086377033" aria-label="התקשרו 08-6377033"><svg aria-hidden="true"><use href="#i-phone"/></svg><span class="lbl tel">08-6377033</span></a>
+    <button class="ibtn" type="button" id="openSearch" aria-label="חיפוש מוצר"><svg aria-hidden="true"><use href="#i-search"/></svg></button>
+    <button class="ibtn" type="button" id="openCart" aria-label="סל להצעת מחיר"><span class="iw"><svg aria-hidden="true"><use href="#i-bag"/></svg><span class="badge" id="badge" aria-hidden="true">0</span></span><span class="lbl">סל להצעת מחיר</span></button>
+    <button class="ibtn burger" type="button" id="burger" aria-label="תפריט" aria-expanded="false" aria-controls="mnav"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
+  </div>
+</header>
+<div class="mega" id="mega" role="region" aria-label="קטגוריות מוצרים">
+  <div class="mega-in">
+    <div>
+      <div class="mega-top"><span>לפי סוג גוף</span><a class="mega-all" href="index.html#cats">כל המוצרים <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+      <div class="mega-cats" id="megaCats"></div>
+    </div>
+    <div class="mega-side">
+      <h4>לפי חלל</h4>
+      <div id="megaRooms" style="display:flex;flex-direction:column;gap:10px"></div>
+      <div class="mega-help">לא בטוחים מה מתאים? דברו איתנו<br><a href="tel:086377033">08-6377033</a></div>
+    </div>
+  </div>
+</div>
+
+<div class="mnav" id="mnav" role="dialog" aria-modal="true" aria-label="תפריט">
+  <div class="search" data-search>
+    <form class="sbox" role="search">
+      <svg aria-hidden="true"><use href="#i-search"/></svg>
+      <input type="search" aria-label="חיפוש מוצר" autocomplete="off" enterkeyhint="search">
+      <button class="sbtn" type="submit">חיפוש</button>
+    </form>
+    <div class="sugg"></div>
+  </div>
+  <nav aria-label="תפריט נייד">
+    <a href="index.html#cats">מוצרים</a>
+    <div class="mcat" id="mCats"></div>
+    <a href="index.html#rooms">תאורה לפי חלל</a>
+    <a href="#top" aria-current="page">מחשבון תאורה</a>
+    <a href="index.html#why">למה ספוטליין</a>
+    <a href="index.html#visit">הגעה ויצירת קשר</a>
+  </nav>
+  <a class="btn btn-y mcall" href="tel:086377033"><span class="bl">התקשרו 08-6377033</span></a>
+</div>
+
+<main id="main">
+<!-- ============ page hero ============ -->
+<section class="phero" id="top" aria-labelledby="pageH">
+  <div class="wrap">
+    <div>
+      <nav class="crumb" aria-label="מיקום באתר"><a href="index.html">ראשי</a><span aria-hidden="true">/</span><span aria-current="page">מחשבון תאורה</span></nav>
+      <h1 class="h2" id="pageH" data-split><span class="l1"><span>כמה אור</span></span><span class="l2"><span>צריך החדר?</span></span></h1>
+      <p class="lead" data-fade data-d=".15">מכניסים את מידות החדר, בוחרים גופים, ורואים כמה וואט צריך.</p>
+    </div>
+    <ul class="toc" data-fade data-d=".25" aria-label="בעמוד הזה">
+      <li><a href="#stRoom">החדר <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+      <li><a href="#stFix">הגופים <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+      <li><a href="#bulbs">ממיר נורות <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+      <li><a href="#cct">גוון האור <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+    </ul>
+  </div>
+</section>
+<div class="parc" aria-hidden="true"><svg viewBox="0 0 1440 56" preserveAspectRatio="none"><path class="gl" pathLength="1" d="M-20 6 Q 720 74 1460 6"/><path pathLength="1" d="M-20 6 Q 720 74 1460 6"/></svg></div>
+
+<!-- ============ the tool ============ -->
+<section class="tool-sec" aria-label="המחשבון">
+  <div class="wrap tool">
+
+    <!-- step: the room -->
+    <div class="st-room" id="stRoom">
+      <div class="st-h"><h2>החדר</h2><p>סוג החדר, המידות ומה חשוב לכם בו.</p></div>
+
+      <div class="fld"><div class="lb" id="lbRoom">סוג החדר</div><div class="opts" id="rType" role="group" aria-labelledby="lbRoom"></div></div>
+
+      <div class="fld row2">
+        <div class="dim">
+          <div class="top"><label for="nL">אורך</label><span class="nbox"><input id="nL" type="number" min="1.5" max="15" step="0.1" inputmode="decimal"><span>מ׳</span></span></div>
+          <input type="range" id="rL" min="1.5" max="15" step="0.1" aria-label="אורך החדר במטרים">
+        </div>
+        <div class="dim">
+          <div class="top"><label for="nW">רוחב</label><span class="nbox"><input id="nW" type="number" min="1.5" max="15" step="0.1" inputmode="decimal"><span>מ׳</span></span></div>
+          <input type="range" id="rW" min="1.5" max="15" step="0.1" aria-label="רוחב החדר במטרים">
+        </div>
+      </div>
+
+      <div class="fld dim">
+        <div class="top"><label for="rH">גובה התקרה</label><span class="nbox"><output id="oH" for="rH">2.7</output><span>מ׳</span></span></div>
+        <input type="range" id="rH" min="2.3" max="4.5" step="0.05">
+      </div>
+
+      <div class="fld row2">
+        <div><div class="lb" id="lbWall">צבע הקירות</div><div class="opts" id="rWall" role="group" aria-labelledby="lbWall"></div></div>
+        <div><div class="lb" id="lbPref">כמה אור אתם אוהבים</div><div class="opts" id="rPref" role="group" aria-labelledby="lbPref"></div></div>
+      </div>
+
+      <div class="fld"><div class="lb"><span id="lbAtm">איזו אווירה רוצים בחדר?</span><small>לפי זה נמליץ על גוון אור</small></div><div class="opts" id="rAtm" role="group" aria-labelledby="lbAtm"></div></div>
+
+      <div class="fld"><div class="lb"><span id="lbAct">מה עושים בחדר?</span><small>לא חובה</small></div><div class="opts" id="rAct" role="group" aria-labelledby="lbAct"></div></div>
+    </div>
+
+    <!-- room view + live result -->
+    <div class="stage" id="stage">
+      <div class="viz" id="viz">
+        <canvas id="roomCv" role="img" aria-label="הדמיה של החדר לפי המידות, עם הגופים שבחרתם"></canvas>
+        <div class="hud"><span id="hudRoom"></span><label class="kmini"><span>גוון</span><input type="range" id="kMini" class="krange" min="2200" max="6500" step="100" aria-label="גוון האור בהדמיה, בקלווין"><b id="kMiniV">3000K</b></label></div>
+        <p class="viz-msg" id="vizMsg">החדר עדיין חשוך. בחרו גופים, והוא יידלק.</p>
+      </div>
+      <div class="res" id="res">
+        <div class="res-top">
+          <div class="need"><div class="lb">החדר צריך</div><div class="v"><span class="ca">כ-</span><b class="big" id="wBig">60</b><span class="u">וואט</span></div></div>
+          <div class="need-2"><b id="lmTxt">כ-5,400 לומן</b><small id="wRange"></small></div>
+        </div>
+        <p class="eqn" id="eqn"></p>
+        <div class="chosen">
+          <div class="ch-top"><span id="chTxt">עוד לא בחרתם גופים.</span><span class="state" id="chState" hidden></span></div>
+          <div class="meter" id="meter" data-s="low" aria-hidden="true"><span class="zone"></span><i id="meterI"></i><span class="tg"></span></div>
+          <p class="pct" id="pctTxt">0% מהיעד</p>
+          <p class="hint" id="hint"></p>
+          <p class="note" id="note" hidden>אור עקיף ואור הדגשה נספרים רק בחלקם, ולכן הוואט שבחרתם יכול לצאת גבוה מהיעד.</p>
+        </div>
+        <div class="res-acts">
+          <a class="btn btn-y" data-wa href="#" target="_blank" rel="noopener"><span class="bl">שליחת התכנון בוואטסאפ</span></a>
+          <button class="btn btn-o" type="button" id="allToCart" disabled><span class="bl">הכול לסל להצעת מחיר</span></button>
+        </div>
+        <p class="sr" id="live" aria-live="polite"></p>
+      </div>
+    </div>
+
+    <!-- step: fixtures -->
+    <div class="st-fix" id="stFix">
+      <div class="st-h"><h2>הגופים</h2><p>בחרו סוג גוף, הספק וכמות, ותראו כמה זה מכסה ממה שהחדר צריך.</p></div>
+      <ul class="fxl" id="fxList"></ul>
+      <div class="fx-foot"><span id="fxTotal">עוד לא נבחרו גופים.</span><button type="button" class="lnk" id="fxClear" hidden>ניקוי הבחירה</button></div>
+      <div class="side-notes" id="sideNotes" hidden><h3>שווה לדעת על החדר הזה</h3><ul id="noteList"></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ old bulbs ============ -->
+<section class="sec" id="bulbs" aria-labelledby="bulbsH">
+  <div class="wrap">
+    <div class="shead">
+      <h2 class="h2" id="bulbsH" data-split><span class="l1"><span>נורה ישנה,</span></span><span class="l2"><span>כמה זה בלד?</span></span></h2>
+      <p data-fade data-d=".1">בחרו את הנורה שיש לכם היום, ותראו כמה אור היא נותנת ואיזו נורת לד מחליפה אותה.</p>
+    </div>
+    <div class="conv" data-fade>
+      <div class="cv-a">
+        <h3 class="cv-h">מנורה ישנה ללד</h3>
+        <div class="fld"><div class="lb" id="lbOt">סוג הנורה</div><div class="opts" id="oType" role="group" aria-labelledby="lbOt"></div></div>
+        <div class="fld"><div class="lb" id="lbOw">ההספק שכתוב על הנורה, בוואט</div><div class="opts sm" id="oW" role="group" aria-labelledby="lbOw"></div></div>
+        <div class="cv-res" aria-live="polite"><div><b class="cv-big" id="oLm">1,100</b><span class="cv-u">לומן</span></div><p id="oLed"></p></div>
+      </div>
+      <div class="cv-b">
+        <h3 class="cv-h">כמה וואט זה בכל סוג נורה?</h3>
+        <div class="fld"><div class="lb"><label for="rvLm">כמה לומן צריך?</label><button type="button" class="lnk" id="rvRoom">לפי החדר שלכם</button></div><span class="nbox big"><input id="rvLm" type="number" min="0" max="100000" step="50" inputmode="numeric" value="1100"><span>לומן</span></span></div>
+        <ul class="bars" id="rvBars" aria-live="polite"></ul>
+        <p class="cv-note">נורת לד נותנת כ-100 לומן לוואט. בגוף תאורה שלם מחשבים כ-90, כי חלק מהאור נשאר בתוך הגוף.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ colour temperature ============ -->
+<section class="sec" id="cct" aria-labelledby="cctH">
+  <div class="wrap">
+    <div class="shead">
+      <h2 class="h2" id="cctH" data-split><span class="l1"><span>איזה גוון</span></span><span class="l2"><span>מתאים לחדר?</span></span></h2>
+      <p data-fade data-d=".1">הזיזו את הסליידר, וראו את אותו חדר באור חם, ניטרלי וקר.</p>
+    </div>
+    <div class="cct" data-fade>
+      <!-- placeholder photo: replace assets/calc-room.jpg with a real 16:9 room photo (object-fit stays cover) -->
+      <figure class="cct-ph" id="cctPh">
+        <img src="assets/calc-room.jpg" alt="חדר מואר, להמחשת גוון האור" width="1000" height="1204" loading="lazy" decoding="async">
+        <i class="tint" aria-hidden="true"></i><i class="glow" aria-hidden="true"></i>
+        <figcaption class="cct-tag" id="kTag"></figcaption>
+      </figure>
+      <div class="cct-side">
+        <div class="rec">
+          <div class="lb" id="recFor">ההמלצה לסלון</div>
+          <b class="rec-k" id="recK">2700K</b>
+          <p id="recWhy"></p>
+          <button type="button" class="btn btn-o" id="kRec"><span class="bl">להציג את הגוון המומלץ</span></button>
+        </div>
+        <div class="kfld">
+          <div class="lb"><label for="kRange">גוון האור</label><b id="kVal">3000K</b></div>
+          <div class="kwrap"><input type="range" id="kRange" class="krange" min="2200" max="6500" step="100"><i class="krec" id="kRecTick" aria-hidden="true"></i></div>
+          <div class="klab" aria-hidden="true"><span style="right:11.6%">חם</span><span style="right:41.9%">ניטרלי</span><span style="right:88.4%">קר</span></div>
+        </div>
+        <p class="ktip" id="kTip"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ before you buy ============ -->
+<section class="sec" id="tips" aria-labelledby="tipsH">
+  <div class="wrap">
+    <h2 class="h2" id="tipsH" data-split><span class="l1"><span>ארבעה דברים</span></span><span class="l2"><span>לפני שבוחרים</span></span></h2>
+    <div class="why-row">
+      <div class="wl" data-fade><h3>לומן של הגוף, לא של הלד</h3><p>על האריזה כתוב לפעמים כמה אור נותן הלד עצמו. גוף סגור או עם זכוכית מוציא פחות. משווים לפי הלומן של הגוף.</p></div>
+      <div class="wl" data-fade><h3>זווית צרה מאירה נקודה</h3><p>ספוט עם זווית של 24 מעלות ומטה מדגיש תמונה או קיר. לאור כללי בוחרים זווית רחבה.</p></div>
+      <div class="wl" data-fade><h3>חלל פתוח? כל אזור לחוד</h3><p>סלון, פינת אוכל ומטבח מחשבים כל אחד בנפרד. ואם הרצפה והרהיטים כהים, בחרו קירות כהים יותר ממה שיש לכם בפועל.</p></div>
+      <div class="wl" data-fade><h3>גוון אחד לכל חלל</h3><p>לא מערבבים אור חם וקר באותו חלל. במטבח ובאמבטיה כדאי מסירת צבע גבוהה (CRI 90 ומעלה), ולדימר צריך גוף ודרייבר שמתאימים לו.</p></div>
+    </div>
+    <p class="disc" data-fade>החישוב משוער ומיועד להתרשמות בלבד. התוצאה תלויה בגופים, בפיזור ובחדר עצמו. לתכנון מדויק, בואו להתייעץ איתנו בחנות.</p>
+  </div>
+</section>
+
+<!-- ============ send the plan ============ -->
+<section class="pro" id="send" aria-labelledby="sendH">
+  <div class="wrap">
+    <div>
+      <h2 class="h2" id="sendH" data-split><span class="l1"><span>רוצים שנעבור</span></span><span class="l2"><span>על זה איתכם?</span></span></h2>
+      <p data-fade data-d=".1">שלחו לנו את התכנון בוואטסאפ. נעבור עליו איתכם ונציע גופים מהחנות שמתאימים לחדר.</p>
+      <div class="row" data-fade data-d=".2">
+        <a class="btn btn-k" data-wa href="#" target="_blank" rel="noopener"><span class="bl">שלחו לנו את התכנון</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-ok" href="index.html#cats"><span class="bl">לקטלוג המוצרים</span></a>
+      </div>
+    </div>
+    <ul class="pro-list" id="sumList" data-fade data-d=".15"></ul>
+  </div>
+</section>
+</main>
+
+<!-- ============ footer ============ -->
+<footer class="ftr" id="ftr">
+  <div class="wrap">
+    <div class="ftr-top">
+      <div>
+        <a class="logo" id="ftrLogo" href="index.html" aria-label="ספוטליין - לעמוד הבית">
+          <svg class="lg" viewBox="0 0 306.29 164.94" aria-hidden="true" focusable="false">
+            <defs><clipPath id="lgCut-f"><rect x="0" y="66" width="306.29" height="98.94"/></clipPath></defs>
+            <path class="lg-word" fill="currentColor" clip-path="url(#lgCut-f)" d="M304.29 109.67C304.29 116.82 301.88 122.66 297.04 127.18C292.21 131.71 285.97 133.97 278.31 133.97C270.66 133.97 264.41 131.71 259.58 127.18C254.75 122.66 252.33 116.82 252.33 109.67L252.33 82.85L304.29 82.85ZM111.08 109.00C111.08 116.32 108.75 122.31 104.08 126.97C99.42 131.64 93.37 133.97 85.94 133.97C78.51 133.97 72.46 131.64 67.79 126.97C63.13 122.31 60.80 116.32 60.80 109.00L74.79 109.00C74.79 112.74 75.80 115.74 77.81 118.01C79.82 120.27 82.53 121.40 85.94 121.40C89.35 121.40 92.06 120.27 94.07 118.01C96.08 115.74 97.09 112.74 97.09 109.00L97.09 95.42L60.80 95.42L60.80 74.66L72.82 72.23C72.86 71.73 72.88 71.22 72.88 70.72L72.88 56.98C72.88 26.66 98.41 2.00 129.78 2.00C161.13 2.00 186.66 26.66 186.66 56.98L186.66 66.02L191.80 66.02C192.55 66.02 193.16 66.61 193.16 67.34C193.16 67.70 193.01 68.03 192.77 68.27L193.04 68.27C193.95 68.27 194.69 68.99 194.69 69.87C194.69 70.23 194.56 70.57 194.35 70.84C195.39 70.87 196.23 71.71 196.23 72.72C196.23 73.33 195.93 73.87 195.47 74.22L196.02 74.22C197.30 74.22 198.35 75.24 198.35 76.49C198.35 77.74 197.30 78.76 196.02 78.76L175.71 78.76C174.42 78.76 173.38 77.74 173.38 76.49C173.38 75.24 174.42 74.22 175.71 74.22L176.25 74.22C175.79 73.87 175.49 73.33 175.49 72.72C175.49 71.71 176.33 70.87 177.38 70.84C177.17 70.57 177.04 70.23 177.04 69.87C177.04 68.99 177.78 68.27 178.68 68.27L178.95 68.27C178.71 68.03 178.56 67.70 178.56 67.34C178.56 66.61 179.17 66.02 179.93 66.02L185.15 66.02L185.15 56.98C185.15 27.48 160.30 3.46 129.76 3.46C99.24 3.46 74.41 27.48 74.41 56.98L74.41 82.85L111.08 82.85ZM173.28 109.67C173.28 116.82 170.79 122.66 165.82 127.18C160.85 131.71 154.48 133.97 146.71 133.97C138.94 133.97 132.58 131.71 127.60 127.18C122.63 122.66 120.14 116.82 120.14 109.67L120.14 82.85L134.14 82.85L134.14 108.83C134.14 112.63 135.30 115.67 137.62 117.96C139.94 120.26 142.97 121.40 146.71 121.40C150.46 121.40 153.49 120.26 155.81 117.96C158.12 115.67 159.28 112.63 159.28 108.83L159.28 97.51L142.86 110.50L142.86 95.84L159.28 82.85L173.28 82.85ZM224.21 133.13L198.57 133.13L198.57 120.56L221.95 120.56C226.25 120.56 229.56 119.47 231.88 117.29C234.20 115.11 235.36 112.04 235.36 108.07C235.36 104.05 234.20 100.94 231.88 98.73C229.56 96.52 226.25 95.42 221.95 95.42L212.31 95.42L212.31 108.41L198.57 108.41L198.57 82.85L224.21 82.85C232.37 82.85 238.61 85.07 242.94 89.51C247.27 93.95 249.41 100.14 249.36 108.07C249.30 116.01 247.11 122.17 242.78 126.55C238.44 130.94 232.26 133.13 224.21 133.13ZM2.00 82.85L16.00 82.85L16.00 162.94L2.00 162.94ZM178.78 82.85L192.78 82.85L192.78 133.13L178.78 133.13ZM266.33 95.42L266.33 108.83C266.33 112.63 267.42 115.67 269.59 117.96C271.78 120.26 274.68 121.40 278.31 121.40C281.94 121.40 284.85 120.26 287.03 117.96C289.21 115.67 290.30 112.63 290.30 108.83L290.30 95.42ZM55.43 111.18L41.44 111.18L41.44 86.46L55.43 82.85ZM35.75 111.18L21.76 111.18L21.76 86.91L35.75 82.85Z"/>
+            <path class="lg-stem" d="M72.95 73.2V56.98"/>
+            <path class="lg-arc" pathLength="1" d="M72.95 56.98A56.475 54.25 0 0 1 185.9 56.98V66.6"/>
+            <path class="lg-bulb" fill="#FFBD00" d="M178.61 78.85L193.15 78.85C193.19 79.11 193.21 79.37 193.21 79.64C193.21 83.58 189.92 86.78 185.88 86.78C181.83 86.78 178.55 83.58 178.55 79.64C178.55 79.37 178.56 79.11 178.61 78.85Z"/>
+          </svg>
+        </a>
+        <div class="tagl">ייעוץ ושיווק תאורה</div>
+        <p class="slog">מדליקים לכם כל חלום.</p>
+        <p class="addr">משה לוי 9, ראשון לציון · קומה 2, דרך הרמפה</p>
+      </div>
+      <div><h4>מוצרים</h4><ul id="fCats"></ul></div>
+      <div><h4>לפי חלל</h4><ul id="fRooms"></ul></div>
+      <div><h4>החנות</h4><ul><li><a href="index.html#why">למה ספוטליין</a></li><li><a href="#top">מחשבון תאורה</a></li><li><a href="index.html#pro">למעצבות ולאדריכלים</a></li><li><a href="index.html#visit">הגעה ויצירת קשר</a></li><li><a href="tel:086377033" style="direction:ltr;display:inline-block">08-6377033</a></li></ul></div>
+    </div>
+    <div class="ftr-bot">
+      <div>© 2026 ספוטליין. כל הזכויות שמורות · <span>תקנון</span> · <span>הצהרת נגישות</span> · <span>מדיניות פרטיות</span></div>
+      <div>עיצוב ובנייה: חיים קליין</div>
+    </div>
+  </div>
+  <div class="bye" aria-hidden="true"><span>ספוטליין<em>.</em></span></div>
+</footer>
+
+<!-- ============ overlays ============ -->
+<div class="mbar" id="mbar" aria-hidden="true">
+  <button type="button" class="mb-in" id="mbBtn" tabindex="-1">
+    <span class="mb-need"><small>החדר צריך</small><b><span id="mbW">60</span><em>וואט</em></b></span>
+    <span class="mb-prog"><span class="mb-t"><span id="mbChosen">עוד לא בחרתם גופים</span><em id="mbState"></em></span><span class="mb-bar" id="mbBar"><i id="mbFill"></i><u></u></span></span>
+  </button>
+</div>
+<!-- WhatsApp of the store (08-6377033), also WA_PHONE in the script -->
+<a class="waf" id="waf" href="https://wa.me/97286377033" target="_blank" rel="noopener" aria-label="וואטסאפ לחנות"><svg aria-hidden="true"><use href="#i-wa"/></svg></a>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer empty" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drTitle">
+  <div class="dr-h"><h2 id="drTitle">סל להצעת מחיר<span id="drCnt"></span><small>אין תשלום באתר. שולחים את הרשימה, ואנחנו חוזרים עם הצעת מחיר.</small></h2><button class="x" type="button" data-closecart aria-label="סגירת הסל"><svg aria-hidden="true"><use href="#i-x"/></svg></button></div>
+  <div class="dr-b" id="cartList"></div>
+  <form class="dr-f" id="cartForm" novalidate>
+    <label class="inp" id="fN"><span>שם</span><input name="n" required placeholder="איך קוראים לכם?" autocomplete="name" aria-describedby="errN"><em class="err" id="errN">נא לכתוב שם</em></label>
+    <label class="inp" id="fP"><span>טלפון לחזרה</span><input name="p" type="tel" dir="rtl" required inputmode="tel" autocomplete="tel" placeholder="לאיזה מספר לחזור?" aria-describedby="errP"><em class="err" id="errP">מספר טלפון לא תקין</em></label>
+    <label class="inp"><span>הערות (לא חובה)</span><textarea name="note" id="cartNote" rows="2"></textarea></label>
+    <button class="btn btn-y" type="submit"><span class="bl">שלחו לי הצעת מחיר</span></button>
+    <p class="fine">בלי התחייבות.</p>
+  </form>
+  <div class="sent" id="sent" tabindex="-1"><b>קיבלנו את הרשימה</b><p>נחזור אליכם עם הצעת מחיר. נזכרתם במשהו? <a href="tel:086377033">08-6377033</a></p></div>
+</aside>
+
+<div class="sover" id="sover" role="dialog" aria-modal="true" aria-label="חיפוש מוצר">
+  <button class="x" type="button" id="closeSearch" aria-label="סגירת החיפוש"><svg aria-hidden="true"><use href="#i-x"/></svg></button>
+  <div class="search" data-search>
+    <form class="sbox" role="search">
+      <svg aria-hidden="true"><use href="#i-search"/></svg>
+      <input type="search" aria-label="חיפוש מוצר" autocomplete="off" enterkeyhint="search">
+      <button class="sbtn" type="submit">חיפוש</button>
+    </form>
+    <div class="sugg"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"><span id="toastT"></span><button type="button" id="toastB">לצפייה בסל</button></div>
+
+<script>
+(function(){
+"use strict";
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const H=document.documentElement;
+const RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const mqMob=matchMedia("(max-width:999px)");
+const isMob=()=>mqMob.matches;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const fmt=n=>Math.round(n).toLocaleString("en-US");
+const num1=v=>String(Math.round(v*10)/10);
+const roundLm=v=>v>=10000?Math.round(v/100)*100:Math.round(v/50)*50;
+H.classList.add("anim");
+
+const HOME="index.html";
+/* WhatsApp of the store: 08-6377033 */
+const WA_PHONE="97286377033";
+
+/* ---------------- catalog data (same as the homepage: search + the shared quote basket) ---------------- */
+const CATS=[
+ {id:"pendant",n:"מנורות תלויות"},{id:"ceiling",n:"צמודי תקרה"},{id:"recessed",n:"שקועים וספוטים"},
+ {id:"track",n:"פסי צבירה ומגנטיים"},{id:"wall",n:"מנורות קיר"},{id:"profile",n:"פרופילים ופסי לד"},
+ {id:"outdoor",n:"תאורת חוץ"},{id:"table",n:"מנורות שולחן ורצפה"},{id:"bulb",n:"נורות ואביזרים"}
+];
+const SPACES=["סלון","מטבח ופינת אוכל","חדרי שינה","אמבטיה","חוץ","עסקים ומשרדים"];
+const FIN={tr:["#d8c6a5","טרוורטין"],br:["#b8893b","פליז"],bk:["#161616","שחור"],wh:["#efede8","לבן"],wd:["#a87b4f","עץ"]};
+const PRODUCTS=[
+ {id:"SL-1042",n:"ספוט מסילה טרוורטין",c:"track",img:"assets/p1.jpg",f:["tr","bk"]},
+ {id:"SL-2210",n:"מנורת קיר גלובוס על אבן",c:"wall",img:"assets/p2.jpg",f:["tr","wh"]},
+ {id:"SL-2236",n:"מנורת קיר עגולה עם ספוט עץ",c:"wall",img:"assets/p3.jpg",f:["tr","wd"]},
+ {id:"SL-3105",n:"מנורה תלויה כיפה טרוורטין",c:"pendant",img:"assets/p5.jpg",f:["tr","br"]},
+ {id:"SL-2248",n:"מנורת קיר אנכית טרוורטין",c:"wall",img:"assets/p4.jpg",f:["tr"]},
+ {id:"SL-3120",n:"מנורה תלויה דיסק",c:"pendant",img:"assets/p6.jpg",f:["tr","br","bk"]},
+ {id:"SL-4011",n:"מנורת שולחן פטרייה",c:"table",img:"assets/p7.jpg",f:["tr","br"]}
+];
+const TONES={warm:{l:"חם 3000K"},neutral:{l:"ניטרלי 4000K"},cool:{l:"קר 6000K"}};
+const catName=id=>(CATS.find(c=>c.id===id)||{}).n||"";
+const prod=id=>PRODUCTS.find(p=>p.id===id);
+const ico=id=>`<svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><use href="#c-${id}"/></svg>`;
+const arrow=`<svg aria-hidden="true"><use href="#i-arrow"/></svg>`;
+
+/* ---------------- calculator data: source of truth is calc-research.md (11.11.2026) ---------------- */
+const ROOMS={
+  living:  {he:'סלון',            lux:150, range:[100,300], wp:0.75, cct:[2700,3000]},
+  kitchen: {he:'מטבח',            lux:300, range:[200,500], wp:0.75, cct:[3000,4000], note:'במטבח: מעל משטח העבודה צריך כ-500 לוקס. כדאי אור ממוקד מעל השיש.'},
+  dining:  {he:'פינת אוכל',       lux:200, range:[150,300], wp:0.75, cct:[2700,3000]},
+  bedroom: {he:'חדר שינה',        lux:120, range:[75,200],  wp:0.75, cct:[2700,3000]},
+  kids:    {he:'חדר ילדים',       lux:250, range:[150,300], wp:0.75, cct:[3000,4000]},
+  bath:    {he:'אמבטיה',          lux:200, range:[150,300], wp:0.75, cct:[3000,4000], note:'באמבטיה: מול המראה צריך 300 עד 500 לוקס.'},
+  study:   {he:'חדר עבודה/לימוד', lux:400, range:[300,500], wp:0.75, cct:[4000,4000]},
+  hall:    {he:'מסדרון',          lux:100, range:[50,150],  wp:0,    cct:[3000,3000]},
+  balcony: {he:'מרפסת',           lux:75,  range:[30,150],  wp:0,    cct:[2700,3000]},
+  shop:    {he:'חנות/תצוגה',      lux:500, range:[300,750], wp:0.75, cct:[3000,4000], biz:true},
+  office:  {he:'משרד',            lux:500, range:[300,750], wp:0.75, cct:[4000,4000], biz:true},
+  clinic:  {he:'קליניקה',         lux:500, range:[300,1000],wp:0.75, cct:[4000,4000], biz:true}
+};
+const UF_K=[0.6,0.8,1.0,1.25,1.5,2.0,2.5,3.0,4.0,5.0];
+const UF={
+  light:  [0.45,0.53,0.59,0.64,0.68,0.74,0.78,0.80,0.83,0.85],
+  medium: [0.38,0.46,0.52,0.57,0.62,0.68,0.72,0.75,0.79,0.81],
+  dark:   [0.32,0.40,0.46,0.51,0.56,0.62,0.66,0.69,0.73,0.76]
+};
+const MF={home:0.9,biz:0.8};
+const PREF={soft:0.67,regular:1,bright:1.5};
+const LED_REF_LMW=90;
+/* lumens per unit (or per meter). contrib = share that counts toward general light (our heuristic) */
+const FIXTURES={
+  recessed:  {he:'ספוט שקוע',         unit:'יח׳', contrib:0.9,  opts:{7:550,10:800,12:950,15:1200}},
+  gimbal:    {he:'ספוט מתכוונן',       unit:'יח׳', contrib:0.7,  opts:{7:520,10:750,12:900,15:1100}},
+  magSpot:   {he:'ראש מגנטי ספוט',     unit:'יח׳', contrib:0.65, opts:{6:450,10:750,12:900,20:1500}},
+  magLinear: {he:'מגנטי ליניארי מפזר', unit:'יח׳', contrib:0.95, opts:{6:500,12:1000,18:1500,24:2000}},
+  trackSpot: {he:'ספוט למסילה',        unit:'יח׳', contrib:0.6,  opts:{10:850,20:1800,30:2700}},
+  profile:   {he:'פרופיל לד',          unit:'מטר', contrib:0.9, contribIndirect:0.5, opts:{10:800,14:1100,20:1600}},
+  strip:     {he:'סטריפ לד',           unit:'מטר', contrib:0.4,  opts:{4.8:400,9.6:900,14.4:1300}},
+  pendant:   {he:'מנורה תלויה',        unit:'יח׳', contrib:0.7,  opts:{12:1000,18:1500,24:2000,36:3000}},
+  ceiling:   {he:'צמוד תקרה',          unit:'יח׳', contrib:1.0,  opts:{18:1600,24:2100,36:3200,48:4300}},
+  wall:      {he:'מנורת קיר',          unit:'יח׳', contrib:0.5,  opts:{6:420,10:700,12:850}},
+  bulb:      {he:'נורה E27',           unit:'יח׳', contrib:0.8,  opts:{9:806,12:1100,15:1450}}
+};
+const OLD={
+  incandescent:{25:220,40:450,60:800,75:1100,100:1600,150:2600},
+  halogen:     {18:200,28:370,42:630,53:850,70:1200,105:1900},
+  cfl:         {8:450,11:650,15:900,20:1200,23:1500,30:2000}
+};
+const toLedW=lm=>Math.round(lm/100);
+const CCT={
+  2700:{rgb:'255,169,87', he:'חם מאוד', tip:'אור צהבהב ונעים כמו נורה ישנה. לסלון ולחדר שינה.'},
+  3000:{rgb:'255,180,107',he:'חם',      tip:'נעים וביתי, קצת יותר נקי. לסלון, לפינת אוכל ולאמבטיה.'},
+  4000:{rgb:'255,209,163',he:'ניטרלי',  tip:'לבן טבעי שעוזר להתרכז. למטבח, לחדר עבודה, לחנות ולמשרד.'},
+  5000:{rgb:'255,228,206',he:'קריר',    tip:'לבן חד. למחסן, לחניה ולסדנה.'},
+  6500:{rgb:'255,249,253',he:'קר',      tip:'לבן כחלחל ובוהק. פחות מומלץ בבית, במיוחד בערב.'}
+};
+
+/* ui data */
+const ORDER=["recessed","gimbal","ceiling","pendant","trackSpot","magSpot","magLinear","profile","strip","wall","bulb"];
+const FXU={
+  recessed:{ic:"recessed",pl:"ספוטים שקועים",one:"ספוט שקוע אחד"},
+  gimbal:{ic:"gimbal",pl:"ספוטים מתכווננים",one:"ספוט מתכוונן אחד"},
+  ceiling:{ic:"ceiling",pl:"גופים צמודי תקרה",one:"גוף צמוד תקרה אחד"},
+  pendant:{ic:"pendant",pl:"מנורות תלויות",one:"מנורה תלויה אחת"},
+  trackSpot:{ic:"track",pl:"ספוטים למסילה",one:"ספוט אחד למסילה"},
+  magSpot:{ic:"track",pl:"ראשים מגנטיים",one:"ראש מגנטי אחד"},
+  magLinear:{ic:"maglin",pl:"גופים מגנטיים ליניאריים",one:"גוף מגנטי ליניארי אחד"},
+  profile:{ic:"profile"},
+  strip:{ic:"strip"},
+  wall:{ic:"wall",pl:"מנורות קיר",one:"מנורת קיר אחת"},
+  bulb:{ic:"bulb",pl:"נורות E27",one:"נורת E27 אחת"}
+};
+const WALLS={light:{he:"בהירים",c:"#ebe5da",alb:[236,230,220]},medium:{he:"בינוניים",c:"#b3a791",alb:[182,170,150]},dark:{he:"כהים",c:"#4b453e",alb:[86,80,72]}};
+const PREFS={soft:"רך",regular:"רגיל",bright:"מואר מאוד"};
+const ATM={calm:{he:"רוגע",k:2700},warm:{he:"חמימות",k:2700},lux:{he:"יוקרה",k:3000},focus:{he:"ריכוז",k:4000},energy:{he:"אנרגיה",k:4000}};
+const ACTS={
+  work:{he:"עבודה ולימודים",tip:"לשולחן עבודה או לימודים: מנורה ממוקדת על השולחן, בנוסף לאור הכללי. גוון ניטרלי עוזר להתרכז."},
+  read:{he:"קריאה",tip:"לקריאה: מנורת קיר או מנורה ליד הכורסה או המיטה, בנוסף לאור הכללי."},
+  cook:{he:"בישול",tip:"לבישול: מעל משטח העבודה צריך יותר אור, כ-500 לוקס. פרופיל לד מתחת לארונות העליונים עושה את זה."},
+  host:{he:"אירוח",tip:"לאירוח: מנורה תלויה מעל השולחן, ודימר לאור הכללי כדי לעבור לאור ערב רך."},
+  tv:{he:"טלוויזיה",tip:"מול הטלוויזיה: אור רך מהצד או מאחור. ספוט ישר מעל המסך יוצר השתקפות."},
+  sleep:{he:"שינה",tip:"לשינה: אור חם, ומנורות קיר ליד המיטה במקום אור חזק מהתקרה בערב."}
+};
+const icoSym=t=>ico(FXU[t].ic);
+const isM=t=>FIXTURES[t].unit==="מטר";
+
+/* ---------------- state ---------------- */
+const S={room:"living",L:5,W:4,H:2.7,walls:"light",pref:"regular",atm:null,acts:[],cct:3000,cctUser:false,last:null,lines:{}};
+ORDER.forEach(t=>{const ks=Object.keys(FIXTURES[t].opts);S.lines[t]={w:ks[Math.min(1,ks.length-1)],q:0,mode:"dir"}});
+const SKEY="sl-calc";
+try{const st=JSON.parse(localStorage.getItem(SKEY)||"null");
+  if(st&&typeof st==="object"){
+    if(ROOMS[st.room])S.room=st.room;
+    ["L","W"].forEach(k=>{if(isFinite(st[k]))S[k]=clamp(Math.round(+st[k]*10)/10,1.5,15)});
+    if(isFinite(st.H))S.H=clamp(+st.H,2.3,4.5);
+    if(WALLS[st.walls])S.walls=st.walls;
+    if(PREFS[st.pref])S.pref=st.pref;
+    if(ATM[st.atm])S.atm=st.atm;
+    if(Array.isArray(st.acts))S.acts=st.acts.filter(a=>ACTS[a]);
+    if(isFinite(st.cct))S.cct=clamp(Math.round(+st.cct/100)*100,2200,6500);
+    S.cctUser=!!st.cctUser;
+    if(FIXTURES[st.last])S.last=st.last;
+    if(st.lines)ORDER.forEach(t=>{const x=st.lines[t];if(!x)return;const ln=S.lines[t];
+      if(FIXTURES[t].opts[x.w]!=null)ln.w=String(x.w);
+      if(isFinite(x.q))ln.q=isM(t)?clamp(Math.round(+x.q*2)/2,0,60):clamp(Math.round(+x.q),0,40);
+      if(x.mode==="ind"||x.mode==="dir")ln.mode=x.mode});
+  }}catch(e){}
+const saveState=()=>{try{localStorage.setItem(SKEY,JSON.stringify(S))}catch(e){}};
+
+/* ---------------- the math ---------------- */
+function ufAt(K,row){for(let i=0;i<UF_K.length-1;i++){if(K<=UF_K[i+1]){const t=(K-UF_K[i])/(UF_K[i+1]-UF_K[i]);return row[i]+t*(row[i+1]-row[i])}}return row[row.length-1]}
+const lineContrib=t=>t==="profile"&&S.lines.profile.mode==="ind"?FIXTURES.profile.contribIndirect:FIXTURES[t].contrib;
+function calc(){
+  const r=ROOMS[S.room], A=S.L*S.W, Hm=Math.max(.3,S.H-r.wp);
+  const K=clamp(A/(Hm*(S.L+S.W)),.6,5);
+  const uf=ufAt(K,UF[S.walls]), mf=r.biz?MF.biz:MF.home;
+  const lm=r.lux*A*PREF[S.pref]/(uf*mf);
+  let cw=0,clm=0,partial=false;const sel=[];
+  ORDER.forEach(t=>{const ln=S.lines[t];if(!(ln.q>0))return;
+    const w=parseFloat(ln.w), ul=FIXTURES[t].opts[ln.w], c=lineContrib(t);
+    const W=w*ln.q, E=ul*ln.q*c;cw+=W;clm+=E;if(c<.8)partial=true;sel.push({t,w,q:ln.q,W,E,ul,c})});
+  return {r,A,K,uf,mf,lm,w:Math.round(lm/LED_REF_LMW),wLo:Math.round(lm/100),wHi:Math.round(lm/80),cw,clm,pct:lm?clm/lm:0,sel,partial};
+}
+const stateOf=p=>p<.9?"low":p<=1.3?"ok":"over";
+const STATE_HE={low:"חסר אור",ok:"בדיוק",over:"יותר מדי"};
+
+/* colour temperature (Kelvin to RGB, Tanner Helland's fit; matches the CCT table above) */
+function k2rgb(k){const t=k/100;let r,g,b;
+  if(t<=66){r=255;g=99.4708025861*Math.log(t)-161.1195681661;b=t<=19?0:138.5177312231*Math.log(t-10)-305.0447927307}
+  else{r=329.698727446*Math.pow(t-60,-.1332047592);g=288.1221695283*Math.pow(t-60,-.0755148492);b=255}
+  return [clamp(r,0,255),clamp(g,0,255),clamp(b,0,255)]}
+function rec(){const r=ROOMS[S.room];
+  if(S.atm){const v=(r.cct[0]+r.cct[1])/4+ATM[S.atm].k/2;const k=[2700,3000,4000].reduce((a,b)=>Math.abs(b-v)<Math.abs(a-v)?b:a);return {k,k2:k,why:`ל${r.he}, באווירה של ${ATM[S.atm].he}.`}}
+  return {k:r.cct[0],k2:r.cct[1],why:`ל${r.he}. בחרו אווירה בשלב החדר, ונדייק את ההמלצה.`}}
+const curK=()=>S.cctUser?S.cct:rec().k;
+const cctInfo=k=>{const keys=Object.keys(CCT).map(Number);const n=keys.reduce((a,b)=>Math.abs(b-k)<Math.abs(a-k)?b:a);return CCT[n]};
+
+/* ---------------- room view (canvas, one-point perspective, drawn only while something changes) ---------------- */
+const Viz=(function(){
+  const box=$("#viz"), cv=$("#roomCv"), ctx=cv.getContext("2d");
+  let cw=0,ch=0,dpr=1,raf=0,lastT=0;
+  const cur={L:S.L,W:S.W,H:S.H,E:0,cx:0,cy:0,cove:0}, tgt=Object.assign({},cur);
+  const col={rgb:[255,190,120],wall:[236,230,220]}, tcol={rgb:[255,190,120],wall:[236,230,220]};
+  const lights=new Map();
+  let lab={L:S.L,W:S.W,H:S.H};
+  const FLOOR=[152,130,106], CEIL=[232,228,220];
+  const FL=[[0,0],[.12,.85],[.24,.2],[.38,1],[.5,.5],[.62,1],[1,1]];
+  const flick=t=>{if(t>=1)return 1;for(let i=1;i<FL.length;i++){if(t<=FL[i][0]){const a=FL[i-1],b=FL[i];return a[1]+(b[1]-a[1])*(t-a[0])/(b[0]-a[0])}}return 1};
+  function resize(){const r=box.getBoundingClientRect();if(!r.width)return;dpr=Math.min(window.devicePixelRatio||1,2);cw=r.width;ch=r.height;cv.width=Math.round(cw*dpr);cv.height=Math.round(ch*dpr);draw()}
+  if("ResizeObserver" in window)new ResizeObserver(resize).observe(box);else addEventListener("resize",resize);
+  function kick(){if(!raf){lastT=performance.now();raf=requestAnimationFrame(loop)}}
+  function loop(t){const dt=Math.min(.05,Math.max(0,(t-lastT)/1000));lastT=t;const mv=update(dt);draw();raf=mv?requestAnimationFrame(loop):0}
+  function update(dt){
+    const k=RM?1:1-Math.exp(-dt*7.5);let mv=false;
+    for(const key in tgt){const d=tgt[key]-cur[key];if(Math.abs(d)>.0015){cur[key]+=d*k;mv=true}else cur[key]=tgt[key]}
+    ["rgb","wall"].forEach(n=>{for(let i=0;i<3;i++){const d=tcol[n][i]-col[n][i];if(Math.abs(d)>.4){col[n][i]+=d*k;mv=true}else col[n][i]=tcol[n][i]}});
+    lights.forEach((l,key)=>{
+      const du=l.tu-l.u,dv=l.tv-l.v;
+      if(Math.abs(du)>.0006||Math.abs(dv)>.0006){l.u+=du*k;l.v+=dv*k;mv=true}else{l.u=l.tu;l.v=l.tv}
+      if(l.t<1){l.t=RM?1:Math.min(1,l.t+dt/.7);mv=true}
+      if(l.dead){l.f-=RM?1:dt/.35;mv=true;if(l.f<=0)lights.delete(key)}
+    });
+    return mv;
+  }
+  function set(o){Object.assign(tgt,o.n);if(o.rgb)tcol.rgb=o.rgb;if(o.wall)tcol.wall=o.wall;if(o.lab)lab=o.lab;kick()}
+  function setLights(list,anyLight){
+    const seen=new Set();
+    list.forEach(d=>{seen.add(d.key);const {u,v,...rest}=d;let l=lights.get(d.key);
+      if(!l||l.kind!==d.kind){l=Object.assign({},rest,{u,v,tu:u,tv:v,t:RM?1:0,f:1});lights.set(d.key,l)}
+      else{Object.assign(l,rest);l.tu=u;l.tv=v;if(l.dead){l.dead=false;l.f=1}}});
+    lights.forEach((l,k)=>{if(!seen.has(k))l.dead=true});
+    box.classList.toggle("lit",!!anyLight);
+    kick();
+  }
+  function look(px,py){tgt.cx=(px-.5)*-.16;tgt.cy=(py-.5)*-.6;kick()}
+
+  /* drawing helpers */
+  function path(p){ctx.beginPath();ctx.moveTo(p[0][0],p[0][1]);for(let i=1;i<p.length;i++)ctx.lineTo(p[i][0],p[i][1]);ctx.closePath()}
+  const mid=(a,b)=>[(a[0]+b[0])/2,(a[1]+b[1])/2];
+  function lin(a,b,c1,c2){const g=ctx.createLinearGradient(a[0],a[1],b[0],b[1]);g.addColorStop(0,c1);g.addColorStop(1,c2);return g}
+  function glow(p,rx,ry,c,a){
+    if(a<.004||!(rx>.6)||!isFinite(ry))return;a=Math.min(1,a);
+    ctx.save();ctx.translate(p[0],p[1]);ctx.scale(1,Math.max(.03,ry/rx));
+    const g=ctx.createRadialGradient(0,0,0,0,0,rx);g.addColorStop(0,`rgba(${c},${a})`);g.addColorStop(.4,`rgba(${c},${a*.45})`);g.addColorStop(1,`rgba(${c},0)`);
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(0,0,rx,0,6.2832);ctx.fill();ctx.restore()}
+  function clipped(p,fn){ctx.save();path(p);ctx.clip();fn();ctx.restore()}
+  function edgeGlow(poly,A,B,dpx,c,a){
+    if(a<.004||!(dpx>1))return;
+    const m=mid(A,B);let nx=-(B[1]-A[1]),ny=B[0]-A[0];const nl=Math.hypot(nx,ny)||1;nx/=nl;ny/=nl;
+    const cx=poly.reduce((s,p)=>s+p[0],0)/poly.length, cy=poly.reduce((s,p)=>s+p[1],0)/poly.length;
+    if((cx-m[0])*nx+(cy-m[1])*ny<0){nx=-nx;ny=-ny}
+    const g=ctx.createLinearGradient(m[0],m[1],m[0]+nx*dpx,m[1]+ny*dpx);g.addColorStop(0,`rgba(${c},${Math.min(1,a)})`);g.addColorStop(.35,`rgba(${c},${Math.min(1,a)*.4})`);g.addColorStop(1,`rgba(${c},0)`);
+    ctx.save();path(poly);ctx.clip();ctx.fillStyle=g;ctx.fill();ctx.restore()}
+  function seg(a,b){ctx.beginPath();ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1])}
+
+  function draw(){
+    if(!cw)return;
+    ctx.setTransform(dpr,0,0,dpr,0,0);ctx.globalCompositeOperation="source-over";ctx.globalAlpha=1;
+    ctx.fillStyle="#080807";ctx.fillRect(0,0,cw,ch);
+    const L=cur.L,W=cur.W,H=cur.H,E=Math.max(0,cur.E),small=cw<520;
+    /* camera: the front opening fits the frame, the back wall recedes. Small rooms stay small */
+    const padL=small?14:24,padR=small?56:76,padT=small?46:52,padB=small?34:44;
+    const aw=Math.max(40,cw-padL-padR),ah=Math.max(40,ch-padT-padB);
+    const ppm=Math.min(aw/L,ah/H,Math.min(aw,ah*1.9)/5.4);
+    const D=1.15*Math.max(L,H*2.1,3.2),F=ppm*D;
+    const ey=H*(.58+cur.cy*.1),ex=cur.cx*L;
+    const ox=padL+aw/2,oy=padT+ah/2-(2*ey-H)/2*ppm;
+    const sc=Z=>F/(Z+D);
+    const P=(X,Y,Z)=>{const s=F/(Z+D);return[ox+(X-ex)*s+ex*ppm,oy-(Y-ey)*s]};
+    const hx=L/2;
+    const f00=P(-hx,0,0),f10=P(hx,0,0),f01=P(-hx,0,W),f11=P(hx,0,W);
+    const c00=P(-hx,H,0),c10=P(hx,H,0),c01=P(-hx,H,W),c11=P(hx,H,W);
+    const floor=[f00,f10,f11,f01],ceil=[c00,c10,c11,c01],back=[f01,f11,c11,c01],left=[f00,f01,c01,c00],right=[f10,f11,c11,c10];
+
+    const amb=.03+.8*(1-Math.exp(-1.7*Math.min(E,1.6)));
+    const I=.32+.68*Math.min(E,1.3)/1.3;
+    const lr=col.rgb,lc=`${lr[0]|0},${lr[1]|0},${lr[2]|0}`;
+    const hot=`${(lr[0]+(255-lr[0])*.6)|0},${(lr[1]+(255-lr[1])*.6)|0},${(lr[2]+(255-lr[2])*.6)|0}`;
+    const wl=col.wall;
+    const sh=(alb,f)=>{const a=amb*f;return`rgb(${(9+alb[0]/255*lr[0]*a)|0},${(8+alb[1]/255*lr[1]*a)|0},${(8+alb[2]/255*lr[2]*a)|0})`};
+
+    /* surfaces */
+    path(ceil);ctx.fillStyle=lin(mid(c00,c10),mid(c01,c11),sh(CEIL,.22),sh(CEIL,.38));ctx.fill();
+    path(back);ctx.fillStyle=lin(mid(c01,c11),mid(f01,f11),sh(wl,.76),sh(wl,.6));ctx.fill();
+    path(left);ctx.fillStyle=lin(mid(f00,c00),mid(f01,c01),sh(wl,.42),sh(wl,.66));ctx.fill();
+    path(right);ctx.fillStyle=lin(mid(f10,c10),mid(f11,c11),sh(wl,.38),sh(wl,.6));ctx.fill();
+    path(floor);ctx.fillStyle=lin(mid(f00,f10),mid(f01,f11),sh(FLOOR,.46),sh(FLOOR,.7));ctx.fill();
+    /* a 1 m grid on the floor, so the size reads at a glance */
+    ctx.lineWidth=1;ctx.strokeStyle=`rgba(255,244,225,${.035+amb*.035})`;ctx.beginPath();
+    for(let x=1;x<L-.05;x++){const a=P(-hx+x,0,0),b=P(-hx+x,0,W);ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1])}
+    for(let z=1;z<W-.05;z++){const a=P(-hx,0,z),b=P(hx,0,z);ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1])}
+    ctx.stroke();
+    /* edges: thin lines, like a section drawing */
+    ctx.strokeStyle=`rgba(255,244,225,${.16-amb*.06})`;ctx.beginPath();
+    [[f01,f11],[f11,c11],[c11,c01],[c01,f01],[f00,f01],[f10,f11],[c00,c01],[c10,c11]].forEach(([a,b])=>{ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1])});ctx.stroke();
+    ctx.strokeStyle="rgba(255,244,225,.24)";ctx.lineWidth=1.2;path([f00,f10,c10,c00]);ctx.stroke();
+
+    /* light: positions in metres */
+    const items=[];
+    lights.forEach(l=>{const i=flick(l.t)*(l.dead?Math.max(0,l.f):1);if(i<=.002)return;
+      let X,Z;
+      if(l.kind==="wall"){if(l.side==="b"){X=(l.u-.5)*L*.92;Z=W}else{X=l.side==="l"?-hx:hx;Z=l.u*W}}
+      else{X=(l.u-.5)*L;Z=l.v*W}
+      items.push({l,k:l.kind,X,Z,i})});
+    const aim=o=>{if(o.k==="gimbal")return[o.X,o.Z+Math.min(.7,(W-o.Z)*.5)];
+      if(o.k==="head")return[o.X+(o.l.alt?.25:-.25),clamp(o.Z+(o.l.alt?.3*(W-o.Z):-.25*o.Z),.2,Math.max(.2,W-.2))];return[o.X,o.Z]};
+    const ybP=()=>Math.max(1.6,H-.95);
+    ctx.globalCompositeOperation="lighter";
+
+    /* floor pools */
+    clipped(floor,()=>{items.forEach(o=>{const {k,i}=o;let r,a,ext=0,[x,z]=aim(o);
+      switch(k){
+        case"spot":r=H*.62;a=.5;break;
+        case"gimbal":r=H*.45;a=.5;break;
+        case"head":r=H*.3;a=.72;break;
+        case"lin":r=H*.55;a=.4;ext=.2;break;
+        case"ceil":r=H*1.05;a=.42;break;
+        case"pendant":r=ybP()*.85;a=.6;break;
+        case"bulb":r=H*.9;a=.32;break;
+        case"prof":r=H*.5;a=.42;ext=o.l.len*L/2;break;
+        case"wall":r=.95;a=.2;if(o.l.side==="b")z=W-.35;else x=o.X+(o.l.side==="l"?.35:-.35);break;
+        default:return}
+      const s=sc(z);glow(P(x,0,z),(r+ext)*s,r*s*ey/(z+D),lc,a*I*i)})});
+
+    /* back wall: scallops from fixtures close to it, wall lamps, cove */
+    clipped(back,()=>{const sB=sc(W);items.forEach(o=>{const {k,X,Z,i}=o;
+      if(k==="wall"){if(o.l.side!=="b")return;const y=o.l.y;
+        glow(P(X,Math.min(H-.2,y+.55),W),.38*sB,.8*sB,lc,.6*I*i);glow(P(X,y-.5,W),.3*sB,.6*sB,lc,.42*I*i);glow(P(X,y,W),.22*sB,.22*sB,hot,.4*i);return}
+      if(!/^(spot|gimbal|head|lin|ceil|pendant|bulb)$/.test(k))return;
+      const d=W-Z;let s=1-d/1.5;
+      if(k==="gimbal")s=1-d/2.6;
+      if(k==="head"&&o.l.alt)s=Math.max(s,.6*(1-d/(W+.1)));
+      if(k==="ceil"||k==="pendant"||k==="bulb")s=(1-d/(W*.9+1))*.5;
+      if(s<=0)return;
+      const a=(k==="gimbal"||k==="head"?.55:.4)*s*I*i;
+      glow(P(X,H*.48,W),(.42+d*.3)*sB,H*.52*sB,lc,a);
+      if(k==="spot"||k==="gimbal"||k==="head")glow(P(X,H-.32,W),.2*sB,.38*sB,hot,a*.8)});
+      if(cur.cove>.01)edgeGlow(back,c01,c11,.8*sB,lc,Math.min(1,cur.cove)*.75*I)});
+
+    /* side walls */
+    [[left,-1,"l"],[right,1,"r"]].forEach(([poly,sg,side])=>clipped(poly,()=>{const xw=sg*hx;
+      items.forEach(o=>{const {k,X,Z,i}=o;
+        if(k==="wall"){if(o.l.side!==side)return;const y=o.l.y,s=sc(Z);
+          const a1=P(xw,y,Z-.38),a2=P(xw,y,Z+.38),rx=Math.abs(a2[0]-a1[0])/2+.5;
+          glow(P(xw,Math.min(H-.2,y+.55),Z),rx,.8*s,lc,.6*I*i);glow(P(xw,y-.5,Z),rx*.8,.6*s,lc,.42*I*i);return}
+        if(!/^(spot|gimbal|head|ceil|pendant|bulb)$/.test(k))return;
+        const d=hx-sg*X;if(d<0||d>1.5)return;
+        let s=1-d/1.5;if(k==="ceil"||k==="pendant"||k==="bulb")s*=.45;
+        const p1=P(xw,H*.48,Z-.45-d*.3),p2=P(xw,H*.48,Z+.45+d*.3),rx=Math.abs(p2[0]-p1[0])/2+.5;
+        glow(P(xw,H*.48,Z),rx,H*.52*sc(Z),lc,.4*s*I*i)});
+      if(cur.cove>.01)edgeGlow(poly,sg<0?c00:c10,sg<0?c01:c11,.8*sc(W*.5),lc,Math.min(1,cur.cove)*.62*I)}));
+
+    /* ceiling: halos around the fixtures, light thrown up by wall lamps, cove */
+    clipped(ceil,()=>{items.forEach(o=>{const {k,X,Z,i}=o,s=sc(Z),f=(H-ey)/(Z+D);let r=0,a=0;
+      if(k==="spot"||k==="gimbal"){r=.35;a=.32}else if(k==="head"||k==="lin"){r=.4;a=.22}else if(k==="ceil"){r=1.1;a=.36}
+      else if(k==="pendant"){r=.9;a=.16}else if(k==="bulb"){r=1.2;a=.26}else if(k==="prof"){r=.45;a=.3}
+      else if(k==="wall"){const zz=o.l.side==="b"?W-.4:Z,xx=o.l.side==="b"?X:X+(o.l.side==="l"?.4:-.4),ss=sc(zz);glow(P(xx,H,zz),.8*ss,.8*ss*(H-ey)/(zz+D),lc,.22*I*i);return}
+      if(!r)return;const ext=k==="prof"?o.l.len*L/2:0;glow(P(X,H,Z),(r+ext)*s,r*s*f,lc,a*I*i)});
+      if(cur.cove>.01){const a=Math.min(1,cur.cove)*.55*I,dB=Math.abs(P(0,H,Math.max(0,W-.9))[1]-P(0,H,W)[1]);
+        edgeGlow(ceil,c01,c11,dB,lc,a);edgeGlow(ceil,c00,c01,.9*sc(W*.5),lc,a*.8);edgeGlow(ceil,c10,c11,.9*sc(W*.5),lc,a*.8)}});
+
+    /* soft beams in the air, like the light in the store */
+    items.forEach(o=>{const {k,X,Z,i}=o;let r,top,a=.075;const [x,z]=aim(o);
+      if(k==="spot"){r=H*.5;top=H}else if(k==="gimbal"){r=H*.36;top=H}else if(k==="head"){r=H*.25;top=H-.25;a=.1}else if(k==="pendant"){top=ybP();r=top*.7;a=.06}else return;
+      const ap=P(X,top,Z),b1=P(x-r*.75,0,z),b2=P(x+r*.75,0,z),bm=mid(b1,b2);
+      const g=ctx.createLinearGradient(ap[0],ap[1],bm[0],bm[1]);g.addColorStop(0,`rgba(${lc},${a*I*i})`);g.addColorStop(1,`rgba(${lc},0)`);
+      ctx.fillStyle=g;ctx.beginPath();ctx.moveTo(ap[0],ap[1]);ctx.lineTo(b1[0],b1[1]);ctx.lineTo(b2[0],b2[1]);ctx.closePath();ctx.fill()});
+
+    /* the hidden LED line of a cove */
+    if(cur.cove>.01){const a=Math.min(1,cur.cove)*I;ctx.lineCap="round";
+      [[c01,c11],[c00,c01],[c10,c11]].forEach(([A,B])=>{seg(A,B);ctx.strokeStyle=`rgba(${lc},${.22*a})`;ctx.lineWidth=6;ctx.stroke();ctx.strokeStyle=`rgba(${hot},${.75*a})`;ctx.lineWidth=1.4;ctx.stroke()})}
+
+    /* too much light washes the room out */
+    if(E>1.3){path([f00,f10,c10,c00]);ctx.fillStyle=`rgba(${lc},${Math.min(.22,(E-1.3)*.3)})`;ctx.fill()}
+
+    /* fixtures, far to near */
+    const bodyC=`rgb(${(24+amb*30)|0},${(22+amb*26)|0},${(19+amb*21)|0})`;
+    items.filter(o=>o.k==="rail").forEach(o=>{const s=sc(o.Z),a=P(o.X-o.l.len*L/2,H,o.Z),b=P(o.X+o.l.len*L/2,H,o.Z);
+      ctx.globalCompositeOperation="source-over";ctx.globalAlpha=o.i;ctx.lineCap="butt";
+      seg(a,b);ctx.strokeStyle="#2c2925";ctx.lineWidth=Math.max(2,.045*s);ctx.stroke();ctx.strokeStyle=`rgba(255,244,225,${.1+amb*.12})`;ctx.lineWidth=1;ctx.stroke();ctx.globalAlpha=1});
+    items.filter(o=>o.k!=="rail").sort((a,b)=>b.Z-a.Z).forEach(o=>{const {k,X,Z,i}=o,s=sc(Z),f=(H-ey)/(Z+D);
+      switch(k){
+        case"spot":case"gimbal":{const p=P(X,H,Z),rx=Math.max(1.6,.075*s),ry=Math.max(.9,rx*f);
+          ctx.globalCompositeOperation="source-over";ctx.fillStyle="#1d1b18";ctx.beginPath();ctx.ellipse(p[0],p[1],rx*1.4,ry*1.4,0,0,6.2832);ctx.fill();
+          ctx.globalCompositeOperation="lighter";glow(p,rx*5,ry*5,lc,.5*i);
+          ctx.fillStyle=`rgba(${hot},${.25+.75*i})`;ctx.beginPath();ctx.ellipse(p[0],p[1]+(k==="gimbal"?ry*.3:0),rx*.85,ry*.85,0,0,6.2832);ctx.fill();break}
+        case"head":{const dir=o.l.alt?1:-1,a1=P(X,H,Z),a2=P(X,H-.1,Z),tip=P(X+dir*.07,H-.27,Z+(o.l.alt?.08:-.05));
+          ctx.globalCompositeOperation="source-over";ctx.lineCap="round";
+          seg(a1,a2);ctx.strokeStyle="#2c2925";ctx.lineWidth=Math.max(1,.02*s);ctx.stroke();
+          seg(a2,tip);ctx.strokeStyle=bodyC;ctx.lineWidth=Math.max(3,.075*s);ctx.stroke();
+          ctx.globalCompositeOperation="lighter";glow(tip,.22*s,.22*s,lc,.6*i);
+          ctx.fillStyle=`rgba(${hot},${.3+.7*i})`;ctx.beginPath();ctx.arc(tip[0],tip[1],Math.max(1.2,.024*s),0,6.2832);ctx.fill();break}
+        case"lin":{const a=P(X-.2,H-.05,Z),b=P(X+.2,H-.05,Z);
+          ctx.globalCompositeOperation="source-over";ctx.lineCap="butt";seg(a,b);ctx.strokeStyle=bodyC;ctx.lineWidth=Math.max(3,.06*s);ctx.stroke();
+          ctx.globalCompositeOperation="lighter";const a2=[a[0],a[1]+Math.max(1,.02*s)],b2=[b[0],b[1]+Math.max(1,.02*s)];seg(a2,b2);ctx.strokeStyle=`rgba(${hot},${.85*i})`;ctx.lineWidth=Math.max(1.2,.022*s);ctx.stroke();
+          glow(mid(a2,b2),.55*s,.22*s,lc,.32*i);break}
+        case"prof":{const a=P(X-o.l.len*L/2,H,Z),b=P(X+o.l.len*L/2,H,Z);
+          ctx.globalCompositeOperation="lighter";ctx.lineCap="round";
+          [[.22,.1,lc],[.09,.25,lc],[.028,.95,hot]].forEach(([w,al,c])=>{seg(a,b);ctx.strokeStyle=`rgba(${c},${al*i})`;ctx.lineWidth=Math.max(1,w*s);ctx.stroke()});break}
+        case"ceil":{const p=P(X,H,Z),rx=.3*s,ry=Math.max(1.5,rx*f);
+          ctx.globalCompositeOperation="source-over";ctx.fillStyle="#26231f";ctx.beginPath();ctx.ellipse(p[0],p[1],rx*1.08,ry*1.15,0,0,6.2832);ctx.fill();
+          ctx.globalCompositeOperation="lighter";glow(p,rx*2.6,ry*2.6,lc,.45*i);
+          ctx.fillStyle=`rgba(${hot},${.25+.75*i})`;ctx.beginPath();ctx.ellipse(p[0],p[1]+ry*.25,rx,ry,0,0,6.2832);ctx.fill();break}
+        case"pendant":{const yb=ybP(),top=P(X,H,Z),bot=P(X,yb,Z),cord=P(X,yb+.2,Z),w=.24*s,hh=.2*s,ry=Math.max(1.2,w*.92*Math.abs(yb-ey)/(Z+D)+1);
+          ctx.globalCompositeOperation="source-over";seg(top,cord);ctx.strokeStyle="rgba(210,200,180,.35)";ctx.lineWidth=1;ctx.stroke();
+          ctx.beginPath();ctx.ellipse(bot[0],bot[1],w,hh,0,Math.PI,0);ctx.closePath();ctx.fillStyle=bodyC;ctx.fill();ctx.strokeStyle=`rgba(255,244,225,${.12+amb*.15})`;ctx.stroke();
+          ctx.globalCompositeOperation="lighter";
+          ctx.fillStyle=`rgba(${hot},${.25+.75*i})`;ctx.beginPath();ctx.ellipse(bot[0],bot[1],w*.92,ry,0,0,6.2832);ctx.fill();
+          glow([bot[0],bot[1]+ry],.9*s,.55*s,lc,.4*i);break}
+        case"bulb":{const yb=H-.55,top=P(X,H,Z),p=P(X,yb,Z);
+          ctx.globalCompositeOperation="source-over";seg(top,p);ctx.strokeStyle="rgba(210,200,180,.35)";ctx.lineWidth=1;ctx.stroke();
+          ctx.globalCompositeOperation="lighter";glow(p,.45*s,.45*s,lc,.75*i);
+          ctx.fillStyle=`rgba(${hot},${.35+.65*i})`;ctx.beginPath();ctx.arc(p[0],p[1],Math.max(1.5,.05*s),0,6.2832);ctx.fill();break}
+        case"wall":{const y=o.l.y;let p,bw,bh;
+          if(o.l.side==="b"){const sb=sc(W);p=P(X,y,W);bw=.1*sb;bh=.24*sb}
+          else{p=P(X,y,Z);bw=Math.max(2,.04*s);bh=.24*s}
+          ctx.globalCompositeOperation="source-over";ctx.fillStyle=bodyC;ctx.fillRect(p[0]-bw/2,p[1]-bh/2,bw,bh);
+          ctx.globalCompositeOperation="lighter";glow([p[0],p[1]-bh/2],bw*1.4,bh*.3,hot,.85*i);glow([p[0],p[1]+bh/2],bw*1.2,bh*.25,hot,.6*i);break}
+      }
+    });
+
+    /* vignette */
+    ctx.globalCompositeOperation="source-over";
+    const vg=ctx.createRadialGradient(cw/2,ch*.5,Math.min(cw,ch)*.3,cw/2,ch*.5,Math.max(cw,ch)*.75);
+    vg.addColorStop(0,"rgba(0,0,0,0)");vg.addColorStop(1,"rgba(0,0,0,.42)");ctx.fillStyle=vg;ctx.fillRect(0,0,cw,ch);
+
+    /* dimensions */
+    if(cw>240){
+      ctx.font=`500 ${small?11:12}px Primaries, system-ui, sans-serif`;ctx.direction="rtl";ctx.textBaseline="middle";
+      ctx.strokeStyle="rgba(243,239,231,.3)";ctx.fillStyle="rgba(243,239,231,.62)";ctx.lineWidth=1;
+      const tick=(a,b,vert)=>{seg(a,b);ctx.stroke();const t=4;ctx.beginPath();
+        if(vert){ctx.moveTo(a[0]-t,a[1]);ctx.lineTo(a[0]+t,a[1]);ctx.moveTo(b[0]-t,b[1]);ctx.lineTo(b[0]+t,b[1])}
+        else{ctx.moveTo(a[0],a[1]-t);ctx.lineTo(a[0],a[1]+t);ctx.moveTo(b[0],b[1]-t);ctx.lineTo(b[0],b[1]+t)}ctx.stroke()};
+      const yW=Math.min(ch-10,f00[1]+16);tick([f00[0],yW],[f10[0],yW],false);
+      const tW=`${num1(lab.L)} מ׳`,tw=ctx.measureText(tW).width;ctx.fillStyle="#080807";ctx.fillRect((f00[0]+f10[0])/2-tw/2-6,yW-8,tw+12,16);
+      ctx.fillStyle="rgba(243,239,231,.62)";ctx.textAlign="center";ctx.fillText(tW,(f00[0]+f10[0])/2,yW);
+      const xH=f10[0]+12;tick([xH,c10[1]],[xH,f10[1]],true);ctx.textAlign="left";ctx.fillText(`${num1(lab.H)} מ׳`,xH+8,(c10[1]+f10[1])/2);
+      const md=mid(f10,f11);ctx.fillText(`${num1(lab.W)} מ׳`,md[0]+10,md[1]+2);
+    }
+  }
+  return {set,setLights,look,kick};
+})();
+
+/* where the chosen fixtures go in the room (positions are 0..1 across the length u and the depth v, 1 = back wall) */
+function buildLights(){
+  const L=S.L,W=S.W,out=[],lanes=[];
+  const lane=p=>{for(const c of [p,.5,.3,.7,.18,.82,.4,.6]){if(lanes.every(o=>Math.abs(o-c)>.11)){lanes.push(c);return c}}return p};
+  const N=t=>{const q=S.lines[t].q;return q>0?Math.min(40,Math.round(q)):0};
+  const row=(n,a,b)=>Array.from({length:n},(_,i)=>n===1?(a+b)/2:a+(b-a)*i/(n-1));
+  let n;
+  if((n=N("pendant"))){const v=lane(.5);row(n,n<=3?.32:.14,n<=3?.68:.86).forEach((u,i)=>out.push({key:"pe"+i,kind:"pendant",u,v}))}
+  if((n=N("ceiling"))){const v=lane(.5);row(n,n<=2?.3:.15,n<=2?.7:.85).forEach((u,i)=>out.push({key:"ce"+i,kind:"ceil",u,v}))}
+  if((n=N("trackSpot"))){const v=lane(.5);out.push({key:"rT",kind:"rail",u:.5,v,len:.76});for(let i=0;i<n;i++)out.push({key:"tr"+i,kind:"head",u:.12+.76*(i+.5)/n,v,alt:i%2})}
+  const ms=N("magSpot"),ml=N("magLinear");
+  if(ms+ml){const v=lane(.5);out.push({key:"rM",kind:"rail",u:.5,v,len:.76});const seq=[];let a=ml,b=ms;
+    while(a||b){if(a){seq.push("lin");a--}if(b){seq.push("head");b--}}
+    let li=0,hi=0;seq.forEach((k,i)=>out.push({key:k==="lin"?"ml"+(li++):"ms"+(hi++),kind:k,u:.12+.76*(i+.5)/seq.length,v,alt:(i>>1)%2}))}
+  const pr=S.lines.profile;
+  if(pr.q>0&&pr.mode==="dir"){const maxL=Math.max(.8,.8*L),cnt=Math.min(4,Math.ceil(pr.q/maxL)),len=Math.min(pr.q/cnt,maxL);for(let i=0;i<cnt;i++){const v=lane(.5);out.push({key:"pf"+i,kind:"prof",u:.5,v,len:len/L})}}
+  if((n=N("gimbal"))){const per=Math.max(2,Math.round(L/1.1));for(let i=0;i<n;i++){const r=Math.floor(i/per),inRow=Math.min(per,n-r*per),j=i-r*per;out.push({key:"gb"+i,kind:"gimbal",u:.08+.84*(j+.5)/inRow,v:r%2?.12:.88})}}
+  const nr=N("recessed"),nb=N("bulb"),tot=nr+nb;
+  if(tot){const pts=lanes.length?perim(tot,L,W):grid(tot,L,W);pts.forEach((p,i)=>out.push(i<nr?{key:"rc"+i,kind:"spot",u:p[0],v:p[1]}:{key:"bu"+(i-nr),kind:"bulb",u:p[0],v:p[1]}))}
+  if((n=N("wall"))){const y=Math.min(1.8,S.H-.45),nbk=Math.min(n,Math.max(1,Math.floor(L/1.4)));
+    row(nbk,nbk<=2?.3:.12,nbk<=2?.7:.88).forEach((u,i)=>out.push({key:"wa"+i,kind:"wall",side:"b",u,v:1,y}));
+    const rest=n-nbk,m=Math.ceil(rest/2);for(let j=0;j<rest;j++){const q=Math.floor(j/2);out.push({key:"wa"+(nbk+j),kind:"wall",side:j%2?"r":"l",u:m===1?.55:.8-.55*q/(m-1),v:1,y})}}
+  const sm=S.lines.strip.q>0?S.lines.strip.q:0,pm=pr.q>0&&pr.mode==="ind"?pr.q:0;
+  const cove=sm+pm>0?clamp((sm*.8+pm*1.2)/(L+2*W),.25,1.3):0;
+  return {list:out,cove};
+}
+function perim(n,L,W){const im=Math.min(.65,L*.18,W*.18),x0=im,x1=L-im,z0=im,z1=W-im,lx=x1-x0,lz=z1-z0,st=2*(lx+lz)/n,out=[];
+  for(let i=0;i<n;i++){let d=st*(i+.5),x,z;
+    if(d<lx){x=x0+d;z=z1}else if((d-=lx)<lz){x=x1;z=z1-d}else if((d-=lz)<lx){x=x1-d;z=z0}else{d-=lx;x=x0;z=z0+d}
+    out.push([x/L,z/W])}return out}
+function grid(n,L,W){const c=Math.max(1,Math.min(n,Math.round(Math.sqrt(n*L/W)))),r=Math.ceil(n/c),out=[];
+  for(let i=0;i<n;i++){const ri=Math.floor(i/c),k=ri===r-1?n-ri*c:c,ci=i-ri*c;out.push([(ci+.5+(c-k)/2)/c,1-(ri+.5)/r])}return out}
+
+/* ---------------- build the controls ---------------- */
+const chipsHTML=list=>list.map(([v,h])=>`<button type="button" data-v="${v}" aria-pressed="false">${h}</button>`).join("");
+$("#rType").innerHTML=chipsHTML(Object.entries(ROOMS).map(([k,r])=>[k,r.he]));
+$("#rWall").innerHTML=chipsHTML(Object.entries(WALLS).map(([k,w])=>[k,`<i class="swt" style="background:${w.c}" aria-hidden="true"></i>${w.he}`]));
+$("#rPref").innerHTML=chipsHTML(Object.entries(PREFS));
+$("#rAtm").innerHTML=chipsHTML(Object.entries(ATM).map(([k,a])=>[k,a.he]));
+$("#rAct").innerHTML=chipsHTML(Object.entries(ACTS).map(([k,a])=>[k,a.he]));
+const press=(el,fn)=>$$("button",el).forEach(b=>b.setAttribute("aria-pressed",fn(b.dataset.v)));
+const onChip=(el,fn)=>el.addEventListener("click",e=>{const b=e.target.closest("button[data-v]");if(b){fn(b.dataset.v);render()}});
+onChip($("#rType"),v=>S.room=v);
+onChip($("#rWall"),v=>S.walls=v);
+onChip($("#rPref"),v=>S.pref=v);
+onChip($("#rAtm"),v=>S.atm=S.atm===v?null:v);
+onChip($("#rAct"),v=>{const i=S.acts.indexOf(v);i>-1?S.acts.splice(i,1):S.acts.push(v)});
+
+const nL=$("#nL"),rL=$("#rL"),nW=$("#nW"),rW=$("#rW"),rH=$("#rH"),oH=$("#oH");
+[["L",nL,rL],["W",nW,rW]].forEach(([k,n,r])=>{
+  n.addEventListener("input",()=>{const v=parseFloat(n.value);if(v>=1.5&&v<=15){S[k]=v;render()}});
+  n.addEventListener("change",()=>{let v=parseFloat(n.value);if(!isFinite(v))v=S[k];S[k]=clamp(Math.round(v*10)/10,1.5,15);n.value=num1(S[k]);render()});
+  r.addEventListener("input",()=>{S[k]=+r.value;render()});
+});
+rH.addEventListener("input",()=>{S.H=+rH.value;render()});
+const fill=r=>r.style.setProperty("--p",((r.value-r.min)/(r.max-r.min)*100)+"%");
+
+/* fixture lines */
+$("#fxList").innerHTML=ORDER.map(t=>{const f=FIXTURES[t],m=isM(t);
+  const opts=Object.keys(f.opts).map(w=>`<button type="button" data-w="${w}" aria-pressed="false">${w}</button>`).join("");
+  return `<li class="fx" data-t="${t}">
+  <div class="fx-h">${icoSym(t)}<div><h3 id="fxn-${t}">${f.he}</h3><small data-lmu></small></div></div>
+  <div class="fx-r"><div class="fx-sum" data-sum></div><button class="fx-add" type="button" data-addline disabled><svg aria-hidden="true"><use href="#i-plus"/></svg><span>לסל</span></button></div>
+  <div class="fx-ctl">
+   <div class="fx-w"><div class="opts sm" role="group" aria-label="הספק של ${f.he}, בוואט${m?" למטר":""}">${opts}</div><span class="fx-u">וואט${m?" למטר":""}</span></div>
+   <div class="fx-q"><div class="qty"><button type="button" data-inc aria-label="עוד ${m?"חצי מטר":"יחידה"} של ${f.he}"><svg aria-hidden="true"><use href="#i-plus"/></svg></button><input type="number" min="0" max="${m?60:40}" step="${m?0.5:1}" inputmode="decimal" aria-label="${m?"כמה מטר":"כמה יחידות"} של ${f.he}"><button type="button" data-dec aria-label="פחות ${m?"חצי מטר":"יחידה"} של ${f.he}"><svg aria-hidden="true"><use href="#i-minus"/></svg></button></div><span class="fx-u">${m?"מטר":"יחידות"}</span></div>
+   ${t==="profile"?`<div class="opts sm fx-mode" role="group" aria-label="איך הפרופיל מאיר"><button type="button" data-m="dir" aria-pressed="true">אור ישיר</button><button type="button" data-m="ind" aria-pressed="false">אור עקיף</button></div>`:""}
+  </div></li>`}).join("");
+const rows={};$$(".fx").forEach(li=>rows[li.dataset.t]=li);
+const setQ=(t,q)=>{const m=isM(t);S.lines[t].q=m?clamp(Math.round(q*2)/2,0,60):clamp(Math.round(q),0,40);if(S.lines[t].q>0)S.last=t};
+$("#fxList").addEventListener("click",e=>{const li=e.target.closest(".fx");if(!li)return;const t=li.dataset.t,ln=S.lines[t],st=isM(t)?.5:1;
+  const w=e.target.closest("[data-w]");if(w){ln.w=w.dataset.w;if(ln.q===0)setQ(t,isM(t)?2:1);else S.last=t;render();return}
+  const m=e.target.closest("[data-m]");if(m){ln.mode=m.dataset.m;render();return}
+  if(e.target.closest("[data-inc]")){setQ(t,ln.q+st);render();return}
+  if(e.target.closest("[data-dec]")){setQ(t,ln.q-st);render();return}
+  if(e.target.closest("[data-addline]")){addLine(t);return}
+});
+$("#fxList").addEventListener("input",e=>{const i=e.target.closest(".qty input");if(!i)return;const v=parseFloat(i.value);if(isFinite(v)&&v>=0){setQ(i.closest(".fx").dataset.t,v);render()}});
+$("#fxList").addEventListener("change",e=>{const i=e.target.closest(".qty input");if(!i)return;const t=i.closest(".fx").dataset.t;const v=parseFloat(i.value);setQ(t,isFinite(v)?v:0);i.value=S.lines[t].q;render()});
+$("#fxClear").addEventListener("click",()=>{ORDER.forEach(t=>S.lines[t].q=0);S.last=null;render();$("#fxList .qty input").focus()});
+
+/* ---------------- render ---------------- */
+function tweenNum(el,to,f){f=f||fmt;const from=el._d==null?to:el._d;cancelAnimationFrame(el._r);
+  if(RM||Math.abs(from-to)<.5){el._d=to;el.textContent=f(to);return}
+  const t0=performance.now(),d=450;const st=()=>{const p=Math.min(1,(performance.now()-t0)/d),e=1-Math.pow(1-p,3);el._d=from+(to-from)*e;el.textContent=f(el._d);if(p<1)el._r=requestAnimationFrame(st)};st()}
+const lineName=t=>{const f=FIXTURES[t],ln=S.lines[t],m=isM(t);
+  return `${f.he}${t==="profile"&&ln.mode==="ind"?" (אור עקיף)":""} ${ln.w} וואט${m?" למטר":""} × ${m?num1(ln.q)+" מ׳":ln.q}`};
+function suggest(miss){
+  let t=S.last&&S.lines[S.last].q>0?S.last:null;
+  if(!t){const s=calc().sel.sort((a,b)=>b.E-a.E)[0];t=s?s.t:"recessed"}
+  const ln=S.lines[t],ul=FIXTURES[t].opts[ln.w],per=ul*lineContrib(t);
+  if(isM(t)){const m=Math.max(.5,Math.ceil(miss/per*2)/2);return `עוד ${num1(m)} מטר ${FIXTURES[t].he} של ${ln.w} וואט למטר`}
+  const n=Math.max(1,Math.ceil(miss/per));return `עוד ${n===1?FXU[t].one:n+" "+FXU[t].pl} של ${ln.w} וואט`}
+let liveT;
+function render(){
+  const c=calc(), r=c.r, k=curK(), rc=rec();
+  /* room controls */
+  press($("#rType"),v=>v===S.room);press($("#rWall"),v=>v===S.walls);press($("#rPref"),v=>v===S.pref);
+  press($("#rAtm"),v=>v===S.atm);press($("#rAct"),v=>S.acts.includes(v));
+  if(document.activeElement!==nL)nL.value=num1(S.L);if(document.activeElement!==nW)nW.value=num1(S.W);
+  rL.value=S.L;rW.value=S.W;rH.value=S.H;oH.textContent=num1(S.H);[rL,rW,rH].forEach(fill);
+
+  /* result */
+  tweenNum($("#wBig"),c.w);
+  $("#lmTxt").textContent=`כ-${fmt(roundLm(c.lm))} לומן`;
+  $("#wRange").textContent=`בין ${c.wLo} ל-${c.wHi} וואט, לפי הגופים`;
+  const f=(c.uf*c.mf).toFixed(2), pf=S.pref==="regular"?"":` × ${PREF[S.pref]}`;
+  $("#eqn").innerHTML=`${num1(c.A)} מ״ר × ${r.lux} לוקס${pf} ÷ ${f} = ${fmt(roundLm(c.lm))} לומן ÷ 90 = ${c.w} וואט<small>${r.lux} לוקס: כמות האור המומלצת ל${r.he}. ${f}: כמה מהאור מגיע בפועל, לפי צורת החדר וצבע הקירות.</small>`;
+  const has=c.sel.length>0, s=stateOf(c.pct), pc=Math.round(c.pct*100);
+  $("#chTxt").innerHTML=has?`בחרתם: <b>${fmt(c.cw)} וואט</b> · ${fmt(Math.round(c.clm/10)*10)} לומן`:"עוד לא בחרתם גופים.";
+  const stEl=$("#chState");stEl.hidden=!has;stEl.dataset.s=s;stEl.textContent=STATE_HE[s];
+  $("#meter").dataset.s=has?s:"low";$("#meterI").style.width=(has?Math.min(1,c.pct/1.5)*100:0)+"%";
+  $("#pctTxt").textContent=has?`${pc}% ממה שהחדר צריך`:"בחרו גופים ברשימה, ותראו כמה הם מכסים.";
+  let hint="";
+  if(has){if(s==="low")hint=`חסרים עוד כ-${fmt(roundLm(c.lm-c.clm))} לומן. למשל: ${suggest(c.lm-c.clm)}.`;
+    else if(s==="ok")hint=c.pct<=1.1?"הכמות מתאימה לחדר.":"יש קצת יותר אור מהיעד, וזה בסדר. עם דימר אפשר לרכך אותו.";
+    else hint="יש כאן הרבה יותר אור ממה שהחדר צריך. אפשר להוריד כמה יחידות או לבחור הספק נמוך יותר."}
+  $("#hint").textContent=hint;$("#note").hidden=!c.partial;
+  $("#allToCart").disabled=!has;
+
+  /* fixture lines */
+  ORDER.forEach(t=>{const li=rows[t],ln=S.lines[t],fx=FIXTURES[t],m=isM(t),ul=fx.opts[ln.w],on=ln.q>0;
+    li.classList.toggle("on",on);
+    $$("[data-w]",li).forEach(b=>b.setAttribute("aria-pressed",b.dataset.w===ln.w));
+    $$("[data-m]",li).forEach(b=>b.setAttribute("aria-pressed",b.dataset.m===ln.mode));
+    $("[data-lmu]",li).textContent=`${fmt(ul)} לומן ${m?"למטר":"ליחידה"}`;
+    const qi=$(".qty input",li);if(document.activeElement!==qi)qi.value=m?num1(ln.q):ln.q;
+    $("[data-sum]",li).innerHTML=on?`<b>${fmt(parseFloat(ln.w)*ln.q)} וואט</b>${fmt(Math.round(ul*ln.q*lineContrib(t)/10)*10)} לומן לחדר`:"";
+  });
+  syncAddBtns();
+  $("#fxTotal").innerHTML=has?`סה״כ: <b>${fmt(c.cw)} וואט</b> ב-${c.sel.length===1?"סוג גוף אחד":c.sel.length+" סוגי גופים"}`:"עוד לא נבחרו גופים.";
+  $("#fxClear").hidden=!has;
+  const notes=[];if(r.note)notes.push(r.note);S.acts.forEach(a=>notes.push(ACTS[a].tip));
+  $("#sideNotes").hidden=!notes.length;$("#noteList").innerHTML=notes.map(n=>`<li>${n}</li>`).join("");
+
+  /* room view */
+  $("#hudRoom").textContent=`${r.he} · ${num1(S.L)} × ${num1(S.W)} מ׳ · תקרה ${num1(S.H)} מ׳`;
+  const lr=k2rgb(k).map(v=>v+(255-v)*.1);
+  const b=buildLights();
+  Viz.set({n:{L:S.L,W:S.W,H:S.H,E:has?c.pct:0,cove:b.cove},rgb:lr,wall:WALLS[S.walls].alb,lab:{L:S.L,W:S.W,H:S.H}});
+  Viz.setLights(b.list,has);
+
+  /* colour temperature */
+  renderCct(k,rc);
+
+  /* mobile bar */
+  $("#mbW").textContent=c.w;
+  $("#mbChosen").textContent=has?`בחרתם ${fmt(c.cw)} וואט · ${pc}%`:"עוד לא בחרתם גופים";
+  const ms=$("#mbState");ms.textContent=has?STATE_HE[s]:"";ms.dataset.s=s;
+  $("#mbBar").dataset.s=has?s:"low";$("#mbFill").style.width=(has?Math.min(1,c.pct/1.5)*100:0)+"%";
+
+  /* summary in the send band + WhatsApp links */
+  $("#sumList").innerHTML=[["החדר",`${r.he}, ${num1(S.L)} × ${num1(S.W)} מ׳`],["צריך",`כ-${c.w} וואט לד`],["בחרתם",has?`${fmt(c.cw)} וואט, ${pc}%`:"עוד לא נבחרו גופים"],["גוון מומלץ",`${rc.k}K`]].map(([a,b2])=>`<li><span>${a}</span><b>${b2}</b></li>`).join("");
+  const url=`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(planText(c,rc))}`;
+  $$("[data-wa]").forEach(a=>a.href=url);
+
+  clearTimeout(liveT);liveT=setTimeout(()=>{$("#live").textContent=`החדר צריך כ-${c.w} וואט לד, כ-${fmt(roundLm(c.lm))} לומן.`+(has?` בחרתם ${fmt(c.cw)} וואט, ${pc}% מהיעד: ${STATE_HE[s]}.`:"")},700);
+  saveState();
+}
+function planText(c,rc){
+  const r=c.r;let t=`היי, תכננתי תאורה במחשבון באתר.\n`;
+  t+=`החדר: ${r.he}, ${num1(S.L)} × ${num1(S.W)} מ׳, תקרה ${num1(S.H)} מ׳, קירות ${WALLS[S.walls].he}, אור ${PREFS[S.pref]}.\n`;
+  t+=`צריך: כ-${c.w} וואט לד (כ-${fmt(roundLm(c.lm))} לומן).\n`;
+  t+=`גוון מומלץ: ${rc.k}K${S.atm?`, לאווירה של ${ATM[S.atm].he}`:""}.\n`;
+  if(c.sel.length){t+=`מה בחרתי:\n`+c.sel.map(x=>`- ${lineName(x.t)}`).join("\n")+`\nסה״כ ${fmt(c.cw)} וואט, ${Math.round(c.pct*100)}% ממה שהחדר צריך.\n`}
+  return t+`אשמח שתעברו על זה איתי.`;
+}
+
+/* ---------------- colour temperature ---------------- */
+const kR=$("#kRange"),kM=$("#kMini"),ph=$("#cctPh"),wbM=$("#wbM");
+const REF=k2rgb(4500);
+function renderCct(k,rc){
+  [kR,kM].forEach(x=>{if(document.activeElement!==x||+x.value!==k)x.value=k});
+  $("#kVal").textContent=k+"K";$("#kMiniV").textContent=k+"K";
+  const info=cctInfo(k);
+  $("#kTag").innerHTML=`<span>${k}K</span> · ${info.he}`;
+  $("#kTip").textContent=info.tip;
+  const rgb=k2rgb(k);let g=rgb.map((v,i)=>v/REF[i]);const lum=.2126*g[0]+.7152*g[1]+.0722*g[2];g=g.map(v=>1+(v/lum-1)*.8);
+  wbM.setAttribute("values",`${g[0].toFixed(3)} 0 0 0 0 0 ${g[1].toFixed(3)} 0 0 0 0 0 ${g[2].toFixed(3)} 0 0 0 0 0 1 0`);
+  ph.style.setProperty("--kc",`rgb(${rgb.map(v=>v|0).join(",")})`);ph.style.setProperty("--kr",rgb.map(v=>v|0).join(","));
+  ph.style.setProperty("--kb",(.96+.04*(k-2200)/4300).toFixed(3));
+  const r=ROOMS[S.room];
+  $("#recFor").textContent=S.atm?`ההמלצה ל${r.he} באווירה של ${ATM[S.atm].he}`:`ההמלצה ל${r.he}`;
+  $("#recK").textContent=rc.k2&&rc.k2!==rc.k?`${rc.k}K עד ${rc.k2}K`:`${rc.k}K`;
+  $("#recWhy").textContent=cctInfo(rc.k).tip+(S.atm?"":" בחרו אווירה בשלב החדר, ונדייק את ההמלצה.");
+  $("#kRecTick").style.right=((rc.k-2200)/4300*100)+"%";
+  $("#kRec").disabled=!S.cctUser||S.cct===rc.k;
+}
+[kR,kM].forEach(x=>x.addEventListener("input",()=>{S.cct=+x.value;S.cctUser=true;render()}));
+$("#kRec").addEventListener("click",()=>{S.cctUser=false;render()});
+
+/* ---------------- old bulb converter ---------------- */
+const OT={incandescent:"ליבון",halogen:"הלוגן",cfl:"חסכונית"};
+const CV={type:"incandescent",w:"75"};
+$("#oType").innerHTML=chipsHTML(Object.entries(OT));
+function renderOld(){
+  press($("#oType"),v=>v===CV.type);
+  const tb=OLD[CV.type];if(tb[CV.w]==null){const ks=Object.keys(tb);CV.w=ks.reduce((a,b)=>Math.abs(b-CV.w)<Math.abs(a-CV.w)?b:a)}
+  $("#oW").innerHTML=Object.keys(tb).map(w=>`<button type="button" data-v="${w}" aria-pressed="${w===CV.w}">${w}</button>`).join("");
+  const lm=tb[CV.w],led=toLedW(lm),sv=Math.round((1-led/CV.w)*100);
+  tweenNum($("#oLm"),lm);
+  $("#oLed").innerHTML=`נורת ${OT[CV.type]} של ${CV.w} וואט נותנת כ-${fmt(lm)} לומן. <b>נורת לד של כ-${led} וואט</b> נותנת אותו אור, ב-${sv}% פחות חשמל.`;
+}
+$("#oType").addEventListener("click",e=>{const b=e.target.closest("[data-v]");if(!b)return;CV.type=b.dataset.v;renderOld()});
+$("#oW").addEventListener("click",e=>{const b=e.target.closest("[data-v]");if(!b)return;CV.w=b.dataset.v;renderOld();$(`#oW [data-v="${CV.w}"]`).focus()});
+const EFF=[["לד",100],["חסכונית",60],["הלוגן",17],["ליבון",14.5]];
+const rvLm=$("#rvLm");
+$("#rvBars").innerHTML=EFF.map(([n])=>`<li><span>${n}</span><span class="b"><i></i></span><b></b></li>`).join("");
+function renderRev(){const lm=clamp(parseFloat(rvLm.value)||0,0,100000);const ws=EFF.map(([,e])=>lm/e),mx=Math.max(...ws)||1;
+  $$("#rvBars li").forEach((li,i)=>{$("i",li).style.width=(ws[i]/mx*100)+"%";$("b",li).innerHTML=`${fmt(ws[i])}<small>וואט</small>`})}
+rvLm.addEventListener("input",renderRev);
+rvLm.addEventListener("change",()=>{rvLm.value=Math.round(clamp(parseFloat(rvLm.value)||0,0,100000));renderRev()});
+$("#rvRoom").addEventListener("click",()=>{rvLm.value=roundLm(calc().lm);renderRev()});
+
+/* ---------------- shared quote basket (same storage KEY as the homepage) ---------------- */
+/* product lines: {id,q,fin,tone} as on the homepage. Calculator lines: {id:"calc:type:watt[:ind]",q,calc:1,t,w,mode,n,k}.
+   Anything this page does not recognise is kept as it is, so nothing from another page is lost. */
+const KEY="sl-quote";
+const cart=[],keep=[];
+const parseCalc=id=>{const p=String(id).split(":");if(p[0]!=="calc"||!FIXTURES[p[1]]||FIXTURES[p[1]].opts[p[2]]==null)return null;return {t:p[1],w:p[2],mode:p[3]==="ind"?"ind":"dir"}};
+const calcId=t=>{const ln=S.lines[t];return `calc:${t}:${ln.w}${t==="profile"&&ln.mode==="ind"?":ind":""}`};
+const calcN=(t,w,mode)=>`${FIXTURES[t].he}${mode==="ind"?" (אור עקיף)":""} ${w} וואט${isM(t)?" למטר":""}`;
+try{const st=JSON.parse(localStorage.getItem(KEY)||"[]");if(Array.isArray(st))st.forEach(x=>{
+  if(!x||typeof x.id!=="string"||cart.some(y=>y.id===x.id))return;
+  const pc=x.calc?parseCalc(x.id):null;
+  if(pc)cart.push({id:x.id,q:clamp(Math.round(+x.q||1),1,99),calc:1,t:pc.t,w:pc.w,mode:pc.mode,n:calcN(pc.t,pc.w,pc.mode),k:isFinite(x.k)?+x.k:null});
+  else if(prod(x.id))cart.push({id:x.id,q:clamp(+x.q||1,1,99),fin:FIN[x.fin]&&prod(x.id).f.includes(x.fin)?x.fin:null,tone:TONES[x.tone]?x.tone:null});
+  else keep.push(x)})}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(cart.concat(keep)))}catch(e){}};
+const drawer=$("#drawer"),scrim=$("#scrim"),badge=$("#badge");
+let cLast=null;
+const count=()=>cart.reduce((s,x)=>s+x.q,0);
+const nItems=c=>c===1?"מוצר אחד":c+" מוצרים";
+function metaLine(it){const parts=[];if(it.fin)parts.push("גימור: "+FIN[it.fin][1]);if(it.tone)parts.push("גוון: "+TONES[it.tone].l);return parts.length?parts.join(" · "):"גימור וגוון נתאים איתכם"}
+const qtyHTML=(q,label)=>`<div class="qty"><button type="button" data-inc aria-label="הוספה"><svg aria-hidden="true"><use href="#i-plus"/></svg></button><input type="number" min="1" value="${q}" inputmode="numeric" aria-label="${esc(label)}"><button type="button" data-dec aria-label="הפחתה"><svg aria-hidden="true"><use href="#i-minus"/></svg></button></div>`;
+function renderCart(){
+  const n=cart.length;
+  badge.textContent=count();badge.classList.toggle("on",n>0);
+  drawer.classList.toggle("empty",!n);
+  $("#drCnt").textContent=n?" · "+nItems(count()):"";
+  $("#cartList").innerHTML=n?cart.map(it=>{
+    if(it.calc){const m=isM(it.t);return `<div class="ci" data-id="${esc(it.id)}"><span class="ci-ico">${icoSym(it.t)}</span><div><b>${esc(it.n)}</b><small>מהמחשבון · ${fmt(FIXTURES[it.t].opts[it.w])} לומן ${m?"למטר":"ליחידה"}</small><small>${m?"הכמות במטרים":"יחידות"}${it.k?` · גוון: <span>${it.k}K</span>`:""}</small>
+      <div class="ci-a">${qtyHTML(it.q,(m?"כמה מטר של ":"כמות של ")+it.n)}<button class="rm" type="button" data-rm>הסרה</button></div></div></div>`}
+    const p=prod(it.id);return `<div class="ci" data-id="${it.id}"><img src="${p.img}" alt="" width="64" height="80"><div><b>${p.n}</b><small>מק״ט <span>${p.id}</span></small><small>${metaLine(it)}</small>
+      <div class="ci-a">${qtyHTML(it.q,"כמות של "+p.n)}<button class="rm" type="button" data-rm>הסרה</button></div></div></div>`}).join("")
+   :`<div class="empty"><b>הסל ריק בינתיים.</b><p>בחרו גופים במחשבון ולחצו "לסל", או הוסיפו מוצרים מהקטלוג.</p><a class="btn btn-o" href="${HOME}#cats"><span class="bl">לקטלוג</span></a></div>`;
+  save();syncAddBtns();
+}
+function syncAddBtns(){ORDER.forEach(t=>{const li=rows[t];if(!li)return;const b=$("[data-addline]",li),ln=S.lines[t],on=ln.q>0;
+  const it=cart.find(x=>x.id===calcId(t)),q=isM(t)?Math.ceil(ln.q):ln.q,inB=!!it&&it.q===q;
+  b.disabled=!on;b.classList.toggle("done",on&&inB);
+  $("span",b).textContent=on&&inB?"בסל":on&&it?"עדכון בסל":"לסל";$("use",b).setAttribute("href",on&&inB?"#i-check":"#i-plus");
+  b.setAttribute("aria-label",`${on&&inB?"בסל":"הוספה לסל"}: ${lineName(t)}`)})}
+function popBadge(){badge.classList.remove("pop");void badge.offsetWidth;badge.classList.add("pop")}
+let toastT;
+function toast(msg){$("#toastT").textContent=msg;$("#toast").classList.add("on");clearTimeout(toastT);toastT=setTimeout(()=>$("#toast").classList.remove("on"),3600)}
+function putLine(t){const ln=S.lines[t];if(!(ln.q>0))return false;const id=calcId(t),q=clamp(isM(t)?Math.ceil(ln.q):ln.q,1,99),k=curK();
+  const it=cart.find(x=>x.id===id);if(it){it.q=q;it.k=k}else cart.push({id,q,calc:1,t,w:ln.w,mode:t==="profile"?ln.mode:"dir",n:calcN(t,ln.w,t==="profile"?ln.mode:"dir"),k});return true}
+function addLine(t){if(!putLine(t))return;renderCart();popBadge();toast("הוספנו לסל: "+lineName(t))}
+$("#allToCart").addEventListener("click",()=>{let n=0;ORDER.forEach(t=>{if(putLine(t))n++});if(!n)return;renderCart();popBadge();toast(n===1?"הוספנו לסל סוג גוף אחד":`הוספנו לסל ${n} סוגי גופים`)});
+
+/* modal helpers (inert + focus trap) */
+const FOC='a[href],button:not([disabled]),input:not([disabled]),textarea,select,[tabindex]:not([tabindex="-1"])';
+let modalOpen=0;
+function lockPage(on,except){
+  ["#main","#ftr","#hdr","#mbar","#waf"].forEach(s=>{const el=$(s);if(!el||except.includes(s))return;on?el.setAttribute("inert",""):el.removeAttribute("inert")});
+  modalOpen=Math.max(0,modalOpen+(on?1:-1));document.body.style.overflow=modalOpen?"hidden":"";
+}
+function trap(e,boxes){if(e.key!=="Tab")return;const f=boxes.flatMap(b=>$$(FOC,b)).filter(x=>x.offsetParent!==null||x===document.activeElement);if(!f.length)return;
+  const first=f[0],last=f[f.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}
+
+function openCart(focusEl){cLast=document.activeElement;drawer.classList.remove("done");drawer.classList.add("on");scrim.classList.add("on");$("#toast").classList.remove("on");lockPage(true,[]);setTimeout(()=>(focusEl||$(".x",drawer)).focus({preventScroll:true}),60)}
+function closeCart(silent){if(!drawer.classList.contains("on"))return;drawer.classList.remove("on");scrim.classList.remove("on");lockPage(false,[]);renderCart();
+  if(!silent){const back=cLast&&cLast.offsetParent!==null&&document.contains(cLast)?cLast:$("#openCart");back.focus({preventScroll:true})}}
+$("#openCart").addEventListener("click",()=>openCart());
+scrim.addEventListener("click",()=>closeCart());
+$$("[data-closecart]").forEach(b=>b.addEventListener("click",()=>closeCart()));
+drawer.addEventListener("keydown",e=>trap(e,[drawer]));
+$("#toastB").addEventListener("click",()=>{$("#toast").classList.remove("on");openCart()});
+$("#cartList").addEventListener("click",e=>{const ci=e.target.closest(".ci");if(!ci)return;const it=cart.find(x=>x.id===ci.dataset.id);if(!it)return;const inp=$("input",ci);
+  if(e.target.closest("[data-rm]")){cart.splice(cart.indexOf(it),1);renderCart();const nx=$(".ci [data-rm]",drawer)||$(".x",drawer);nx&&nx.focus({preventScroll:true});return}
+  if(e.target.closest("[data-inc]")){it.q=Math.min(99,it.q+1);inp.value=it.q}
+  else if(e.target.closest("[data-dec]")){it.q=Math.max(1,it.q-1);inp.value=it.q}else return;
+  badge.textContent=count();$("#drCnt").textContent=" · "+nItems(count());save();syncAddBtns()});
+$("#cartList").addEventListener("change",e=>{const i=e.target.closest(".qty input");if(!i)return;const it=cart.find(x=>x.id===i.closest(".ci").dataset.id);if(!it)return;
+  it.q=clamp(parseInt(i.value,10)||1,1,99);i.value=it.q;badge.textContent=count();$("#drCnt").textContent=" · "+nItems(count());save();syncAddBtns()});
+const PHONE=/^0(5\d-?\d{7}|[2-9]-?\d{7})$/;
+$("#cartForm").addEventListener("submit",e=>{e.preventDefault();const f=e.target,n=f.n.value.trim(),p=f.p.value.replace(/\s/g,"");const badN=!n,badP=!PHONE.test(p);
+  $("#fN").classList.toggle("bad",badN);f.n.setAttribute("aria-invalid",badN);$("#fP").classList.toggle("bad",badP);f.p.setAttribute("aria-invalid",badP);
+  if(badN){f.n.focus();return}if(badP){f.p.focus();return}
+  drawer.classList.add("done");cart.length=0;f.reset();renderCart();drawer.classList.remove("empty");setTimeout(()=>$("#sent").focus({preventScroll:true}),40)});
+$("#cartForm").addEventListener("input",e=>{const l=e.target.closest(".inp");if(l&&l.classList.contains("bad")){if(e.target.name==="n"&&e.target.value.trim())l.classList.remove("bad");if(e.target.name==="p"&&PHONE.test(e.target.value.replace(/\s/g,"")))l.classList.remove("bad")}});
+/* another tab (the homepage) changed the basket */
+addEventListener("storage",e=>{if(e.key!==KEY)return;try{const st=JSON.parse(e.newValue||"[]");cart.length=0;keep.length=0;
+  st.forEach(x=>{const pc=x&&x.calc?parseCalc(x.id):null;if(pc)cart.push(Object.assign({},x,{t:pc.t,w:pc.w,mode:pc.mode,n:calcN(pc.t,pc.w,pc.mode)}));else if(x&&prod(x.id))cart.push(x);else if(x)keep.push(x)});renderCart()}catch(err){}});
+
+/* ---------------- header: mega, mobile nav, search ---------------- */
+$("#megaCats").innerHTML=CATS.map(c=>`<a href="${HOME}#cats">${ico(c.id)}<span>${c.n}</span></a>`).join("");
+$("#megaRooms").innerHTML=SPACES.map(r=>`<a class="room" href="${HOME}#rooms">${r}</a>`).join("");
+$("#mCats").innerHTML=CATS.map(c=>`<a href="${HOME}#cats">${c.n}</a>`).join("");
+$("#fCats").innerHTML=CATS.map(c=>`<li><a href="${HOME}#cats">${c.n}</a></li>`).join("");
+$("#fRooms").innerHTML=SPACES.map(r=>`<li><a href="${HOME}#rooms">${r}</a></li>`).join("");
+const hdr=$("#hdr"),mega=$("#mega"),trig=$("#megaTrig"),trigB=$("button",trig);let megaT;
+function setMega(o){mega.classList.toggle("open",o);trig.classList.toggle("open",o);trigB.setAttribute("aria-expanded",o)}
+trig.addEventListener("mouseenter",()=>{clearTimeout(megaT);setMega(true)});
+trig.addEventListener("mouseleave",()=>{megaT=setTimeout(()=>setMega(false),250)});
+mega.addEventListener("mouseenter",()=>clearTimeout(megaT));
+mega.addEventListener("mouseleave",()=>{megaT=setTimeout(()=>setMega(false),250)});
+trigB.addEventListener("click",()=>setMega(!mega.classList.contains("open")));
+mega.addEventListener("focusout",e=>{if(!mega.contains(e.relatedTarget)&&!trig.contains(e.relatedTarget))setMega(false)});
+const onScroll=()=>hdr.classList.toggle("solid",scrollY>40);addEventListener("scroll",onScroll,{passive:true});onScroll();
+const hdrLogo=$("#hdrLogo");
+if(RM)hdrLogo.classList.add("lit");else $(".lg-bulb",hdrLogo).addEventListener("animationend",()=>hdrLogo.classList.add("lit"),{once:true});
+
+const mnav=$("#mnav"),burger=$("#burger");
+function openMnav(){mnav.classList.add("on");burger.setAttribute("aria-expanded","true");burger.setAttribute("aria-label","סגירת התפריט");$("use",burger).setAttribute("href","#i-x");lockPage(true,["#hdr"]);setTimeout(()=>$("a",mnav).focus({preventScroll:true}),80)}
+function closeMnav(silent){if(!mnav.classList.contains("on"))return;mnav.classList.remove("on");burger.setAttribute("aria-expanded","false");burger.setAttribute("aria-label","תפריט");$("use",burger).setAttribute("href","#i-menu");lockPage(false,["#hdr"]);if(!silent)burger.focus({preventScroll:true})}
+burger.addEventListener("click",()=>mnav.classList.contains("on")?closeMnav():openMnav());
+mnav.addEventListener("keydown",e=>trap(e,[burger,mnav]));
+burger.addEventListener("keydown",e=>{if(mnav.classList.contains("on"))trap(e,[burger,mnav])});
+
+const norm=s=>String(s).toLowerCase().replace(/["״׳'\-]/g,"").replace(/\s+/g," ").trim();
+const stem=t=>t.length>3?t.replace(/(ות|ים|ה|ת)$/,""):t;
+const has=(text,t)=>{const s=norm(text);return s.includes(t)||s.includes(stem(t))};
+const EX=["ספוט שקוע","פס מגנטי","מנורה תלויה","תאורת חוץ"];
+let sUid=0;
+function setupSearch(root){
+  const form=$("form",root),inp=$("input",root),box=$(".sugg",root),uid="sg"+(++sUid);box.id=uid;
+  inp.setAttribute("role","combobox");inp.setAttribute("aria-autocomplete","list");inp.setAttribute("aria-controls",uid);inp.setAttribute("aria-expanded","false");
+  inp.placeholder="חפשו מוצר או מק״ט";
+  let act=-1,items=[];
+  const open=o=>{box.classList.toggle("open",o);inp.setAttribute("aria-expanded",o);if(!o){act=-1;inp.removeAttribute("aria-activedescendant")}};
+  const mark=()=>{items.forEach((x,i)=>{x.classList.toggle("act",i===act);x.setAttribute("aria-selected",i===act)});if(act>-1){inp.setAttribute("aria-activedescendant",items[act].id);items[act].scrollIntoView({block:"nearest"})}};
+  function render(){
+    const raw=inp.value.trim();
+    if(!raw){box.removeAttribute("role");box.innerHTML=`<div class="sg-ex"><span>למשל:</span>${EX.map(x=>`<button type="button" data-q="${x}">${x}</button>`).join("")}</div>`;items=[];open(true);return}
+    const ts=norm(raw).split(" ").filter(Boolean);
+    const cats=CATS.filter(c=>ts.every(t=>has(c.n,t))).slice(0,3);
+    const prods=PRODUCTS.filter(p=>ts.every(t=>has(p.n+" "+catName(p.c)+" "+p.id,t))).slice(0,5);
+    let h="",k=0;const opt=(go,inner)=>`<div class="sg" role="option" id="${uid}-${k}" data-go="${go}" aria-selected="false" style="--i:${k++}">${inner}</div>`;
+    if(cats.length)h+=`<div class="sg-h" role="presentation">קטגוריות</div>`+cats.map(c=>opt("#cats",`<span class="si">${ico(c.id)}</span><span><b>${esc(c.n)}</b><small>לכל המוצרים בקטגוריה</small></span>`)).join("");
+    if(prods.length)h+=`<div class="sg-h" role="presentation">מוצרים</div>`+prods.map(p=>opt("#new",`<img src="${p.img}" alt="" width="42" height="52"><span><b>${esc(p.n)}</b><small>${esc(catName(p.c))} · מק״ט <span>${p.id}</span></small></span>`)).join("");
+    if(!h){box.removeAttribute("role");box.innerHTML=`<div class="sg-empty">לא מצאנו "${esc(raw)}". נסו מילה אחרת או מק״ט, או <a href="tel:086377033">התקשרו 08-6377033</a></div>`;items=[];open(true);return}
+    box.setAttribute("role","listbox");box.setAttribute("aria-label","תוצאות חיפוש");box.innerHTML=h;items=$$(".sg",box);act=-1;mark();open(true)}
+  const choose=el=>{location.href=HOME+el.dataset.go};
+  inp.addEventListener("input",render);inp.addEventListener("focus",render);
+  inp.addEventListener("keydown",e=>{if(e.key==="ArrowDown"||e.key==="ArrowUp"){if(!items.length)return;e.preventDefault();act=(act+(e.key==="ArrowDown"?1:-1)+items.length)%items.length;mark()}else if(e.key==="Escape"&&box.classList.contains("open")){e.stopPropagation();open(false)}});
+  form.addEventListener("submit",e=>{e.preventDefault();render();if(items.length)choose(items[Math.max(act,0)])});
+  box.addEventListener("mousedown",e=>{if(e.target.closest("button,.sg"))e.preventDefault()});
+  box.addEventListener("click",e=>{const ex=e.target.closest("[data-q]");if(ex){inp.value=ex.dataset.q;render();inp.focus({preventScroll:true});return}const s=e.target.closest(".sg");if(s)choose(s)});
+  root.addEventListener("focusout",()=>setTimeout(()=>{if(!root.contains(document.activeElement))open(false)},120));
+}
+$$("[data-search]").forEach(setupSearch);
+const sover=$("#sover");let sLast=null;
+function openSearch(){sLast=document.activeElement;sover.classList.add("on");lockPage(true,[]);requestAnimationFrame(()=>$("input",sover).focus({preventScroll:true}))}
+function closeSearch(silent){if(!sover.classList.contains("on"))return;sover.classList.remove("on");lockPage(false,[]);if(!silent)(sLast||$("#openSearch")).focus({preventScroll:true})}
+$("#openSearch").addEventListener("click",openSearch);$("#closeSearch").addEventListener("click",()=>closeSearch());
+sover.addEventListener("click",e=>{if(e.target===sover)closeSearch()});sover.addEventListener("keydown",e=>trap(e,[sover]));
+addEventListener("keydown",e=>{if(e.key!=="Escape")return;
+  if(drawer.classList.contains("on")){closeCart();return}if(sover.classList.contains("on")){closeSearch();return}if(mnav.classList.contains("on")){closeMnav();return}
+  if(mega.classList.contains("open")){setMega(false);trigB.focus()}});
+
+/* in-page anchors */
+document.addEventListener("click",e=>{const a=e.target.closest('a[href^="#"]');if(!a)return;const id=a.getAttribute("href");if(id==="#"){e.preventDefault();return}
+  const t=document.querySelector(id);if(!t)return;e.preventDefault();closeMnav(true);setMega(false);
+  const y=id==="#top"?0:t.getBoundingClientRect().top+scrollY-80;window.scrollTo({top:y,behavior:RM?"auto":"smooth"})});
+$("#mbBtn").addEventListener("click",()=>{const t=$("#stage");window.scrollTo({top:t.getBoundingClientRect().top+scrollY-80,behavior:RM?"auto":"smooth"})});
+
+/* the room view follows the pointer a little (desktop only) */
+if(!RM&&matchMedia("(hover:hover) and (pointer:fine)").matches){const vb=$("#viz");
+  vb.addEventListener("pointermove",e=>{const r=vb.getBoundingClientRect();Viz.look((e.clientX-r.left)/r.width,(e.clientY-r.top)/r.height)});
+  vb.addEventListener("pointerleave",()=>Viz.look(.5,.5))}
+
+/* ---------------- reveals ---------------- */
+if("IntersectionObserver" in window){
+  const pending=new Set($$("[data-fade],[data-split],#ftrLogo"));
+  const reveal=(el,k)=>{if(!pending.has(el))return;pending.delete(el);io.unobserve(el);el.style.setProperty("--dl",(k*.05+(+el.dataset.d||0)).toFixed(2)+"s");el.classList.add("in")};
+  const io=new IntersectionObserver(es=>{let k=0;es.forEach(en=>{if(en.isIntersecting)reveal(en.target,k++)})},{rootMargin:"0px 0px -10% 0px"});
+  pending.forEach(el=>io.observe(el));
+  const sweepT=setInterval(()=>{if(!pending.size){clearInterval(sweepT);return}const vh=innerHeight*.9;let k=0;pending.forEach(el=>{if(el.getBoundingClientRect().top<vh)reveal(el,k++)})},700);
+}else H.classList.add("reveal-all");
+
+/* footer word fits its column exactly */
+const bye=$(".bye"),byeS=$(".bye span");
+function fitBye(){bye.style.fontSize="100px";const cs=getComputedStyle(bye);const avail=bye.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);const w=byeS.getBoundingClientRect().width;if(w)bye.style.fontSize=(100*avail/w).toFixed(2)+"px"}
+fitBye();addEventListener("resize",fitBye);document.fonts&&document.fonts.ready.then(()=>{fitBye();Viz.kick()});
+
+/* ---------------- go ---------------- */
+renderCart();renderOld();renderRev();render();
+window.__calc={S,calc,render};
+window.__sl=true;
+})();
+</script>
+<script>
+/* header logo loop: every ~9 seconds the word is split into its pieces, each piece slides in from its own side
+   (tall pieces from above or below, wide ones from the sides), then the arc stretches and the bulb lights */
+(function(){
+  var lg=document.getElementById("hdrLogo");if(!lg||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  var w=lg.querySelector(".lg-word");if(!w||!w.animate)return;
+  var NS="http://www.w3.org/2000/svg",parts=(w.getAttribute("d").match(/M[^M]*/g)||[]);
+  var bb=parts.map(function(p){var n=p.match(/-?\d*\.?\d+/g).map(Number),x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
+    for(var i=0;i+1<n.length;i+=2){if(n[i]<x0)x0=n[i];if(n[i]>x1)x1=n[i];if(n[i+1]<y0)y0=n[i+1];if(n[i+1]>y1)y1=n[i+1]}return [x0,y0,x1,y1]});
+  /* a counter (hole) stays with the letter around it */
+  var parent=bb.map(function(b,i){var best=-1,ba=1e18;bb.forEach(function(c,j){if(j!==i&&c[0]<=b[0]&&c[1]<=b[1]&&c[2]>=b[2]&&c[3]>=b[3]){var a=(c[2]-c[0])*(c[3]-c[1]);if(a<ba){ba=a;best=j}}});return best});
+  var groups=[];parts.forEach(function(p,i){if(parent[i]<0)groups.push({d:p,b:bb[i],i:i})});
+  parts.forEach(function(p,i){if(parent[i]>=0)groups.forEach(function(g){if(g.i===parent[i])g.d+=p})});
+  groups.sort(function(a,b){return b.b[2]-a.b[2]}); /* right to left, the way the word is read */
+  var g=document.createElementNS(NS,"g");g.setAttribute("class","lg-pcs");g.setAttribute("clip-path",w.getAttribute("clip-path"));
+  var els=groups.map(function(q){var e=document.createElementNS(NS,"path");e.setAttribute("d",q.d);e.setAttribute("fill","currentColor");g.appendChild(e);return e});
+  w.parentNode.insertBefore(g,w.nextSibling);
+  var STEP=90,DUR=720,total=(els.length-1)*STEP+DUR;lg.style.setProperty("--ad",(total/1000-.1).toFixed(2)+"s");
+  function build(){
+    els.forEach(function(e,k){var b=groups[k].b,wd=b[2]-b[0],ht=b[3]-b[1],tall=ht>wd*1.25,dx=0,dy=0;
+      if(tall)dy=(k%2?1:-1)*170;else dx=(k%2?-1:1)*230;
+      e.animate([{transform:"translate("+dx+"px,"+dy+"px)",opacity:0},{opacity:1,offset:.3},{transform:"translate(0,0)",opacity:1}],
+        {duration:DUR,delay:k*STEP,easing:"cubic-bezier(.2,1.3,.35,1)",fill:"both"})});
+  }
+  function cycle(){
+    if(document.visibilityState!=="visible"||lg.matches(":hover")||lg.matches(":focus-visible"))return;
+    lg.classList.add("lit");lg.classList.add("out");
+    setTimeout(function(){lg.classList.remove("out");lg.classList.add("replay");build();
+      setTimeout(function(){lg.classList.remove("replay")},total+1400)},420);
+  }
+  setTimeout(function(){cycle();setInterval(cycle,9000)},6500);
+})();
+</script>
+</body>
+</html>
