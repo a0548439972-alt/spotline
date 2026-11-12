@@ -426,6 +426,26 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
 /* ---------- why ---------- */
 /* a typographic list: the same row language as the rooms, but static */
 .why-row{margin-top:clamp(36px,4.4vw,56px);border-bottom:1px solid var(--line)}
+/* v8: four dark panels, each with a small pendant that switches on and pours a cone of light over its text */
+.why-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,1.4vw,20px);margin-top:clamp(40px,4.4vw,64px)}
+.wy{position:relative;min-height:420px;padding:0 clamp(20px,2vw,30px) 32px;background:#0b0a09;border:1px solid var(--line);overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;isolation:isolate}
+.wy-lamp{position:absolute;top:0;left:50%;width:46px;height:96px;margin-left:-23px;z-index:2}
+.wy-lamp::before{content:"";position:absolute;top:0;left:50%;width:1px;height:70px;background:rgba(255,255,255,.3)}
+.wy-lamp::after{content:"";position:absolute;top:70px;left:0;width:46px;height:22px;border-radius:23px 23px 0 0;background:#24211d;box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+.wy-lamp i{position:absolute;top:88px;left:50%;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:#3a352d;z-index:1;transition:background-color .2s,box-shadow .4s}
+.wy-beam{position:absolute;z-index:-1;top:92px;left:50%;width:150%;height:calc(100% - 92px);transform:translateX(-50%);clip-path:polygon(47% 0,53% 0,100% 100%,0 100%);background:linear-gradient(180deg,rgba(255,214,140,.42) 0,rgba(255,196,90,.14) 45%,rgba(255,190,80,.03) 85%,transparent);opacity:0;transition:opacity 1s var(--p2)}
+.wy-n{font-family:var(--fd);font-weight:700;font-size:clamp(64px,6vw,96px);line-height:.9;color:rgba(255,255,255,.07);transition:color .8s}
+.wy h3{margin-top:10px;font-family:var(--fd);font-weight:400;font-size:clamp(26px,2.3vw,34px);line-height:1.1;color:#8f897f;transition:color .8s}
+.wy p{margin-top:10px;font-size:16.5px;line-height:1.6;color:#6f6a62;transition:color .8s}
+.wy.on .wy-beam{opacity:1}
+.wy.on .wy-lamp i{background:#fff6dc;box-shadow:0 0 14px 5px rgba(255,205,110,.85),0 0 40px 12px rgba(255,190,80,.35)}
+.wy.on .wy-n{color:var(--y)}
+.wy.on h3{color:#fff}
+.wy.on p{color:#d9d3c8}
+.wy.flick .wy-lamp i,.wy.flick .wy-beam{animation:wyFlick .45s linear}
+@keyframes wyFlick{0%{opacity:1}20%{opacity:.25}40%{opacity:.9}60%{opacity:.35}100%{opacity:1}}
+@media (max-width:1100px){.why-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.why-grid{grid-template-columns:1fr}.wy{min-height:300px}}
 .wl{position:relative;display:grid;grid-template-columns:minmax(0,520px) minmax(0,1fr);align-items:baseline;gap:48px;padding:30px 4px}
 .wl::before{content:"";position:absolute;top:0;right:0;left:0;height:1px;background:var(--line2);transform-origin:right}
 .anim .wl:not(.in)::before{transform:scaleX(0)}
@@ -451,6 +471,11 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
 .pro-fmt{margin-top:14px!important;font-size:14px!important;color:rgba(0,0,0,.62)!important}
 .boq{margin-top:40px;font-size:14.5px}
 .boq-t{font-family:var(--fd);font-size:20px;padding-bottom:10px;border-bottom:2px solid #0a0a0a}
+.boq-t small{display:block;font-family:var(--f);font-size:13.5px;color:rgba(0,0,0,.62);margin-top:2px}
+.pro-perks{list-style:none;margin-top:22px;display:grid;gap:10px}
+.pro-perks li{display:flex;gap:10px;align-items:flex-start;font-size:16.5px;line-height:1.5;color:#1a170e}
+.pro-perks svg{width:18px;height:18px;flex:none;margin-top:4px;color:#0a0a0a}
+.pro-perks b{font-weight:700;color:#0a0a0a}
 .boq-h,.boq-rows li{display:grid;grid-template-columns:76px minmax(0,1fr) 78px 58px;gap:12px;align-items:baseline}
 .boq-h{padding:10px 0;font-size:12px;letter-spacing:.06em;color:rgba(0,0,0,.6);border-bottom:1px solid rgba(0,0,0,.3)}
 .boq-h span:last-child,.boq-rows li span:last-child{text-align:left}
@@ -473,6 +498,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
 .plan-steps li::before{content:"";position:absolute;top:0;right:0;left:0;height:2px;background:rgba(0,0,0,.18)}
 .plan-steps li::after{content:"";position:absolute;top:0;right:0;left:0;height:2px;background:#0a0a0a;transform:scaleX(0);transform-origin:right;transition:transform .9s var(--expo)}
 .plan-steps li.on{color:#0a0a0a}.plan-steps li.on::after{transform:none}
+.plan-steps small{display:block;margin-top:3px;font-weight:400;font-size:12.5px;line-height:1.45}
 .plan-steps b{display:block;font-family:var(--fd);font-size:13px;letter-spacing:.06em;margin-bottom:2px}
 .plan-cap{margin-top:14px;display:grid;gap:14px;font-size:13.5px;color:rgba(0,0,0,.62)}
 .plan-key{list-style:none;display:flex;flex-wrap:wrap;gap:8px 22px;color:#0a0a0a;font-size:14px}
@@ -533,7 +559,11 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
 .sb-slide.on{opacity:1;visibility:visible;transition:opacity .9s var(--p2)}
 .sb-slide::after{content:"";position:absolute;z-index:1;inset:0;background:linear-gradient(270deg,rgba(7,7,7,.82) 0,rgba(7,7,7,.45) 34%,rgba(7,7,7,0) 62%),linear-gradient(0deg,rgba(7,7,7,.7) 0,rgba(7,7,7,0) 40%);pointer-events:none}
 .store-band::after{display:none}
-.sb-k{font-size:13px;letter-spacing:.08em;color:var(--y);font-weight:500;margin-bottom:-14px}
+.sb-k{font-size:14px;letter-spacing:.08em;color:var(--y);font-weight:500;margin-bottom:-14px}
+.sb-big{font-family:var(--fd);font-weight:700;font-size:clamp(110px,13vw,200px);line-height:.82;color:var(--y);letter-spacing:-.02em}
+.sb-big small{display:block;margin-top:14px;font-size:clamp(24px,2.4vw,36px);line-height:1.1;letter-spacing:0;color:#fff}
+.sb-p{max-width:430px;margin-top:-10px;font-size:17px;line-height:1.6;color:#e6e0d4}
+.sb-promo .sb-media img{filter:brightness(.62)}
 .sb-dots{position:absolute;z-index:3;left:clamp(24px,4.4vw,64px);bottom:clamp(28px,4.4vw,64px);display:flex;gap:10px}
 .sb-dots button{width:28px;height:28px;display:grid;place-items:center}
 .sb-dots button::before{content:"";width:22px;height:2px;background:rgba(255,255,255,.35);transition:background-color .4s,width .4s var(--ease)}
@@ -1006,30 +1036,34 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
 <!-- ============ store band ============ -->
 <!-- banner slot: the store switches these slides from the WordPress admin (promotions, new arrivals, events) -->
 <section class="store-band" id="inspire" aria-roledescription="באנר מתחלף" aria-label="מה חדש בספוטליין">
-  <div class="sb-slide on" aria-hidden="false">
-    <div class="sb-clip"><div class="sb-media"><img src="assets/pr1.jpg" alt="מנורות תלויות בגימור טרוורטין, פס צבירה עם ספוטים ומדפי תצוגה מוארים" width="1000" height="1204" loading="lazy" decoding="async"></div></div>
+  <div class="sb-slide sb-promo on" aria-hidden="false">
+    <div class="sb-clip"><div class="sb-media"><img src="assets/rooms/room-bath.jpg" alt="אמבטיה מוארת: מראה עם תאורה אחורית ומנורות קיר" width="1600" height="1067" loading="lazy" decoding="async"></div></div>
     <div class="sb-copy">
-      <h2 class="h2" id="inspH" data-split><span class="l1"><span>ככה זה נראה</span></span><span class="l2"><span>כשזה דולק</span></span></h2>
-      <div data-fade data-d=".2"><a class="btn btn-o" href="#visit"><span class="bl">בואו לראות בחנות</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+      <div class="sb-k">מבצע השקה</div>
+      <div class="sb-big" aria-label="10% הנחה">10%<small>הנחה לרגל השקת האתר</small></div>
+      <p class="sb-p">על כל ההזמנות דרך האתר. בוחרים גופים, מוסיפים לסל ומקבלים הצעת מחיר עם ההנחה.</p>
+      <div><a class="btn btn-y" href="#cats"><span class="bl">לקטלוג המוצרים</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
     </div>
   </div>
   <div class="sb-slide" aria-hidden="true">
-    <div class="sb-clip"><div class="sb-media"><img src="assets/rooms/room-shop.jpg" alt="חנות עם פסי צבירה שחורים וספוטים שמאירים את המדפים" width="1000" height="1204" loading="lazy" decoding="async"></div></div>
+    <div class="sb-clip"><div class="sb-media"><img src="assets/rooms/room-living.jpg" alt="סלון מואר באור חם עם מנורה תלויה מטרוורטין ותאורה נסתרת" width="1600" height="1067" loading="lazy" decoding="async"></div></div>
+    <div class="sb-copy">
+      <div class="sb-k">אולם התצוגה</div>
+      <h2 class="h2" id="inspH"><span class="l1"><span>ככה זה נראה</span></span><span class="l2"><span>כשזה דולק</span></span></h2>
+      <p class="sb-p">בחנות בראשון לציון כל הגופים דולקים. בואו לראות אותם באור אמיתי לפני שמחליטים.</p>
+      <div><a class="btn btn-o" href="#visit" tabindex="-1"><span class="bl">איך מגיעים לחנות</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+    </div>
+  </div>
+  <div class="sb-slide" aria-hidden="true">
+    <div class="sb-clip"><div class="sb-media"><img src="assets/rooms/room-shop.jpg" alt="פסי צבירה שחורים עם ספוטים שמאירים מדפים" width="1600" height="1067" loading="lazy" decoding="async"></div></div>
     <div class="sb-copy">
       <div class="sb-k">חדש בחנות</div>
       <h2 class="h2"><span class="l1"><span>פסים מגנטיים</span></span><span class="l2"><span>בכל הגוונים</span></span></h2>
+      <p class="sb-p">מסילה דקה בתקרה, וראשי תאורה שמזיזים לאן שצריך.</p>
       <div><a class="btn btn-o" href="#cats" data-cat="track" tabindex="-1"><span class="bl">לפסי הצבירה</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
     </div>
   </div>
-  <div class="sb-slide" aria-hidden="true">
-    <div class="sb-clip"><div class="sb-media"><img src="assets/pr3.jpg" alt="אולם התצוגה של ספוטליין עם גופים דולקים" width="1000" height="1204" loading="lazy" decoding="async"></div></div>
-    <div class="sb-copy">
-      <div class="sb-k">מבצע השקה</div>
-      <h2 class="h2"><span class="l1"><span>10% הנחה</span></span><span class="l2"><span>לרגל השקת האתר</span></span></h2>
-      <div><a class="btn btn-o" href="#cats" tabindex="-1"><span class="bl">לקטלוג</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
-    </div>
-  </div>
-  <div class="sb-dots" role="group" aria-label="בחירת באנר"><button type="button" aria-label="באנר 1" aria-pressed="true"></button><button type="button" aria-label="באנר 2" aria-pressed="false"></button><button type="button" aria-label="באנר 3" aria-pressed="false"></button></div>
+  <div class="sb-dots" role="group" aria-label="בחירת באנר"><button type="button" aria-label="מבצע השקה" aria-pressed="true"></button><button type="button" aria-label="אולם התצוגה" aria-pressed="false"></button><button type="button" aria-label="חדש בחנות" aria-pressed="false"></button></div>
 </section>
 
 <!-- ============ projects ============ -->
@@ -1062,11 +1096,11 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
 <section class="sec" id="why" aria-labelledby="whyH">
   <div class="wrap">
     <h2 class="h2" id="whyH" data-split><span class="l1"><span>למה לבחור</span></span><span class="l2"><span>בספוטליין?</span></span></h2>
-    <div class="why-row">
-      <div class="wl" data-fade><h3>ייעוץ אישי</h3><p>מתאימים לכם גופים לפי החלל, הסגנון והתקציב, עוד לפני שקונים.</p></div>
-      <div class="wl" data-fade><h3>רואים לפני שקונים</h3><p>הגופים דולקים בחנות, ואפשר לראות אותם באור אמיתי לפני שמחליטים.</p></div>
-      <div class="wl" data-fade><h3>הצעת מחיר אחת</h3><p>בוחרים באתר או בחנות, ומקבלים הצעה מסודרת לכל הרשימה.</p></div>
-      <div class="wl" data-fade><h3>הכול כתוב בבירור</h3><p>לכל גוף מק״ט, גוון אור, הספק, גימור ודרגת אטימות.</p></div>
+    <div class="why-grid" id="whyGrid">
+      <article class="wy"><span class="wy-lamp" aria-hidden="true"><i></i></span><i class="wy-beam" aria-hidden="true"></i><b class="wy-n" aria-hidden="true">01</b><h3>ייעוץ אישי</h3><p>מתאימים לכם גופים לפי החלל, הסגנון והתקציב, עוד לפני שקונים.</p></article>
+      <article class="wy"><span class="wy-lamp" aria-hidden="true"><i></i></span><i class="wy-beam" aria-hidden="true"></i><b class="wy-n" aria-hidden="true">02</b><h3>רואים לפני שקונים</h3><p>כל הגופים דולקים בחנות. רואים אותם באור אמיתי, ורק אז מחליטים.</p></article>
+      <article class="wy"><span class="wy-lamp" aria-hidden="true"><i></i></span><i class="wy-beam" aria-hidden="true"></i><b class="wy-n" aria-hidden="true">03</b><h3>הצעת מחיר אחת</h3><p>בוחרים באתר או בחנות, ומקבלים הצעה מסודרת לכל הרשימה.</p></article>
+      <article class="wy"><span class="wy-lamp" aria-hidden="true"><i></i></span><i class="wy-beam" aria-hidden="true"></i><b class="wy-n" aria-hidden="true">04</b><h3>הכול כתוב בבירור</h3><p>לכל גוף מק״ט, גוון אור, הספק, גימור ודרגת אטימות.</p></article>
     </div>
   </div>
 </section>
@@ -1084,21 +1118,26 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
     <div class="pro-txt">
       <div class="eyebrow" data-fade>למעצבות ולאדריכלים</div>
       <h2 class="h2" id="proH" data-split><span class="l1"><span>מגיעים</span></span><span class="l2"><span>עם תוכנית?</span></span></h2>
-      <p data-fade data-d=".1">שלחו לנו את התוכנית של הפרויקט. אנחנו נתאים לכל חלל את הגופים, ונחזיר לכם רשימה מסודרת עם מק״ט, גימור וגוון אור לכל גוף, והצעת מחיר אחת לכל הפרויקט.</p>
+      <p data-fade data-d=".1">שלחו לנו את התוכנית של הפרויקט. אנחנו נתאים לכל חלל את הגופים, ונחזיר לכם רשימה מסודרת עם מק״ט, גימור וגוון אור לכל גוף, ומחיר כולל לכל הפרויקט.</p>
+      <ul class="pro-perks" data-fade data-d=".15">
+        <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><b>מחיר מיוחד</b> למעצבות ולאדריכלים, על כל הפרויקט ביחד</span></li>
+        <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><b>קופון מתנה</b> ללקוחות שלכם, לקנייה בחנות</span></li>
+        <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><b>ליווי אישי</b> מהתוכנית ועד שהאור נדלק</span></li>
+      </ul>
       <div class="row" data-fade data-d=".2">
         <a class="btn btn-k" href="mailto:spotline770@gmail.com?subject=%D7%AA%D7%95%D7%9B%D7%A0%D7%99%D7%AA%20%D7%AA%D7%90%D7%95%D7%A8%D7%94%20%D7%9C%D7%A4%D7%A8%D7%95%D7%99%D7%A7%D7%98"><span class="bl">שלחו לנו את התוכנית</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
         <a class="btn btn-ko" href="https://wa.me/97286377033?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%A2%D7%A6%D7%91%D7%AA%20%D7%95%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%AA%D7%95%D7%9B%D7%A0%D7%99%D7%AA%20%D7%AA%D7%90%D7%95%D7%A8%D7%94" target="_blank" rel="noopener"><span class="bl">או בוואטסאפ</span></a>
       </div>
       <p class="pro-fmt" data-fade data-d=".25">אפשר לשלוח PDF, קובץ אוטוקאד או צילום של הסקיצה. נחזור אליכם עוד באותו יום.</p>
       <div class="boq" id="boq" aria-live="polite">
-        <div class="boq-t">ככה נראית הרשימה שתקבלו</div>
+        <div class="boq-t">דוגמה לרשימה שתקבלו<small>כל פרויקט מקבל רשימה משלו, לפי התוכנית שלכם.</small></div>
         <div class="boq-h"><span>מק״ט</span><span>גוף</span><span>חלל</span><span>כמות</span></div>
         <ol class="boq-rows" id="boqRows"></ol>
-        <div class="boq-f"><b><span id="boqN">0</span> גופים</b><b><span id="boqR">0</span> חללים</b><b>והצעת מחיר אחת לכולם</b></div>
+        <div class="boq-f"><b><span id="boqN">0</span> גופים</b><b><span id="boqR">0</span> חללים</b><b>ומחיר כולל לכל הפרויקט</b></div>
       </div>
     </div>
     <figure class="plan" id="plan" aria-label="דוגמה: תוכנית של דירה עם גופי התאורה שהתאמנו לכל חלל">
-      <ol class="plan-steps" id="planSteps" aria-label="ככה זה עובד"><li><b>01</b>שולחים לנו תוכנית</li><li><b>02</b>אנחנו מתאימים גופים</li><li><b>03</b>מקבלים רשימה והצעת מחיר</li></ol>
+      <ol class="plan-steps" id="planSteps" aria-label="ככה זה עובד"><li><b>01</b>אתם שולחים לנו תוכנית<small>PDF, קובץ אוטוקאד או צילום של סקיצה</small></li><li><b>02</b>אנחנו מתאימים גופים לכל חלל<small>לפי הסגנון של הפרויקט והאור שצריך בכל חדר</small></li><li><b>03</b>אתם מקבלים רשימה והצעת מחיר מסודרת<small>כל גוף עם מק״ט, גימור וגוון אור, ומחיר כולל לפרויקט</small></li></ol>
       <div class="plan-in">
         <svg id="planSvg" viewBox="0 0 640 440" role="img" aria-labelledby="planT"><title id="planT">תוכנית דירה עם סימון גופי תאורה בכל חלל</title></svg>
         <i class="plan-torch" aria-hidden="true"></i>
@@ -1837,16 +1876,16 @@ window.__sl=true;
   function build(){
     DPR=Math.min(devicePixelRatio||1,2);W=cv.clientWidth;H=cv.clientHeight;if(!W||!H)return false;
     cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR);x.setTransform(DPR,0,0,DPR,0,0);
-    var M=mqM.matches;N=M?1500:4400;
+    var M=mqM.matches;N=M?1700:5600;
     ax=W*cssPct("--ax",29);
-    s=M?Math.max(.6,Math.min(1.25,W*.7/280,H/430)):Math.max(1,Math.min(2.1,W*.4/280,H/470));
-    len=M?H*.15:H*.2;var EXT=[76,62,178,116,147],LIM=H*(M?.8:.7);
+    s=M?Math.max(.6,Math.min(1.25,W*.7/280,H/430)):Math.max(1.1,Math.min(2.8,W*.52/280,H/390));
+    len=M?H*.15:H*.18;var EXT=[76,62,178,116,147],LIM=H*(M?.8:.76);
     shapes=[];
     var oc=document.createElement("canvas");oc.width=W;oc.height=H;var o=oc.getContext("2d",{willReadFrequently:true});
     for(var k=0;k<5;k++){
       o.clearRect(0,0,W,H);o.fillStyle="#000";
       var lk=Math.max(H*.06,Math.min(len,LIM-EXT[k]*s)),bulb=shapeDraw(o,k,ax,lk,s);
-      var x0=Math.max(0,Math.floor(ax-150*s)),x1=Math.min(W,Math.ceil(ax+150*s)),y0=Math.max(0,Math.floor(lk-12*s)),y1=Math.min(H,Math.ceil(lk+190*s));
+      var x0=Math.max(0,Math.floor(ax-152*s)),x1=Math.min(W,Math.ceil(ax+152*s)),y0=Math.max(0,Math.floor(lk-12*s)),y1=Math.min(H,Math.ceil(lk+190*s));
       var bw=x1-x0,bh=y1-y0,d=o.getImageData(x0,y0,bw,bh).data,pts=[],need=Math.round(N*.74),tries=0;
       while(pts.length<need&&tries<700000){tries++;var px=Math.random()*bw|0,py=Math.random()*bh|0;if(d[4*(py*bw+px)+3]>0)pts.push([x0+px+Math.random(),y0+py+Math.random(),0])}
       var cable=Math.round(N*.06);for(var i=0;i<cable;i++)pts.push([ax+(Math.random()-.5)*1.4,Math.random()*lk,1]);
@@ -2109,6 +2148,17 @@ window.__sl=true;
   /* the cursor is a small torch over the plan */
   var inr=plan.querySelector(".plan-in"),torch=plan.querySelector(".plan-torch");
   inr.addEventListener("pointermove",function(e){var b=inr.getBoundingClientRect();torch.style.transform="translate("+(e.clientX-b.left)+"px,"+(e.clientY-b.top)+"px)"},{passive:true});
+})();
+</script>
+<script>
+/* v8 "why" panels: each pendant switches on in turn when the panels come into view; hover makes it flicker */
+(function(){
+  var g=document.getElementById("whyGrid");if(!g)return;var ps=[].slice.call(g.querySelectorAll(".wy"));
+  var RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function on(){ps.forEach(function(p,i){setTimeout(function(){p.classList.add("on")},RM?0:i*320)})}
+  if(RM||!("IntersectionObserver" in window))on();
+  else{var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){on();io.disconnect()}},{threshold:.35});io.observe(g)}
+  ps.forEach(function(p){p.addEventListener("pointerenter",function(){if(RM||!p.classList.contains("on"))return;p.classList.remove("flick");void p.offsetWidth;p.classList.add("flick")})});
 })();
 </script>
 </body>

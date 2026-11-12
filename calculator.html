@@ -420,9 +420,15 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
 .pro-list li span{color:#3a3320}
 .pro-list li b{font-weight:700;text-align:left}
 
+.ptx{position:relative;display:inline-block;-webkit-user-select:none;user-select:none;cursor:default}
+.dream,.bye{cursor:default;-webkit-user-select:none;user-select:none}
+.pbl{display:inline-block;width:0;height:0;vertical-align:baseline}
+.ptx>canvas{position:absolute;pointer-events:none}
+.pt-on .ptx{color:transparent}
+.pt-on .ptx em{color:transparent}
 /* ---------- footer ---------- */
 .ftr{position:relative;border-top:1px solid var(--line);padding-top:clamp(64px,7vw,100px);overflow:hidden}
-.ftr-top{display:grid;grid-template-columns:1.3fr repeat(3,1fr);gap:40px}
+.ftr-top{display:grid;grid-template-columns:1.3fr repeat(4,1fr);gap:40px}
 .ftr .logo .lg{height:88px}
 .ftr .lg-arc,.ftr .lg-stem{stroke-width:2.4}
 .anim .ftr .logo:not(.in) .lg-arc{stroke-dashoffset:1}
@@ -878,7 +884,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
   <div class="wrap">
     <div class="ftr-top">
       <div>
-        <a class="logo" id="ftrLogo" href="index.html" aria-label="ספוטליין - לעמוד הבית">
+        <a class="logo" id="ftrLogo" href="#top" aria-label="ספוטליין - לראש העמוד">
           <svg class="lg" viewBox="0 0 306.29 164.94" aria-hidden="true" focusable="false">
             <defs><clipPath id="lgCut-f"><rect x="0" y="66" width="306.29" height="98.94"/></clipPath></defs>
             <path class="lg-word" fill="currentColor" clip-path="url(#lgCut-f)" d="M304.29 109.67C304.29 116.82 301.88 122.66 297.04 127.18C292.21 131.71 285.97 133.97 278.31 133.97C270.66 133.97 264.41 131.71 259.58 127.18C254.75 122.66 252.33 116.82 252.33 109.67L252.33 82.85L304.29 82.85ZM111.08 109.00C111.08 116.32 108.75 122.31 104.08 126.97C99.42 131.64 93.37 133.97 85.94 133.97C78.51 133.97 72.46 131.64 67.79 126.97C63.13 122.31 60.80 116.32 60.80 109.00L74.79 109.00C74.79 112.74 75.80 115.74 77.81 118.01C79.82 120.27 82.53 121.40 85.94 121.40C89.35 121.40 92.06 120.27 94.07 118.01C96.08 115.74 97.09 112.74 97.09 109.00L97.09 95.42L60.80 95.42L60.80 74.66L72.82 72.23C72.86 71.73 72.88 71.22 72.88 70.72L72.88 56.98C72.88 26.66 98.41 2.00 129.78 2.00C161.13 2.00 186.66 26.66 186.66 56.98L186.66 66.02L191.80 66.02C192.55 66.02 193.16 66.61 193.16 67.34C193.16 67.70 193.01 68.03 192.77 68.27L193.04 68.27C193.95 68.27 194.69 68.99 194.69 69.87C194.69 70.23 194.56 70.57 194.35 70.84C195.39 70.87 196.23 71.71 196.23 72.72C196.23 73.33 195.93 73.87 195.47 74.22L196.02 74.22C197.30 74.22 198.35 75.24 198.35 76.49C198.35 77.74 197.30 78.76 196.02 78.76L175.71 78.76C174.42 78.76 173.38 77.74 173.38 76.49C173.38 75.24 174.42 74.22 175.71 74.22L176.25 74.22C175.79 73.87 175.49 73.33 175.49 72.72C175.49 71.71 176.33 70.87 177.38 70.84C177.17 70.57 177.04 70.23 177.04 69.87C177.04 68.99 177.78 68.27 178.68 68.27L178.95 68.27C178.71 68.03 178.56 67.70 178.56 67.34C178.56 66.61 179.17 66.02 179.93 66.02L185.15 66.02L185.15 56.98C185.15 27.48 160.30 3.46 129.76 3.46C99.24 3.46 74.41 27.48 74.41 56.98L74.41 82.85L111.08 82.85ZM173.28 109.67C173.28 116.82 170.79 122.66 165.82 127.18C160.85 131.71 154.48 133.97 146.71 133.97C138.94 133.97 132.58 131.71 127.60 127.18C122.63 122.66 120.14 116.82 120.14 109.67L120.14 82.85L134.14 82.85L134.14 108.83C134.14 112.63 135.30 115.67 137.62 117.96C139.94 120.26 142.97 121.40 146.71 121.40C150.46 121.40 153.49 120.26 155.81 117.96C158.12 115.67 159.28 112.63 159.28 108.83L159.28 97.51L142.86 110.50L142.86 95.84L159.28 82.85L173.28 82.85ZM224.21 133.13L198.57 133.13L198.57 120.56L221.95 120.56C226.25 120.56 229.56 119.47 231.88 117.29C234.20 115.11 235.36 112.04 235.36 108.07C235.36 104.05 234.20 100.94 231.88 98.73C229.56 96.52 226.25 95.42 221.95 95.42L212.31 95.42L212.31 108.41L198.57 108.41L198.57 82.85L224.21 82.85C232.37 82.85 238.61 85.07 242.94 89.51C247.27 93.95 249.41 100.14 249.36 108.07C249.30 116.01 247.11 122.17 242.78 126.55C238.44 130.94 232.26 133.13 224.21 133.13ZM2.00 82.85L16.00 82.85L16.00 162.94L2.00 162.94ZM178.78 82.85L192.78 82.85L192.78 133.13L178.78 133.13ZM266.33 95.42L266.33 108.83C266.33 112.63 267.42 115.67 269.59 117.96C271.78 120.26 274.68 121.40 278.31 121.40C281.94 121.40 284.85 120.26 287.03 117.96C289.21 115.67 290.30 112.63 290.30 108.83L290.30 95.42ZM55.43 111.18L41.44 111.18L41.44 86.46L55.43 82.85ZM35.75 111.18L21.76 111.18L21.76 86.91L35.75 82.85Z"/>
@@ -893,14 +899,24 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
       </div>
       <div><h4>מוצרים</h4><ul id="fCats"></ul></div>
       <div><h4>לפי חלל</h4><ul id="fRooms"></ul></div>
-      <div><h4>החנות</h4><ul><li><a href="index.html#why">למה ספוטליין</a></li><li><a href="#top">מחשבון תאורה</a></li><li><a href="index.html#pro">למעצבות ולאדריכלים</a></li><li><a href="index.html#visit">הגעה ויצירת קשר</a></li><li><a href="tel:086377033" style="direction:ltr;display:inline-block">08-6377033</a></li></ul></div>
+      <div><h4>החנות</h4><ul><li><a href="index.html#why">למה ספוטליין</a></li><li><a href="calculator.html">מחשבון תאורה</a></li><li><a href="index.html#pro">למעצבות ולאדריכלים</a></li><li><a href="index.html#visit">הגעה ויצירת קשר</a></li><li><a href="tel:086377033" style="direction:ltr;display:inline-block">08-6377033</a></li></ul></div>
+      <div><h4>חיפושים נפוצים</h4><ul>
+        <li><a href="index.html#cats" data-cat="recessed">ספוטים שקועים לתקרה</a></li>
+        <li><a href="index.html#cats" data-cat="track">פס צבירה מגנטי</a></li>
+        <li><a href="index.html#cats" data-cat="pendant">מנורה תלויה לפינת אוכל</a></li>
+        <li><a href="index.html#cats" data-cat="profile">פרופיל לד לתקרה</a></li>
+        <li><a href="index.html#cats" data-cat="outdoor">תאורת חוץ לגינה</a></li>
+        <li><a href="index.html#rooms" data-room="0">תאורה לסלון</a></li>
+        <li><a href="calculator.html">כמה וואט צריך לחדר</a></li>
+        <li><a href="index.html#visit">חנות תאורה בראשון לציון</a></li>
+      </ul></div>
     </div>
     <div class="ftr-bot">
       <div>© 2026 ספוטליין. כל הזכויות שמורות · <span>תקנון</span> · <span>הצהרת נגישות</span> · <span>מדיניות פרטיות</span></div>
       <div>עיצוב ובנייה: חיים קליין</div>
     </div>
   </div>
-  <div class="bye" aria-hidden="true"><span>ספוטליין<em>.</em></span></div>
+  <div class="bye" aria-hidden="true"><span class="ptx">ספוטליין<em>.</em><i class="pbl"></i></span></div>
 </footer>
 
 <!-- ============ overlays ============ -->
@@ -1785,6 +1801,75 @@ window.__sl=true;
       setTimeout(function(){lg.classList.remove("replay")},total+1400)},420);
   }
   setTimeout(function(){cycle();setInterval(cycle,9000)},6500);
+})();
+</script>
+<script>
+/* v5 particle words: "כל חלום" is dark dust that lights up gold under the pointer (and under a slow idle sweep),
+   and the closing footer word "ספוטליין." is made of yellow particles that scatter and flare when touched.
+   The real text stays in the DOM for search engines and screen readers; the canvas only paints it. */
+(function(){
+  var RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function ptext(host,o){
+    var span=host.querySelector(".ptx"),mark=span&&span.querySelector(".pbl");if(!span||!mark)return;
+    var cv=document.createElement("canvas");cv.setAttribute("aria-hidden","true");span.appendChild(cv);
+    var x=cv.getContext("2d"),W=0,H=0,P=[],mx=-1e4,my=-1e4,pmx=null,pmy=null,spd=0,last=-1e4,vis=false,raf=0,t0=performance.now(),ok=false,LV=8,B=[];
+    for(var b=0;b<LV;b++)B.push([]);
+    function build(){
+      var cs=getComputedStyle(span),fs=parseFloat(cs.fontSize);if(!fs)return;
+      var padX=fs*.08,padT=fs*.35,padB=fs*.25;
+      cv.style.left=-padX+"px";cv.style.right=-padX+"px";cv.style.top=-padT+"px";cv.style.bottom=-padB+"px";
+      var sr=span.getBoundingClientRect();W=Math.round(sr.width+2*padX);H=Math.round(sr.height+padT+padB);if(W<10||H<10)return;
+      var DPR=Math.min(devicePixelRatio||1,2);cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR);cv.style.width=W+"px";cv.style.height=H+"px";x.setTransform(DPR,0,0,DPR,0,0);
+      var oc=document.createElement("canvas");oc.width=W;oc.height=H;var c=oc.getContext("2d",{willReadFrequently:true});
+      var font=cs.fontStyle+" "+cs.fontWeight+" "+fs+"px "+cs.fontFamily;c.font=font;c.direction="rtl";c.textAlign="right";c.textBaseline="alphabetic";
+      var base=mark.getBoundingClientRect().top-sr.top+padT, right=sr.width+padX, txt=o.text;
+      c.fillStyle="#000";c.fillText(txt,right,base);
+      var dotX=-1;if(o.dot){var tw=c.measureText(txt).width,dw=c.measureText(o.dot).width;dotX=right-tw+dw*1.15}
+      var d=c.getImageData(0,0,W,H).data,small=innerWidth<700,max=small?o.maxM:o.max,gap=Math.max(2,Math.round(fs/o.div)),pts;
+      for(var tries=0;tries<6;tries++){pts=[];for(var yy=0;yy<H;yy+=gap)for(var xx=0;xx<W;xx+=gap)if(d[4*(yy*W+xx)+3]>140)pts.push([xx,yy]);if(pts.length<=max)break;gap++}
+      var old=P;P=[];
+      for(var i=0;i<pts.length;i++){var q=old[i],hx=pts[i][0]+(Math.random()-.5)*gap*.7,hy=pts[i][1]+(Math.random()-.5)*gap*.7;
+        P.push({hx:hx,hy:hy,x:q?q.x:hx,y:q?q.y:hy,vx:0,vy:0,h:q?q.h:0,r:gap*o.rf*(.75+Math.random()*.5),w:dotX>0&&hx<dotX})}
+      ok=true;host.classList.add("pt-on");if(RM||!raf)draw(performance.now(),true);
+    }
+    function draw(ts,still){
+      x.clearRect(0,0,W,H);for(var b=0;b<LV;b++)B[b].length=0;
+      spd*=.94;var R=o.radius*(innerWidth<700?.75:1)*(1+spd*.1),R2=R*R,PU=o.push*(1+spd*.6),sx=-1e4,sy=-1e4,sweep=o.sweep&&!still&&ts-last>1600;
+      if(sweep){var tt=(ts-t0)/1000;sx=W*(.5+.44*Math.sin(tt*.42));sy=H*(.55+.22*Math.sin(tt*.83))}
+      for(var i=0;i<P.length;i++){var p=P[i],hot=0;
+        if(!still){
+          var dx=p.x-mx,dy=p.y-my,dd=dx*dx+dy*dy;
+          if(dd<R2){var dist=Math.sqrt(dd)||1,f=1-dist/R;hot=f;if(PU){p.vx+=dx/dist*f*PU+(Math.random()-.5)*f;p.vy+=dy/dist*f*PU+(Math.random()-.5)*f}}
+          if(sweep){var ex=p.x-sx,ey=p.y-sy,ee=ex*ex+ey*ey;if(ee<R2*1.4){var g=1-Math.sqrt(ee/(R2*1.4));if(g*.85>hot)hot=g*.85}}
+          if(hot>p.h)p.h=p.h+(hot-p.h)*.35;else p.h*=o.decay;
+          p.vx+=(p.hx-p.x)*o.k;p.vy+=(p.hy-p.y)*o.k;p.vx*=o.damp;p.vy*=o.damp;p.x+=p.vx;p.y+=p.vy;
+        }
+        var lv=Math.min(LV-1,(p.h*LV)|0);B[p.w?0:lv].push(p);
+      }
+      for(var k=0;k<LV;k++){var arr=B[k];if(!arr.length)continue;
+        x.fillStyle=o.color(k/(LV-1),k===0&&o.dot?arr:null);
+        for(var j=0;j<arr.length;j++){var q=arr[j];if(q.w)continue;var r=q.r*(1+q.h*.35);x.fillRect(q.x-r/2,q.y-r/2,r,r)}
+      }
+      if(o.dot){x.fillStyle=o.dotColor;for(var m=0;m<B[0].length;m++){var z=B[0][m];if(!z.w)continue;x.fillRect(z.x-z.r/2,z.y-z.r/2,z.r,z.r)}}
+    }
+    function loop(ts){draw(ts,false);raf=vis?requestAnimationFrame(loop):0}
+    function start(){if(ok&&vis&&!RM&&!raf)raf=requestAnimationFrame(loop)}
+    var zone=o.zone||host;
+    zone.addEventListener("pointermove",function(e){var r=cv.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top;if(pmx!==null){var v=Math.hypot(mx-pmx,my-pmy);spd=Math.min(1.2,spd*.6+v*.04)}pmx=mx;pmy=my;last=performance.now()},{passive:true});
+    zone.addEventListener("pointerleave",function(){mx=my=-1e4;pmx=pmy=null;spd=0});
+    ["pointerup","pointercancel"].forEach(function(t){zone.addEventListener(t,function(e){if(e.pointerType!=="mouse")setTimeout(function(){mx=my=-1e4},300)})});
+    if("IntersectionObserver" in window)new IntersectionObserver(function(es){vis=es[0].isIntersecting;start()},{rootMargin:"80px"}).observe(host);else{vis=true}
+    document.addEventListener("visibilitychange",function(){vis=document.visibilityState==="visible"&&vis;start()});
+    var rz;addEventListener("resize",function(){clearTimeout(rz);rz=setTimeout(function(){build();start()},260)});
+    var go=function(){build();start()};
+    if(document.fonts&&document.fonts.load){Promise.all([document.fonts.load(o.fontProbe),document.fonts.ready]).then(function(){setTimeout(go,60)},go)}else setTimeout(go,300);
+  }
+  var dream=document.getElementById("dream");
+  if(dream)ptext(dream,{text:"כל חלום",fontProbe:'700 100px "Placebo"',div:48,rf:.5,max:6000,maxM:2400,radius:120,push:1.1,k:.055,damp:.84,decay:.988,sweep:true,
+    color:function(t){var a=(.22+t*.78).toFixed(3),r=Math.round(150+105*t),g=Math.round(135+61*t),b=Math.round(115-75*t);return "rgba("+r+","+g+","+b+","+a+")"}});
+  var bye=document.querySelector(".bye");
+  if(bye)ptext(bye,{text:"ספוטליין.",dot:".",fontProbe:'900 100px "Primaries"',div:52,rf:.62,max:8000,maxM:2800,radius:110,push:1.5,k:.06,damp:.83,decay:.95,sweep:false,zone:document.getElementById("ftr"),
+    dotColor:"#ffffff",color:function(t){var r=255,g=Math.round(189+62*t),b=Math.round(0+235*t);return "rgb("+r+","+g+","+b+")"}});
 })();
 </script>
 </body>
