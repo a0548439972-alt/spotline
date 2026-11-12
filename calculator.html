@@ -426,6 +426,8 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
 .ptx>canvas{position:absolute;pointer-events:none}
 .pt-on .ptx{color:transparent}
 .pt-on .ptx em{color:transparent}
+.wa-note{margin-top:12px;font-size:14px;line-height:1.55;color:var(--mut)}
+.fx-cat{text-decoration:none}
 /* ---------- footer ---------- */
 .ftr{position:relative;border-top:1px solid var(--line);padding-top:clamp(64px,7vw,100px);overflow:hidden}
 .ftr-top{display:grid;grid-template-columns:1.3fr repeat(4,1fr);gap:40px}
@@ -776,9 +778,10 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
           <p class="note" id="note" hidden>אור עקיף ואור הדגשה נספרים רק בחלקם, ולכן הוואט שבחרתם יכול לצאת גבוה מהיעד.</p>
         </div>
         <div class="res-acts">
-          <a class="btn btn-y" data-wa href="#" target="_blank" rel="noopener"><span class="bl">שליחת התכנון בוואטסאפ</span></a>
-          <button class="btn btn-o" type="button" id="allToCart" disabled><span class="bl">הכול לסל להצעת מחיר</span></button>
+          <a class="btn btn-y" data-wa href="#" target="_blank" rel="noopener"><span class="bl">שליחת התכנון לחנות</span></a>
+          <a class="btn btn-o" id="allToCart" href="index.html#cats"><span class="bl">לבחירת גופים בקטלוג</span></a>
         </div>
+        <p class="wa-note">שלחו לנו את התכנון בוואטסאפ, ונחזור אליכם עם גופים מתאימים מהקטלוג והצעת מחיר.</p>
         <p class="sr" id="live" aria-live="polite"></p>
       </div>
     </div>
@@ -899,7 +902,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
       </div>
       <div><h4>מוצרים</h4><ul id="fCats"></ul></div>
       <div><h4>לפי חלל</h4><ul id="fRooms"></ul></div>
-      <div><h4>החנות</h4><ul><li><a href="index.html#why">למה ספוטליין</a></li><li><a href="calculator.html">מחשבון תאורה</a></li><li><a href="index.html#pro">למעצבות ולאדריכלים</a></li><li><a href="index.html#visit">הגעה ויצירת קשר</a></li><li><a href="tel:086377033" style="direction:ltr;display:inline-block">08-6377033</a></li></ul></div>
+      <div><h4>החנות</h4><ul><li><a href="index.html#why">למה ספוטליין</a></li><li><a href="מחשבון-תאורה-4.html">מחשבון תאורה</a></li><li><a href="index.html#pro">למעצבות ולאדריכלים</a></li><li><a href="index.html#visit">הגעה ויצירת קשר</a></li><li><a href="tel:086377033" style="direction:ltr;display:inline-block">08-6377033</a></li></ul></div>
       <div><h4>חיפושים נפוצים</h4><ul>
         <li><a href="index.html#cats" data-cat="recessed">ספוטים שקועים לתקרה</a></li>
         <li><a href="index.html#cats" data-cat="track">פס צבירה מגנטי</a></li>
@@ -907,7 +910,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
         <li><a href="index.html#cats" data-cat="profile">פרופיל לד לתקרה</a></li>
         <li><a href="index.html#cats" data-cat="outdoor">תאורת חוץ לגינה</a></li>
         <li><a href="index.html#rooms" data-room="0">תאורה לסלון</a></li>
-        <li><a href="calculator.html">כמה וואט צריך לחדר</a></li>
+        <li><a href="מחשבון-תאורה-4.html">כמה וואט צריך לחדר</a></li>
         <li><a href="index.html#visit">חנות תאורה בראשון לציון</a></li>
       </ul></div>
     </div>
@@ -1435,11 +1438,12 @@ rH.addEventListener("input",()=>{S.H=+rH.value;render()});
 const fill=r=>r.style.setProperty("--p",((r.value-r.min)/(r.max-r.min)*100)+"%");
 
 /* fixture lines */
+const CATMAP={recessed:"recessed",gimbal:"recessed",magSpot:"track",magLinear:"track",trackSpot:"track",profile:"profile",strip:"profile",pendant:"pendant",ceiling:"ceiling",wall:"wall",bulb:"bulb"};
 $("#fxList").innerHTML=ORDER.map(t=>{const f=FIXTURES[t],m=isM(t);
   const opts=Object.keys(f.opts).map(w=>`<button type="button" data-w="${w}" aria-pressed="false">${w}</button>`).join("");
   return `<li class="fx" data-t="${t}">
   <div class="fx-h">${icoSym(t)}<div><h3 id="fxn-${t}">${f.he}</h3><small data-lmu></small></div></div>
-  <div class="fx-r"><div class="fx-sum" data-sum></div><button class="fx-add" type="button" data-addline disabled><svg aria-hidden="true"><use href="#i-plus"/></svg><span>לסל</span></button></div>
+  <div class="fx-r"><div class="fx-sum" data-sum></div><a class="fx-add fx-cat" href="${HOME}#cats" data-cat="${CATMAP[t]||""}" aria-label="גופים מסוג ${f.he} בקטלוג"><span>בקטלוג</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
   <div class="fx-ctl">
    <div class="fx-w"><div class="opts sm" role="group" aria-label="הספק של ${f.he}, בוואט${m?" למטר":""}">${opts}</div><span class="fx-u">וואט${m?" למטר":""}</span></div>
    <div class="fx-q"><div class="qty"><button type="button" data-inc aria-label="עוד ${m?"חצי מטר":"יחידה"} של ${f.he}"><svg aria-hidden="true"><use href="#i-plus"/></svg></button><input type="number" min="0" max="${m?60:40}" step="${m?0.5:1}" inputmode="decimal" aria-label="${m?"כמה מטר":"כמה יחידות"} של ${f.he}"><button type="button" data-dec aria-label="פחות ${m?"חצי מטר":"יחידה"} של ${f.he}"><svg aria-hidden="true"><use href="#i-minus"/></svg></button></div><span class="fx-u">${m?"מטר":"יחידות"}</span></div>
@@ -1622,21 +1626,16 @@ function renderCart(){
       <div class="ci-a">${qtyHTML(it.q,(m?"כמה מטר של ":"כמות של ")+it.n)}<button class="rm" type="button" data-rm>הסרה</button></div></div></div>`}
     const p=prod(it.id);return `<div class="ci" data-id="${it.id}"><img src="${p.img}" alt="" width="64" height="80"><div><b>${p.n}</b><small>מק״ט <span>${p.id}</span></small><small>${metaLine(it)}</small>
       <div class="ci-a">${qtyHTML(it.q,"כמות של "+p.n)}<button class="rm" type="button" data-rm>הסרה</button></div></div></div>`}).join("")
-   :`<div class="empty"><b>הסל ריק בינתיים.</b><p>בחרו גופים במחשבון ולחצו "לסל", או הוסיפו מוצרים מהקטלוג.</p><a class="btn btn-o" href="${HOME}#cats"><span class="bl">לקטלוג</span></a></div>`;
+   :`<div class="empty"><b>הסל ריק בינתיים.</b><p>הוסיפו מוצרים מהקטלוג, והם יחכו לכם כאן.</p><a class="btn btn-o" href="${HOME}#cats"><span class="bl">לקטלוג</span></a></div>`;
   save();syncAddBtns();
 }
-function syncAddBtns(){ORDER.forEach(t=>{const li=rows[t];if(!li)return;const b=$("[data-addline]",li),ln=S.lines[t],on=ln.q>0;
-  const it=cart.find(x=>x.id===calcId(t)),q=isM(t)?Math.ceil(ln.q):ln.q,inB=!!it&&it.q===q;
-  b.disabled=!on;b.classList.toggle("done",on&&inB);
-  $("span",b).textContent=on&&inB?"בסל":on&&it?"עדכון בסל":"לסל";$("use",b).setAttribute("href",on&&inB?"#i-check":"#i-plus");
-  b.setAttribute("aria-label",`${on&&inB?"בסל":"הוספה לסל"}: ${lineName(t)}`)})}
+function syncAddBtns(){}
 function popBadge(){badge.classList.remove("pop");void badge.offsetWidth;badge.classList.add("pop")}
 let toastT;
 function toast(msg){$("#toastT").textContent=msg;$("#toast").classList.add("on");clearTimeout(toastT);toastT=setTimeout(()=>$("#toast").classList.remove("on"),3600)}
 function putLine(t){const ln=S.lines[t];if(!(ln.q>0))return false;const id=calcId(t),q=clamp(isM(t)?Math.ceil(ln.q):ln.q,1,99),k=curK();
   const it=cart.find(x=>x.id===id);if(it){it.q=q;it.k=k}else cart.push({id,q,calc:1,t,w:ln.w,mode:t==="profile"?ln.mode:"dir",n:calcN(t,ln.w,t==="profile"?ln.mode:"dir"),k});return true}
 function addLine(t){if(!putLine(t))return;renderCart();popBadge();toast("הוספנו לסל: "+lineName(t))}
-$("#allToCart").addEventListener("click",()=>{let n=0;ORDER.forEach(t=>{if(putLine(t))n++});if(!n)return;renderCart();popBadge();toast(n===1?"הוספנו לסל סוג גוף אחד":`הוספנו לסל ${n} סוגי גופים`)});
 
 /* modal helpers (inert + focus trap) */
 const FOC='a[href],button:not([disabled]),input:not([disabled]),textarea,select,[tabindex]:not([tabindex="-1"])';

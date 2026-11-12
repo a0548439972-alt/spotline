@@ -469,7 +469,12 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
 .pro .wrap.pro-grid{grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:clamp(36px,5vw,84px);align-items:start}
 .btn-ko{border:1px solid rgba(0,0,0,.55);color:#0a0a0a}.btn-ko::before{background:#0a0a0a}.btn-ko:hover{color:var(--y)}
 .pro-fmt{margin-top:14px!important;font-size:14px!important;color:rgba(0,0,0,.62)!important}
-.boq{margin-top:40px;font-size:14.5px}
+.boq{margin-top:14px;font-size:14.5px}
+.boq-d{margin-top:30px;border-top:1px solid rgba(0,0,0,.3)}
+.boq-d summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:16px 0;font-weight:700;font-size:16px;color:#0a0a0a}
+.boq-d summary::-webkit-details-marker{display:none}
+.boq-d summary::after{content:"+";font-size:24px;font-weight:400;line-height:1;transition:transform .3s}
+.boq-d[open] summary::after{transform:rotate(45deg)}
 .boq-t{font-family:var(--fd);font-size:20px;padding-bottom:10px;border-bottom:2px solid #0a0a0a}
 .boq-t small{display:block;font-family:var(--f);font-size:13.5px;color:rgba(0,0,0,.62);margin-top:2px}
 .pro-perks{list-style:none;margin-top:22px;display:grid;gap:10px}
@@ -1118,7 +1123,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
     <div class="pro-txt">
       <div class="eyebrow" data-fade>למעצבות ולאדריכלים</div>
       <h2 class="h2" id="proH" data-split><span class="l1"><span>מגיעים</span></span><span class="l2"><span>עם תוכנית?</span></span></h2>
-      <p data-fade data-d=".1">שלחו לנו את התוכנית של הפרויקט. אנחנו נתאים לכל חלל את הגופים, ונחזיר לכם רשימה מסודרת עם מק״ט, גימור וגוון אור לכל גוף, ומחיר כולל לכל הפרויקט.</p>
+      <p data-fade data-d=".1">שלחו לנו את התוכנית. נתאים גופים לכל חלל, ונחזיר לכם רשימה מסודרת ומחיר כולל לכל הפרויקט.</p>
       <ul class="pro-perks" data-fade data-d=".15">
         <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><b>מחיר מיוחד</b> למעצבות ולאדריכלים, על כל הפרויקט ביחד</span></li>
         <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><b>קופון מתנה</b> ללקוחות שלכם, לקנייה בחנות</span></li>
@@ -1128,13 +1133,14 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
         <a class="btn btn-k" href="mailto:spotline770@gmail.com?subject=%D7%AA%D7%95%D7%9B%D7%A0%D7%99%D7%AA%20%D7%AA%D7%90%D7%95%D7%A8%D7%94%20%D7%9C%D7%A4%D7%A8%D7%95%D7%99%D7%A7%D7%98"><span class="bl">שלחו לנו את התוכנית</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
         <a class="btn btn-ko" href="https://wa.me/97286377033?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%A2%D7%A6%D7%91%D7%AA%20%D7%95%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%AA%D7%95%D7%9B%D7%A0%D7%99%D7%AA%20%D7%AA%D7%90%D7%95%D7%A8%D7%94" target="_blank" rel="noopener"><span class="bl">או בוואטסאפ</span></a>
       </div>
-      <p class="pro-fmt" data-fade data-d=".25">אפשר לשלוח PDF, קובץ אוטוקאד או צילום של הסקיצה. נחזור אליכם עוד באותו יום.</p>
+      <details class="boq-d" data-fade data-d=".25"><summary>לראות דוגמה לרשימה שתקבלו</summary>
       <div class="boq" id="boq" aria-live="polite">
         <div class="boq-t">דוגמה לרשימה שתקבלו<small>כל פרויקט מקבל רשימה משלו, לפי התוכנית שלכם.</small></div>
         <div class="boq-h"><span>מק״ט</span><span>גוף</span><span>חלל</span><span>כמות</span></div>
         <ol class="boq-rows" id="boqRows"></ol>
         <div class="boq-f"><b><span id="boqN">0</span> גופים</b><b><span id="boqR">0</span> חללים</b><b>ומחיר כולל לכל הפרויקט</b></div>
       </div>
+      </details>
     </div>
     <figure class="plan" id="plan" aria-label="דוגמה: תוכנית של דירה עם גופי התאורה שהתאמנו לכל חלל">
       <ol class="plan-steps" id="planSteps" aria-label="ככה זה עובד"><li><b>01</b>אתם שולחים לנו תוכנית<small>PDF, קובץ אוטוקאד או צילום של סקיצה</small></li><li><b>02</b>אנחנו מתאימים גופים לכל חלל<small>לפי הסגנון של הפרויקט והאור שצריך בכל חדר</small></li><li><b>03</b>אתם מקבלים רשימה והצעת מחיר מסודרת<small>כל גוף עם מק״ט, גימור וגוון אור, ומחיר כולל לפרויקט</small></li></ol>
@@ -1143,13 +1149,6 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
         <i class="plan-torch" aria-hidden="true"></i>
       </div>
       <figcaption class="plan-cap">
-        <ul class="plan-key" aria-label="מקרא">
-          <li><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="5" fill="none" stroke="#0a0a0a" stroke-width="1.4"/><path d="M2 10h16M10 2v16" stroke="#0a0a0a"/></svg>ספוט שקוע</li>
-          <li><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="#0a0a0a" fill-opacity=".15" stroke="#0a0a0a"/><circle cx="10" cy="10" r="3" fill="#0a0a0a"/></svg>מנורה תלויה</li>
-          <li><svg viewBox="0 0 28 20" aria-hidden="true"><rect x="2" y="7" width="24" height="6" fill="#0a0a0a" fill-opacity=".18" stroke="#0a0a0a"/><path d="M6 10h16" stroke="#0a0a0a" stroke-width="2"/></svg>מנורה ליניארית</li>
-          <li><svg viewBox="0 0 28 20" aria-hidden="true"><path d="M2 10h24" stroke="#0a0a0a" stroke-width="4" stroke-dasharray="6 3"/></svg>פרופיל לד</li>
-        </ul>
-        <div class="plan-sw"><span>כבו והדליקו:</span><div id="planSw" role="group" aria-label="כיבוי והדלקה לפי חלל"></div></div>
         <span class="tb">דוגמה: תוכנית תאורה למטבח, פינת אוכל, סלון וכניסה</span>
       </figcaption>
     </figure>
@@ -2140,11 +2139,11 @@ window.__sl=true;
   function rowsOf(id){return rowsEl.querySelectorAll('li[data-room="'+id+'"]')}
   function toggle(id){var G=groups[id],off=!G.g.classList.contains("off");G.g.classList.toggle("off",off);G.pg.classList.toggle("off",off);rowsOf(id).forEach(function(li){li.classList.toggle("dim",off)})}
   roomL.style.display="none";
-  var sw=document.getElementById("planSw");
+  var sw=document.getElementById("planSw");if(sw){
   sw.innerHTML=ROOMS.map(function(r){return '<button type="button" aria-pressed="true" data-room="'+r.id+'"><i aria-hidden="true"></i>'+r.n+'</button>'}).join("");
   sw.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;toggle(b.dataset.room);b.setAttribute("aria-pressed",!groups[b.dataset.room].g.classList.contains("off"))});
   sw.addEventListener("pointerover",function(e){var b=e.target.closest("button");rowsEl.querySelectorAll("li").forEach(function(li){li.classList.toggle("hl",!!b&&li.dataset.room===b.dataset.room)})});
-  sw.addEventListener("pointerleave",function(){rowsEl.querySelectorAll("li.hl").forEach(function(li){li.classList.remove("hl")})});
+  sw.addEventListener("pointerleave",function(){rowsEl.querySelectorAll("li.hl").forEach(function(li){li.classList.remove("hl")})});}
   /* the cursor is a small torch over the plan */
   var inr=plan.querySelector(".plan-in"),torch=plan.querySelector(".plan-torch");
   inr.addEventListener("pointermove",function(e){var b=inr.getBoundingClientRect();torch.style.transform="translate("+(e.clientX-b.left)+"px,"+(e.clientY-b.top)+"px)"},{passive:true});
