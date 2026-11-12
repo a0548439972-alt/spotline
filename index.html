@@ -1065,7 +1065,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
       <div class="sb-k">חדש בחנות</div>
       <h2 class="h2"><span class="l1"><span>פסים מגנטיים</span></span><span class="l2"><span>בכל הגוונים</span></span></h2>
       <p class="sb-p">מסילה דקה בתקרה, וראשי תאורה שמזיזים לאן שצריך.</p>
-      <div><a class="btn btn-o" href="#cats" data-cat="track" tabindex="-1"><span class="bl">לפסי הצבירה</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+      <div><a class="btn btn-o" href="category.html?c=track" tabindex="-1"><span class="bl">לפסי הצבירה</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
     </div>
   </div>
   <div class="sb-dots" role="group" aria-label="בחירת באנר"><button type="button" aria-label="מבצע השקה" aria-pressed="true"></button><button type="button" aria-label="אולם התצוגה" aria-pressed="false"></button><button type="button" aria-label="חדש בחנות" aria-pressed="false"></button></div>
@@ -1201,11 +1201,11 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
       <div><h4>לפי חלל</h4><ul id="fRooms"></ul></div>
       <div><h4>החנות</h4><ul><li><a href="#why">למה ספוטליין</a></li><li><a href="calculator.html">מחשבון תאורה</a></li><li><a href="#pro">למעצבות ולאדריכלים</a></li><li><a href="#visit">הגעה ויצירת קשר</a></li><li><a href="tel:086377033" style="direction:ltr;display:inline-block">08-6377033</a></li></ul></div>
       <div><h4>חיפושים נפוצים</h4><ul>
-        <li><a href="#cats" data-cat="recessed">ספוטים שקועים לתקרה</a></li>
-        <li><a href="#cats" data-cat="track">פס צבירה מגנטי</a></li>
-        <li><a href="#cats" data-cat="pendant">מנורה תלויה לפינת אוכל</a></li>
-        <li><a href="#cats" data-cat="profile">פרופיל לד לתקרה</a></li>
-        <li><a href="#cats" data-cat="outdoor">תאורת חוץ לגינה</a></li>
+        <li><a href="category.html?c=recessed">ספוטים שקועים לתקרה</a></li>
+        <li><a href="category.html?c=track">פס צבירה מגנטי</a></li>
+        <li><a href="category.html?c=pendant">מנורה תלויה לפינת אוכל</a></li>
+        <li><a href="category.html?c=profile">פרופיל לד לתקרה</a></li>
+        <li><a href="category.html?c=outdoor">תאורת חוץ לגינה</a></li>
         <li><a href="#rooms" data-room="0">תאורה לסלון</a></li>
         <li><a href="calculator.html">כמה וואט צריך לחדר</a></li>
         <li><a href="#visit">חנות תאורה בראשון לציון</a></li>
@@ -1310,11 +1310,11 @@ const arrow=`<svg aria-hidden="true"><use href="#i-arrow"/></svg>`;
 const finCount=p=>p.f.length===1?"גימור אחד":`${p.f.length} גימורים`;
 
 /* ---------------- render ---------------- */
-$("#catGrid").innerHTML=CATS.map(c=>`<a class="cat" href="#cats" data-cat="${c.id}" data-fade><span class="cone" aria-hidden="true"></span><span class="cat-h">${ico(c.id)}<h3>${c.n}</h3></span><p>${c.d}</p><span class="go">${arrow}</span></a>`).join("");
-$("#megaCats").innerHTML=CATS.map(c=>`<a href="#cats" data-cat="${c.id}">${ico(c.id)}<span>${c.n}</span></a>`).join("");
+$("#catGrid").innerHTML=CATS.map(c=>`<a class="cat" href="category.html?c=${c.id}" data-fade><span class="cone" aria-hidden="true"></span><span class="cat-h">${ico(c.id)}<h3>${c.n}</h3></span><p>${c.d}</p><span class="go">${arrow}</span></a>`).join("");
+$("#megaCats").innerHTML=CATS.map(c=>`<a href="category.html?c=${c.id}">${ico(c.id)}<span>${c.n}</span></a>`).join("");
 $("#megaRooms").innerHTML=ROOMS.map((r,i)=>`<a class="room" href="#rooms" data-room="${i}">${r.n}</a>`).join("");
-$("#mCats").innerHTML=CATS.map(c=>`<a href="#cats" data-cat="${c.id}">${c.n}</a>`).join("");
-$("#fCats").innerHTML=CATS.map(c=>`<li><a href="#cats" data-cat="${c.id}">${c.n}</a></li>`).join("");
+$("#mCats").innerHTML=CATS.map(c=>`<a href="category.html?c=${c.id}">${c.n}</a>`).join("");
+$("#fCats").innerHTML=CATS.map(c=>`<li><a href="category.html?c=${c.id}">${c.n}</a></li>`).join("");
 $("#fRooms").innerHTML=ROOMS.map((r,i)=>`<li><a href="#rooms" data-room="${i}">${r.n}</a></li>`).join("");
 $("#roomList").innerHTML=ROOMS.map((r,i)=>`<a class="room-row" href="#rooms" data-room="${i}" data-img="${r.img}" data-fade><img class="th" src="${r.img}" alt="" width="72" height="72" loading="lazy" decoding="async"><h3>${r.n}</h3><p>${r.d}</p><span class="arw" aria-hidden="true">${arrow}</span></a>`).join("");
 $("#rail").innerHTML=PRODUCTS.map(p=>`
@@ -1540,13 +1540,13 @@ const cart=[];
 const finPick={}; let tone="warm", toneChosen=false;
 const KEY="sl-quote";
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(cart))}catch(e){}};
-try{const st=JSON.parse(localStorage.getItem(KEY)||"[]");if(Array.isArray(st))st.forEach(x=>{if(x&&prod(x.id)&&!cart.some(y=>y.id===x.id))cart.push({id:x.id,q:Math.max(1,Math.min(99,+x.q||1)),fin:FIN[x.fin]&&prod(x.id).f.includes(x.fin)?x.fin:null,tone:TONES[x.tone]?x.tone:null})})}catch(e){}
+try{const st=JSON.parse(localStorage.getItem(KEY)||"[]");if(Array.isArray(st))st.forEach(x=>{if(!x||!x.id||cart.some(y=>y.id===x.id))return;const q=Math.max(1,Math.min(99,+x.q||1));if(prod(x.id))cart.push({id:x.id,q,fin:FIN[x.fin]&&prod(x.id).f.includes(x.fin)?x.fin:null,tone:TONES[x.tone]?x.tone:null});else if(x.n)cart.push(Object.assign({},x,{q}))})}catch(e){}
 cart.forEach(x=>{if(x.fin)finPick[x.id]=x.fin});
 const drawer=$("#drawer"), scrim=$("#scrim"), badge=$("#badge"), bbar=$("#bbar");
 let cLast=null;
 function metaLine(it){
   const parts=[];
-  if(it.fin)parts.push("גימור: "+FIN[it.fin][1]);
+  if(it.fin)parts.push("גימור: "+(FIN[it.fin]?FIN[it.fin][1]:it.fin));
   if(it.tone)parts.push("גוון: "+TONES[it.tone].l);
   return parts.length?parts.join(" · "):"גימור וגוון נתאים איתכם";
 }
@@ -1557,7 +1557,7 @@ function renderCart(){
   badge.textContent=count();badge.classList.toggle("on",n>0);
   drawer.classList.toggle("empty",!n);
   $("#drCnt").textContent=n?" · "+nItems(count()):"";
-  $("#cartList").innerHTML=n?cart.map(it=>{const {id,q}=it,p=prod(id);return `<div class="ci" data-id="${id}"><img src="${p.img}" alt="" width="64" height="80"><div><b>${p.n}</b><small>מק״ט <span>${p.id}</span></small><small>${metaLine(it)}</small>
+  $("#cartList").innerHTML=n?cart.map(it=>{const {id,q}=it,p=prod(id)||{img:it.img||"assets/p1.jpg",n:it.n,id:it.sku||""};return `<div class="ci" data-id="${id}"><img src="${p.img}" alt="" width="64" height="80"><div><b>${p.n}</b><small>מק״ט <span>${p.id}</span></small><small>${metaLine(it)}</small>
     <div class="ci-a"><div class="qty"><button type="button" data-inc aria-label="הוספה"><svg aria-hidden="true"><use href="#i-plus"/></svg></button><input type="number" min="1" value="${q}" inputmode="numeric" aria-label="כמות של ${p.n}"><button type="button" data-dec aria-label="הפחתה"><svg aria-hidden="true"><use href="#i-minus"/></svg></button></div><button class="rm" type="button" data-rm>הסרה</button></div></div></div>`}).join("")
    :`<div class="empty"><b>הסל ריק בינתיים.</b><p>לחצו על "הוספה להצעת מחיר" בכל גוף שמעניין אתכם, והוא יחכה כאן.</p><a class="btn btn-o" href="#cats" id="emptyGo"><span class="bl">לקטלוג</span></a></div>`;
   $$("[data-add]").forEach(b=>{const on=cart.some(x=>x.id===b.dataset.add);b.classList.toggle("done",on);$("span",b).textContent=on?"נוסף להצעה":"הוספה להצעת מחיר";$("use",b).setAttribute("href",on?"#i-check":"#i-plus")});

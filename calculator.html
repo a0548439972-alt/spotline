@@ -1443,7 +1443,7 @@ $("#fxList").innerHTML=ORDER.map(t=>{const f=FIXTURES[t],m=isM(t);
   const opts=Object.keys(f.opts).map(w=>`<button type="button" data-w="${w}" aria-pressed="false">${w}</button>`).join("");
   return `<li class="fx" data-t="${t}">
   <div class="fx-h">${icoSym(t)}<div><h3 id="fxn-${t}">${f.he}</h3><small data-lmu></small></div></div>
-  <div class="fx-r"><div class="fx-sum" data-sum></div><a class="fx-add fx-cat" href="${HOME}#cats" data-cat="${CATMAP[t]||""}" aria-label="גופים מסוג ${f.he} בקטלוג"><span>בקטלוג</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+  <div class="fx-r"><div class="fx-sum" data-sum></div><a class="fx-add fx-cat" href="category.html?c=${CATMAP[t]||"recessed"}" aria-label="גופים מסוג ${f.he} בקטלוג"><span>בקטלוג</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
   <div class="fx-ctl">
    <div class="fx-w"><div class="opts sm" role="group" aria-label="הספק של ${f.he}, בוואט${m?" למטר":""}">${opts}</div><span class="fx-u">וואט${m?" למטר":""}</span></div>
    <div class="fx-q"><div class="qty"><button type="button" data-inc aria-label="עוד ${m?"חצי מטר":"יחידה"} של ${f.he}"><svg aria-hidden="true"><use href="#i-plus"/></svg></button><input type="number" min="0" max="${m?60:40}" step="${m?0.5:1}" inputmode="decimal" aria-label="${m?"כמה מטר":"כמה יחידות"} של ${f.he}"><button type="button" data-dec aria-label="פחות ${m?"חצי מטר":"יחידה"} של ${f.he}"><svg aria-hidden="true"><use href="#i-minus"/></svg></button></div><span class="fx-u">${m?"מטר":"יחידות"}</span></div>
