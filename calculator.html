@@ -257,10 +257,12 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
 
 /* ---------- tool layout ---------- */
 .tool-sec{padding:clamp(18px,2.4vw,34px) 0 clamp(72px,8vw,128px)}
-.tool{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.04fr);grid-template-areas:"room stage" "fix stage";column-gap:clamp(36px,4.6vw,76px);align-items:start}
+.tool{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.04fr);grid-template-areas:"room stage" "need stage" "fix stage";grid-template-rows:auto auto 1fr;column-gap:clamp(36px,4.6vw,76px);align-items:start}
 .st-room{grid-area:room}
+.st-need{grid-area:need;margin-top:clamp(40px,4.4vw,60px);border-top:1px solid var(--line2)}
 .st-fix{grid-area:fix;margin-top:clamp(56px,6vw,88px)}
-.stage{grid-area:stage;position:sticky;top:88px}
+.stage{grid-area:stage;grid-row:1/span 3;position:sticky;top:88px}
+[hidden]{display:none!important}
 .st-h{display:flex;align-items:baseline;justify-content:space-between;gap:20px;padding-bottom:16px;margin-bottom:26px;border-bottom:1px solid var(--line2)}
 .st-h h2{font-family:var(--fd);font-weight:700;font-size:clamp(30px,2.7vw,42px);line-height:1.05}
 .st-h p{font-size:14.5px;color:var(--mut);max-width:300px;line-height:1.5}
@@ -276,7 +278,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
 .nbox.big input{width:150px;font-size:34px}
 
 /* ---------- stage: room view + result ---------- */
-.viz{position:relative;height:clamp(250px,40vh,440px);background:#080807;border:1px solid var(--line);overflow:hidden}
+.viz{position:relative;height:clamp(200px,calc((100vh - 440px) * .48),420px);background:#080807;border:1px solid var(--line);overflow:hidden}
 .viz canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .hud{position:absolute;z-index:2;top:0;inset-inline:0;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px 16px;padding:10px 14px;font-size:13px;color:var(--mut);pointer-events:none}
 .hud #hudRoom{color:#d6d0c4}
@@ -355,6 +357,114 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
 .side-notes{margin-top:30px;border-top:1px solid var(--line)}
 .side-notes h3{font-size:14px;font-weight:500;color:var(--mut);padding:16px 0 4px}
 .side-notes li{list-style:none;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px;color:#d6d0c4;line-height:1.55}
+
+/* ---------- v7: select, outdoor note ---------- */
+.sel{-webkit-appearance:none;appearance:none;height:38px;padding:0 12px 0 34px;background:#0d0c0b url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='m3 4.5 3 3 3-3' fill='none' stroke='%23a39e94' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat left 12px center/11px;border:1px solid var(--line2);border-radius:0;color:#e9e4da;font:inherit;font-size:14.5px;cursor:pointer;transition:border-color .3s;max-width:100%}
+.sel:hover,.sel:focus-visible{border-color:#fff}
+.sel option,.sel optgroup{background:#121110;color:#f3efe7}
+.ipn{margin:-8px 0 26px;padding:2px 14px 2px 0;border-inline-start:1px solid var(--y);font-size:14.5px;line-height:1.6;color:#d6d0c4}
+.ipn b{color:#fff;font-weight:700}
+.ipn small{display:block;margin-top:4px;font-size:13px;color:var(--mut)}
+.fx-open{margin:-8px 0 22px;font-size:14px;color:var(--mut)}
+
+/* ---------- v7: top view plan ---------- */
+.plan-h{display:flex;justify-content:space-between;align-items:baseline;gap:6px 14px;flex-wrap:wrap;margin-top:14px;padding-bottom:8px;font-size:14px;font-weight:500;color:#d6d0c4}
+.plan-h small{font-size:12.5px;font-weight:400;color:var(--dim)}
+.plan{position:relative;height:clamp(240px,calc((100vh - 440px) * .52),480px);background:#080807;border:1px solid var(--line);display:grid;place-items:center;overflow:hidden}
+.plan svg{display:block;overflow:visible;font-family:var(--f);-webkit-user-select:none;user-select:none}
+.plan-empty{position:absolute;left:0;right:0;top:50%;translate:0 -50%;text-align:center;font-size:13px;color:var(--mut);pointer-events:none;padding:0 12px}
+.pf{fill:#0c0b0a}
+.pg{stroke:rgba(255,244,225,.045);stroke-width:1;vector-effect:non-scaling-stroke}
+.pg.m{stroke:rgba(255,244,225,.1)}
+.pw{fill:none;stroke:rgba(255,244,225,.62);stroke-width:1.5;vector-effect:non-scaling-stroke}
+.pw.open{stroke-dasharray:6 5}
+.pd{stroke:rgba(243,239,231,.42);stroke-width:1;vector-effect:non-scaling-stroke;fill:none}
+.pt{fill:rgba(243,239,231,.72)}
+.pt.s{fill:rgba(243,239,231,.6)}
+.pool{mix-blend-mode:screen;pointer-events:none}
+.pr{stroke:#3d3934;stroke-width:5;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.pc{fill:none;stroke:rgba(255,196,120,.55);stroke-width:2;stroke-dasharray:3 4;vector-effect:non-scaling-stroke}
+.ps{cursor:grab;outline:none;touch-action:none}
+.ps.drag{cursor:grabbing}
+.ps .sy{fill:#0c0b0a;stroke:#f3efe7;stroke-width:1.5;vector-effect:non-scaling-stroke;transition:stroke .25s}
+.ps .sk{fill:none;stroke:#f3efe7;stroke-width:3;stroke-linecap:round;vector-effect:non-scaling-stroke;transition:stroke .25s}
+.ps .sf{fill:#f3efe7;stroke:none;transition:fill .25s}
+.ps .hit{fill:transparent;stroke:none}
+.ps:hover .sy,.ps:hover .sk,.ps.hl .sy,.ps.hl .sk,.ps.drag .sy,.ps.drag .sk,.ps:focus-visible .sy,.ps:focus-visible .sk{stroke:var(--y)}
+.ps:hover .sf,.ps.hl .sf,.ps.drag .sf,.ps:focus-visible .sf{fill:var(--y)}
+.ps:focus-visible .hit{stroke:#fff;stroke-width:1;stroke-dasharray:2 3;vector-effect:non-scaling-stroke}
+.ps.off{opacity:.32}
+
+/* ---------- v7: catalog search + catalog lines ---------- */
+.sub-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:12px}
+.sub-h h3,.sub-h>span{font-size:15.5px;font-weight:500;color:#e9e4da}
+.sub-h small{font-size:13px;color:var(--mut)}
+.cadd{margin-bottom:clamp(36px,4vw,52px)}
+.ca-bar{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,auto);gap:8px}
+.ca-q{display:flex;align-items:center;height:46px;border:1px solid var(--line2);background:#0d0c0b;transition:border-color .3s}
+.ca-q:focus-within{border-color:#fff}
+.ca-q svg{width:18px;height:18px;margin:0 14px 0 4px;color:var(--mut);flex:none}
+.ca-q input{flex:1;min-width:0;height:100%;background:none;border:0;outline:0;font-size:16px}
+.ca-q input::placeholder{color:#7d786f}
+.ca-q input::-webkit-search-cancel-button{-webkit-appearance:none}
+.ca-bar .sel{height:46px;min-width:150px}
+.ca-res{list-style:none;margin-top:8px;border:1px solid var(--line);border-bottom:0;max-height:348px;overflow:auto;overscroll-behavior:contain}
+.ca-r{display:grid;grid-template-columns:48px minmax(0,1fr) auto;align-items:center;gap:12px;width:100%;padding:8px 12px;text-align:right;border-bottom:1px solid var(--line);transition:background-color .25s}
+.ca-r:hover,.ca-r:focus-visible{background:#151413}
+.ca-r:focus-visible{outline-offset:-2px}
+.ca-im,.cx-im{width:48px;height:48px;flex:none;background:#f1efea;display:grid;place-items:center;overflow:hidden;color:#6d675e}
+.ca-im img,.cx-im img{width:100%;height:100%;object-fit:contain;padding:3px}
+.ca-im .ico,.cx-im .ico{width:30px;height:30px;stroke-width:2.2}
+.ca-t b{display:block;font-weight:500;font-size:15px;line-height:1.3;color:#f3efe7}
+.ca-t small{display:block;font-size:12.5px;color:var(--mut);line-height:1.45}
+.ca-t small span,.fx-h small span{direction:ltr;unicode-bidi:isolate;display:inline-block}
+.ca-t .lo{color:#ff9d8f}
+.ca-go{font-size:13.5px;font-weight:500;color:#fff;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.ca-go svg{width:14px;height:14px;flex:none}
+.ca-r.in .ca-go{color:var(--y)}
+.ca-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:13px;color:var(--mut);padding:6px 2px 0;border-top:1px solid var(--line)}
+.ca-msg{padding:16px 12px;font-size:14.5px;color:#cfc9bd;border-bottom:1px solid var(--line)}
+#catWrap{margin-top:22px}
+.fx.cx .fx-h small{line-height:1.45}
+.fx-pl{display:flex;align-items:center;flex-wrap:wrap;gap:8px 14px;flex-basis:100%}
+.fx-pl label,.fx-fin label{display:inline-flex;align-items:center;gap:10px;font-size:13px;color:var(--mut)}
+.fx-sp{font-size:13px;color:#d6d0c4}
+.fx-warn{grid-column:1/-1;font-size:13.5px;color:#ff9d8f;line-height:1.5}
+.fx.cx.off{background:none}
+.fx.cx.off::before{transform:scaleY(0)}
+.fx.flash{animation:fxFlash 1.2s var(--p3)}
+@keyframes fxFlash{from{background:#2a2414}}
+.rm2{min-height:38px;padding:0 4px;font-size:13.5px;color:var(--mut);text-decoration:underline;text-underline-offset:3px;transition:color .3s}
+.rm2:hover{color:#fff}
+.res-more{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 18px;margin-top:12px}
+.res-more .wa-note{margin:0}
+
+/* ---------- v7: print sheet (hidden on screen) ---------- */
+#printSheet{display:none}
+.pp .pf{fill:#fff}.pp .pg{stroke:#eeebe5}.pp .pg.m{stroke:#dcd8cf}.pp .pw{stroke:#111}.pp .pd{stroke:#666}.pp .pt,.pp .pt.s{fill:#222}
+.pp .pool{mix-blend-mode:multiply}.pp .pr{stroke:#9a958c}.pp .pc{stroke:#c98a00}
+.pp .ps .sy{fill:#fff;stroke:#111}.pp .ps .sk{stroke:#111}.pp .ps .sf{fill:#111}.pp .ps.off{opacity:.4}
+.ps-h{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;border-bottom:1.5px solid #111;padding-bottom:6px}
+.ps-h b{font-family:var(--fd);font-size:21pt;font-weight:700;line-height:1}
+.ps-h span{font-size:9pt;color:#555}
+.ps-room{display:grid;grid-template-columns:repeat(4,1fr);gap:6px 14px;margin:10px 0 8px;font-size:9.5pt;line-height:1.35}
+.ps-room span{display:block;color:#666;font-size:8pt}
+.ps-plan{text-align:center;margin:4px 0}
+.ps-plan svg{display:inline-block;width:auto;max-width:100%;height:auto;max-height:100mm}
+.ps-t{width:100%;border-collapse:collapse;font-size:9pt;margin-top:6px}
+.ps-t th,.ps-t td{text-align:right;padding:3px 6px;border-bottom:1px solid #ccc;vertical-align:top}
+.ps-t th{font-weight:700;border-bottom:1.5px solid #111;font-size:8.5pt}
+.ps-t .ltr{direction:ltr;unicode-bidi:isolate}
+.ps-tot{display:flex;flex-wrap:wrap;gap:6px 26px;margin-top:8px;font-size:10.5pt}
+.ps-tot b{font-family:var(--fd);font-size:13pt}
+.ps-f{margin-top:8px;font-size:8pt;color:#555;line-height:1.45}
+@media print{
+  @page{size:A4;margin:11mm}
+  html,body{background:#fff!important;color:#111!important}
+  body{padding:0!important;font-size:10pt;line-height:1.4}
+  body>*:not(#printSheet){display:none!important}
+  #printSheet{display:block;color:#111;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
 
 /* ---------- old bulbs ---------- */
 .conv{display:grid;grid-template-columns:1fr 1fr;border-block:1px solid var(--line)}
@@ -463,6 +573,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
 .dr-b{flex:1;overflow:auto;overscroll-behavior:contain;padding:4px 24px}
 .ci{display:grid;grid-template-columns:64px 1fr;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
 .ci img{width:64px;height:80px;object-fit:cover}
+.ci img.lt,.sg img.lt{object-fit:contain;background:#f1efea;padding:4px}
 .ci-ico{width:64px;height:64px;display:grid;place-items:center;border:1px solid var(--line);color:#fff;--lf:#ffe3ad;--ro:.7}
 .ci-ico .ico{width:36px;height:36px;stroke-width:2.2}
 .ci b{display:block;font-weight:500;font-size:15.5px;line-height:1.35}
@@ -535,10 +646,11 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
   .row2{grid-template-columns:1fr}
 }
 @media (max-width:999px){
-  .tool{grid-template-columns:minmax(0,1fr);grid-template-areas:"room" "stage" "fix"}
-  .stage{position:relative;top:auto;margin-top:clamp(48px,7vw,72px)}
+  .tool{grid-template-columns:minmax(0,1fr);grid-template-areas:"room" "need" "stage" "fix";grid-template-rows:auto}
+  .stage{grid-row:auto;position:relative;top:auto;margin-top:clamp(40px,6vw,64px)}
   .st-fix{margin-top:clamp(48px,7vw,72px)}
   .viz{height:clamp(240px,58vw,440px)}
+  .plan{height:auto;min-height:200px;padding:4px 0}
   .row2{grid-template-columns:1fr 1fr}
   .mbar{position:fixed;z-index:50;left:0;right:0;bottom:0;display:block;background:#0d0c0b;border-top:1px solid var(--line2);padding-bottom:env(safe-area-inset-bottom)}
   .mb-in{width:100%;height:64px;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:18px;padding:0 16px;text-align:right}
@@ -597,6 +709,13 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
   .need .ca,.need .u{font-size:24px}
   .bars li{grid-template-columns:72px 1fr 68px;gap:10px}
   .res-acts .btn{flex:1 1 auto;justify-content:center}
+  .ca-bar{grid-template-columns:1fr}
+  .ca-bar .sel{min-width:0;width:100%}
+  .ca-r{grid-template-columns:44px minmax(0,1fr) auto;gap:10px;padding:8px 10px}
+  .ca-im{width:44px;height:44px}
+  .ca-go span{display:none}
+  .ca-go svg{width:18px;height:18px}
+  .ps-room{grid-template-columns:repeat(2,1fr)}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
@@ -634,6 +753,8 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
     <symbol id="c-outdoor" viewBox="0 0 64 64"><path d="M24 58h16"/><path d="M29 58V36h6v22"/><path d="M21 16h22v20H21z"/><path d="M18 16 32 7l14 9"/><path d="M26 21h12v10H26z" style="fill:var(--lf)"/><path d="M14 24H8M14 32l-5 3M50 24h6M50 32l5 3" style="opacity:var(--ro)"/></symbol>
     <symbol id="c-table" viewBox="0 0 64 64"><path d="M23 8h18l7 20H16z" style="fill:var(--lf)"/><path d="M32 28v24"/><path d="M22 56h20"/><path d="M18 34l-5 9M46 34l5 9" style="opacity:var(--ro)"/></symbol>
     <symbol id="c-bulb" viewBox="0 0 64 64"><path d="M25 46h14M26 51h12M28 56h8"/><path d="M25 46c0-7-9-11-9-22a16 16 0 0 1 32 0c0 11-9 15-9 22z" style="fill:var(--lf)"/><path d="M28 40v-9l4-4 4 4v9"/><path d="M32 1v2M10 10l2 2M54 10l-2 2M4 26h3M57 26h3" style="opacity:var(--ro)"/></symbol>
+    <symbol id="c-bollard" viewBox="0 0 64 64"><path d="M18 58h28"/><path d="M25 58V22h14v36"/><path d="M23 14h18v8H23z"/><path d="M25 22h14v6H25z" style="fill:var(--lf)"/><path d="M16 30l-6 4M48 30l6 4M17 40l-7 2M47 40l7 2" style="opacity:var(--ro)"/></symbol>
+    <symbol id="c-spike" viewBox="0 0 64 64"><path d="M8 52h48"/><path d="M32 52v8"/><path d="M32 52V36"/><path d="m26 36 6-4 6 4"/><path d="M24 24h16l-2 8H26z" style="fill:var(--lf)"/><path d="M26 18l-4-9M32 17V6M38 18l4-9" style="opacity:var(--ro)"/></symbol>
   </defs>
 </svg>
 <!-- white balance for the colour temperature photo (values are set by the script) -->
@@ -731,24 +852,27 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
 
       <div class="fld"><div class="lb" id="lbRoom">סוג החדר</div><div class="opts" id="rType" role="group" aria-labelledby="lbRoom"></div></div>
 
+      <div class="fld" id="fCov" hidden><div class="lb" id="lbCov">המרפסת מקורה?</div><div class="opts" id="rCov" role="group" aria-labelledby="lbCov"><button type="button" data-v="yes" aria-pressed="true">כן, יש תקרה</button><button type="button" data-v="no" aria-pressed="false">לא, פתוחה לשמיים</button></div></div>
+      <p class="ipn" id="ipNote" hidden></p>
+
       <div class="fld row2">
         <div class="dim">
-          <div class="top"><label for="nL">אורך</label><span class="nbox"><input id="nL" type="number" min="1.5" max="15" step="0.1" inputmode="decimal"><span>מ׳</span></span></div>
-          <input type="range" id="rL" min="1.5" max="15" step="0.1" aria-label="אורך החדר במטרים">
+          <div class="top"><label for="nL">אורך</label><span class="nbox"><input id="nL" type="number" min="1" max="30" step="any" inputmode="decimal"><span>מ׳</span></span></div>
+          <input type="range" id="rL" min="1" max="30" step="0.5" aria-label="אורך החדר במטרים">
         </div>
         <div class="dim">
-          <div class="top"><label for="nW">רוחב</label><span class="nbox"><input id="nW" type="number" min="1.5" max="15" step="0.1" inputmode="decimal"><span>מ׳</span></span></div>
-          <input type="range" id="rW" min="1.5" max="15" step="0.1" aria-label="רוחב החדר במטרים">
+          <div class="top"><label for="nW">רוחב</label><span class="nbox"><input id="nW" type="number" min="1" max="30" step="any" inputmode="decimal"><span>מ׳</span></span></div>
+          <input type="range" id="rW" min="1" max="30" step="0.5" aria-label="רוחב החדר במטרים">
         </div>
       </div>
 
-      <div class="fld dim">
+      <div class="fld dim" id="fH">
         <div class="top"><label for="rH">גובה התקרה</label><span class="nbox"><output id="oH" for="rH">2.7</output><span>מ׳</span></span></div>
         <input type="range" id="rH" min="2.3" max="4.5" step="0.05">
       </div>
 
       <div class="fld row2">
-        <div><div class="lb" id="lbWall">צבע הקירות</div><div class="opts" id="rWall" role="group" aria-labelledby="lbWall"></div></div>
+        <div id="fWall"><div class="lb" id="lbWall">צבע הקירות</div><div class="opts" id="rWall" role="group" aria-labelledby="lbWall"></div></div>
         <div><div class="lb" id="lbPref">כמה אור אתם אוהבים</div><div class="opts" id="rPref" role="group" aria-labelledby="lbPref"></div></div>
       </div>
 
@@ -757,39 +881,67 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
       <div class="fld"><div class="lb"><span id="lbAct">מה עושים בחדר?</span><small>לא חובה</small></div><div class="opts" id="rAct" role="group" aria-labelledby="lbAct"></div></div>
     </div>
 
-    <!-- room view + live result -->
+    <!-- what the room needs -->
+    <div class="st-need res" id="res">
+      <div class="res-top">
+        <div class="need"><div class="lb">החדר צריך</div><div class="v"><span class="ca">כ-</span><b class="big" id="wBig">60</b><span class="u">וואט</span></div></div>
+        <div class="need-2"><b id="lmTxt">כ-5,400 לומן</b><small id="wRange"></small></div>
+      </div>
+      <p class="eqn" id="eqn"></p>
+    </div>
+
+    <!-- room view, top view plan, live result -->
     <div class="stage" id="stage">
       <div class="viz" id="viz">
         <canvas id="roomCv" role="img" aria-label="הדמיה של החדר לפי המידות, עם הגופים שבחרתם"></canvas>
         <div class="hud"><span id="hudRoom"></span><label class="kmini"><span>גוון</span><input type="range" id="kMini" class="krange" min="2200" max="6500" step="100" aria-label="גוון האור בהדמיה, בקלווין"><b id="kMiniV">3000K</b></label></div>
         <p class="viz-msg" id="vizMsg">החדר עדיין חשוך. בחרו גופים, והוא יידלק.</p>
       </div>
-      <div class="res" id="res">
-        <div class="res-top">
-          <div class="need"><div class="lb">החדר צריך</div><div class="v"><span class="ca">כ-</span><b class="big" id="wBig">60</b><span class="u">וואט</span></div></div>
-          <div class="need-2"><b id="lmTxt">כ-5,400 לומן</b><small id="wRange"></small></div>
-        </div>
-        <p class="eqn" id="eqn"></p>
-        <div class="chosen">
-          <div class="ch-top"><span id="chTxt">עוד לא בחרתם גופים.</span><span class="state" id="chState" hidden></span></div>
-          <div class="meter" id="meter" data-s="low" aria-hidden="true"><span class="zone"></span><i id="meterI"></i><span class="tg"></span></div>
-          <p class="pct" id="pctTxt">0% מהיעד</p>
-          <p class="hint" id="hint"></p>
-          <p class="note" id="note" hidden>אור עקיף ואור הדגשה נספרים רק בחלקם, ולכן הוואט שבחרתם יכול לצאת גבוה מהיעד.</p>
-        </div>
-        <div class="res-acts">
-          <a class="btn btn-y" data-wa href="#" target="_blank" rel="noopener"><span class="bl">שליחת התכנון לחנות</span></a>
-          <a class="btn btn-o" id="allToCart" href="index.html#cats"><span class="bl">לבחירת גופים בקטלוג</span></a>
-        </div>
-        <p class="wa-note">שלחו לנו את התכנון בוואטסאפ, ונחזור אליכם עם גופים מתאימים מהקטלוג והצעת מחיר.</p>
-        <p class="sr" id="live" aria-live="polite"></p>
+      <div class="plan-h"><span id="planH">מבט מלמעלה</span><small>גוררים כל גוף למקום שלו · מידות במטרים</small></div>
+      <div class="plan" id="plan">
+        <svg id="planSv" role="group" aria-label="תוכנית החדר מלמעלה, בקנה מידה" aria-describedby="planHelp" xmlns="http://www.w3.org/2000/svg"></svg>
+        <p class="plan-empty" id="planEmpty">בחרו גופים, והם יופיעו כאן במקום שלהם.</p>
+        <p class="sr" id="planHelp">כל גוף בתוכנית אפשר לגרור, או לבחור במקש טאב ולהזיז בחיצים, 10 ס״מ בכל לחיצה.</p>
       </div>
+      <div class="chosen">
+        <div class="ch-top"><span id="chTxt">עוד לא בחרתם גופים.</span><span class="state" id="chState" hidden></span></div>
+        <div class="meter" id="meter" data-s="low" aria-hidden="true"><span class="zone"></span><i id="meterI"></i><span class="tg"></span></div>
+        <p class="pct" id="pctTxt">0% מהיעד</p>
+        <p class="hint" id="hint"></p>
+        <p class="note" id="note" hidden>אור עקיף ואור הדגשה נספרים רק בחלקם, ולכן הוואט שבחרתם יכול לצאת גבוה מהיעד.</p>
+        <p class="note" id="noteNoW" hidden></p>
+      </div>
+      <div class="res-acts">
+        <a class="btn btn-y" data-wa href="#" target="_blank" rel="noopener"><span class="bl">שליחת התכנון לחנות</span></a>
+        <button type="button" class="btn btn-o" id="catToCart" disabled><span class="bl">הוספת הגופים מהקטלוג לסל</span></button>
+      </div>
+      <div class="res-more"><button type="button" class="lnk" id="printBtn">הדפסה / שמירה כ-PDF</button><p class="wa-note">בוואטסאפ נעבור על התכנון איתכם ונחזור עם הצעת מחיר.</p></div>
+      <p class="sr" id="live" aria-live="polite"></p>
     </div>
 
     <!-- step: fixtures -->
     <div class="st-fix" id="stFix">
-      <div class="st-h"><h2>הגופים</h2><p>בחרו סוג גוף, הספק וכמות, ותראו כמה זה מכסה ממה שהחדר צריך.</p></div>
-      <ul class="fxl" id="fxList"></ul>
+      <div class="st-h"><h2>הגופים</h2><p>מוסיפים גוף מהקטלוג או בוחרים סוג גוף, ורואים כמה זה מכסה ממה שהחדר צריך.</p></div>
+      <p class="fx-open" id="fxOpen" hidden>בלי תקרה אין על מה לתלות גוף, ולכן מוצגים רק גופי קיר וגופים שעומדים על הקרקע.</p>
+
+      <div class="cadd" id="cadd">
+        <div class="sub-h"><h3 id="caH">הוספת גוף מהקטלוג</h3><small>לפי שם או מק״ט</small></div>
+        <div class="ca-bar">
+          <label class="ca-q"><svg aria-hidden="true"><use href="#i-search"/></svg><input type="search" id="caQ" placeholder="למשל: ספוט, 22557" autocomplete="off" enterkeyhint="search" aria-label="חיפוש גוף בקטלוג, לפי שם או מק״ט" aria-controls="caRes"></label>
+          <select class="sel" id="caCat" aria-label="סוג הגוף בקטלוג"></select>
+        </div>
+        <div id="caBox" hidden>
+          <ul class="ca-res" id="caRes" aria-label="תוצאות מהקטלוג"></ul>
+          <div class="ca-foot"><span id="caCnt" aria-live="polite"></span><button type="button" class="lnk" id="caClose">סגירת התוצאות</button></div>
+        </div>
+        <div id="catWrap" hidden>
+          <div class="sub-h"><span>מהקטלוג, בתכנון</span><small id="catCnt"></small></div>
+          <ul class="fxl" id="catList"></ul>
+        </div>
+      </div>
+
+      <div class="sub-h"><h3 id="genH">או לפי סוג גוף</h3><small>הספק וכמות</small></div>
+      <ul class="fxl" id="fxList" aria-labelledby="genH"></ul>
       <div class="fx-foot"><span id="fxTotal">עוד לא נבחרו גופים.</span><button type="button" class="lnk" id="fxClear" hidden>ניקוי הבחירה</button></div>
       <div class="side-notes" id="sideNotes" hidden><h3>שווה לדעת על החדר הזה</h3><ul id="noteList"></ul></div>
     </div>
@@ -902,15 +1054,15 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
       </div>
       <div><h4>מוצרים</h4><ul id="fCats"></ul></div>
       <div><h4>לפי חלל</h4><ul id="fRooms"></ul></div>
-      <div><h4>החנות</h4><ul><li><a href="index.html#why">למה ספוטליין</a></li><li><a href="מחשבון-תאורה-4.html">מחשבון תאורה</a></li><li><a href="index.html#pro">למעצבות ולאדריכלים</a></li><li><a href="index.html#visit">הגעה ויצירת קשר</a></li><li><a href="tel:086377033" style="direction:ltr;display:inline-block">08-6377033</a></li></ul></div>
+      <div><h4>החנות</h4><ul><li><a href="index.html#why">למה ספוטליין</a></li><li><a href="calculator.html">מחשבון תאורה</a></li><li><a href="index.html#pro">למעצבות ולאדריכלים</a></li><li><a href="index.html#visit">הגעה ויצירת קשר</a></li><li><a href="tel:086377033" style="direction:ltr;display:inline-block">08-6377033</a></li></ul></div>
       <div><h4>חיפושים נפוצים</h4><ul>
-        <li><a href="index.html#cats" data-cat="recessed">ספוטים שקועים לתקרה</a></li>
-        <li><a href="index.html#cats" data-cat="track">פס צבירה מגנטי</a></li>
-        <li><a href="index.html#cats" data-cat="pendant">מנורה תלויה לפינת אוכל</a></li>
-        <li><a href="index.html#cats" data-cat="profile">פרופיל לד לתקרה</a></li>
-        <li><a href="index.html#cats" data-cat="outdoor">תאורת חוץ לגינה</a></li>
+        <li><a href="category.html?c=recessed">ספוטים שקועים לתקרה</a></li>
+        <li><a href="category.html?c=track">פס צבירה מגנטי</a></li>
+        <li><a href="category.html?c=pendant">מנורה תלויה לפינת אוכל</a></li>
+        <li><a href="category.html?c=profile">פרופיל לד לתקרה</a></li>
+        <li><a href="category.html?c=outdoor">תאורת חוץ לגינה</a></li>
         <li><a href="index.html#rooms" data-room="0">תאורה לסלון</a></li>
-        <li><a href="מחשבון-תאורה-4.html">כמה וואט צריך לחדר</a></li>
+        <li><a href="calculator.html">כמה וואט צריך לחדר</a></li>
         <li><a href="index.html#visit">חנות תאורה בראשון לציון</a></li>
       </ul></div>
     </div>
@@ -959,6 +1111,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
 </div>
 
 <div class="toast" id="toast" role="status"><span id="toastT"></span><button type="button" id="toastB">לצפייה בסל</button></div>
+<div id="printSheet"></div>
 
 <script>
 (function(){
@@ -972,6 +1125,8 @@ const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const fmt=n=>Math.round(n).toLocaleString("en-US");
 const num1=v=>String(Math.round(v*10)/10);
+const dimTxt=v=>String(Math.round(v*100)/100);
+const m2=v=>(Math.round(v*100)/100).toFixed(2);
 const roundLm=v=>v>=10000?Math.round(v/100)*100:Math.round(v/50)*50;
 H.classList.add("anim");
 
@@ -1012,7 +1167,8 @@ const ROOMS={
   bath:    {he:'אמבטיה',          lux:200, range:[150,300], wp:0.75, cct:[3000,4000], note:'באמבטיה: מול המראה צריך 300 עד 500 לוקס.'},
   study:   {he:'חדר עבודה/לימוד', lux:400, range:[300,500], wp:0.75, cct:[4000,4000]},
   hall:    {he:'מסדרון',          lux:100, range:[50,150],  wp:0,    cct:[3000,3000]},
-  balcony: {he:'מרפסת',           lux:75,  range:[30,150],  wp:0,    cct:[2700,3000]},
+  balcony: {he:'מרפסת',           lux:75,  range:[30,150],  wp:0,    cct:[2700,3000], out:true},
+  yard:    {he:'חצר / גינה',      lux:50,  range:[20,100],  wp:0,    cct:[2700,3000], out:true, open:true},
   shop:    {he:'חנות/תצוגה',      lux:500, range:[300,750], wp:0.75, cct:[3000,4000], biz:true},
   office:  {he:'משרד',            lux:500, range:[300,750], wp:0.75, cct:[4000,4000], biz:true},
   clinic:  {he:'קליניקה',         lux:500, range:[300,1000],wp:0.75, cct:[4000,4000], biz:true}
@@ -1038,8 +1194,16 @@ const FIXTURES={
   pendant:   {he:'מנורה תלויה',        unit:'יח׳', contrib:0.7,  opts:{12:1000,18:1500,24:2000,36:3000}},
   ceiling:   {he:'צמוד תקרה',          unit:'יח׳', contrib:1.0,  opts:{18:1600,24:2100,36:3200,48:4300}},
   wall:      {he:'מנורת קיר',          unit:'יח׳', contrib:0.5,  opts:{6:420,10:700,12:850}},
-  bulb:      {he:'נורה E27',           unit:'יח׳', contrib:0.8,  opts:{9:806,12:1100,15:1450}}
+  bulb:      {he:'נורה E27',           unit:'יח׳', contrib:0.8,  opts:{9:806,12:1100,15:1450}},
+  bollard:   {he:'עמודון לגינה',       unit:'יח׳', contrib:0.6,  opts:{7:450,10:650,15:950}},
+  spike:     {he:'דוקרן לגינה',        unit:'יח׳', contrib:0.6,  opts:{3:200,5:350,7:500}}
 };
+/* outdoor without a ceiling: dark-walls utilization row, maintenance 0.8, a nominal 2.4 m mounting height */
+const OPEN_H=2.4, OUT_T=["bollard","spike"];
+const openSky=()=>{const r=ROOMS[S.room];return !!(r.open||(S.room==="balcony"&&!S.covered))};
+const effH=()=>openSky()?OPEN_H:S.H;
+const avail=t=>{if(OUT_T.includes(t))return !!ROOMS[S.room].out;return !openSky()||t==="wall"};
+const ipRec=()=>!ROOMS[S.room].out?0:openSky()?65:44;
 const OLD={
   incandescent:{25:220,40:450,60:800,75:1100,100:1600,150:2600},
   halogen:     {18:200,28:370,42:630,53:850,70:1200,105:1900},
@@ -1055,7 +1219,7 @@ const CCT={
 };
 
 /* ui data */
-const ORDER=["recessed","gimbal","ceiling","pendant","trackSpot","magSpot","magLinear","profile","strip","wall","bulb"];
+const ORDER=["recessed","gimbal","ceiling","pendant","trackSpot","magSpot","magLinear","profile","strip","wall","bulb","bollard","spike"];
 const FXU={
   recessed:{ic:"recessed",pl:"ספוטים שקועים",one:"ספוט שקוע אחד"},
   gimbal:{ic:"gimbal",pl:"ספוטים מתכווננים",one:"ספוט מתכוונן אחד"},
@@ -1067,8 +1231,50 @@ const FXU={
   profile:{ic:"profile"},
   strip:{ic:"strip"},
   wall:{ic:"wall",pl:"מנורות קיר",one:"מנורת קיר אחת"},
-  bulb:{ic:"bulb",pl:"נורות E27",one:"נורת E27 אחת"}
+  bulb:{ic:"bulb",pl:"נורות E27",one:"נורת E27 אחת"},
+  bollard:{ic:"bollard",pl:"עמודונים",one:"עמודון אחד"},
+  spike:{ic:"spike",pl:"דוקרנים",one:"דוקרן אחד"}
 };
+/* how each generic type is drawn: sym = symbol on the top view plan, vk = kind in the room view */
+const GK={recessed:{sym:"spot",vk:"spot"},gimbal:{sym:"spot",vk:"gimbal"},ceiling:{sym:"ring",vk:"ceil"},pendant:{sym:"pend",vk:"pendant"},
+  trackSpot:{sym:"head",vk:"head",rg:"trk"},magSpot:{sym:"head",vk:"head",rg:"mag"},magLinear:{sym:"lin",vk:"lin",rg:"mag"},profile:{sym:"prof",vk:"prof"},
+  wall:{sym:"wall",vk:"wall"},bulb:{sym:"bulb",vk:"bulb"},bollard:{sym:"bollard",vk:"floor",h:.7},spike:{sym:"spike",vk:"floor",h:.3}};
+
+/* ---------------- real products (assets/products.json, same data as the catalog page) ---------------- */
+const CCON={recessed:.9,ceiling:1,wall:.5,profile:.9,track:.65,table:.5,outdoor:.6};
+const CNAME={recessed:"שקועים וספוטים",ceiling:"צמודי תקרה",wall:"מנורות קיר",profile:"פרופילים",track:"פסי צבירה ומגנטיים",table:"מנורות שולחן ורצפה",outdoor:"תאורת חוץ"};
+const ACC=/ספק כח|ספק כוח|מחבר|הזנה|דרייבר|שנאי/;
+let PRODS=[],PMAP=new Map(),pLoaded=false,pErr=false;
+const pById=id=>PMAP.get(id);
+function cKind(p){const s=p.sub||"";
+  switch(p.cat){
+    case"recessed":return {sym:"spot",vk:"spot"};
+    case"ceiling":return {sym:"ring",vk:"ceil"};
+    case"wall":return {sym:"wall",vk:"wall"};
+    case"profile":return {sym:"prof",vk:"prof"};
+    case"track":return /פרופיל|ליניארי|לינארי/.test(p.n)?{sym:"lin",vk:"lin",rg:"c"}:{sym:"head",vk:"head",rg:"c"};
+    case"table":return {sym:"lamp",vk:"floor",h:/עמידה/.test(s)?1.5:1};
+    case"outdoor":
+      if(/קיר|חומה/.test(s))return {sym:"wall",vk:"wall",low:/חומה/.test(s)};
+      if(/צמודי תקרה/.test(s))return {sym:"ring",vk:"ceil",ceil:1};
+      if(/שקועי תקרה/.test(s))return {sym:"spot",vk:"spot",ceil:1};
+      if(/עמודונים/.test(s))return {sym:"bollard",vk:"floor",h:.7};
+      return {sym:"spike",vk:"floor",h:.3};
+  }
+  return {sym:"spot",vk:"spot"}}
+function prepP(raw){
+  return raw.filter(p=>p&&p.id&&!ACC.test(p.n||"")&&CCON[p.cat]!=null).map(p=>{
+    const v=(Array.isArray(p.v)&&p.v.length?p.v:[{sku:p.id,c:"",img:p.img}]).map(x=>({sku:x.sku||p.id,c:x.c||"",img:x.img||p.img}));
+    const fins=[];v.forEach((x,vi)=>String(x.c).split(/\s*[,\/]\s*/).map(s=>s.trim()).filter(Boolean).forEach(c=>{if(!fins.some(f=>f.c===c))fins.push({c,vi})}));
+    const w=typeof p.w==="number"&&p.w>0?p.w:null, lm=typeof p.lm==="number"&&p.lm>0?p.lm:null;
+    const o={id:p.id,n:String(p.n||"").trim()||p.id,cat:p.cat,sub:p.sub||"",area:p.area||"",w,lm,lmU:lm!=null?lm:w!=null?w*LED_REF_LMW:null,est:lm==null&&w!=null,
+      ip:typeof p.ip==="number"?p.ip:null,k:p.k||"",img:p.img||v[0].img,v,fins};
+    o.kind=cKind(o);o.txt=norm([o.n,o.id,v.map(x=>x.sku).join(" "),o.sub,CNAME[o.cat]].join(" "));
+    return o})}
+/* a product can stand in the open (no ceiling) only if it is an outdoor product that is not ceiling mounted */
+const okOpen=p=>p.area==="חוץ"&&!p.kind.ceil;
+const catVar=(p,fi)=>{const f=p.fins[fi];return p.v[f?f.vi:0]||p.v[0]};
+const catFin=(p,fi)=>{const f=p.fins[fi];return f?f.c:""};
 const WALLS={light:{he:"בהירים",c:"#ebe5da",alb:[236,230,220]},medium:{he:"בינוניים",c:"#b3a791",alb:[182,170,150]},dark:{he:"כהים",c:"#4b453e",alb:[86,80,72]}};
 const PREFS={soft:"רך",regular:"רגיל",bright:"מואר מאוד"};
 const ATM={calm:{he:"רוגע",k:2700},warm:{he:"חמימות",k:2700},lux:{he:"יוקרה",k:3000},focus:{he:"ריכוז",k:4000},energy:{he:"אנרגיה",k:4000}};
@@ -1084,13 +1290,19 @@ const icoSym=t=>ico(FXU[t].ic);
 const isM=t=>FIXTURES[t].unit==="מטר";
 
 /* ---------------- state ---------------- */
-const S={room:"living",L:5,W:4,H:2.7,walls:"light",pref:"regular",atm:null,acts:[],cct:3000,cctUser:false,last:null,lines:{}};
-ORDER.forEach(t=>{const ks=Object.keys(FIXTURES[t].opts);S.lines[t]={w:ks[Math.min(1,ks.length-1)],q:0,mode:"dir"}});
+const DMIN=1,DMAX=30;
+const PLACES=["auto","center","grid","wall-t","wall-b","wall-r","wall-l","corners","table"];
+const S={room:"living",covered:true,L:5,W:4,H:2.7,walls:"light",pref:"regular",atm:null,acts:[],cct:3000,cctUser:false,last:null,lines:{},cat:[],cseq:0};
+ORDER.forEach(t=>{const ks=Object.keys(FIXTURES[t].opts);S.lines[t]={w:ks[Math.min(1,ks.length-1)],q:0,mode:"dir",place:"auto",pos:{}}});
 const SKEY="sl-calc";
+const cleanPos=o=>{const out={};if(o&&typeof o==="object")Object.keys(o).forEach(i=>{const x=o[i];if(/^\d+$/.test(i)&&x&&isFinite(x.u)&&isFinite(x.v)){const y={u:clamp(+x.u,0,1),v:clamp(+x.v,0,1)};if(/^[bflr]$/.test(x.side))y.side=x.side;out[i]=y}});return out};
 try{const st=JSON.parse(localStorage.getItem(SKEY)||"null");
   if(st&&typeof st==="object"){
     if(ROOMS[st.room])S.room=st.room;
-    ["L","W"].forEach(k=>{if(isFinite(st[k]))S[k]=clamp(Math.round(+st[k]*10)/10,1.5,15)});
+    if(st.covered===false)S.covered=false;
+    ["L","W"].forEach(k=>{if(isFinite(st[k])&&st[k]!==null)S[k]=clamp(Math.round(+st[k]*1000)/1000,DMIN,DMAX)});
+    if(Array.isArray(st.cat))st.cat.forEach(x=>{if(!x||typeof x.pid!=="string"||S.cat.length>=30)return;
+      S.cat.push({uid:"c"+(++S.cseq),pid:x.pid,fi:Math.max(0,Math.round(+x.fi||0)),q:clamp(Math.round(+x.q||1),1,40),place:PLACES.includes(x.place)?x.place:"auto",pos:cleanPos(x.pos)})});
     if(isFinite(st.H))S.H=clamp(+st.H,2.3,4.5);
     if(WALLS[st.walls])S.walls=st.walls;
     if(PREFS[st.pref])S.pref=st.pref;
@@ -1102,23 +1314,35 @@ try{const st=JSON.parse(localStorage.getItem(SKEY)||"null");
     if(st.lines)ORDER.forEach(t=>{const x=st.lines[t];if(!x)return;const ln=S.lines[t];
       if(FIXTURES[t].opts[x.w]!=null)ln.w=String(x.w);
       if(isFinite(x.q))ln.q=isM(t)?clamp(Math.round(+x.q*2)/2,0,60):clamp(Math.round(+x.q),0,40);
-      if(x.mode==="ind"||x.mode==="dir")ln.mode=x.mode});
+      if(x.mode==="ind"||x.mode==="dir")ln.mode=x.mode;
+      if(PLACES.includes(x.place))ln.place=x.place;ln.pos=cleanPos(x.pos)});
   }}catch(e){}
+if(S.last&&!FIXTURES[S.last])S.last=null;
 const saveState=()=>{try{localStorage.setItem(SKEY,JSON.stringify(S))}catch(e){}};
 
 /* ---------------- the math ---------------- */
 function ufAt(K,row){for(let i=0;i<UF_K.length-1;i++){if(K<=UF_K[i+1]){const t=(K-UF_K[i])/(UF_K[i+1]-UF_K[i]);return row[i]+t*(row[i+1]-row[i])}}return row[row.length-1]}
 const lineContrib=t=>t==="profile"&&S.lines.profile.mode==="ind"?FIXTURES.profile.contribIndirect:FIXTURES[t].contrib;
-function calc(){
-  const r=ROOMS[S.room], A=S.L*S.W, Hm=Math.max(.3,S.H-r.wp);
-  const K=clamp(A/(Hm*(S.L+S.W)),.6,5);
-  const uf=ufAt(K,UF[S.walls]), mf=r.biz?MF.biz:MF.home;
-  const lm=r.lux*A*PREF[S.pref]/(uf*mf);
-  let cw=0,clm=0,partial=false;const sel=[];
-  ORDER.forEach(t=>{const ln=S.lines[t];if(!(ln.q>0))return;
+/* every line in the plan: generic types and real products. ok=false lines stay listed but do not count */
+function planLines(){
+  const out=[];
+  ORDER.forEach(t=>{const ln=S.lines[t];if(!(ln.q>0)||!avail(t))return;
     const w=parseFloat(ln.w), ul=FIXTURES[t].opts[ln.w], c=lineContrib(t);
-    const W=w*ln.q, E=ul*ln.q*c;cw+=W;clm+=E;if(c<.8)partial=true;sel.push({t,w,q:ln.q,W,E,ul,c})});
-  return {r,A,K,uf,mf,lm,w:Math.round(lm/LED_REF_LMW),wLo:Math.round(lm/100),wHi:Math.round(lm/80),cw,clm,pct:lm?clm/lm:0,sel,partial};
+    out.push(Object.assign({id:"g:"+t,src:"gen",t,q:ln.q,w,ul,c,W:w*ln.q,E:ul*ln.q*c,ok:true,noW:false,st:ln,name:FIXTURES[t].he},GK[t]))});
+  S.cat.forEach(x=>{const p=pById(x.pid);if(!p)return;
+    const fi=Math.min(x.fi,Math.max(0,p.fins.length-1)),ok=!openSky()||okOpen(p),noW=p.w==null,c=CCON[p.cat];
+    out.push(Object.assign({id:"c:"+x.uid,src:"cat",uid:x.uid,p,fi,sku:catVar(p,fi).sku,fin:catFin(p,fi),q:x.q,w:p.w,ul:p.lmU,c,
+      W:ok&&!noW?p.w*x.q:0,E:ok&&!noW?p.lmU*x.q*c:0,ok,noW,st:x,name:p.n},p.kind))});
+  return out;
+}
+function calc(){
+  const r=ROOMS[S.room], A=S.L*S.W, open=openSky(), Hm=Math.max(.3,effH()-r.wp);
+  const K=clamp(A/(Hm*(S.L+S.W)),.6,5);
+  const uf=ufAt(K,UF[open?"dark":S.walls]), mf=open||r.biz?MF.biz:MF.home;
+  const lm=r.lux*A*PREF[S.pref]/(uf*mf);
+  let cw=0,clm=0,partial=false;const all=planLines(),sel=all.filter(x=>x.ok&&!x.noW);
+  sel.forEach(x=>{cw+=x.W;clm+=x.E;if(x.c<.8)partial=true});
+  return {r,A,K,uf,mf,lm,open,w:Math.round(lm/LED_REF_LMW),wLo:Math.round(lm/100),wHi:Math.round(lm/80),cw,clm,pct:lm?clm/lm:0,sel,all,partial};
 }
 const stateOf=p=>p<.9?"low":p<=1.3?"ok":"over";
 const STATE_HE={low:"חסר אור",ok:"בדיוק",over:"יותר מדי"};
@@ -1161,7 +1385,8 @@ const Viz=(function(){
     });
     return mv;
   }
-  function set(o){Object.assign(tgt,o.n);if(o.rgb)tcol.rgb=o.rgb;if(o.wall)tcol.wall=o.wall;if(o.lab)lab=o.lab;kick()}
+  let open=false;
+  function set(o){Object.assign(tgt,o.n);if(o.rgb)tcol.rgb=o.rgb;if(o.wall)tcol.wall=o.wall;if(o.lab)lab=o.lab;if(o.open!=null)open=!!o.open;kick()}
   function setLights(list,anyLight){
     const seen=new Set();
     list.forEach(d=>{seen.add(d.key);const {u,v,...rest}=d;let l=lights.get(d.key);
@@ -1219,7 +1444,8 @@ const Viz=(function(){
     const sh=(alb,f)=>{const a=amb*f;return`rgb(${(9+alb[0]/255*lr[0]*a)|0},${(8+alb[1]/255*lr[1]*a)|0},${(8+alb[2]/255*lr[2]*a)|0})`};
 
     /* surfaces */
-    path(ceil);ctx.fillStyle=lin(mid(c00,c10),mid(c01,c11),sh(CEIL,.22),sh(CEIL,.38));ctx.fill();
+    /* no ceiling outdoors: the night sky instead */
+    path(ceil);ctx.fillStyle=open?lin(mid(c00,c10),mid(c01,c11),"#060606","#0b0b0a"):lin(mid(c00,c10),mid(c01,c11),sh(CEIL,.22),sh(CEIL,.38));ctx.fill();
     path(back);ctx.fillStyle=lin(mid(c01,c11),mid(f01,f11),sh(wl,.76),sh(wl,.6));ctx.fill();
     path(left);ctx.fillStyle=lin(mid(f00,c00),mid(f01,c01),sh(wl,.42),sh(wl,.66));ctx.fill();
     path(right);ctx.fillStyle=lin(mid(f10,c10),mid(f11,c11),sh(wl,.38),sh(wl,.6));ctx.fill();
@@ -1238,9 +1464,12 @@ const Viz=(function(){
     const items=[];
     lights.forEach(l=>{const i=flick(l.t)*(l.dead?Math.max(0,l.f):1);if(i<=.002)return;
       let X,Z;
-      if(l.kind==="wall"){if(l.side==="b"){X=(l.u-.5)*L*.92;Z=W}else{X=l.side==="l"?-hx:hx;Z=l.u*W}}
+      if(l.kind==="wall"){if(l.side==="b"){X=(l.u-.5)*L;Z=W}else if(l.side==="f"){X=(l.u-.5)*L;Z=0}else{X=l.side==="l"?-hx:hx;Z=l.u*W}}
       else{X=(l.u-.5)*L;Z=l.v*W}
-      items.push({l,k:l.kind,X,Z,i})});
+      const hX=l.kind==="prof"&&!l.vert?l.lenM/2:0, hZ=l.kind==="prof"&&l.vert?l.lenM/2:0;
+      items.push({l,k:l.kind,X,Z,i,hX,hZ})});
+    /* points along a vertical profile (it runs in depth, so its light is drawn as a few pools) */
+    const along=o=>o.hZ?[-1,-.5,0,.5,1].map(f=>clamp(o.Z+f*o.hZ,.05,W-.05)):[o.Z];
     const aim=o=>{if(o.k==="gimbal")return[o.X,o.Z+Math.min(.7,(W-o.Z)*.5)];
       if(o.k==="head")return[o.X+(o.l.alt?.25:-.25),clamp(o.Z+(o.l.alt?.3*(W-o.Z):-.25*o.Z),.2,Math.max(.2,W-.2))];return[o.X,o.Z]};
     const ybP=()=>Math.max(1.6,H-.95);
@@ -1256,8 +1485,9 @@ const Viz=(function(){
         case"ceil":r=H*1.05;a=.42;break;
         case"pendant":r=ybP()*.85;a=.6;break;
         case"bulb":r=H*.9;a=.32;break;
-        case"prof":r=H*.5;a=.42;ext=o.l.len*L/2;break;
-        case"wall":r=.95;a=.2;if(o.l.side==="b")z=W-.35;else x=o.X+(o.l.side==="l"?.35:-.35);break;
+        case"prof":r=H*.5;a=.42;ext=o.hX;if(o.hZ){a=.3;along(o).forEach(zz=>{const s=sc(zz);glow(P(x,0,zz),r*s,r*s*ey/(zz+D),lc,a*I*i)});return}break;
+        case"wall":r=.95;a=.2;if(o.l.side==="b")z=W-.35;else if(o.l.side==="f")z=.35;else x=o.X+(o.l.side==="l"?.35:-.35);break;
+        case"floor":r=Math.max(.6,o.l.h*1.25);a=.5;break;
         default:return}
       const s=sc(z);glow(P(x,0,z),(r+ext)*s,r*s*ey/(z+D),lc,a*I*i)})});
 
@@ -1290,11 +1520,12 @@ const Viz=(function(){
       if(cur.cove>.01)edgeGlow(poly,sg<0?c00:c10,sg<0?c01:c11,.8*sc(W*.5),lc,Math.min(1,cur.cove)*.62*I)}));
 
     /* ceiling: halos around the fixtures, light thrown up by wall lamps, cove */
-    clipped(ceil,()=>{items.forEach(o=>{const {k,X,Z,i}=o,s=sc(Z),f=(H-ey)/(Z+D);let r=0,a=0;
+    if(!open)clipped(ceil,()=>{items.forEach(o=>{const {k,X,Z,i}=o,s=sc(Z),f=(H-ey)/(Z+D);let r=0,a=0;
       if(k==="spot"||k==="gimbal"){r=.35;a=.32}else if(k==="head"||k==="lin"){r=.4;a=.22}else if(k==="ceil"){r=1.1;a=.36}
       else if(k==="pendant"){r=.9;a=.16}else if(k==="bulb"){r=1.2;a=.26}else if(k==="prof"){r=.45;a=.3}
-      else if(k==="wall"){const zz=o.l.side==="b"?W-.4:Z,xx=o.l.side==="b"?X:X+(o.l.side==="l"?.4:-.4),ss=sc(zz);glow(P(xx,H,zz),.8*ss,.8*ss*(H-ey)/(zz+D),lc,.22*I*i);return}
-      if(!r)return;const ext=k==="prof"?o.l.len*L/2:0;glow(P(X,H,Z),(r+ext)*s,r*s*f,lc,a*I*i)});
+      else if(k==="wall"){const sd=o.l.side,zz=sd==="b"?W-.4:sd==="f"?.4:Z,xx=sd==="b"||sd==="f"?X:X+(sd==="l"?.4:-.4),ss=sc(zz);glow(P(xx,H,zz),.8*ss,.8*ss*(H-ey)/(zz+D),lc,.22*I*i);return}
+      if(!r)return;if(o.hZ){along(o).forEach(zz=>{const ss=sc(zz);glow(P(X,H,zz),r*ss,r*ss*(H-ey)/(zz+D),lc,a*.7*I*i)});return}
+      const ext=k==="prof"?o.hX:0;glow(P(X,H,Z),(r+ext)*s,r*s*f,lc,a*I*i)});
       if(cur.cove>.01){const a=Math.min(1,cur.cove)*.55*I,dB=Math.abs(P(0,H,Math.max(0,W-.9))[1]-P(0,H,W)[1]);
         edgeGlow(ceil,c01,c11,dB,lc,a);edgeGlow(ceil,c00,c01,.9*sc(W*.5),lc,a*.8);edgeGlow(ceil,c10,c11,.9*sc(W*.5),lc,a*.8)}});
 
@@ -1333,7 +1564,11 @@ const Viz=(function(){
           ctx.globalCompositeOperation="source-over";ctx.lineCap="butt";seg(a,b);ctx.strokeStyle=bodyC;ctx.lineWidth=Math.max(3,.06*s);ctx.stroke();
           ctx.globalCompositeOperation="lighter";const a2=[a[0],a[1]+Math.max(1,.02*s)],b2=[b[0],b[1]+Math.max(1,.02*s)];seg(a2,b2);ctx.strokeStyle=`rgba(${hot},${.85*i})`;ctx.lineWidth=Math.max(1.2,.022*s);ctx.stroke();
           glow(mid(a2,b2),.55*s,.22*s,lc,.32*i);break}
-        case"prof":{const a=P(X-o.l.len*L/2,H,Z),b=P(X+o.l.len*L/2,H,Z);
+        case"floor":{const h=o.l.h,b0=P(X,0,Z),t=P(X,h,Z);
+          ctx.globalCompositeOperation="source-over";ctx.lineCap="butt";seg(b0,t);ctx.strokeStyle=bodyC;ctx.lineWidth=Math.max(1.5,(h<.5?.05:.035)*s);ctx.stroke();
+          ctx.globalCompositeOperation="lighter";glow(t,.32*s,.32*s,lc,.6*i);
+          ctx.fillStyle=`rgba(${hot},${.3+.7*i})`;ctx.beginPath();ctx.arc(t[0],t[1],Math.max(1.5,.035*s),0,6.2832);ctx.fill();break}
+        case"prof":{const a=P(X-o.hX,H,Z-o.hZ),b=P(X+o.hX,H,Z+o.hZ);
           ctx.globalCompositeOperation="lighter";ctx.lineCap="round";
           [[.22,.1,lc],[.09,.25,lc],[.028,.95,hot]].forEach(([w,al,c])=>{seg(a,b);ctx.strokeStyle=`rgba(${c},${al*i})`;ctx.lineWidth=Math.max(1,w*s);ctx.stroke()});break}
         case"ceil":{const p=P(X,H,Z),rx=.3*s,ry=Math.max(1.5,rx*f);
@@ -1350,7 +1585,7 @@ const Viz=(function(){
           ctx.globalCompositeOperation="source-over";seg(top,p);ctx.strokeStyle="rgba(210,200,180,.35)";ctx.lineWidth=1;ctx.stroke();
           ctx.globalCompositeOperation="lighter";glow(p,.45*s,.45*s,lc,.75*i);
           ctx.fillStyle=`rgba(${hot},${.35+.65*i})`;ctx.beginPath();ctx.arc(p[0],p[1],Math.max(1.5,.05*s),0,6.2832);ctx.fill();break}
-        case"wall":{const y=o.l.y;let p,bw,bh;
+        case"wall":{if(o.l.side==="f")break;const y=o.l.y;let p,bw,bh;
           if(o.l.side==="b"){const sb=sc(W);p=P(X,y,W);bw=.1*sb;bh=.24*sb}
           else{p=P(X,y,Z);bw=Math.max(2,.04*s);bh=.24*s}
           ctx.globalCompositeOperation="source-over";ctx.fillStyle=bodyC;ctx.fillRect(p[0]-bw/2,p[1]-bh/2,bw,bh);
@@ -1371,47 +1606,259 @@ const Viz=(function(){
         if(vert){ctx.moveTo(a[0]-t,a[1]);ctx.lineTo(a[0]+t,a[1]);ctx.moveTo(b[0]-t,b[1]);ctx.lineTo(b[0]+t,b[1])}
         else{ctx.moveTo(a[0],a[1]-t);ctx.lineTo(a[0],a[1]+t);ctx.moveTo(b[0],b[1]-t);ctx.lineTo(b[0],b[1]+t)}ctx.stroke()};
       const yW=Math.min(ch-10,f00[1]+16);tick([f00[0],yW],[f10[0],yW],false);
-      const tW=`${num1(lab.L)} מ׳`,tw=ctx.measureText(tW).width;ctx.fillStyle="#080807";ctx.fillRect((f00[0]+f10[0])/2-tw/2-6,yW-8,tw+12,16);
+      const tW=`${dimTxt(lab.L)} מ׳`,tw=ctx.measureText(tW).width;ctx.fillStyle="#080807";ctx.fillRect((f00[0]+f10[0])/2-tw/2-6,yW-8,tw+12,16);
       ctx.fillStyle="rgba(243,239,231,.62)";ctx.textAlign="center";ctx.fillText(tW,(f00[0]+f10[0])/2,yW);
-      const xH=f10[0]+12;tick([xH,c10[1]],[xH,f10[1]],true);ctx.textAlign="left";ctx.fillText(`${num1(lab.H)} מ׳`,xH+8,(c10[1]+f10[1])/2);
-      const md=mid(f10,f11);ctx.fillText(`${num1(lab.W)} מ׳`,md[0]+10,md[1]+2);
+      ctx.textAlign="left";
+      if(!open){const xH=f10[0]+12;tick([xH,c10[1]],[xH,f10[1]],true);ctx.fillText(`${num1(lab.H)} מ׳`,xH+8,(c10[1]+f10[1])/2)}
+      const md=mid(f10,f11);ctx.fillText(`${dimTxt(lab.W)} מ׳`,md[0]+10,md[1]+2);
     }
   }
   return {set,setLights,look,kick};
 })();
 
-/* where the chosen fixtures go in the room (positions are 0..1 across the length u and the depth v, 1 = back wall) */
-function buildLights(){
-  const L=S.L,W=S.W,out=[],lanes=[];
-  const lane=p=>{for(const c of [p,.5,.3,.7,.18,.82,.4,.6]){if(lanes.every(o=>Math.abs(o-c)>.11)){lanes.push(c);return c}}return p};
-  const N=t=>{const q=S.lines[t].q;return q>0?Math.min(40,Math.round(q)):0};
-  const row=(n,a,b)=>Array.from({length:n},(_,i)=>n===1?(a+b)/2:a+(b-a)*i/(n-1));
-  let n;
-  if((n=N("pendant"))){const v=lane(.5);row(n,n<=3?.32:.14,n<=3?.68:.86).forEach((u,i)=>out.push({key:"pe"+i,kind:"pendant",u,v}))}
-  if((n=N("ceiling"))){const v=lane(.5);row(n,n<=2?.3:.15,n<=2?.7:.85).forEach((u,i)=>out.push({key:"ce"+i,kind:"ceil",u,v}))}
-  if((n=N("trackSpot"))){const v=lane(.5);out.push({key:"rT",kind:"rail",u:.5,v,len:.76});for(let i=0;i<n;i++)out.push({key:"tr"+i,kind:"head",u:.12+.76*(i+.5)/n,v,alt:i%2})}
-  const ms=N("magSpot"),ml=N("magLinear");
-  if(ms+ml){const v=lane(.5);out.push({key:"rM",kind:"rail",u:.5,v,len:.76});const seq=[];let a=ml,b=ms;
-    while(a||b){if(a){seq.push("lin");a--}if(b){seq.push("head");b--}}
-    let li=0,hi=0;seq.forEach((k,i)=>out.push({key:k==="lin"?"ml"+(li++):"ms"+(hi++),kind:k,u:.12+.76*(i+.5)/seq.length,v,alt:(i>>1)%2}))}
-  const pr=S.lines.profile;
-  if(pr.q>0&&pr.mode==="dir"){const maxL=Math.max(.8,.8*L),cnt=Math.min(4,Math.ceil(pr.q/maxL)),len=Math.min(pr.q/cnt,maxL);for(let i=0;i<cnt;i++){const v=lane(.5);out.push({key:"pf"+i,kind:"prof",u:.5,v,len:len/L})}}
-  if((n=N("gimbal"))){const per=Math.max(2,Math.round(L/1.1));for(let i=0;i<n;i++){const r=Math.floor(i/per),inRow=Math.min(per,n-r*per),j=i-r*per;out.push({key:"gb"+i,kind:"gimbal",u:.08+.84*(j+.5)/inRow,v:r%2?.12:.88})}}
-  const nr=N("recessed"),nb=N("bulb"),tot=nr+nb;
-  if(tot){const pts=lanes.length?perim(tot,L,W):grid(tot,L,W);pts.forEach((p,i)=>out.push(i<nr?{key:"rc"+i,kind:"spot",u:p[0],v:p[1]}:{key:"bu"+(i-nr),kind:"bulb",u:p[0],v:p[1]}))}
-  if((n=N("wall"))){const y=Math.min(1.8,S.H-.45),nbk=Math.min(n,Math.max(1,Math.floor(L/1.4)));
-    row(nbk,nbk<=2?.3:.12,nbk<=2?.7:.88).forEach((u,i)=>out.push({key:"wa"+i,kind:"wall",side:"b",u,v:1,y}));
-    const rest=n-nbk,m=Math.ceil(rest/2);for(let j=0;j<rest;j++){const q=Math.floor(j/2);out.push({key:"wa"+(nbk+j),kind:"wall",side:j%2?"r":"l",u:m===1?.55:.8-.55*q/(m-1),v:1,y})}}
-  const sm=S.lines.strip.q>0?S.lines.strip.q:0,pm=pr.q>0&&pr.mode==="ind"?pr.q:0;
-  const cove=sm+pm>0?clamp((sm*.8+pm*1.2)/(L+2*W),.25,1.3):0;
-  return {list:out,cove};
-}
-function perim(n,L,W){const im=Math.min(.65,L*.18,W*.18),x0=im,x1=L-im,z0=im,z1=W-im,lx=x1-x0,lz=z1-z0,st=2*(lx+lz)/n,out=[];
-  for(let i=0;i<n;i++){let d=st*(i+.5),x,z;
+/* ---------------- where everything goes ----------------
+   u = 0..1 along the length (left to right on the plan), v = 0..1 in depth (1 = back wall = top of the plan).
+   Wall lamps also carry a side: b (back, top of the plan), f (front, bottom), l, r. Profiles carry lenM and vert. */
+const row=(n,a,b)=>Array.from({length:n},(_,i)=>n===1?(a+b)/2:a+(b-a)*i/(n-1));
+function perim(n,L,W,im0,ph){const im=im0!=null?Math.min(im0,L*.25,W*.25):Math.min(.65,L*.18,W*.18),x0=im,x1=L-im,z0=im,z1=W-im,lx=x1-x0,lz=z1-z0,per=2*(lx+lz),st=per/n,out=[];
+  for(let i=0;i<n;i++){let d=(st*(i+.5+(ph||0)))%per,x,z;
     if(d<lx){x=x0+d;z=z1}else if((d-=lx)<lz){x=x1;z=z1-d}else if((d-=lz)<lx){x=x1-d;z=z0}else{d-=lx;x=x0;z=z0+d}
     out.push([x/L,z/W])}return out}
 function grid(n,L,W){const c=Math.max(1,Math.min(n,Math.round(Math.sqrt(n*L/W)))),r=Math.ceil(n/c),out=[];
   for(let i=0;i<n;i++){const ri=Math.floor(i/c),k=ri===r-1?n-ri*c:c,ci=i-ri*c;out.push([(ci+.5+(c-k)/2)/c,1-(ri+.5)/r])}return out}
+function wallAuto(n,L){const out=[],nbk=Math.min(n,Math.max(1,Math.floor(L/1.4)));
+  row(nbk,nbk<=2?.3:.12,nbk<=2?.7:.88).forEach(u=>out.push({side:"b",u,v:1}));
+  const rest=n-nbk,m=Math.ceil(rest/2);for(let j=0;j<rest;j++){const q=Math.floor(j/2),sd=j%2?"r":"l";out.push({side:sd,u:sd==="l"?0:1,v:m===1?.55:.8-.55*q/(m-1)})}
+  return out}
+function wallAlong(sd,n){const out=[];for(let i=0;i<n;i++){const f=(i+.5)/n;
+  if(sd==="t")out.push({side:"b",u:f,v:1});else if(sd==="b")out.push({side:"f",u:f,v:0});else out.push({side:sd,u:sd==="l"?0:1,v:1-f})}return out}
+
+/* the automatic layout of the generic types (same as version 6) */
+function autoGen(L,W){
+  const A={},lanes=[];
+  const lane=p=>{for(const c of [p,.5,.3,.7,.18,.82,.4,.6]){if(lanes.every(o=>Math.abs(o-c)>.11)){lanes.push(c);return c}}return p};
+  const N=t=>avail(t)&&S.lines[t].q>0?Math.min(40,Math.round(S.lines[t].q)):0;
+  let n;
+  if((n=N("pendant"))){const v=lane(.5);A.pendant=row(n,n<=3?.32:.14,n<=3?.68:.86).map(u=>({u,v}))}
+  if((n=N("ceiling"))){const v=lane(.5);A.ceiling=row(n,n<=2?.3:.15,n<=2?.7:.85).map(u=>({u,v}))}
+  if((n=N("trackSpot"))){const v=lane(.5);A.trackSpot=Array.from({length:n},(_,i)=>({u:.12+.76*(i+.5)/n,v,alt:i%2}))}
+  const ms=N("magSpot"),ml=N("magLinear");
+  if(ms+ml){const v=lane(.5),seq=[];let a=ml,b=ms;while(a||b){if(a){seq.push("lin");a--}if(b){seq.push("head");b--}}
+    A.magSpot=[];A.magLinear=[];seq.forEach((k,i)=>(k==="lin"?A.magLinear:A.magSpot).push({u:.12+.76*(i+.5)/seq.length,v,alt:(i>>1)%2}))}
+  const pr=S.lines.profile;
+  if(avail("profile")&&pr.q>0&&pr.mode==="dir"){const maxL=Math.max(.8,.8*L),cnt=Math.min(4,Math.ceil(pr.q/maxL)),len=Math.min(pr.q/cnt,maxL);A.profile=[];for(let i=0;i<cnt;i++)A.profile.push({u:.5,v:lane(.5),lenM:len})}
+  if((n=N("gimbal"))){const per=Math.max(2,Math.round(L/1.1));A.gimbal=[];for(let i=0;i<n;i++){const r=Math.floor(i/per),inRow=Math.min(per,n-r*per),j=i-r*per;A.gimbal.push({u:.08+.84*(j+.5)/inRow,v:r%2?.12:.88})}}
+  const nr=N("recessed"),nb=N("bulb"),tot=nr+nb;
+  if(tot){const pts=lanes.length?perim(tot,L,W):grid(tot,L,W);A.recessed=pts.slice(0,nr).map(p=>({u:p[0],v:p[1]}));A.bulb=pts.slice(nr).map(p=>({u:p[0],v:p[1]}))}
+  if((n=N("wall")))A.wall=wallAuto(n,L);
+  if((n=N("bollard")))A.bollard=perim(n,L,W,.35).map(p=>({u:p[0],v:p[1]}));
+  if((n=N("spike")))A.spike=perim(n,L,W,.3,.5).map(p=>({u:p[0],v:p[1]}));
+  const sm=avail("strip")&&S.lines.strip.q>0?S.lines.strip.q:0,pm=avail("profile")&&pr.q>0&&pr.mode==="ind"?pr.q:0;
+  const cove=sm+pm>0?clamp((sm*.8+pm*1.2)/(L+2*W),.25,1.3):0;
+  return {A,cove};
+}
+/* the "מיקום" presets */
+function presetPts(pl,n,L,W,sym){
+  const fr=(x,y)=>({u:x/L,v:1-y/W}),out=[];
+  if(sym==="wall")return pl.startsWith("wall-")?wallAlong(pl.slice(5),n):wallAuto(n,L);
+  const ins=Math.min(sym==="bollard"||sym==="spike"?.3:.45,L*.22,W*.22);
+  switch(pl){
+    case"center":{const s=.6,c=Math.ceil(Math.sqrt(n)),rows=Math.ceil(n/c);for(let i=0;i<n;i++){const r=Math.floor(i/c),k=r===rows-1?n-r*c:c,ci=i-r*c;out.push(fr(L/2+(ci-(k-1)/2)*s,W/2+(r-(rows-1)/2)*s))}break}
+    case"wall-t":case"wall-b":{const y=pl==="wall-t"?ins:W-ins;for(let i=0;i<n;i++)out.push(fr(L*(i+.5)/n,y));break}
+    case"wall-l":case"wall-r":{const x=pl==="wall-l"?ins:L-ins;for(let i=0;i<n;i++)out.push(fr(x,W*(i+.5)/n));break}
+    case"corners":if(n<=4){const c=[[ins,ins],[L-ins,W-ins],[L-ins,ins],[ins,W-ins]];for(let i=0;i<n;i++)out.push(fr(c[i][0],c[i][1]))}else perim(n,L,W,ins).forEach(p=>out.push({u:p[0],v:p[1]}));break;
+    case"table":{const hor=L>=W,span=hor?L:W,s=n>1?Math.min(.8,span*.7/(n-1)):0;for(let i=0;i<n;i++){const d=(i-(n-1)/2)*s;out.push(hor?fr(L/2+d,W/2):fr(L/2,W/2+d))}break}
+    default:grid(n,L,W).forEach(p=>out.push({u:p[0],v:p[1]}));
+  }
+  return out}
+/* profiles: a run of metres (generic) or a number of 1 m units (catalog), as straight segments */
+function profPts(pl,total,L,W,unit){
+  const vert=pl==="wall-l"||pl==="wall-r"||(pl==="table"&&W>L),span=(vert?W:L)*.9,cross=vert?L:W;
+  let segs;
+  if(unit)segs=Array(Math.min(12,Math.max(1,total))).fill(Math.min(1,span));
+  else{const cnt=Math.min(4,Math.max(1,Math.ceil(total/span)));segs=Array(cnt).fill(Math.min(total/cnt,span))}
+  const n=segs.length;let offs;
+  switch(pl){
+    case"wall-t":offs=segs.map((_,i)=>.3+i*.3);break;
+    case"wall-b":offs=segs.map((_,i)=>W-.3-i*.3);break;
+    case"wall-l":offs=segs.map((_,i)=>.3+i*.3);break;
+    case"wall-r":offs=segs.map((_,i)=>L-.3-i*.3);break;
+    case"center":case"table":offs=segs.map((_,i)=>cross/2+(i-(n-1)/2)*.5);break;
+    default:offs=segs.map((_,i)=>cross*(i+.5)/n);
+  }
+  return segs.map((len,i)=>vert?{u:offs[i]/L,v:.5,lenM:len,vert:true}:{u:.5,v:1-offs[i]/W,lenM:len})}
+const CDEF={spot:"grid",ring:"center",pend:"table",head:"table",lin:"table",prof:"grid",lamp:"corners",bollard:"corners",spike:"wall-b"};
+function clampInst(o,L,W,sym){
+  const mg=.08;
+  if(sym==="wall"){if(o.side==="b"||o.side==="f"){o.u=clamp(o.u,.12/L,1-.12/L);o.v=o.side==="b"?1:0}else{o.v=clamp(o.v,.12/W,1-.12/W);o.u=o.side==="l"?0:1}return o}
+  if(sym==="prof"){const hx=o.vert?0:o.lenM/2,hz=o.vert?o.lenM/2:0;
+    o.u=clamp(o.u,Math.min(.5,(hx+mg)/L),Math.max(.5,1-(hx+mg)/L));o.v=clamp(o.v,Math.min(.5,(hz+mg)/W),Math.max(.5,1-(hz+mg)/W));return o}
+  o.u=clamp(o.u,mg/L,1-mg/L);o.v=clamp(o.v,mg/W,1-mg/W);return o}
+function layout(c){
+  const L=S.L,W=S.W,{A,cove}=autoGen(L,W),lines=[],taken=[];
+  c.all.forEach(ln=>{
+    const st=ln.st,sym=ln.sym;let pts;
+    if(ln.src==="gen"){
+      if(!GK[ln.t]||(ln.t==="profile"&&st.mode==="ind"))return;
+      const n=Math.min(40,Math.round(ln.q));
+      if(st.place==="auto")pts=(A[ln.t]||[]).map(p=>Object.assign({},p));
+      else pts=sym==="prof"?profPts(st.place,ln.q,L,W,false):presetPts(st.place,n,L,W,sym);
+    }else{
+      const n=Math.min(40,ln.q),pl=st.place==="auto"?(sym==="wall"?"auto":CDEF[sym]||"grid"):st.place;
+      pts=sym==="prof"?profPts(pl,n,L,W,true):presetPts(pl,n,L,W,sym);
+      if(st.place==="auto"&&sym!=="wall")pts.forEach(p=>{if(taken.some(q=>Math.abs((q.u-p.u)*L)<.3&&Math.abs((q.v-p.v)*W)<.3)){p.u+=.35/L;p.v-=.3/W}});
+    }
+    pts.forEach((p,i)=>{if(p.alt==null)p.alt=i%2;const ov=st.pos&&st.pos[i];if(ov){p.u=ov.u;p.v=ov.v;if(sym==="wall"&&ov.side)p.side=ov.side}clampInst(p,L,W,sym)});
+    taken.push(...pts);
+    lines.push({ln,pts,custom:!!st.pos&&pts.some((_,i)=>st.pos[i])});
+  });
+  /* rails under track and magnetic heads, when the heads of one rail sit on one line */
+  const groups={};lines.forEach(o=>{if(!o.ln.rg||!o.ln.ok)return;const g=o.ln.rg==="c"?o.ln.id:o.ln.rg;(groups[g]=groups[g]||[]).push(...o.pts)});
+  const rails=[];Object.values(groups).forEach(arr=>{if(!arr.length)return;const v0=arr[0].v;
+    if(arr.every(p=>Math.abs((p.v-v0)*W)<.05)){const us=arr.map(p=>p.u),a=Math.min(...us),b=Math.max(...us),ext=.2/L;rails.push({u:(a+b)/2,v:v0,len:Math.min(1,(b-a)+2*ext)})}});
+  return {L,W,lines,rails,cove,open:openSky()};
+}
+/* equal spacing in a line: a row, a column or a full grid */
+function spacing(pts,L,W){
+  if(!pts||pts.length<2)return null;
+  const P=pts.map(p=>[p.u*L,(1-p.v)*W]),eq=(a,b)=>Math.abs(a-b)<.03;
+  const uniq=a=>{const s=[...a].sort((x,y)=>x-y),o=[];s.forEach(v=>{if(!o.length||!eq(o[o.length-1],v))o.push(v)});return o};
+  const reg=a=>{const s=[...a].sort((x,y)=>x-y),g=[];for(let i=1;i<s.length;i++)g.push(s[i]-s[i-1]);return g.length&&g[0]>.05&&g.every(x=>eq(x,g[0]))?g[0]:0};
+  const xs=uniq(P.map(p=>p[0])),ys=uniq(P.map(p=>p[1]));
+  if(ys.length===1){const s=reg(P.map(p=>p[0]));return s?{a:s,ax:"x",P}:null}
+  if(xs.length===1){const s=reg(P.map(p=>p[1]));return s?{a:s,ax:"y",P}:null}
+  if(xs.length*ys.length===P.length){const sx=reg(xs),sy=reg(ys);if(sx&&sy)return {a:sx,b:sy,ax:"g",P,xs,ys}}
+  return null}
+const spTxt=s=>s.ax==="g"&&Math.abs(s.a-s.b)>=.03?`מרווח ${m2(s.a)} × ${m2(s.b)} מ׳`:`מרווח ${m2(s.a)} מ׳`;
+const perInst=(ln,p)=>ln.ul==null?0:ln.src==="gen"&&ln.t==="profile"?ln.ul*p.lenM*ln.c:ln.ul*ln.c;
+
+/* ---------------- top view plan (SVG, metres) ---------------- */
+const SIDE_HE={b:"העליון",f:"התחתון",l:"השמאלי",r:"הימני"};
+function symShape(sym,p,u){
+  const hit=`<circle class="hit" r="${u(18)}"/>`;
+  switch(sym){
+    case"spot":{const r=u(6.5),e=r+u(3.5);return hit+`<circle class="sy" r="${r}"/><path class="sy" d="M${-e} 0H${e}M0 ${-e}V${e}"/>`}
+    case"head":{const r=u(5),e=r+u(3);return hit+`<circle class="sy" r="${r}"/><path class="sy" d="M${-e} 0H${e}M0 ${-e}V${e}"/>`}
+    case"ring":return hit+`<circle class="sy" r="${u(10.5)}" style="stroke-width:2px"/><circle class="sy" r="${u(6.5)}" style="fill:none"/>`;
+    case"pend":return hit+`<circle class="sy" r="${u(8.5)}"/><circle class="sf" r="${u(4)}"/>`;
+    case"bulb":return hit+`<circle class="sy" r="${u(6)}"/><circle class="sf" r="${u(2.6)}"/>`;
+    case"lamp":return hit+`<circle class="sy" r="${u(7.5)}" style="stroke-dasharray:2 2"/><circle class="sf" r="${u(2.6)}"/>`;
+    case"bollard":{const s=u(5);return hit+`<rect class="sf" x="${-s}" y="${-s}" width="${2*s}" height="${2*s}"/>`}
+    case"spike":{const s=u(6.5);return hit+`<path class="sf" d="M0 ${-s}L${s*.92} ${s*.66}H${-s*.92}Z"/>`}
+    case"lin":{const hl=Math.max(u(12),.2);return `<rect class="hit" x="${-hl-u(6)}" y="${-u(14)}" width="${2*hl+u(12)}" height="${u(28)}"/><path class="sk" d="M${-hl} 0H${hl}"/>`}
+    case"prof":{const hl=p.lenM/2,t=u(5),v=p.vert;
+      const hb=v?`<rect class="hit" x="${-u(14)}" y="${-hl-u(6)}" width="${u(28)}" height="${2*hl+u(12)}"/>`:`<rect class="hit" x="${-hl-u(6)}" y="${-u(14)}" width="${2*hl+u(12)}" height="${u(28)}"/>`;
+      return hb+`<path class="sk" d="${v?`M0 ${-hl}V${hl}`:`M${-hl} 0H${hl}`}"/><path class="sy" d="${v?`M${-t} ${-hl}H${t}M${-t} ${hl}H${t}`:`M${-hl} ${-t}V${t}M${hl} ${-t}V${t}`}"/>`}
+    case"wall":{const r=u(9),rot={b:0,f:180,l:-90,r:90}[p.side]||0;return hit+`<path class="sy" transform="rotate(${rot})" d="M${-r} 0A${r} ${r} 0 0 0 ${r} 0Z"/>`}
+  }
+  return hit}
+function symLabel(ln,p,i,n,L,W){
+  const nm=`${ln.name}${n>1?`, ${i+1} מתוך ${n}`:""}`;
+  if(ln.sym==="wall")return `${nm}. על הקיר ${SIDE_HE[p.side]||""} בשרטוט, ${m2(p.side==="l"||p.side==="r"?(1-p.v)*W:p.u*L)} מ׳ מהפינה.`;
+  return `${nm}. ${m2(p.u*L)} מ׳ מהקיר השמאלי, ${m2((1-p.v)*W)} מ׳ מהקיר העליון.`}
+function planMarkup(LY,k,opt){
+  const L=LY.L,W=LY.W,u=px=>px/k,f=v=>Math.round(v*1000)/1000,pr=!!opt.print,gid=pr?"ppG":"plG";
+  const pos=p=>[p.u*L,(1-p.v)*W];
+  let h=`<defs><radialGradient id="${gid}"><stop offset="0" stop-color="${opt.col}" stop-opacity=".95"/><stop offset=".45" stop-color="${opt.col}" stop-opacity=".42"/><stop offset="1" stop-color="${opt.col}" stop-opacity="0"/></radialGradient><clipPath id="${gid}c"><rect x="0" y="0" width="${f(L)}" height="${f(W)}"/></clipPath></defs>`;
+  h+=`<rect class="pf" x="0" y="0" width="${f(L)}" height="${f(W)}"/>`;
+  /* grid every 50 cm, a little stronger every metre */
+  for(let x=.5;x<L-.01;x+=.5)h+=`<line class="pg${Math.abs(x-Math.round(x))<.01?" m":""}" x1="${f(x)}" y1="0" x2="${f(x)}" y2="${f(W)}"/>`;
+  for(let y=.5;y<W-.01;y+=.5)h+=`<line class="pg${Math.abs(y-Math.round(y))<.01?" m":""}" x1="0" y1="${f(y)}" x2="${f(L)}" y2="${f(y)}"/>`;
+  /* light map: a warm pool for every fixture, scaled by its lumens */
+  h+=`<g clip-path="url(#${gid}c)">`;
+  LY.lines.forEach(o=>{if(!o.ln.ok||o.ln.noW)return;o.pts.forEach(p=>{const per=perInst(o.ln,p);if(!per)return;const [x,y]=pos(p);
+    const r=clamp(.45+Math.sqrt(per)/32,.6,3.2),a=clamp(.3+per/2600,.32,.9).toFixed(2);
+    if(o.ln.sym==="prof"){const hl=p.lenM/2;h+=`<ellipse class="pool" cx="${f(x)}" cy="${f(y)}" rx="${f(p.vert?r*.8:hl+r*.7)}" ry="${f(p.vert?hl+r*.7:r*.8)}" fill="url(#${gid})" opacity="${a}"/>`}
+    else{let cx=x,cy=y;if(o.ln.sym==="wall"){const d=.3;if(p.side==="b")cy+=d;else if(p.side==="f")cy-=d;else if(p.side==="l")cx+=d;else cx-=d}
+      h+=`<circle class="pool" cx="${f(cx)}" cy="${f(cy)}" r="${f(r)}" fill="url(#${gid})" opacity="${a}"/>`}})});
+  if(LY.cove)h+=`<rect class="pc" x="${f(.14)}" y="${f(.14)}" width="${f(L-.28)}" height="${f(W-.28)}"/>`;
+  h+=`</g><rect class="pw${LY.open?" open":""}" x="0" y="0" width="${f(L)}" height="${f(W)}"/>`;
+  /* the dimensions of the room, outside the walls */
+  const yD=W+u(20),xD=L+u(20),tk=u(5),fs=u(12);
+  h+=`<path class="pd" d="M0 ${f(W+u(6))}V${f(yD+tk)}M${f(L)} ${f(W+u(6))}V${f(yD+tk)}M0 ${f(yD)}H${f(L)}M${f(L+u(6))} 0H${f(xD+tk)}M${f(L+u(6))} ${f(W)}H${f(xD+tk)}M${f(xD)} 0V${f(W)}"/>`;
+  h+=`<text class="pt" x="${f(L/2)}" y="${f(yD+u(16))}" font-size="${f(fs)}" text-anchor="middle">${dimTxt(L)} מ׳</text>`;
+  h+=`<text class="pt" transform="translate(${f(xD+u(16))} ${f(W/2)}) rotate(90)" font-size="${f(fs)}" text-anchor="middle">${dimTxt(W)} מ׳</text>`;
+  /* rails */
+  LY.rails.forEach(r=>{const y=(1-r.v)*W,a=(r.u-r.len/2)*L,b=(r.u+r.len/2)*L;h+=`<line class="pr" x1="${f(a)}" y1="${f(y)}" x2="${f(b)}" y2="${f(y)}"/>`});
+  /* spacing, like on a lighting plan: one dimension per regular line */
+  const dimsDone=[];LY.lines.forEach(o=>{if(!o.ln.ok)return;const s=spacing(o.pts,L,W);if(!s)return;const fs2=u(10.5);
+    const k0=s.ax+":"+Math.round((s.ax==="y"?s.P[0][0]:s.P[0][1])*20);if(s.ax!=="g"&&dimsDone.includes(k0))return;dimsDone.push(k0);
+    const dimX=(x1,x2,y,lab)=>{const yy=y-u(15)<u(12)?y+u(17):y-u(15);h+=`<path class="pd" d="M${f(x1)} ${f(yy)}H${f(x2)}M${f(x1)} ${f(yy-tk*.7)}V${f(yy+tk*.7)}M${f(x2)} ${f(yy-tk*.7)}V${f(yy+tk*.7)}"/><text class="pt s" x="${f((x1+x2)/2)}" y="${f(yy-u(4))}" font-size="${f(fs2)}" text-anchor="middle" direction="ltr">${lab}</text>`};
+    const dimY=(y1,y2,x,lab)=>{const xx=x+u(15)>L-u(12)?x-u(15):x+u(15);h+=`<path class="pd" d="M${f(xx)} ${f(y1)}V${f(y2)}M${f(xx-tk*.7)} ${f(y1)}H${f(xx+tk*.7)}M${f(xx-tk*.7)} ${f(y2)}H${f(xx+tk*.7)}"/><text class="pt s" transform="translate(${f(xx+(xx>x?u(4):-u(4)))} ${f((y1+y2)/2)}) rotate(90)" font-size="${f(fs2)}" text-anchor="middle" dominant-baseline="${xx>x?"text-before-edge":"text-after-edge"}" direction="ltr">${lab}</text>`};
+    if(s.ax==="x"){const P=[...s.P].sort((a,b)=>a[0]-b[0]);dimX(P[0][0],P[1][0],P[0][1],m2(s.a))}
+    else if(s.ax==="y"){const P=[...s.P].sort((a,b)=>a[1]-b[1]);dimY(P[0][1],P[1][1],P[0][0],m2(s.a))}
+    else{dimX(s.xs[0],s.xs[1],s.ys[0],m2(s.a));dimY(s.ys[0],s.ys[1],s.xs[0],m2(s.b))}});
+  /* the fixtures */
+  LY.lines.forEach(o=>{const ln=o.ln,n=o.pts.length;o.pts.forEach((p,i)=>{const [x,y]=pos(p),key=ln.id+"#"+i;
+    const cls="ps"+(ln.ok?"":" off")+(opt.hl===ln.id?" hl":"")+(opt.drag===key?" drag":"");
+    const at=pr?"":` tabindex="0" role="button" aria-roledescription="גוף בתוכנית" aria-label="${esc(symLabel(ln,p,i,n,L,W))}" data-k="${esc(key)}"`;
+    h+=`<g class="${cls}" data-line="${esc(ln.id)}"${at} transform="translate(${f(x)} ${f(y)})">${symShape(ln.sym,p,u)}</g>`})});
+  return h}
+const lightCol=()=>`rgb(${k2rgb(curK()).map(v=>Math.round(v+(255-v)*.1)).join(",")})`;
+const planBox=$("#plan"),planSv=$("#planSv");
+let LY=null,planK=60,hlLine=null,drag=null,lastBox="";
+const PAD={l:14,t:14,r:44,b:40};
+function drawPlan(){
+  if(!LY)return;const br=planBox.getBoundingClientRect();if(!br.width)return;
+  const L=LY.L,W=LY.W,px=PAD.l+PAD.r,py=PAD.t+PAD.b;let k;
+  if(isMob()){k=(br.width-px-8)/L;k=Math.min(k,(Math.max(280,innerHeight*.7)-py)/W)}
+  else k=Math.min((br.width-px-16)/L,(br.height-py-16)/W);
+  planK=k=Math.max(4,k);
+  const mL=PAD.l/k,mT=PAD.t/k,vw=L+(PAD.l+PAD.r)/k,vh=W+(PAD.t+PAD.b)/k;
+  planSv.setAttribute("viewBox",`${-mL} ${-mT} ${vw} ${vh}`);planSv.setAttribute("width",Math.round(vw*k));planSv.setAttribute("height",Math.round(vh*k));
+  const ae=document.activeElement,fk=ae&&planSv.contains(ae)&&ae.dataset?ae.dataset.k:null;
+  planSv.innerHTML=planMarkup(LY,k,{col:lightCol(),hl:hlLine,drag:drag&&drag.key});
+  if(fk){const el=planSv.querySelector(`[data-k="${CSS.escape(fk)}"]`);if(el)el.focus({preventScroll:true})}
+  $("#planEmpty").hidden=LY.lines.some(o=>o.pts.length)||!!LY.cove;
+  lastBox=Math.round(br.width)+"x"+Math.round(br.height);
+}
+if("ResizeObserver" in window)new ResizeObserver(()=>{const br=planBox.getBoundingClientRect(),b=Math.round(br.width)+"x"+Math.round(br.height);
+  if(isMob()?b.split("x")[0]!==lastBox.split("x")[0]:b!==lastBox)requestAnimationFrame(drawPlan)}).observe(planBox);
+else addEventListener("resize",drawPlan);
+
+/* dragging with mouse or finger, arrows with the keyboard */
+const ptOf=e=>{const r=planSv.getBoundingClientRect(),vb=planSv.viewBox.baseVal;return {x:vb.x+(e.clientX-r.left)/planK,y:vb.y+(e.clientY-r.top)/planK}};
+function findInst(key){const j=key.lastIndexOf("#"),id=key.slice(0,j),i=+key.slice(j+1);const o=LY&&LY.lines.find(x=>x.ln.id===id);return o&&o.pts[i]?{o,i,p:o.pts[i]}:null}
+const stOf=id=>id.startsWith("g:")?S.lines[id.slice(2)]:S.cat.find(x=>x.uid===id.slice(2));
+function moveTo(key,x,y){
+  const f=findInst(key);if(!f)return;const st=stOf(f.o.ln.id);if(!st)return;const L=S.L,W=S.W;let v;
+  if(f.o.ln.sym==="wall"){const d={b:y,f:W-y,l:x,r:L-x},sd=Object.keys(d).reduce((a,b)=>d[b]<d[a]?b:a);
+    v=sd==="b"||sd==="f"?{side:sd,u:clamp(x/L,0,1),v:sd==="b"?1:0}:{side:sd,u:sd==="l"?0:1,v:clamp(1-y/W,0,1)}}
+  else v={u:clamp(x/L,0,1),v:clamp(1-y/W,0,1)};
+  /* the rest of the line stays exactly where it is now */
+  if(!st.pos)st.pos={};
+  f.o.pts.forEach((p,i)=>{if(!st.pos[i])st.pos[i]=Object.assign({u:p.u,v:p.v},p.side?{side:p.side}:{})});
+  st.pos[f.i]=v;
+}
+let rq=0;const schedule=()=>{if(!rq)rq=requestAnimationFrame(()=>{rq=0;render()})};
+planSv.addEventListener("pointerdown",e=>{const g=e.target.closest("[data-k]");if(!g||e.button>0)return;const f=findInst(g.dataset.k);if(!f)return;
+  e.preventDefault();const pt=ptOf(e);
+  drag={key:g.dataset.k,dx:f.p.u*S.L-pt.x,dy:(1-f.p.v)*S.W-pt.y,id:e.pointerId};
+  try{planSv.setPointerCapture(e.pointerId)}catch(_){}
+  g.focus({preventScroll:true});hlLine=f.o.ln.id;drawPlan()});
+planSv.addEventListener("pointermove",e=>{if(!drag||e.pointerId!==drag.id)return;const pt=ptOf(e);moveTo(drag.key,pt.x+drag.dx,pt.y+drag.dy);schedule()});
+const endDrag=e=>{if(!drag||e.pointerId!==drag.id)return;drag=null;hlLine=null;cancelAnimationFrame(rq);rq=0;render()};
+planSv.addEventListener("pointerup",endDrag);planSv.addEventListener("pointercancel",endDrag);
+planSv.addEventListener("touchstart",e=>{if(e.target.closest&&e.target.closest("[data-k]"))e.preventDefault()},{passive:false});
+planSv.addEventListener("keydown",e=>{const g=e.target.closest("[data-k]");if(!g)return;
+  const d={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key];if(!d)return;e.preventDefault();
+  const f=findInst(g.dataset.k);if(!f)return;moveTo(g.dataset.k,f.p.u*S.L+d[0]*.1,(1-f.p.v)*S.W+d[1]*.1);render();
+  const nf=findInst(g.dataset.k);if(nf)$("#live").textContent=symLabel(nf.o.ln,nf.p,nf.i,nf.o.pts.length,S.L,S.W)});
+/* a line in the list lights up its symbols on the plan */
+function hlSet(id){if(hlLine===id||drag)return;hlLine=id;$$(".ps",planSv).forEach(g=>g.classList.toggle("hl",g.dataset.line===id))}
+$("#stFix").addEventListener("mouseover",e=>{const li=e.target.closest(".fx[data-id]");hlSet(li?li.dataset.id:null)});
+$("#stFix").addEventListener("mouseleave",()=>hlSet(null));
+$("#stFix").addEventListener("focusin",e=>{const li=e.target.closest(".fx[data-id]");hlSet(li?li.dataset.id:null)});
+
+/* the room view gets the same positions */
+function vizLights(LY){const out=[],H=effH();
+  LY.rails.forEach((r,i)=>out.push({key:"rail"+i,kind:"rail",u:r.u,v:r.v,len:r.len}));
+  LY.lines.forEach(o=>{const ln=o.ln;if(!ln.ok)return;o.pts.forEach((p,i)=>{const key=ln.id+"#"+i;
+    if(ln.vk==="wall")out.push({key,kind:"wall",side:p.side,u:p.side==="l"||p.side==="r"?p.v:p.u,v:p.v,y:ln.low?.45:Math.min(1.8,H-.45)});
+    else if(ln.vk==="prof")out.push({key,kind:"prof",u:p.u,v:p.v,lenM:p.lenM,vert:!!p.vert});
+    else if(ln.vk==="floor")out.push({key,kind:"floor",u:p.u,v:p.v,h:ln.h});
+    else out.push({key,kind:ln.vk,u:p.u,v:p.v,alt:p.alt})})});
+  return out}
 
 /* ---------------- build the controls ---------------- */
 const chipsHTML=list=>list.map(([v,h])=>`<button type="button" data-v="${v}" aria-pressed="false">${h}</button>`).join("");
@@ -1423,44 +1870,142 @@ $("#rAct").innerHTML=chipsHTML(Object.entries(ACTS).map(([k,a])=>[k,a.he]));
 const press=(el,fn)=>$$("button",el).forEach(b=>b.setAttribute("aria-pressed",fn(b.dataset.v)));
 const onChip=(el,fn)=>el.addEventListener("click",e=>{const b=e.target.closest("button[data-v]");if(b){fn(b.dataset.v);render()}});
 onChip($("#rType"),v=>S.room=v);
+onChip($("#rCov"),v=>S.covered=v==="yes");
 onChip($("#rWall"),v=>S.walls=v);
 onChip($("#rPref"),v=>S.pref=v);
 onChip($("#rAtm"),v=>S.atm=S.atm===v?null:v);
 onChip($("#rAct"),v=>{const i=S.acts.indexOf(v);i>-1?S.acts.splice(i,1):S.acts.push(v)});
 
+/* length and width: any value can be typed (1.72), the sliders move in half metres.
+   While typing nothing is overwritten; the field is tidied only when it loses focus. */
 const nL=$("#nL"),rL=$("#rL"),nW=$("#nW"),rW=$("#rW"),rH=$("#rH"),oH=$("#oH");
+const pNum=s=>parseFloat(String(s).replace(",","."));
 [["L",nL,rL],["W",nW,rW]].forEach(([k,n,r])=>{
-  n.addEventListener("input",()=>{const v=parseFloat(n.value);if(v>=1.5&&v<=15){S[k]=v;render()}});
-  n.addEventListener("change",()=>{let v=parseFloat(n.value);if(!isFinite(v))v=S[k];S[k]=clamp(Math.round(v*10)/10,1.5,15);n.value=num1(S[k]);render()});
-  r.addEventListener("input",()=>{S[k]=+r.value;render()});
+  n.addEventListener("input",()=>{const v=pNum(n.value);if(v>=DMIN&&v<=DMAX){S[k]=v;render()}});
+  const tidy=()=>{let v=pNum(n.value);if(!isFinite(v))v=S[k];S[k]=clamp(v,DMIN,DMAX);n.value=String(S[k]);render()};
+  n.addEventListener("change",tidy);n.addEventListener("blur",tidy);
+  r.addEventListener("input",()=>{S[k]=+r.value;n.value=String(S[k]);render()});
 });
 rH.addEventListener("input",()=>{S.H=+rH.value;render()});
-const fill=r=>r.style.setProperty("--p",((r.value-r.min)/(r.max-r.min)*100)+"%");
+const fillTo=(r,v)=>r.style.setProperty("--p",((v-r.min)/(r.max-r.min)*100)+"%");
 
-/* fixture lines */
-const CATMAP={recessed:"recessed",gimbal:"recessed",magSpot:"track",magLinear:"track",trackSpot:"track",profile:"profile",strip:"profile",pendant:"pendant",ceiling:"ceiling",wall:"wall",bulb:"bulb"};
-$("#fxList").innerHTML=ORDER.map(t=>{const f=FIXTURES[t],m=isM(t);
+/* placement menu */
+const PL_HE={auto:"אוטומטי",center:"מרכז החדר",grid:"פיזור אחיד ברשת","wall-t":"למעלה בשרטוט","wall-b":"למטה בשרטוט","wall-r":"בצד ימין","wall-l":"בצד שמאל",corners:"בפינות",table:"מעל השולחן או האי"};
+function plOpts(sym){const o=k=>`<option value="${k}">${PL_HE[k]}</option>`,walls=`<optgroup label="לאורך קיר">${["wall-t","wall-b","wall-r","wall-l"].map(o).join("")}</optgroup>`,cu=`<option value="custom" disabled>הוזז ביד</option>`;
+  return sym==="wall"?o("auto")+walls+cu:o("auto")+o("center")+o("grid")+walls+o("corners")+o("table")+cu}
+function placeUI(li,st,lo){const box=$(".fx-pl",li);if(!box)return;const sel=$("[data-pl]",box),on=!!lo&&lo.pts.length>0;box.hidden=!on;if(!on)return;
+  if(document.activeElement!==sel)sel.value=lo.custom?"custom":st.place;
+  const sp=lo.ln.ok?spacing(lo.pts,S.L,S.W):null;$("[data-sp]",box).textContent=sp?spTxt(sp):""}
+
+/* generic fixture lines */
+const CATMAP={recessed:"recessed",gimbal:"recessed",magSpot:"track",magLinear:"track",trackSpot:"track",profile:"profile",strip:"profile",pendant:"pendant",ceiling:"ceiling",wall:"wall",bulb:"bulb",bollard:"outdoor",spike:"outdoor"};
+const qtyBtns=(inc,dec)=>[`<button type="button" data-inc aria-label="${inc}"><svg aria-hidden="true"><use href="#i-plus"/></svg></button>`,`<button type="button" data-dec aria-label="${dec}"><svg aria-hidden="true"><use href="#i-minus"/></svg></button>`];
+$("#fxList").innerHTML=ORDER.map(t=>{const f=FIXTURES[t],m=isM(t),[bi,bd]=qtyBtns(`עוד ${m?"חצי מטר":"יחידה"} של ${f.he}`,`פחות ${m?"חצי מטר":"יחידה"} של ${f.he}`);
   const opts=Object.keys(f.opts).map(w=>`<button type="button" data-w="${w}" aria-pressed="false">${w}</button>`).join("");
-  return `<li class="fx" data-t="${t}">
+  return `<li class="fx" data-t="${t}" data-id="g:${t}">
   <div class="fx-h">${icoSym(t)}<div><h3 id="fxn-${t}">${f.he}</h3><small data-lmu></small></div></div>
   <div class="fx-r"><div class="fx-sum" data-sum></div><a class="fx-add fx-cat" href="category.html?c=${CATMAP[t]||"recessed"}" aria-label="גופים מסוג ${f.he} בקטלוג"><span>בקטלוג</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
   <div class="fx-ctl">
    <div class="fx-w"><div class="opts sm" role="group" aria-label="הספק של ${f.he}, בוואט${m?" למטר":""}">${opts}</div><span class="fx-u">וואט${m?" למטר":""}</span></div>
-   <div class="fx-q"><div class="qty"><button type="button" data-inc aria-label="עוד ${m?"חצי מטר":"יחידה"} של ${f.he}"><svg aria-hidden="true"><use href="#i-plus"/></svg></button><input type="number" min="0" max="${m?60:40}" step="${m?0.5:1}" inputmode="decimal" aria-label="${m?"כמה מטר":"כמה יחידות"} של ${f.he}"><button type="button" data-dec aria-label="פחות ${m?"חצי מטר":"יחידה"} של ${f.he}"><svg aria-hidden="true"><use href="#i-minus"/></svg></button></div><span class="fx-u">${m?"מטר":"יחידות"}</span></div>
+   <div class="fx-q"><div class="qty">${bi}<input type="number" min="0" max="${m?60:40}" step="${m?0.5:1}" inputmode="decimal" aria-label="${m?"כמה מטר":"כמה יחידות"} של ${f.he}">${bd}</div><span class="fx-u">${m?"מטר":"יחידות"}</span></div>
    ${t==="profile"?`<div class="opts sm fx-mode" role="group" aria-label="איך הפרופיל מאיר"><button type="button" data-m="dir" aria-pressed="true">אור ישיר</button><button type="button" data-m="ind" aria-pressed="false">אור עקיף</button></div>`:""}
+   ${GK[t]?`<div class="fx-pl" hidden><label><span>מיקום</span><select class="sel" data-pl aria-label="מיקום של ${f.he} בחדר">${plOpts(GK[t].sym)}</select></label><span class="fx-sp" data-sp></span></div>`:""}
   </div></li>`}).join("");
-const rows={};$$(".fx").forEach(li=>rows[li.dataset.t]=li);
+const rows={};$$("#fxList .fx").forEach(li=>rows[li.dataset.t]=li);
 const setQ=(t,q)=>{const m=isM(t);S.lines[t].q=m?clamp(Math.round(q*2)/2,0,60):clamp(Math.round(q),0,40);if(S.lines[t].q>0)S.last=t};
 $("#fxList").addEventListener("click",e=>{const li=e.target.closest(".fx");if(!li)return;const t=li.dataset.t,ln=S.lines[t],st=isM(t)?.5:1;
   const w=e.target.closest("[data-w]");if(w){ln.w=w.dataset.w;if(ln.q===0)setQ(t,isM(t)?2:1);else S.last=t;render();return}
   const m=e.target.closest("[data-m]");if(m){ln.mode=m.dataset.m;render();return}
   if(e.target.closest("[data-inc]")){setQ(t,ln.q+st);render();return}
   if(e.target.closest("[data-dec]")){setQ(t,ln.q-st);render();return}
-  if(e.target.closest("[data-addline]")){addLine(t);return}
 });
 $("#fxList").addEventListener("input",e=>{const i=e.target.closest(".qty input");if(!i)return;const v=parseFloat(i.value);if(isFinite(v)&&v>=0){setQ(i.closest(".fx").dataset.t,v);render()}});
-$("#fxList").addEventListener("change",e=>{const i=e.target.closest(".qty input");if(!i)return;const t=i.closest(".fx").dataset.t;const v=parseFloat(i.value);setQ(t,isFinite(v)?v:0);i.value=S.lines[t].q;render()});
-$("#fxClear").addEventListener("click",()=>{ORDER.forEach(t=>S.lines[t].q=0);S.last=null;render();$("#fxList .qty input").focus()});
+$("#fxList").addEventListener("change",e=>{const li=e.target.closest(".fx");if(!li)return;const t=li.dataset.t;
+  if(e.target.matches("[data-pl]")){S.lines[t].place=e.target.value;S.lines[t].pos={};render();return}
+  const i=e.target.closest(".qty input");if(!i)return;const v=parseFloat(i.value);setQ(t,isFinite(v)?v:0);i.value=S.lines[t].q;render()});
+$("#fxClear").addEventListener("click",()=>{ORDER.forEach(t=>{S.lines[t].q=0;S.lines[t].pos={};S.lines[t].place="auto"});S.cat.length=0;S.last=null;render();$("#fxList .qty input").focus()});
+
+/* ---------------- catalog: search and add a real product ---------------- */
+const fmtN=v=>String(Math.round(v*10)/10);
+const imgTag=(src,p)=>`<img src="${esc(src||"")}" alt="" width="48" height="48" loading="lazy" decoding="async">`;
+const lmLabel=p=>p.lmU==null?"":`${p.est?"כ-":""}${fmt(p.lmU)} לומן${p.est?" (משוער)":""}`;
+const caQ=$("#caQ"),caCat=$("#caCat"),caBox=$("#caBox"),caRes=$("#caRes");let caMode="",caOpen=false;
+function caOptions(){const mode=openSky()?"open":ROOMS[S.room].out?"out":"in";if(mode===caMode)return;caMode=mode;
+  const o=(v,t)=>`<option value="${v}">${t}</option>`,cats=Object.keys(CNAME).filter(k=>k!=="outdoor").map(k=>o(k,CNAME[k])).join("");
+  caCat.innerHTML=mode==="open"?o("open","גופי חוץ בלי תקרה")+["צמודי קיר","שקוע חומה","עמודונים","דוקרנים"].map(s=>o("sub:"+s,s)).join("")
+    :mode==="out"?o("outdoor","תאורת חוץ")+o("all","כל הגופים")+cats:o("all","כל הגופים")+cats+o("outdoor","תאורת חוץ");
+  caCat.value=mode==="open"?"open":mode==="out"?"outdoor":"all";if(caOpen)caSearch()}
+const caPass=(p,f)=>f==="all"||(f==="open"?okOpen(p):f.startsWith("sub:")?p.area==="חוץ"&&p.sub===f.slice(4):p.cat===f);
+function caSearch(){
+  caOpen=true;caBox.hidden=false;
+  if(pErr){caRes.innerHTML=`<li class="ca-msg">לא הצלחנו לטעון את הקטלוג. נסו לרענן את העמוד.</li>`;$("#caCnt").textContent="";return}
+  if(!pLoaded){caRes.innerHTML=`<li class="ca-msg">טוענים את הקטלוג...</li>`;$("#caCnt").textContent="";return}
+  const ts=norm(caQ.value).split(" ").filter(Boolean),f=caCat.value,rec=ipRec(),inPlan=new Set(S.cat.map(x=>x.pid));
+  const r=PRODS.filter(p=>caPass(p,f)&&ts.every(t=>p.txt.includes(t)));
+  const MAX=40,shown=r.slice(0,MAX);
+  caRes.innerHTML=shown.length?shown.map(p=>{const inn=inPlan.has(p.id),lm=lmLabel(p);
+    const ipT=rec&&p.ip!=null?` · <span class="${p.ip<rec?"lo":""}">IP${p.ip}</span>`:"";
+    return `<li><button type="button" class="ca-r${inn?" in":""}" data-pid="${esc(p.id)}" aria-label="${esc(`${inn?"עוד יחידה של":"הוספת"} ${p.n} לתכנון, מק״ט ${p.v[0].sku}`)}"><span class="ca-im" data-cat="${p.cat}">${imgTag(p.img,p)}</span><span class="ca-t"><b>${esc(p.n)}</b><small>מק״ט <span>${esc(p.v[0].sku)}</span> · ${p.w!=null?fmtN(p.w)+" וואט":"אין נתון הספק"}${lm?" · "+lm:""}${ipT}</small></span><span class="ca-go"><svg aria-hidden="true"><use href="#i-${inn?"check":"plus"}"/></svg><span>${inn?"עוד אחד":"הוספה"}</span></span></button></li>`}).join("")
+    :`<li class="ca-msg">לא מצאנו${caQ.value.trim()?` "${esc(caQ.value.trim())}"`:""}. נסו שם אחר, מספר דגם או סוג גוף אחר.</li>`;
+  $("#caCnt").textContent=r.length>MAX?`מציגים ${MAX} מתוך ${r.length}. אפשר לחדד בחיפוש.`:r.length===1?"נמצא גוף אחד":r.length?`נמצאו ${r.length} גופים`:"";
+}
+const caHide=()=>{caOpen=false;caBox.hidden=true};
+caQ.addEventListener("input",caSearch);caQ.addEventListener("focus",()=>{if(!caOpen)caSearch()});
+caCat.addEventListener("change",caSearch);
+$("#caClose").addEventListener("click",()=>{caHide();caQ.focus()});
+caQ.addEventListener("keydown",e=>{if(e.key==="Escape"&&caOpen){e.stopPropagation();caHide()}else if(e.key==="ArrowDown"){const b=$(".ca-r",caRes);if(caOpen&&b){e.preventDefault();b.focus()}}else if(e.key==="Enter")e.preventDefault()});
+caRes.addEventListener("keydown",e=>{const b=e.target.closest(".ca-r");if(!b)return;const all=$$(".ca-r",caRes),i=all.indexOf(b);
+  if(e.key==="ArrowDown"&&all[i+1]){e.preventDefault();all[i+1].focus()}else if(e.key==="ArrowUp"){e.preventDefault();(all[i-1]||caQ).focus()}else if(e.key==="Escape"){e.stopPropagation();caHide();caQ.focus()}});
+caRes.addEventListener("click",e=>{const b=e.target.closest(".ca-r");if(b)addCat(b.dataset.pid,true)});
+function addCat(pid,refocus){const p=pById(pid);if(!p)return;let x=S.cat.find(y=>y.pid===pid&&y.fi===0);
+  if(x)x.q=Math.min(40,x.q+1);else{x={uid:"c"+(++S.cseq),pid,fi:0,q:1,place:"auto",pos:{}};S.cat.push(x)}
+  S.last="c:"+x.uid;render();caSearch();
+  if(refocus){const nb=caRes.querySelector(`[data-pid="${CSS.escape(pid)}"]`);if(nb)nb.focus({preventScroll:true})}
+  const li=$(`#catList [data-c="${x.uid}"]`);if(li){li.classList.remove("flash");void li.offsetWidth;li.classList.add("flash")}
+  $("#live").textContent=`נוסף לתכנון: ${p.n}${x.q>1?`, ${x.q} יחידות`:""}.`}
+/* a broken product photo falls back to the category icon */
+document.addEventListener("error",e=>{const t=e.target;if(!t||t.tagName!=="IMG")return;const box=t.closest(".ca-im,.cx-im");if(box)box.innerHTML=ico(box.dataset.cat||"recessed")},true);
+
+/* catalog lines in the plan */
+function catRowHTML(x){const p=pById(x.pid);
+  if(!p)return `<li class="fx cx off" data-c="${x.uid}" data-id="c:${x.uid}"><div class="fx-h"><span class="cx-im"></span><div><h3>${pErr?"לא הצלחנו לטעון את הקטלוג":"טוענים מהקטלוג..."}</h3><small>מק״ט <span>${esc(x.pid)}</span></small></div></div><div class="fx-r"><button type="button" class="rm2" data-crm>הסרה</button></div></li>`;
+  const [bi,bd]=qtyBtns(`עוד יחידה של ${esc(p.n)}`,`פחות יחידה של ${esc(p.n)}`);
+  const fin=p.fins.length>1?`<div class="fx-fin"><label><span>גימור</span><select class="sel" data-cfin aria-label="גימור של ${esc(p.n)}">${p.fins.map((f,i)=>`<option value="${i}">${esc(f.c)}</option>`).join("")}</select></label></div>`
+    :p.fins.length?`<div class="fx-fin"><span class="fx-u">גימור: ${esc(p.fins[0].c)}</span></div>`:"";
+  return `<li class="fx cx on" data-c="${x.uid}" data-id="c:${x.uid}">
+   <div class="fx-h"><span class="cx-im" data-cat="${p.cat}">${imgTag(catVar(p,x.fi).img||p.img,p)}</span><div><h3>${esc(p.n)}</h3><small data-meta></small></div></div>
+   <div class="fx-r"><div class="fx-sum" data-sum></div><button type="button" class="rm2" data-crm aria-label="הסרת ${esc(p.n)} מהתכנון">הסרה</button></div>
+   <div class="fx-ctl">${fin}
+    <div class="fx-q"><div class="qty">${bi}<input type="number" min="1" max="40" step="1" inputmode="numeric" aria-label="כמה יחידות של ${esc(p.n)}">${bd}</div><span class="fx-u">יחידות</span></div>
+    <div class="fx-pl" hidden><label><span>מיקום</span><select class="sel" data-pl aria-label="מיקום של ${esc(p.n)} בחדר">${plOpts(p.kind.sym)}</select></label><span class="fx-sp" data-sp></span></div>
+   </div><p class="fx-warn" data-warn hidden></p></li>`}
+function renderCat(c){
+  const ul=$("#catList"),sig=S.cat.map(x=>x.uid+":"+x.pid).join(",")+"|"+pLoaded;
+  if(ul.dataset.sig!==sig){ul.dataset.sig=sig;ul.innerHTML=S.cat.map(catRowHTML).join("")}
+  $("#catWrap").hidden=!S.cat.length;
+  const units=S.cat.reduce((s,x)=>s+x.q,0);
+  $("#catCnt").textContent=S.cat.length?`${S.cat.length===1?"דגם אחד":S.cat.length+" דגמים"} · ${units===1?"יחידה אחת":units+" יחידות"}`:"";
+  const rec=ipRec();
+  S.cat.forEach(x=>{const li=ul.querySelector(`[data-c="${x.uid}"]`),ln=c.all.find(l=>l.id==="c:"+x.uid);if(!li||!ln)return;const p=ln.p,lm=lmLabel(p);
+    $("[data-meta]",li).innerHTML=`מק״ט <span>${esc(ln.sku)}</span> · ${p.w!=null?fmtN(p.w)+" וואט":"אין נתון הספק"}${lm?" · "+lm:""}${rec?` · ${p.ip!=null?"IP"+p.ip:"IP לא ידוע"}`:""}`;
+    const qi=$(".qty input",li);if(document.activeElement!==qi)qi.value=x.q;
+    const fs=$("[data-cfin]",li);if(fs&&document.activeElement!==fs)fs.value=ln.fi;
+    const im=$(".cx-im img",li),src=catVar(p,ln.fi).img||p.img;if(im&&im.getAttribute("src")!==src)im.setAttribute("src",src);
+    $("[data-sum]",li).innerHTML=!ln.ok?"":ln.noW?`<b>אין נתון הספק</b>לא נספר בחישוב`:`<b>${fmtN(ln.W)} וואט</b>${fmt(Math.round(ln.E/10)*10)} לומן לחדר`;
+    li.classList.toggle("off",!ln.ok);li.classList.toggle("on",ln.ok);
+    const low=rec&&p.ip!=null&&p.ip<rec,wn=$("[data-warn]",li);wn.hidden=ln.ok&&!low;
+    wn.textContent=!ln.ok?(p.area!=="חוץ"?"גוף לתוך הבית. בחוץ בלי תקרה הוא לא נספר בחישוב.":"הגוף הזה צריך תקרה. בלי תקרה הוא לא נספר בחישוב."):low?`IP${p.ip} נמוך מהמומלץ כאן (IP${rec} ומעלה).`:"";
+    placeUI(li,x,LY&&LY.lines.find(o=>o.ln.id==="c:"+x.uid))});
+}
+$("#catList").addEventListener("click",e=>{const li=e.target.closest(".fx[data-c]");if(!li)return;const x=S.cat.find(y=>y.uid===li.dataset.c);if(!x)return;
+  if(e.target.closest("[data-crm]")){S.cat.splice(S.cat.indexOf(x),1);if(S.last==="c:"+x.uid)S.last=null;render();if(caOpen)caSearch();($("#catList [data-crm]")||caQ).focus({preventScroll:true});return}
+  if(e.target.closest("[data-inc]")){x.q=Math.min(40,x.q+1);S.last="c:"+x.uid;render()}
+  else if(e.target.closest("[data-dec]")){x.q=Math.max(1,x.q-1);render()}});
+$("#catList").addEventListener("input",e=>{const i=e.target.closest(".qty input");if(!i)return;const x=S.cat.find(y=>y.uid===i.closest(".fx").dataset.c);const v=parseInt(i.value,10);if(x&&v>=1){x.q=Math.min(40,v);render()}});
+$("#catList").addEventListener("change",e=>{const li=e.target.closest(".fx[data-c]");if(!li)return;const x=S.cat.find(y=>y.uid===li.dataset.c);if(!x)return;
+  if(e.target.matches(".qty input")){x.q=clamp(parseInt(e.target.value,10)||1,1,40);e.target.value=x.q;render();return}
+  if(e.target.matches("[data-cfin]")){x.fi=+e.target.value||0;render();return}
+  if(e.target.matches("[data-pl]")){x.place=e.target.value;x.pos={};render()}});
 
 /* ---------------- render ---------------- */
 function tweenNum(el,to,f){f=f||fmt;const from=el._d==null?to:el._d;cancelAnimationFrame(el._r);
@@ -1468,60 +2013,76 @@ function tweenNum(el,to,f){f=f||fmt;const from=el._d==null?to:el._d;cancelAnimat
   const t0=performance.now(),d=450;const st=()=>{const p=Math.min(1,(performance.now()-t0)/d),e=1-Math.pow(1-p,3);el._d=from+(to-from)*e;el.textContent=f(el._d);if(p<1)el._r=requestAnimationFrame(st)};st()}
 const lineName=t=>{const f=FIXTURES[t],ln=S.lines[t],m=isM(t);
   return `${f.he}${t==="profile"&&ln.mode==="ind"?" (אור עקיף)":""} ${ln.w} וואט${m?" למטר":""} × ${m?num1(ln.q)+" מ׳":ln.q}`};
-function suggest(miss){
-  let t=S.last&&S.lines[S.last].q>0?S.last:null;
-  if(!t){const s=calc().sel.sort((a,b)=>b.E-a.E)[0];t=s?s.t:"recessed"}
-  const ln=S.lines[t],ul=FIXTURES[t].opts[ln.w],per=ul*lineContrib(t);
+function suggest(c,miss){
+  const lastId=S.last?(S.last.startsWith("c:")?S.last:"g:"+S.last):"";
+  const x=c.sel.find(l=>l.id===lastId)||[...c.sel].sort((a,b)=>b.E-a.E)[0];if(!x)return "";
+  if(x.src==="cat"){const n=Math.max(1,Math.ceil(miss/(x.ul*x.c)));return `עוד ${n===1?"יחידה אחת":n+" יחידות"} של ${x.name}`}
+  const t=x.t,ln=S.lines[t],per=FIXTURES[t].opts[ln.w]*lineContrib(t);
   if(isM(t)){const m=Math.max(.5,Math.ceil(miss/per*2)/2);return `עוד ${num1(m)} מטר ${FIXTURES[t].he} של ${ln.w} וואט למטר`}
   const n=Math.max(1,Math.ceil(miss/per));return `עוד ${n===1?FXU[t].one:n+" "+FXU[t].pl} של ${ln.w} וואט`}
+const IP_WHAT="IP הוא מספר שאומר כמה הגוף אטום למים ולאבק. ככל שהוא גבוה יותר, הגוף עמיד יותר.";
 let liveT;
 function render(){
-  const c=calc(), r=c.r, k=curK(), rc=rec();
+  const c=calc(), r=c.r, k=curK(), rc=rec(), open=c.open, ip=ipRec();
+  LY=layout(c);
   /* room controls */
-  press($("#rType"),v=>v===S.room);press($("#rWall"),v=>v===S.walls);press($("#rPref"),v=>v===S.pref);
+  press($("#rType"),v=>v===S.room);press($("#rCov"),v=>(v==="yes")===S.covered);press($("#rWall"),v=>v===S.walls);press($("#rPref"),v=>v===S.pref);
   press($("#rAtm"),v=>v===S.atm);press($("#rAct"),v=>S.acts.includes(v));
-  if(document.activeElement!==nL)nL.value=num1(S.L);if(document.activeElement!==nW)nW.value=num1(S.W);
-  rL.value=S.L;rW.value=S.W;rH.value=S.H;oH.textContent=num1(S.H);[rL,rW,rH].forEach(fill);
+  $("#fCov").hidden=S.room!=="balcony";
+  $("#ipNote").hidden=!ip;
+  if(ip)$("#ipNote").innerHTML=open
+    ?`<b>${S.room==="yard"?"בחצר":"במרפסת פתוחה"} מומלץ IP65 ומעלה.</b> הגוף עומד בגשם ובהשקיה ישירה. אין תקרה, ולכן מציעים גופי קיר וגופים שעומדים על הקרקע.<small>${IP_WHAT}</small>`
+    :`<b>במרפסת מקורה מומלץ IP44 ומעלה.</b> הגשם לא מגיע ישר לגוף, אבל יש לחות ורוח.<small>${IP_WHAT}</small>`;
+  $("#fH").hidden=open;$("#fWall").hidden=open;
+  if(document.activeElement!==nL)nL.value=String(S.L);if(document.activeElement!==nW)nW.value=String(S.W);
+  rL.value=S.L;rW.value=S.W;rH.value=S.H;oH.textContent=num1(S.H);fillTo(rL,S.L);fillTo(rW,S.W);fillTo(rH,S.H);
+  caOptions();
 
   /* result */
   tweenNum($("#wBig"),c.w);
   $("#lmTxt").textContent=`כ-${fmt(roundLm(c.lm))} לומן`;
   $("#wRange").textContent=`בין ${c.wLo} ל-${c.wHi} וואט, לפי הגופים`;
   const f=(c.uf*c.mf).toFixed(2), pf=S.pref==="regular"?"":` × ${PREF[S.pref]}`;
-  $("#eqn").innerHTML=`${num1(c.A)} מ״ר × ${r.lux} לוקס${pf} ÷ ${f} = ${fmt(roundLm(c.lm))} לומן ÷ 90 = ${c.w} וואט<small>${r.lux} לוקס: כמות האור המומלצת ל${r.he}. ${f}: כמה מהאור מגיע בפועל, לפי צורת החדר וצבע הקירות.</small>`;
+  $("#eqn").innerHTML=`${dimTxt(c.A)} מ״ר × ${r.lux} לוקס${pf} ÷ ${f} = ${fmt(roundLm(c.lm))} לומן ÷ 90 = ${c.w} וואט<small>${r.lux} לוקס: כמות האור המומלצת ל${r.he}. ${f}: כמה מהאור מגיע בפועל, ${open?"וכשאין תקרה מחשבים כמו בקירות כהים, כי חלק מהאור בורח למעלה.":"לפי צורת החדר וצבע הקירות."}</small>`;
   const has=c.sel.length>0, s=stateOf(c.pct), pc=Math.round(c.pct*100);
   $("#chTxt").innerHTML=has?`בחרתם: <b>${fmt(c.cw)} וואט</b> · ${fmt(Math.round(c.clm/10)*10)} לומן`:"עוד לא בחרתם גופים.";
   const stEl=$("#chState");stEl.hidden=!has;stEl.dataset.s=s;stEl.textContent=STATE_HE[s];
   $("#meter").dataset.s=has?s:"low";$("#meterI").style.width=(has?Math.min(1,c.pct/1.5)*100:0)+"%";
   $("#pctTxt").textContent=has?`${pc}% ממה שהחדר צריך`:"בחרו גופים ברשימה, ותראו כמה הם מכסים.";
   let hint="";
-  if(has){if(s==="low")hint=`חסרים עוד כ-${fmt(roundLm(c.lm-c.clm))} לומן. למשל: ${suggest(c.lm-c.clm)}.`;
+  if(has){if(s==="low"){const sg=suggest(c,c.lm-c.clm);hint=`חסרים עוד כ-${fmt(roundLm(c.lm-c.clm))} לומן.${sg?` למשל: ${sg}.`:""}`}
     else if(s==="ok")hint=c.pct<=1.1?"הכמות מתאימה לחדר.":"יש קצת יותר אור מהיעד, וזה בסדר. עם דימר אפשר לרכך אותו.";
     else hint="יש כאן הרבה יותר אור ממה שהחדר צריך. אפשר להוריד כמה יחידות או לבחור הספק נמוך יותר."}
   $("#hint").textContent=hint;$("#note").hidden=!c.partial;
-  $("#allToCart").disabled=!has;
+  const noW=c.all.filter(x=>x.noW&&x.ok);
+  $("#noteNoW").hidden=!noW.length;if(noW.length)$("#noteNoW").textContent=noW.length===1?`ל${noW[0].name} אין נתון הספק, ולכן הוא לא נספר בחישוב.`:`ל-${noW.length} גופים מהקטלוג אין נתון הספק, ולכן הם לא נספרים בחישוב.`;
+  $("#catToCart").disabled=!S.cat.some(x=>pById(x.pid));
 
   /* fixture lines */
-  ORDER.forEach(t=>{const li=rows[t],ln=S.lines[t],fx=FIXTURES[t],m=isM(t),ul=fx.opts[ln.w],on=ln.q>0;
-    li.classList.toggle("on",on);
+  ORDER.forEach(t=>{const li=rows[t],ln=S.lines[t],fx=FIXTURES[t],m=isM(t),ul=fx.opts[ln.w],on=ln.q>0&&avail(t);
+    li.hidden=!avail(t);li.classList.toggle("on",on);
     $$("[data-w]",li).forEach(b=>b.setAttribute("aria-pressed",b.dataset.w===ln.w));
     $$("[data-m]",li).forEach(b=>b.setAttribute("aria-pressed",b.dataset.m===ln.mode));
     $("[data-lmu]",li).textContent=`${fmt(ul)} לומן ${m?"למטר":"ליחידה"}`;
     const qi=$(".qty input",li);if(document.activeElement!==qi)qi.value=m?num1(ln.q):ln.q;
     $("[data-sum]",li).innerHTML=on?`<b>${fmt(parseFloat(ln.w)*ln.q)} וואט</b>${fmt(Math.round(ul*ln.q*lineContrib(t)/10)*10)} לומן לחדר`:"";
+    placeUI(li,ln,on?LY.lines.find(o=>o.ln.id==="g:"+t):null);
   });
+  renderCat(c);
+  $("#fxOpen").hidden=!open;
   syncAddBtns();
-  $("#fxTotal").innerHTML=has?`סה״כ: <b>${fmt(c.cw)} וואט</b> ב-${c.sel.length===1?"סוג גוף אחד":c.sel.length+" סוגי גופים"}`:"עוד לא נבחרו גופים.";
-  $("#fxClear").hidden=!has;
+  const nSel=c.sel.length;
+  $("#fxTotal").innerHTML=has?`סה״כ: <b>${fmt(c.cw)} וואט</b> ב-${nSel===1?"סוג גוף אחד":nSel+" סוגי גופים"}`:"עוד לא נבחרו גופים.";
+  $("#fxClear").hidden=!has&&!S.cat.length;
   const notes=[];if(r.note)notes.push(r.note);S.acts.forEach(a=>notes.push(ACTS[a].tip));
   $("#sideNotes").hidden=!notes.length;$("#noteList").innerHTML=notes.map(n=>`<li>${n}</li>`).join("");
 
-  /* room view */
-  $("#hudRoom").textContent=`${r.he} · ${num1(S.L)} × ${num1(S.W)} מ׳ · תקרה ${num1(S.H)} מ׳`;
+  /* room view + plan: the same positions */
+  $("#hudRoom").textContent=`${r.he} · ${dimTxt(S.L)} × ${dimTxt(S.W)} מ׳ · ${open?"בלי תקרה":`תקרה ${num1(S.H)} מ׳`}`;
   const lr=k2rgb(k).map(v=>v+(255-v)*.1);
-  const b=buildLights();
-  Viz.set({n:{L:S.L,W:S.W,H:S.H,E:has?c.pct:0,cove:b.cove},rgb:lr,wall:WALLS[S.walls].alb,lab:{L:S.L,W:S.W,H:S.H}});
-  Viz.setLights(b.list,has);
+  Viz.set({n:{L:S.L,W:S.W,H:effH(),E:has?c.pct:0,cove:LY.cove},rgb:lr,wall:WALLS[open?"dark":S.walls].alb,lab:{L:S.L,W:S.W,H:effH()},open});
+  Viz.setLights(vizLights(LY),has);
+  drawPlan();
 
   /* colour temperature */
   renderCct(k,rc);
@@ -1533,21 +2094,55 @@ function render(){
   $("#mbBar").dataset.s=has?s:"low";$("#mbFill").style.width=(has?Math.min(1,c.pct/1.5)*100:0)+"%";
 
   /* summary in the send band + WhatsApp links */
-  $("#sumList").innerHTML=[["החדר",`${r.he}, ${num1(S.L)} × ${num1(S.W)} מ׳`],["צריך",`כ-${c.w} וואט לד`],["בחרתם",has?`${fmt(c.cw)} וואט, ${pc}%`:"עוד לא נבחרו גופים"],["גוון מומלץ",`${rc.k}K`]].map(([a,b2])=>`<li><span>${a}</span><b>${b2}</b></li>`).join("");
+  $("#sumList").innerHTML=[["החדר",`${r.he}, ${dimTxt(S.L)} × ${dimTxt(S.W)} מ׳`],["צריך",`כ-${c.w} וואט לד`],["בחרתם",has?`${fmt(c.cw)} וואט, ${pc}%`:"עוד לא נבחרו גופים"],["גוון מומלץ",`${rc.k}K`]].map(([a,b2])=>`<li><span>${a}</span><b>${b2}</b></li>`).join("");
   const url=`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(planText(c,rc))}`;
   $$("[data-wa]").forEach(a=>a.href=url);
 
   clearTimeout(liveT);liveT=setTimeout(()=>{$("#live").textContent=`החדר צריך כ-${c.w} וואט לד, כ-${fmt(roundLm(c.lm))} לומן.`+(has?` בחרתם ${fmt(c.cw)} וואט, ${pc}% מהיעד: ${STATE_HE[s]}.`:"")},700);
   saveState();
 }
+const roomLine=c=>`${c.r.he}${S.room==="balcony"?(S.covered?" מקורה":" פתוחה, בלי תקרה"):""}`;
 function planText(c,rc){
   const r=c.r;let t=`היי, תכננתי תאורה במחשבון באתר.\n`;
-  t+=`החדר: ${r.he}, ${num1(S.L)} × ${num1(S.W)} מ׳, תקרה ${num1(S.H)} מ׳, קירות ${WALLS[S.walls].he}, אור ${PREFS[S.pref]}.\n`;
+  t+=`החדר: ${roomLine(c)}, ${dimTxt(S.L)} × ${dimTxt(S.W)} מ׳${c.open?"":`, תקרה ${num1(S.H)} מ׳, קירות ${WALLS[S.walls].he}`}, אור ${PREFS[S.pref]}.\n`;
   t+=`צריך: כ-${c.w} וואט לד (כ-${fmt(roundLm(c.lm))} לומן).\n`;
+  if(ipRec())t+=`אטימות מומלצת: IP${ipRec()} ומעלה.\n`;
   t+=`גוון מומלץ: ${rc.k}K${S.atm?`, לאווירה של ${ATM[S.atm].he}`:""}.\n`;
-  if(c.sel.length){t+=`מה בחרתי:\n`+c.sel.map(x=>`- ${lineName(x.t)}`).join("\n")+`\nסה״כ ${fmt(c.cw)} וואט, ${Math.round(c.pct*100)}% ממה שהחדר צריך.\n`}
+  const cat=c.all.filter(x=>x.src==="cat"),gen=c.all.filter(x=>x.src==="gen");
+  if(cat.length)t+=`גופים מהקטלוג:\n`+cat.map(x=>`- ${x.name}, מק״ט ${x.sku}${x.fin?`, ${x.fin}`:""} × ${x.q}${x.noW?" (אין נתון הספק)":!x.ok?" (לא לחוץ פתוח)":""}`).join("\n")+"\n";
+  if(gen.length)t+=`${cat.length?"ועוד לפי סוג גוף":"מה בחרתי"}:\n`+gen.map(x=>`- ${lineName(x.t)}`).join("\n")+"\n";
+  if(c.sel.length)t+=`סה״כ ${fmt(c.cw)} וואט, ${Math.round(c.pct*100)}% ממה שהחדר צריך.\n`;
   return t+`אשמח שתעברו על זה איתי.`;
 }
+
+/* ---------------- print / save as PDF: one clean page ---------------- */
+function buildPrint(){
+  const c=calc(),rc=rec(),L2=layout(c),k=Math.min(620/L2.L,330/L2.W);
+  const vw=L2.L+(PAD.l+PAD.r)/k,vh=L2.W+(PAD.t+PAD.b)/k;
+  const svg=`<svg class="pp" xmlns="http://www.w3.org/2000/svg" viewBox="${-PAD.l/k} ${-PAD.t/k} ${vw} ${vh}" width="${Math.round(vw*k)}" height="${Math.round(vh*k)}" role="img" aria-label="תוכנית החדר מלמעלה">${planMarkup(L2,k,{col:"#f2a33a",print:true})}</svg>`;
+  const legend=sym=>`<svg class="pp" viewBox="-12 -12 24 24" width="16" height="16" aria-hidden="true" style="display:inline-block;vertical-align:-3px;margin-inline-end:6px;overflow:visible"><g class="ps">${symShape(sym,{lenM:18,side:"b"},v=>v)}</g></svg>`;
+  const has=c.sel.length>0,pc=Math.round(c.pct*100);
+  const rowsH=c.all.map((x,i)=>{const lo=L2.lines.find(o=>o.ln.id===x.id),sp=lo&&x.ok?spacing(lo.pts,S.L,S.W):null,m=x.src==="gen"&&isM(x.t);
+    const nm=x.src==="cat"?esc(x.name)+(x.fin?`<br><small>${esc(x.fin)}</small>`:""):esc(FIXTURES[x.t].he+(x.t==="profile"&&x.st.mode==="ind"?" (אור עקיף)":""));
+    const lmT=!x.ok?"לא נספר":x.noW?"אין נתון":fmt(Math.round(x.E/10)*10);
+    return `<tr><td>${i+1}</td><td>${x.sym?legend(x.sym):""}${nm}</td><td class="ltr">${x.src==="cat"?esc(x.sku):"-"}</td><td>${x.w!=null?fmtN(x.w)+" וואט"+(m?" למטר":""):"אין נתון"}</td><td>${m?num1(x.q)+" מ׳":x.q}</td><td>${lmT}</td><td>${sp?spTxt(sp).replace("מרווח ",""):""}</td></tr>`}).join("");
+  const room=[["החדר",roomLine(c)],["מידות",`${dimTxt(S.L)} × ${dimTxt(S.W)} מ׳ · ${dimTxt(c.A)} מ״ר`],["תקרה",c.open?"בלי תקרה":`${num1(S.H)} מ׳`],["קירות",c.open?"חוץ":WALLS[S.walls].he],
+    ["אור",PREFS[S.pref]],["גוון מומלץ",`${rc.k}K`],["אטימות",ipRec()?`IP${ipRec()} ומעלה`:"-"],["תאריך",new Date().toLocaleDateString("he-IL")]];
+  $("#printSheet").innerHTML=`<div class="ps-h"><b>תכנון תאורה</b><span>ספוטליין · ייעוץ ושיווק תאורה · 08-6377033</span></div>
+   <div class="ps-room">${room.map(([a,b])=>`<div><span>${a}</span>${esc(b)}</div>`).join("")}</div>
+   <div class="ps-plan">${svg}</div>
+   ${c.all.length?`<table class="ps-t"><thead><tr><th>#</th><th>גוף</th><th>מק״ט</th><th>הספק</th><th>כמות</th><th>לומן לחדר</th><th>מרווח (מ׳)</th></tr></thead><tbody>${rowsH}</tbody></table>`:`<p class="ps-f">עוד לא נבחרו גופים.</p>`}
+   <div class="ps-tot"><span>החדר צריך: <b>כ-${c.w} וואט</b> (כ-${fmt(roundLm(c.lm))} לומן)</span><span>בתכנון: <b>${has?fmt(c.cw)+" וואט":"-"}</b>${has?` · ${pc}% מהיעד, ${STATE_HE[stateOf(c.pct)]}`:""}</span></div>
+   <p class="ps-f">החישוב משוער ומיועד להתרשמות בלבד. התוצאה תלויה בגופים, בפיזור ובחדר עצמו. ספוטליין, משה לוי 9, ראשון לציון · 08-6377033</p>`;
+}
+$("#printBtn").addEventListener("click",()=>{buildPrint();window.print()});
+addEventListener("beforeprint",buildPrint);
+
+/* catalog lines into the shared quote basket (real products only, never generic types) */
+$("#catToCart").addEventListener("click",()=>{let n=0;
+  S.cat.forEach(x=>{const p=pById(x.pid);if(!p)return;const fi=Math.min(x.fi,Math.max(0,p.fins.length-1)),v=catVar(p,fi),fin=catFin(p,fi),id=v.sku+"|"+fin;
+    const it=cart.find(y=>y.id===id);if(it)it.q=clamp(x.q,1,99);else cart.push({id,q:clamp(x.q,1,99),src:"cat",pid:p.id,sku:v.sku,n:p.n,fin,img:v.img||p.img,k:p.k||""});n++});
+  if(!n)return;renderCart();popBadge();toast(n===1?"הוספנו לסל גוף אחד מהקטלוג":`הוספנו לסל ${n} גופים מהקטלוג`)});
 
 /* ---------------- colour temperature ---------------- */
 const kR=$("#kRange"),kM=$("#kMini"),ph=$("#cctPh"),wbM=$("#wbM");
@@ -1608,7 +2203,9 @@ try{const st=JSON.parse(localStorage.getItem(KEY)||"[]");if(Array.isArray(st))st
   const pc=x.calc?parseCalc(x.id):null;
   if(pc)cart.push({id:x.id,q:clamp(Math.round(+x.q||1),1,99),calc:1,t:pc.t,w:pc.w,mode:pc.mode,n:calcN(pc.t,pc.w,pc.mode),k:isFinite(x.k)?+x.k:null});
   else if(prod(x.id))cart.push({id:x.id,q:clamp(+x.q||1,1,99),fin:FIN[x.fin]&&prod(x.id).f.includes(x.fin)?x.fin:null,tone:TONES[x.tone]?x.tone:null});
+  else if(x.src==="cat"&&x.sku)cart.push(Object.assign({},x,{q:clamp(Math.round(+x.q||1),1,99)}));
   else keep.push(x)})}catch(e){}
+function kText(k){k=String(k||"").trim();if(!k)return "";if(!/\d/.test(k))return "אור "+k;const n=k.match(/\d{4}/g)||[];return n.length>1?n.join("/")+"K":n[0]+"K"}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(cart.concat(keep)))}catch(e){}};
 const drawer=$("#drawer"),scrim=$("#scrim"),badge=$("#badge");
 let cLast=null;
@@ -1624,6 +2221,9 @@ function renderCart(){
   $("#cartList").innerHTML=n?cart.map(it=>{
     if(it.calc){const m=isM(it.t);return `<div class="ci" data-id="${esc(it.id)}"><span class="ci-ico">${icoSym(it.t)}</span><div><b>${esc(it.n)}</b><small>מהמחשבון · ${fmt(FIXTURES[it.t].opts[it.w])} לומן ${m?"למטר":"ליחידה"}</small><small>${m?"הכמות במטרים":"יחידות"}${it.k?` · גוון: <span>${it.k}K</span>`:""}</small>
       <div class="ci-a">${qtyHTML(it.q,(m?"כמה מטר של ":"כמות של ")+it.n)}<button class="rm" type="button" data-rm>הסרה</button></div></div></div>`}
+    if(it.src==="cat"){const meta=[it.fin?"גימור: "+esc(it.fin):"",it.k?`גוון: <span>${esc(kText(it.k))}</span>`:""].filter(Boolean).join(" · ")||"גימור וגוון נתאים איתכם";
+      return `<div class="ci" data-id="${esc(it.id)}"><img class="lt" src="${esc(it.img||"")}" alt="" width="64" height="80"><div><b>${esc(it.n)}</b><small>מק״ט <span>${esc(it.sku)}</span></small><small>${meta}</small>
+      <div class="ci-a">${qtyHTML(it.q,"כמות של "+it.n)}<button class="rm" type="button" data-rm>הסרה</button></div></div></div>`}
     const p=prod(it.id);return `<div class="ci" data-id="${it.id}"><img src="${p.img}" alt="" width="64" height="80"><div><b>${p.n}</b><small>מק״ט <span>${p.id}</span></small><small>${metaLine(it)}</small>
       <div class="ci-a">${qtyHTML(it.q,"כמות של "+p.n)}<button class="rm" type="button" data-rm>הסרה</button></div></div></div>`}).join("")
    :`<div class="empty"><b>הסל ריק בינתיים.</b><p>הוסיפו מוצרים מהקטלוג, והם יחכו לכם כאן.</p><a class="btn btn-o" href="${HOME}#cats"><span class="bl">לקטלוג</span></a></div>`;
@@ -1670,13 +2270,14 @@ $("#cartForm").addEventListener("submit",e=>{e.preventDefault();const f=e.target
 $("#cartForm").addEventListener("input",e=>{const l=e.target.closest(".inp");if(l&&l.classList.contains("bad")){if(e.target.name==="n"&&e.target.value.trim())l.classList.remove("bad");if(e.target.name==="p"&&PHONE.test(e.target.value.replace(/\s/g,"")))l.classList.remove("bad")}});
 /* another tab (the homepage) changed the basket */
 addEventListener("storage",e=>{if(e.key!==KEY)return;try{const st=JSON.parse(e.newValue||"[]");cart.length=0;keep.length=0;
-  st.forEach(x=>{const pc=x&&x.calc?parseCalc(x.id):null;if(pc)cart.push(Object.assign({},x,{t:pc.t,w:pc.w,mode:pc.mode,n:calcN(pc.t,pc.w,pc.mode)}));else if(x&&prod(x.id))cart.push(x);else if(x)keep.push(x)});renderCart()}catch(err){}});
+  st.forEach(x=>{const pc=x&&x.calc?parseCalc(x.id):null;if(pc)cart.push(Object.assign({},x,{t:pc.t,w:pc.w,mode:pc.mode,n:calcN(pc.t,pc.w,pc.mode)}));else if(x&&prod(x.id))cart.push(x);else if(x&&x.src==="cat"&&x.sku)cart.push(x);else if(x)keep.push(x)});renderCart()}catch(err){}});
 
 /* ---------------- header: mega, mobile nav, search ---------------- */
-$("#megaCats").innerHTML=CATS.map(c=>`<a href="${HOME}#cats">${ico(c.id)}<span>${c.n}</span></a>`).join("");
+const CATPG=id=>`category.html?c=${id}`;
+$("#megaCats").innerHTML=CATS.map(c=>`<a href="${CATPG(c.id)}">${ico(c.id)}<span>${c.n}</span></a>`).join("");
 $("#megaRooms").innerHTML=SPACES.map(r=>`<a class="room" href="${HOME}#rooms">${r}</a>`).join("");
-$("#mCats").innerHTML=CATS.map(c=>`<a href="${HOME}#cats">${c.n}</a>`).join("");
-$("#fCats").innerHTML=CATS.map(c=>`<li><a href="${HOME}#cats">${c.n}</a></li>`).join("");
+$("#mCats").innerHTML=CATS.map(c=>`<a href="${CATPG(c.id)}">${c.n}</a>`).join("");
+$("#fCats").innerHTML=CATS.map(c=>`<li><a href="${CATPG(c.id)}">${c.n}</a></li>`).join("");
 $("#fRooms").innerHTML=SPACES.map(r=>`<li><a href="${HOME}#rooms">${r}</a></li>`).join("");
 const hdr=$("#hdr"),mega=$("#mega"),trig=$("#megaTrig"),trigB=$("button",trig);let megaT;
 function setMega(o){mega.classList.toggle("open",o);trig.classList.toggle("open",o);trigB.setAttribute("aria-expanded",o)}
@@ -1714,13 +2315,16 @@ function setupSearch(root){
     if(!raw){box.removeAttribute("role");box.innerHTML=`<div class="sg-ex"><span>למשל:</span>${EX.map(x=>`<button type="button" data-q="${x}">${x}</button>`).join("")}</div>`;items=[];open(true);return}
     const ts=norm(raw).split(" ").filter(Boolean);
     const cats=CATS.filter(c=>ts.every(t=>has(c.n,t))).slice(0,3);
-    const prods=PRODUCTS.filter(p=>ts.every(t=>has(p.n+" "+catName(p.c)+" "+p.id,t))).slice(0,5);
-    let h="",k=0;const opt=(go,inner)=>`<div class="sg" role="option" id="${uid}-${k}" data-go="${go}" aria-selected="false" style="--i:${k++}">${inner}</div>`;
-    if(cats.length)h+=`<div class="sg-h" role="presentation">קטגוריות</div>`+cats.map(c=>opt("#cats",`<span class="si">${ico(c.id)}</span><span><b>${esc(c.n)}</b><small>לכל המוצרים בקטגוריה</small></span>`)).join("");
-    if(prods.length)h+=`<div class="sg-h" role="presentation">מוצרים</div>`+prods.map(p=>opt("#new",`<img src="${p.img}" alt="" width="42" height="52"><span><b>${esc(p.n)}</b><small>${esc(catName(p.c))} · מק״ט <span>${p.id}</span></small></span>`)).join("");
+    /* real products once the catalog file is loaded */
+    const real=pLoaded&&PRODS.length?PRODS.filter(p=>ts.every(t=>p.txt.includes(t))).slice(0,5):[];
+    const prods=real.length||pLoaded?[]:PRODUCTS.filter(p=>ts.every(t=>has(p.n+" "+catName(p.c)+" "+p.id,t))).slice(0,5);
+    let h="",k=0;const opt=(go,inner)=>`<div class="sg" role="option" id="${uid}-${k}" data-go="${esc(go)}" aria-selected="false" style="--i:${k++}">${inner}</div>`;
+    if(cats.length)h+=`<div class="sg-h" role="presentation">קטגוריות</div>`+cats.map(c=>opt(CATPG(c.id),`<span class="si">${ico(c.id)}</span><span><b>${esc(c.n)}</b><small>לכל המוצרים בקטגוריה</small></span>`)).join("");
+    if(real.length)h+=`<div class="sg-h" role="presentation">מוצרים</div>`+real.map(p=>opt(`${CATPG(p.cat)}&q=${encodeURIComponent(p.v[0].sku)}`,`<img class="lt" src="${esc(p.img)}" alt="" width="42" height="52"><span><b>${esc(p.n)}</b><small>${esc(CNAME[p.cat]||"")} · מק״ט <span>${esc(p.v[0].sku)}</span></small></span>`)).join("");
+    if(prods.length)h+=`<div class="sg-h" role="presentation">מוצרים</div>`+prods.map(p=>opt(HOME+"#new",`<img src="${p.img}" alt="" width="42" height="52"><span><b>${esc(p.n)}</b><small>${esc(catName(p.c))} · מק״ט <span>${p.id}</span></small></span>`)).join("");
     if(!h){box.removeAttribute("role");box.innerHTML=`<div class="sg-empty">לא מצאנו "${esc(raw)}". נסו מילה אחרת או מק״ט, או <a href="tel:086377033">התקשרו 08-6377033</a></div>`;items=[];open(true);return}
     box.setAttribute("role","listbox");box.setAttribute("aria-label","תוצאות חיפוש");box.innerHTML=h;items=$$(".sg",box);act=-1;mark();open(true)}
-  const choose=el=>{location.href=HOME+el.dataset.go};
+  const choose=el=>{location.href=el.dataset.go};
   inp.addEventListener("input",render);inp.addEventListener("focus",render);
   inp.addEventListener("keydown",e=>{if(e.key==="ArrowDown"||e.key==="ArrowUp"){if(!items.length)return;e.preventDefault();act=(act+(e.key==="ArrowDown"?1:-1)+items.length)%items.length;mark()}else if(e.key==="Escape"&&box.classList.contains("open")){e.stopPropagation();open(false)}});
   form.addEventListener("submit",e=>{e.preventDefault();render();if(items.length)choose(items[Math.max(act,0)])});
@@ -1765,7 +2369,12 @@ fitBye();addEventListener("resize",fitBye);document.fonts&&document.fonts.ready.
 
 /* ---------------- go ---------------- */
 renderCart();renderOld();renderRev();render();
-window.__calc={S,calc,render};
+/* the real catalog (same file the catalog page uses) */
+fetch("assets/products.json").then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(raw=>{
+  PRODS=prepP(Array.isArray(raw)?raw:[]);PMAP=new Map(PRODS.map(p=>[p.id,p]));pLoaded=true;
+  S.cat=S.cat.filter(x=>PMAP.has(x.pid));render();if(caOpen)caSearch();
+}).catch(()=>{pErr=true;pLoaded=true;render();if(caOpen)caSearch()});
+window.__calc={S,calc,render,layout:()=>LY,addCat,moveTo,buildPrint};
 window.__sl=true;
 })();
 </script>
