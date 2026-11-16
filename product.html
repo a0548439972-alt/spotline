@@ -1030,7 +1030,6 @@ function specData(p){
   const r=[],c=catOf(p.cat),kt=kText(p.k),T=tones(p.k);
   r.push({l:"סוג גוף",v:[c?c.n:"",p.sub].filter(Boolean).join(", ")});
   if(p.w!=null)r.push({key:"w",l:"הספק",v:fmtW(p.w),ltr:1,f:"הספק"});
-  if(p.lm)r.push({key:"lm",l:"עוצמת אור",v:fmtN(p.lm),after:" לומן",f:"לומן"});
   if(kt)r.push({key:"k",l:"גוון אור",v:T.length>1?T.map(t=>t.n+"K").join(" / "):kt,ltr:/\d/.test(kt),
     note:T.length>1?"לבחירה: "+T.map(t=>t.l).join(", "):T.length===1?"אור "+T[0].l:"",f:"גוון",fv:T.length>1?T[0].n+"-"+T[T.length-1].n+"K":kt});
   if(p.cri){const cv=String(p.cri).replace(/^CRI\s*/i,""),n=+cv;r.push({key:"cri",l:"מסירת צבע",v:"CRI "+cv.replace("/"," / "),ltr:1,tip:"cri",note:n>=90?"צבעים טבעיים במיוחד":n>=80?"מתאים לרוב החדרים":""})}
@@ -1192,7 +1191,7 @@ function renderProduct(){
   $("#piFacts").innerHTML=factsHTML(S);
   const d=$("#piD");d.textContent=p.d;d.hidden=!p.d;
   $("#spec").innerHTML=specHTML(S);
-  const cw=$("#calcW");if(p.w!=null){cw.hidden=false;cw.innerHTML=`הגוף הזה: <b class="ltr">${esc(fmtW(p.w))}</b>${p.lm?` · <b>${fmtN(p.lm)}</b> לומן`:""}`}
+  const cw=$("#calcW");if(p.w!=null){cw.hidden=false;cw.innerHTML=`הגוף הזה: <b class="ltr">${esc(fmtW(p.w))}</b>`}
   renderFin();renderTone();renderVariant();renderGallery();renderRelated();
   setSEO(p,S);
 }

@@ -1294,7 +1294,6 @@ function specRows(p,fi){
   r.push(["סוג גוף",esc([p.sub,p.area].filter(Boolean).join(" · "))]);
   if(p.w!=null)r.push(["הספק",`<span class="ltr">${esc(fmtW(p.w))}</span>`]);
   if(kt)r.push(["גוון אור",/\d/.test(kt)?`<span class="ltr">${esc(kt)}</span>${p.kt.includes("var")?" (לבחירה)":""}`:esc(kt)]);
-  if(p.lm)r.push(["עוצמת אור",`${Number(p.lm).toLocaleString("en-US")} לומן`]);
   if(p.cri)r.push(["מסירת צבע",`<span class="ltr">CRI ${esc(String(p.cri).replace(/^CRI\s*/i,""))}</span>`]);
   if(p.beam)r.push(["זווית פיזור",`<span class="ltr">${esc(p.beam)}</span>`]);
   if(p.ip!=null)r.push(["דרגת אטימות",`<span class="ltr">IP${p.ip}</span>`]);
