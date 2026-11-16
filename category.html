@@ -523,6 +523,10 @@ section[id]{scroll-margin-top:calc(var(--hdr) + 12px)}
 .qv-i{display:flex;flex-direction:column;min-width:0;padding:30px 32px 32px}
 .qv-i h2{margin-top:4px;padding-inline-end:56px;font-family:var(--fd);font-size:clamp(30px,3vw,44px);font-weight:700;line-height:1.08;overflow-wrap:anywhere}
 .qv-i .pc-sku{margin-top:6px;font-size:14px}
+.qv-full{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;min-height:36px;margin-top:8px;font-size:15px;font-weight:500;color:#fff;text-decoration:underline;text-decoration-color:var(--y);text-decoration-thickness:1px;text-underline-offset:5px}
+.qv-full svg{width:16px;height:16px;transition:transform .4s var(--ease)}
+.qv-full:hover svg{transform:translateX(-4px)}
+.pc h3 a:hover{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
 .qv-d{margin-top:14px;font-size:16px;line-height:1.6;color:#cfc9bd}
 .qv-fl{margin-top:22px;font-size:14px;color:var(--mut)}
 .qv-fl b{font-weight:500;color:#fff}
@@ -854,6 +858,7 @@ section[id]{scroll-margin-top:calc(var(--hdr) + 12px)}
       <span class="pc-sub" id="qvSub"></span>
       <h2 id="qvT"></h2>
       <div class="pc-sku" id="qvSku"></div>
+      <a class="qv-full" id="qvFull" href="product.html">לעמוד המוצר המלא<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
       <p class="qv-d" id="qvD"></p>
       <div id="qvFin"></div>
       <dl class="qv-spec" id="qvSpec"></dl>
@@ -1120,6 +1125,8 @@ function finIdx(p){
 }
 const curVar=(p,fi)=>{const f=p.fins[fi];return p.v[f?f.vi:0]||p.v[0]};
 const lineId=(p,fi)=>{const f=p.fins[fi];return curVar(p,fi).sku+"|"+(f?f.c:"")};
+/* the full product page (opens in a new tab too); a chosen finish other than the first goes along */
+const prodHref=(p,fi)=>`product.html?id=${encodeURIComponent(p.id)}${fi&&p.fins[fi]?"&f="+encodeURIComponent(p.fins[fi].c):""}`;
 function specs(p){
   const s=[];if(p.w!=null)s.push(fmtW(p.w));const kt=kText(p.k);if(kt)s.push(kt);if(p.ip!=null)s.push("IP"+p.ip);
   return s.map(x=>`<span>${esc(x)}</span>`).join('<i aria-hidden="true"></i>');
@@ -1132,10 +1139,10 @@ function swatches(p,fi,max){
 function card(p,i){
   const fi=finIdx(p), v=curVar(p,fi);
   return `<article class="pc in" data-id="${esc(p.id)}" style="--i:${Math.min(i,11)}">
- <button class="pc-ph" type="button" data-qv aria-label="פרטים על ${esc(p.n)}"><img src="${esc(v.img||p.img)}" alt="${esc(p.n)}" width="400" height="400" loading="lazy" decoding="async">${ico(p.cat,"ico ph-ico")}</button>
+ <a class="pc-ph" href="${esc(prodHref(p,fi))}"><img src="${esc(v.img||p.img)}" alt="${esc(p.n)}" width="400" height="400" loading="lazy" decoding="async">${ico(p.cat,"ico ph-ico")}</a>
  <div class="pc-m">
   <span class="pc-sub">${esc(p.sub)}</span>
-  <h3>${esc(p.n)}</h3>
+  <h3><a href="${esc(prodHref(p,fi))}">${esc(p.n)}</a></h3>
   <span class="pc-sku">מק״ט <span data-sku>${esc(v.sku)}</span></span>
   ${p.w!=null||p.k||p.ip!=null?`<p class="pc-spec">${specs(p)}</p>`:""}
   ${swatches(p,fi,6)}
@@ -1185,6 +1192,7 @@ function updateCard(pc,p){
   const fi=finIdx(p),v=curVar(p,fi),wr=$(".pc-ph",pc),im=$("img",wr);
   $$("[data-sw]",pc).forEach(b=>b.setAttribute("aria-pressed",+b.dataset.sw===fi));
   $("[data-sku]",pc).textContent=v.sku;
+  $$("a.pc-ph,h3 a",pc).forEach(a=>a.setAttribute("href",prodHref(p,fi)));
   const src=v.img||p.img;if(im.getAttribute("src")!==src){wr.classList.remove("noimg");im.classList.remove("ld");im.src=src}
   syncAdd();
 }
@@ -1308,6 +1316,7 @@ function renderQV(keepImg){
   $("#qvTh").innerHTML=imgs.length>1?imgs.map((s,i)=>`<button type="button" data-th="${i}" aria-pressed="${i===qvImg}" aria-label="תמונה ${i+1} מתוך ${imgs.length}"><img src="${esc(s)}" alt="" loading="lazy" decoding="async">${ico(p.cat,"ico ph-ico")}</button>`).join(""):"";
   $("#qvFin").innerHTML=p.fins.length?`<p class="qv-fl" id="qvFl">גימור: <b>${esc(f?f.c:"")}</b></p>${p.fins.length>1?`<div class="qv-sw" role="group" aria-labelledby="qvFl">${p.fins.map((x,i)=>`<button type="button" data-qfin="${i}" aria-pressed="${i===fi}">${dotHTML(x.c)}${esc(x.c)}</button>`).join("")}</div>`:""}`:"";
   $("#qvSpec").innerHTML=specRows(p,fi);
+  $("#qvFull").href=prodHref(p,fi);
   $("#qvWa").href=waLink(`היי, יש לי שאלה על ${p.n}, מק״ט ${v.sku}${f?`, גימור ${f.c}`:""}`);
   markLoaded(qv);syncAdd();
 }
@@ -1473,7 +1482,7 @@ function setupSearch(root){
     box.setAttribute("role","listbox");box.setAttribute("aria-label","תוצאות חיפוש");box.innerHTML=h;items=$$(".sg",box);act=-1;mark();open(true)}
   function choose(el){const [type,val]=el.dataset.go.split(":");open(false);inp.value="";closeSearch(true);closeMnav(true);
     if(type==="cat"){setCat(val,{push:true,scroll:true});return}
-    const p=byId(val);if(!p)return;if(p.cat!==S.c)setCat(p.cat,{push:true,scroll:true});openQV(p)}
+    const p=byId(val);if(p)location.href=prodHref(p,0)}
   inp.addEventListener("input",render);inp.addEventListener("focus",render);
   inp.addEventListener("keydown",e=>{if(e.key==="ArrowDown"||e.key==="ArrowUp"){if(!items.length)return;e.preventDefault();act=(act+(e.key==="ArrowDown"?1:-1)+items.length)%items.length;mark()}else if(e.key==="Escape"&&box.classList.contains("open")){e.stopPropagation();open(false)}});
   form.addEventListener("submit",e=>{e.preventDefault();render();if(items.length)choose(items[Math.max(act,0)])});
