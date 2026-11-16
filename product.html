@@ -439,6 +439,7 @@ section[id]{scroll-margin-top:calc(var(--hdr) + 12px)}
 .pb .btn-y.ok{background:#fff}
 .pin{margin-top:10px;font-size:14px;color:var(--mut);min-height:0}
 .pin:empty{display:none}
+.pb [hidden],.pbar [hidden]{display:none!important}
 .pin b{color:#fff;font-weight:500}
 .pin button{min-height:32px;color:#fff;text-decoration:underline;text-underline-offset:3px}
 .pwa{width:100%;justify-content:center;margin-top:10px}
@@ -795,10 +796,11 @@ a.mb{display:inline-flex;align-items:center;justify-content:center}
         <div class="pb" id="pBuy">
           <div class="qty"><button type="button" id="pqInc" aria-label="הוספת יחידה"><svg aria-hidden="true"><use href="#i-plus"/></svg></button><input type="number" id="pq" min="1" max="99" value="1" inputmode="numeric" aria-label="כמות"><button type="button" id="pqDec" aria-label="הפחתת יחידה"><svg aria-hidden="true"><use href="#i-minus"/></svg></button></div>
           <button class="btn btn-y" type="button" id="pAdd"><svg aria-hidden="true"><use href="#i-plus"/></svg><span class="bl">הוספה לסל להצעת מחיר</span></button>
+          <a class="btn btn-y" id="pPlan" href="profile.html" hidden><span class="bl">לתכנון הפרופיל במידה</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
         </div>
         <p class="pin" id="pIn" role="status" aria-live="polite"></p>
         <a class="btn btn-o pwa" id="pWa" href="https://wa.me/97286377033" target="_blank" rel="noopener"><svg class="wa" aria-hidden="true"><use href="#i-wa"/></svg><span class="bl">שאלה על המוצר בוואטסאפ</span></a>
-        <p class="pnote">אין מחירים באתר. מוסיפים לסל, שולחים את הרשימה, ואנחנו חוזרים עם הצעת מחיר.</p>
+        <p class="pnote" id="pNote">אין מחירים באתר. מוסיפים לסל, שולחים את הרשימה, ואנחנו חוזרים עם הצעת מחיר.</p>
 
         <ul class="pw">
           <li><svg aria-hidden="true"><use href="#i-chat"/></svg><b>ייעוץ אישי בחנות</b><span>עוזרים לכם לבחור גוף, גוון וכמות לכל חדר.</span></li>
@@ -902,6 +904,7 @@ a.mb{display:inline-flex;align-items:center;justify-content:center}
 <div class="pbar" id="pbar" aria-hidden="true" inert>
   <a class="pbar-wa" id="pbWa" href="https://wa.me/97286377033" target="_blank" rel="noopener" aria-label="שאלה על המוצר בוואטסאפ"><svg aria-hidden="true"><use href="#i-wa"/></svg></a>
   <button class="btn btn-y" type="button" id="pbAdd"><svg aria-hidden="true"><use href="#i-plus"/></svg><span class="bl">הוספה לסל</span></button>
+  <a class="btn btn-y" id="pbPlan" href="profile.html" hidden><span class="bl">לתכנון במידה</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
 </div>
 
 <div class="bbar" id="bbar" aria-hidden="true"><button type="button" class="bt" id="bbarT">סל הצעת מחיר</button><button type="button" class="bgo" id="bbarB">לשליחה</button></div>
@@ -947,6 +950,8 @@ H.classList.add("anim");
 
 const HOME="index.html", PAGE="category.html", PROD="product.html", CALC="calculator.html", WA="97286377033";
 const waLink=t=>`https://wa.me/${WA}?text=${encodeURIComponent(t)}`;
+/* profiles are made to measure: their main action opens the planner instead of adding to the basket */
+const PLAN="profile.html", isPlan=p=>p.cat==="profile"&&!p.acc, planHref=id=>`${PLAN}?model=${encodeURIComponent(id)}`;
 
 /* ---------------- categories (same names and lines as the homepage) ---------------- */
 const CATS=[
@@ -997,7 +1002,7 @@ function prep(raw){
     const v=(Array.isArray(p.v)&&p.v.length?p.v:[{sku:p.id,c:"",img:p.img}]).map(x=>({sku:x.sku||p.id,c:x.c||"",img:x.img||p.img}));
     const fins=[];v.forEach((x,vi)=>String(x.c).split(/\s*[,\/]\s*/).map(s=>s.trim()).filter(Boolean).forEach(c=>{if(!fins.some(f=>f.c===c))fins.push({c,vi})}));
     const w=typeof p.w==="number"?p.w:null, ip=typeof p.ip==="number"?p.ip:null;
-    return {id:p.id,n:String(p.n||"").trim(),cat:p.cat,sub:p.sub||"",area:p.area||"",w,wb:wBucket(w),k:p.k||"",kt:kTags(p.k),lm:p.lm,cri:p.cri,beam:p.beam,ip,mat:p.mat||"",dim:!!p.dim,size:p.size||"",
+    return {id:p.id,n:String(p.n||"").trim(),cat:p.cat,acc:!!p.acc,sub:p.sub||"",area:p.area||"",w,wb:wBucket(w),k:p.k||"",kt:kTags(p.k),lm:p.lm,cri:p.cri,beam:p.beam,ip,mat:p.mat||"",dim:!!p.dim,size:p.size||"",
       img:p.img||v[0].img,imgs:Array.isArray(p.imgs)?p.imgs:[],d:cleanD(p.d),v,fins,idx,
       txt:norm([p.n,p.id,v.map(x=>x.sku).join(" "),p.sub,p.mat].join(" "))}});
 }
@@ -1193,6 +1198,9 @@ function renderProduct(){
   $("#spec").innerHTML=specHTML(S);
   const cw=$("#calcW");if(p.w!=null){cw.hidden=false;cw.innerHTML=`הגוף הזה: <b class="ltr">${esc(fmtW(p.w))}</b>`}
   renderFin();renderTone();renderVariant();renderGallery();renderRelated();
+  const plan=isPlan(p);$("#pBuy .qty").hidden=plan;$("#pAdd").hidden=plan;$("#pbAdd").hidden=plan;
+  [$("#pPlan"),$("#pbPlan")].forEach(a=>{a.hidden=!plan;a.href=planHref(p.id)});
+  if(plan)$("#pNote").textContent="פרופיל מייצרים לפי מידה. מתכננים צורה, מידות ונקודת חשמל, ומקבלים הצעת מחיר.";
   setSEO(p,S);
 }
 
@@ -1250,7 +1258,7 @@ function card(p){
   <span class="pc-sku">מק״ט <span data-sku>${esc(v.sku)}</span></span>
   ${p.w!=null||p.k||p.ip!=null?`<p class="pc-spec">${specs(p)}</p>`:""}
   ${swatches(p,f,6)}
-  <div class="pc-a"><button class="add" type="button" data-add><svg aria-hidden="true"><use href="#i-plus"/></svg><span>הוספה לסל</span></button><a class="mb" href="${esc(href)}">פרטים</a></div>
+  <div class="pc-a">${isPlan(p)?`<a class="add" href="${esc(planHref(p.id))}" aria-label="תכנון ${esc(p.n)} לפי מידה"><svg aria-hidden="true"><use href="#i-arrow"/></svg><span>לתכנון במידה</span></a>`:`<button class="add" type="button" data-add><svg aria-hidden="true"><use href="#i-plus"/></svg><span>הוספה לסל</span></button>`}<a class="mb" href="${esc(href)}">פרטים</a></div>
  </div>
 </article>`;
 }
@@ -1305,7 +1313,7 @@ let cart=[];
 function loadCart(){try{const st=JSON.parse(localStorage.getItem(KEY)||"[]");cart=Array.isArray(st)?st.filter(x=>x&&typeof x.id==="string").map(x=>Object.assign({},x,{q:Math.max(1,Math.min(99,Math.round(+x.q||1)))})):[]}catch(e){cart=[]}}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(cart))}catch(e){}};
 const demo=id=>DEMO.find(d=>d.id===id);
-const visible=x=>x.src==="cat"||!!demo(x.id)||(x.calc&&x.n);
+const visible=x=>x.src==="cat"||x.src==="profile"||!!demo(x.id)||(x.calc&&x.n);
 const lines=()=>cart.filter(visible);
 const inCart=id=>cart.some(x=>x.id===id);
 const count=()=>lines().reduce((s,x)=>s+x.q,0);
@@ -1315,6 +1323,7 @@ let cLast=null;
 const qtyHTML=(q,label)=>`<div class="qty"><button type="button" data-inc aria-label="הוספה"><svg aria-hidden="true"><use href="#i-plus"/></svg></button><input type="number" min="1" value="${q}" inputmode="numeric" aria-label="${esc(label)}"><button type="button" data-dec aria-label="הפחתה"><svg aria-hidden="true"><use href="#i-minus"/></svg></button></div>`;
 function ciHTML(it){
   const rm=`<button class="rm" type="button" data-rm>הסרה</button>`;
+  if(it.src==="profile")return `<div class="ci" data-id="${esc(it.id)}"><span class="ci-ico">${ico("profile")}</span><div><b>${esc(it.n)}</b><small>תכנון במידה${it.d?" · "+esc(it.d):""}</small><div class="ci-a">${qtyHTML(it.q,"כמות של "+it.n)}${rm}</div></div></div>`;
   if(it.src==="cat"){const meta=[it.fin?"גימור: "+esc(it.fin):"",it.k?`גוון: <span>${esc(kText(it.k))}</span>`:""].filter(Boolean).join(" · ")||"גימור וגוון נתאים איתכם";
     return `<div class="ci" data-id="${esc(it.id)}"><img class="lt" src="${esc(it.img)}" alt="" width="64" height="80"><div><b>${esc(it.n)}</b><small>מק״ט <span>${esc(it.sku)}</span></small><small>${meta}</small><div class="ci-a">${qtyHTML(it.q,"כמות של "+it.n)}${rm}</div></div></div>`}
   const d=demo(it.id);

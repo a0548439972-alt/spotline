@@ -383,6 +383,11 @@ section[id]{scroll-margin-top:calc(var(--hdr) + 12px)}
 .catalog{padding:clamp(28px,3vw,44px) 0 clamp(90px,9vw,150px)}
 .cat-grid{display:grid;grid-template-columns:264px minmax(0,1fr);gap:clamp(28px,3.4vw,56px);align-items:start}
 .cat-grid[hidden]{display:none}
+.pfb{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px 24px;margin-bottom:clamp(20px,2.4vw,32px);padding:14px 14px 14px 20px;border:1px solid var(--line2);border-inline-start:2px solid var(--y);background:#0d0c0b}
+.pfb p{font-size:16px;color:#d6d0c4;line-height:1.5}
+.pfb p b{color:#fff;font-weight:700}
+.pfb .btn{height:46px;padding:0 20px;font-size:15px}
+#pfBan[hidden],.qv-a .btn[hidden]{display:none}
 
 /* filters */
 .filt{position:sticky;top:88px;max-height:calc(100vh - 104px);overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#2a2826 transparent;padding-inline-end:4px}
@@ -773,6 +778,7 @@ section[id]{scroll-margin-top:calc(var(--hdr) + 12px)}
 
 <!-- ============ catalog ============ -->
 <section class="catalog" id="catalog" aria-label="מוצרים בקטגוריה">
+  <div class="cwrap" id="pfBan" hidden><div class="pfb"><p><b>פרופילים מייצרים לפי מידה.</b> תכננו את שלכם בכמה צעדים</p><a class="btn btn-y" href="profile.html"><span class="bl">לתכנון פרופיל במידה</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div></div>
   <div class="cwrap cat-grid" id="catGridW">
     <aside class="filt" id="filt" aria-labelledby="filtH">
       <div class="filt-h"><h2 id="filtH">סינון</h2><button class="clr" type="button" data-clear>נקה הכול</button><button class="x" type="button" id="filtX" aria-label="סגירת הסינון"><svg aria-hidden="true"><use href="#i-x"/></svg></button></div>
@@ -864,6 +870,7 @@ section[id]{scroll-margin-top:calc(var(--hdr) + 12px)}
       <dl class="qv-spec" id="qvSpec"></dl>
       <div class="qv-a">
         <button class="btn btn-y" type="button" id="qvAdd"><svg aria-hidden="true"><use href="#i-plus"/></svg><span class="bl">הוספה לסל</span></button>
+        <a class="btn btn-y" id="qvPlan" href="profile.html" hidden><span class="bl">לתכנון במידה</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
         <a class="btn btn-o" id="qvWa" href="https://wa.me/97286377033" target="_blank" rel="noopener"><svg class="wa" aria-hidden="true"><use href="#i-wa"/></svg><span class="bl">שאלה על המוצר בוואטסאפ</span></a>
       </div>
       <p class="qv-note">אין מחירים באתר. מוסיפים לסל, שולחים את הרשימה, ואנחנו חוזרים עם הצעת מחיר.</p>
@@ -913,6 +920,8 @@ const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;"
 H.classList.add("anim");
 
 const HOME="index.html", PAGE="category.html", WA="97286377033", PER=24;
+/* profiles are made to measure: their main action opens the planner instead of adding to the basket */
+const PLAN="profile.html", isPlan=p=>p.cat==="profile"&&!p.acc, planHref=id=>`${PLAN}?model=${encodeURIComponent(id)}`;
 const waLink=t=>`https://wa.me/${WA}?text=${encodeURIComponent(t)}`;
 
 /* ---------------- categories (same names and lines as the homepage) ---------------- */
@@ -964,7 +973,7 @@ function prep(raw){
     const v=(Array.isArray(p.v)&&p.v.length?p.v:[{sku:p.id,c:"",img:p.img}]).map(x=>({sku:x.sku||p.id,c:x.c||"",img:x.img||p.img}));
     const fins=[];v.forEach((x,vi)=>String(x.c).split(/\s*[,\/]\s*/).map(s=>s.trim()).filter(Boolean).forEach(c=>{if(!fins.some(f=>f.c===c))fins.push({c,vi})}));
     const w=typeof p.w==="number"?p.w:null, ip=typeof p.ip==="number"?p.ip:null;
-    return {id:p.id,n:String(p.n||"").trim(),cat:p.cat,sub:p.sub||"",area:p.area||"",w,wb:wBucket(w),k:p.k||"",kt:kTags(p.k),lm:p.lm,cri:p.cri,beam:p.beam,ip,mat:p.mat||"",dim:!!p.dim,size:p.size||"",
+    return {id:p.id,n:String(p.n||"").trim(),cat:p.cat,acc:!!p.acc,sub:p.sub||"",area:p.area||"",w,wb:wBucket(w),k:p.k||"",kt:kTags(p.k),lm:p.lm,cri:p.cri,beam:p.beam,ip,mat:p.mat||"",dim:!!p.dim,size:p.size||"",
       img:p.img||v[0].img,imgs:Array.isArray(p.imgs)?p.imgs:[],d:cleanD(p.d),v,fins,idx,
       txt:norm([p.n,p.id,v.map(x=>x.sku).join(" "),p.sub,p.mat].join(" "))}});
 }
@@ -1146,7 +1155,7 @@ function card(p,i){
   <span class="pc-sku">מק״ט <span data-sku>${esc(v.sku)}</span></span>
   ${p.w!=null||p.k||p.ip!=null?`<p class="pc-spec">${specs(p)}</p>`:""}
   ${swatches(p,fi,6)}
-  <div class="pc-a"><button class="add" type="button" data-add><svg aria-hidden="true"><use href="#i-plus"/></svg><span>הוספה לסל</span></button><button class="mb" type="button" data-qv>פרטים</button></div>
+  <div class="pc-a">${isPlan(p)?`<a class="add" href="${esc(planHref(p.id))}" aria-label="תכנון ${esc(p.n)} לפי מידה"><svg aria-hidden="true"><use href="#i-arrow"/></svg><span>לתכנון במידה</span></a>`:`<button class="add" type="button" data-add><svg aria-hidden="true"><use href="#i-plus"/></svg><span>הוספה לסל</span></button>`}<button class="mb" type="button" data-qv>פרטים</button></div>
  </div>
 </article>`;
 }
@@ -1236,7 +1245,7 @@ function renderSoon(){
 function setCat(id,o){
   o=o||{};
   if(id!==S.c||o.force){S.c=id;resetFilters();Object.keys(selFin).forEach(k=>delete selFin[k]);qIn.value="";$("#qWrap").classList.remove("has");$("#sort").value="rec"}
-  renderHero();renderSwitch();
+  renderHero();renderSwitch();$("#pfBan").hidden=S.c!=="profile";
   if(!loaded){return}
   CP=ALL.filter(p=>p.cat===S.c);
   const empty=!CP.length;
@@ -1316,6 +1325,7 @@ function renderQV(keepImg){
   $("#qvFin").innerHTML=p.fins.length?`<p class="qv-fl" id="qvFl">גימור: <b>${esc(f?f.c:"")}</b></p>${p.fins.length>1?`<div class="qv-sw" role="group" aria-labelledby="qvFl">${p.fins.map((x,i)=>`<button type="button" data-qfin="${i}" aria-pressed="${i===fi}">${dotHTML(x.c)}${esc(x.c)}</button>`).join("")}</div>`:""}`:"";
   $("#qvSpec").innerHTML=specRows(p,fi);
   $("#qvFull").href=prodHref(p,fi);
+  $("#qvAdd").hidden=isPlan(p);$("#qvPlan").hidden=!isPlan(p);$("#qvPlan").href=planHref(p.id);
   $("#qvWa").href=waLink(`היי, יש לי שאלה על ${p.n}, מק״ט ${v.sku}${f?`, גימור ${f.c}`:""}`);
   markLoaded(qv);syncAdd();
 }
@@ -1353,7 +1363,7 @@ let cart=[];
 function loadCart(){try{const st=JSON.parse(localStorage.getItem(KEY)||"[]");cart=Array.isArray(st)?st.filter(x=>x&&typeof x.id==="string").map(x=>Object.assign({},x,{q:Math.max(1,Math.min(99,Math.round(+x.q||1)))})):[]}catch(e){cart=[]}}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(cart))}catch(e){}};
 const demo=id=>DEMO.find(d=>d.id===id);
-const visible=x=>x.src==="cat"||!!demo(x.id)||(x.calc&&x.n);
+const visible=x=>x.src==="cat"||x.src==="profile"||!!demo(x.id)||(x.calc&&x.n);
 const lines=()=>cart.filter(visible);
 const inCart=id=>cart.some(x=>x.id===id);
 const count=()=>lines().reduce((s,x)=>s+x.q,0);
@@ -1363,6 +1373,7 @@ let cLast=null;
 const qtyHTML=(q,label)=>`<div class="qty"><button type="button" data-inc aria-label="הוספה"><svg aria-hidden="true"><use href="#i-plus"/></svg></button><input type="number" min="1" value="${q}" inputmode="numeric" aria-label="${esc(label)}"><button type="button" data-dec aria-label="הפחתה"><svg aria-hidden="true"><use href="#i-minus"/></svg></button></div>`;
 function ciHTML(it){
   const rm=`<button class="rm" type="button" data-rm>הסרה</button>`;
+  if(it.src==="profile")return `<div class="ci" data-id="${esc(it.id)}"><span class="ci-ico">${ico("profile")}</span><div><b>${esc(it.n)}</b><small>תכנון במידה${it.d?" · "+esc(it.d):""}</small><div class="ci-a">${qtyHTML(it.q,"כמות של "+it.n)}${rm}</div></div></div>`;
   if(it.src==="cat"){const meta=[it.fin?"גימור: "+esc(it.fin):"",it.k?`גוון: <span>${esc(kText(it.k))}</span>`:""].filter(Boolean).join(" · ")||"גימור וגוון נתאים איתכם";
     return `<div class="ci" data-id="${esc(it.id)}"><img class="lt" src="${esc(it.img)}" alt="" width="64" height="80"><div><b>${esc(it.n)}</b><small>מק״ט <span>${esc(it.sku)}</span></small><small>${meta}</small><div class="ci-a">${qtyHTML(it.q,"כמות של "+it.n)}${rm}</div></div></div>`}
   const d=demo(it.id);

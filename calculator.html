@@ -2389,7 +2389,7 @@ function gRowHTML(g){const t=g.t,f=FIXTURES[t],m=isM(t),nm=esc(gName(g)),same=S.
   <div class="fx-ctl">
    <div class="fx-w"><div class="opts sm" role="group" aria-label="הספק של ${nm}, בוואט${m?" למטר":""}">${Object.keys(f.opts).map(w=>`<button type="button" data-w="${w}" aria-pressed="false">${w}</button>`).join("")}</div><span class="fx-u">וואט${m?" למטר":""}</span></div>
    <div class="fx-q"><div class="qty">${bi}<input type="number" min="${m?0.5:1}" max="${m?60:40}" step="${m?0.5:1}" inputmode="decimal" aria-label="${m?"כמה מטר":"כמה יחידות"} של ${nm}">${bd}</div><span class="fx-u">${m?"מטר":"יחידות"}</span></div>
-   ${t==="profile"?`<div class="opts sm fx-mode" role="group" aria-label="איך הפרופיל מאיר"><button type="button" data-m="dir" aria-pressed="false">אור ישיר</button><button type="button" data-m="ind" aria-pressed="false">אור עקיף</button></div>`:""}
+   ${t==="profile"?`<div class="opts sm fx-mode" role="group" aria-label="איך הפרופיל מאיר"><button type="button" data-m="dir" aria-pressed="false">אור ישיר</button><button type="button" data-m="ind" aria-pressed="false">אור עקיף</button></div><a class="lnk fx-plan" href="profile.html">לתכנון פרופיל במידה</a>`:""}
    ${GK[t]?`<div class="fx-pl" hidden><label><span>מיקום</span><select class="sel" data-pl aria-label="מיקום של ${nm} בחדר">${plOpts(GK[t].sym)}</select></label><span class="fx-sp" data-sp></span>${dupBtn("data-dup")}</div>`:""}
   </div></li>`}
 function renderGen(){
