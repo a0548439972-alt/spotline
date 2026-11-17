@@ -983,6 +983,42 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
   .seg button{padding:4px 12px}
   .pb-sel .sel{max-width:100%}
 }
+/* =================== v10: what stays stays, focused light, furniture, the brightness scale, 3D drag =================== */
+.res-h{font-family:var(--fd);font-weight:700;font-size:clamp(30px,2.8vw,42px);line-height:1.08;outline:0}
+.res-sub{margin-top:8px;font-size:15px;color:#d6d0c4;line-height:1.5}
+.wres .need2{margin-top:30px;padding-top:20px;border-top:1px solid var(--line)}
+.wres .need2 .big{font-size:clamp(46px,4.2vw,66px)}
+.wres .need2 .u{font-size:22px}
+.wres .need2 .lb{font-size:14px}
+.res-reset{margin-top:4px}
+#rPref{flex-wrap:nowrap}
+#rPref button{flex:1 1 0;min-width:0;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:3px;min-height:70px;padding:8px 10px;line-height:1.25}
+#rPref button b{font-weight:inherit}
+#rPref button small{font-size:13px;font-weight:400;opacity:.78}
+.q3s{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 18px;margin-top:14px;padding-inline-start:14px;border-inline-start:1px solid var(--line2)}
+.q3s .dn .nbox input{width:92px;height:46px;font-size:28px;line-height:46px}
+.q3w{flex-basis:100%}
+.q3w .lb{font-size:14px;color:var(--mut);font-weight:400;margin-bottom:6px}
+.q3n{margin:-6px 0 18px;font-size:14px;color:var(--mut)}
+#fCeil{margin-top:22px}
+.card:disabled{opacity:.45;cursor:default}
+.card:disabled:hover{border-color:var(--line2)}
+.card em.gyp{color:var(--mut)}
+.q5cat{display:block;margin-top:14px}
+.seg.sm2{margin-top:6px}
+.seg.sm2 button{min-height:30px;padding:2px 10px;font-size:13px}
+.fu{fill:rgba(14,13,12,.62);stroke:rgba(255,244,225,.5);stroke-width:1;vector-effect:non-scaling-stroke;pointer-events:none}
+.fu.up{fill:none;stroke-dasharray:4 3}
+.fl2{fill:none;stroke:rgba(255,244,225,.4);stroke-width:1;vector-effect:non-scaling-stroke;pointer-events:none}
+.fart{stroke:#f3d48a;stroke-width:4;vector-effect:non-scaling-stroke;pointer-events:none}
+.fpath{fill:rgba(255,244,225,.04);stroke:rgba(255,244,225,.25);stroke-dasharray:2 4;stroke-width:1;vector-effect:non-scaling-stroke;pointer-events:none}
+.pdg{stroke:#0c0b0a;stroke-width:5;vector-effect:non-scaling-stroke;pointer-events:none}
+.pdo{fill:none;stroke:rgba(255,244,225,.6);stroke-width:1;vector-effect:non-scaling-stroke;pointer-events:none}
+.ps.st{cursor:default}
+.pp .fu{fill:#f4f2ee;stroke:#666}.pp .fl2,.pp .pdo{stroke:#666}.pp .pdg{stroke:#fff}.pp .fart{stroke:#b8862a}.pp .fpath{stroke:#999}
+.viz:not(.lit) .vhint{opacity:0}
+@media (max-width:999px){.vhint{display:block;bottom:10px;left:10px;font-size:11.5px}.vh2{display:none}}
+@media (max-width:560px){#rPref button{min-height:66px;padding:6px 6px;font-size:15px}.q3s{padding-inline-start:10px}}
 </style>
 </head>
 <body>
@@ -1136,8 +1172,10 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
             </div>
             <p class="wq-hint">אפשר גם חצאים, ואפשר מידה מדויקת כמו 1.72.</p>
             <div class="fld dim" id="fH">
-              <div class="top"><label for="rH">גובה התקרה</label><span class="nbox"><output id="oH" for="rH">2.7</output><span>מ׳</span></span></div>
-              <input type="range" id="rH" min="2.3" max="4.5" step="0.05">
+              <div class="top"><label for="rH">גובה התקרה</label><span class="nbox"><input id="oH" type="number" min="2" max="4.5" step="0.01" inputmode="decimal" aria-label="גובה התקרה, במטרים"><span>מ׳</span></span></div>
+              <input type="range" id="rH" min="2" max="4.5" step="0.05">
+            </div>
+            <div class="fld" id="fCeil"><div class="lb" id="lbCeil">סוג התקרה</div><div class="opts" id="rCeil" role="group" aria-labelledby="lbCeil"><button type="button" data-v="gyp" aria-pressed="false">גבס</button><button type="button" data-v="con" aria-pressed="false">בטון</button></div><p class="wq-hint" id="ceilHint" hidden>בתקרת בטון אין גופים שקועים. נציע גופים צמודי תקרה, ספוטים על מסילה ומנורות תלויות.</p>
             </div>
             <div class="wq-go"><button type="button" class="btn btn-y" data-next="1"><span class="bl">המשך</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
           </div>
@@ -1159,6 +1197,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
           <h2 class="wq-h" id="q4h" tabindex="-1">כמה אור אתם אוהבים?</h2>
           <div class="opts big" id="rPref" role="group" aria-labelledby="q4h"></div>
           <p class="wq-hint">רוב הלקוחות שלנו אוהבים בית <b>מואר</b>.</p>
+          <p class="wq-hint" id="prefK"></p>
           <div class="wq-go"><button type="button" class="btn btn-y" data-next="3"><span class="bl">המשך</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
         </div>
       </section>
@@ -1169,6 +1208,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
           <h2 class="wq-h" id="q5h" tabindex="-1">איזה סוג תאורה אוהבים?</h2>
           <p class="wq-sub">אפשר לבחור כמה. נציע כמה מכל סוג ואיפה לשים.</p>
           <div class="cards" id="cards" role="group" aria-labelledby="q5h"></div>
+          <button type="button" class="lnk q5cat" id="q5Cat" aria-haspopup="dialog">או לבחור גוף מסוים מהקטלוג</button>
           <div class="wq-go"><button type="button" class="btn btn-y" data-next="4" id="toRes" disabled><span class="bl">לתוצאה</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></button><span class="wq-skip" id="cardsHint">בחרו לפחות סוג אחד</span></div>
         </div>
       </section>
@@ -1176,13 +1216,16 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
       <!-- the result -->
       <section class="wres" id="wres" aria-labelledby="resH" tabindex="-1" hidden>
         <svg class="res-arc" viewBox="0 0 600 30" preserveAspectRatio="none" aria-hidden="true"><path class="gl" pathLength="1" d="M0 4 Q 300 46 600 4"/><path pathLength="1" d="M0 4 Q 300 46 600 4"/></svg>
-        <div class="need"><div class="lb" id="resH">החדר צריך</div><div class="v"><span class="ca">כ-</span><b class="big" id="wBig">60</b><span class="u">וואט</span></div></div>
-        <p class="need-sub" id="lmTxt"></p>
-        <p class="eqn" id="eqn"></p>
+        <h2 class="res-h" id="resH">התכנון לחדר</h2>
+        <p class="res-sub" id="resSub"></p>
         <ul class="plist" id="pList" aria-label="ההצעה שלנו לחדר"></ul>
         <p class="ptot" id="pTot"></p>
         <div class="res-add"><button type="button" class="btn btn-o" id="cpOpen" aria-haspopup="dialog"><svg aria-hidden="true"><use href="#i-plus"/></svg><span class="bl">הוספה מהקטלוג</span></button><small>בוחרים גוף מסוים ורואים אותו בחדר</small></div>
+        <p class="res-reset"><button type="button" class="lnk" id="resetP" hidden>חזרה להצעה שלנו מההתחלה</button></p>
         <div id="resPlanSlot"></div>
+        <div class="need need2"><div class="lb">כמה אור החדר צריך בסך הכול</div><div class="v"><span class="ca">כ-</span><b class="big" id="wBig">60</b><span class="u">וואט</span></div></div>
+        <p class="need-sub" id="lmTxt"></p>
+        <p class="eqn" id="eqn"></p>
         <ul class="tipsr" id="tipsR" aria-label="שווה לדעת"></ul>
         <div class="cta">
           <h3>רוצים שנדייק את זה איתכם?</h3>
@@ -1267,10 +1310,10 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
     <!-- the sketch: builds itself while answering -->
     <div class="stage" id="stage">
       <div class="viz" id="viz">
-        <canvas id="roomCv" role="img" aria-label="הדמיה של החדר לפי התשובות שלכם. אפשר לסובב בגרירה."></canvas>
+        <canvas id="roomCv" role="img" aria-label="הדמיה של החדר לפי התשובות שלכם. אפשר לסובב בגרירה, ולגרור גוף כדי להזיז אותו."></canvas>
         <div class="hud"><span id="hudRoom"></span><label class="kmini"><span>גוון</span><input type="range" id="kMini" class="krange" min="2200" max="6500" step="100" aria-label="גוון האור בהדמיה, בקלווין"><b id="kMiniV">3000K</b></label></div>
         <div class="vbtns" role="group" aria-label="זווית הצפייה"><button type="button" data-view="front" aria-pressed="true">מלפנים</button><button type="button" data-view="top" aria-pressed="false">מלמעלה</button><button type="button" data-view="spin" aria-pressed="false">סיבוב</button></div>
-        <span class="vhint" aria-hidden="true">גוררים כדי לסובב</span>
+        <span class="vhint" aria-hidden="true">אפשר לגרור כל גוף<span class="vh2">. גרירה במקום ריק מסובבת</span></span>
         <p class="viz-msg" id="vizMsg">בחרו סוג חדר, והוא יופיע כאן.</p>
       </div>
       <div id="planHome">
@@ -1565,7 +1608,10 @@ const isYard=()=>S.room==="yard";
 const wallSet=()=>isYard()?WSETS[S.yw]||[]:null;
 const wallsOk=()=>!isYard()||S.yw>0;
 const wallTop=()=>isYard()&&openSky()?1.9:effH();
-const avail=t=>{if(t==="wall"&&!wallsOk())return false;if(OUT_T.includes(t))return !!ROOMS[S.room].out;return !openSky()||t==="wall"};
+/* concrete ceiling: nothing recessed */
+const NEED_GYP=["recessed","gimbal"];
+const conc=()=>!ROOMS[S.room].out&&S.ceil==="con";
+const avail=t=>{if(conc()&&NEED_GYP.includes(t))return false;if(t==="wall"&&!wallsOk())return false;if(OUT_T.includes(t))return !!ROOMS[S.room].out;return !openSky()||t==="wall"};
 const ipRec=()=>!ROOMS[S.room].out?0:openSky()?65:44;
 const OLD={
   incandescent:{25:220,40:450,60:800,75:1100,100:1600,150:2600},
@@ -1640,7 +1686,7 @@ const okOpen=p=>p.area==="חוץ"&&!p.kind.ceil;
 const catVar=(p,fi)=>{const f=p.fins[fi];return p.v[f?f.vi:0]||p.v[0]};
 const catFin=(p,fi)=>{const f=p.fins[fi];return f?f.c:""};
 const WALLS={light:{he:"בהירים",c:"#ebe5da",alb:[236,230,220]},medium:{he:"בינוניים",c:"#b3a791",alb:[182,170,150]},dark:{he:"כהים",c:"#4b453e",alb:[86,80,72]}};
-const PREFS={soft:"רך",regular:"רגיל",bright:"מואר מאוד"};
+const PREFS={soft:"רך, כמו לאונג׳",regular:"רגיל",bright:"מואר, כמו בית כנסת"};
 const ATM={calm:{he:"רוגע",k:2700},warm:{he:"חמימות",k:2700},lux:{he:"יוקרה",k:3000},focus:{he:"ריכוז",k:4000},energy:{he:"אנרגיה",k:4000}};
 const ACTS={
   host:{he:"אירוח",tip:"לאירוח: מנורה תלויה מעל השולחן, ודימר לאור הכללי כדי לעבור לאור ערב רך."},
@@ -1681,41 +1727,73 @@ const QS={
   yard:{t:"מה יש בחצר?",acts:["sit","path","trees"]},
   shop:{t:"מה יש בעסק?",acts:["display","counter"]}
 };
+/* "מה חשוב לכם להאיר": focused light at an object. t = the fixture, o = the object drawn, act / yn = the older answers it stands for (tips) */
+const FCS={
+  books:{he:"ארון הספרים",lab:"ספוטים מכוונים לארון הספרים",t:"gimbal",yn:"books"},
+  art:{he:"תמונה או קיר מיוחד",lab:"ספוטים מכוונים לתמונה",t:"gimbal",yn:"art"},
+  dining:{he:"שולחן האוכל",lab:"מנורות תלויות מעל שולחן האוכל",t:"pendant",act:"meal"},
+  seat:{he:"פינת ישיבה או קריאה",lab:"מנורת קריאה ליד הכורסה",t:"wall",act:"read"},
+  entry:{he:"הכניסה",lab:"ספוט בכניסה",t:"recessed"},
+  counter:{he:"משטח העבודה",auto:"strip",act:"cook"},
+  island:{he:"האי",lab:"מנורות תלויות מעל האי",t:"pendant",yn:"island"},
+  readbed:{he:"קריאה במיטה",auto:"wall",act:"read"},
+  wd:{he:"הארון",lab:"ספוטים מול הארון",t:"recessed"},
+  desk:{he:"השולחן",lab:"ספוט מכוונן מעל השולחן",t:"gimbal",act:"study"},
+  mirror:{he:"המראה",lab:"מנורת קיר למראה",t:"wall",yn:"mirror"},
+  oseat:{he:"פינת ישיבה",act:"sit"},
+  path:{he:"שביל",act:"path"},
+  trees:{he:"עצים וצמחייה",act:"trees"},
+  plants:{he:"עציצים וצמחייה",act:"plants"},
+  display:{he:"תצוגת מוצרים",lab:"ספוטים מכוונים לתצוגה",t:"gimbal",act:"display"},
+  scounter:{he:"הדלפק",lab:"מנורות תלויות מעל הדלפק",t:"pendant",act:"counter"}
+};
+const FOCR={living:["dining","books","art","seat","entry"],dining:["dining","art","entry"],kitchen:["counter","island","dining"],bedroom:["readbed","wd","desk"],kids:["desk"],bath:["mirror"],
+  study:["desk","books"],hall:["art","entry"],balcony:["oseat","plants"],yard:["oseat","path","trees"],shop:["display","scounter","entry"]};
+const focHe=k=>k==="desk"?(S.room==="study"?"שולחן העבודה":S.room==="kids"?"שולחן הלימוד":"השולחן"):FCS[k].he;
+const okPl=p=>typeof p==="string"&&(PLACES.includes(p)||(/^foc:\w+$/.test(p)&&!!FCS[p.slice(4)]));
+/* the older answers (tips, recommendations) follow what was chosen here */
+function deriveFoc(){S.acts=[...new Set(S.foc.map(k=>FCS[k].act).filter(a=>a&&ACTS[a]))];const yn={};S.foc.forEach(k=>{if(FCS[k].yn)yn[FCS[k].yn]=true});S.yn=yn}
 /* step 5: the fixture types that fit each room. [type, title, line] */
-function cardsFor(){
+function cardsFor(raw){
   const r=S.room,y=S.yn,a=S.acts,open=openSky();
   const C={
-    living:[["recessed","ספוטים שקועים","אור נקי ואחיד מהתקרה"],["magSpot","פס מגנטי","ראשים שמכוונים לאן שרוצים"],["pendant","מנורה תלויה","מעל השולחן או במרכז"],["profile","פרופיל לד","קו אור נקי בתקרה"],["wall","מנורות קיר","אור רך לערב"],["ceiling","צמוד תקרה","גוף אחד שמאיר הכול"]].concat(y.books?[["gimbal","ספוטים לארון הספרים","מאירים את המדפים"]]:[]),
+    living:[["recessed","ספוטים שקועים","אור נקי ואחיד מהתקרה"],["magSpot","פס מגנטי","ראשים שמכוונים לאן שרוצים"],["pendant","מנורה תלויה","מעל השולחן או במרכז"],["profile","פרופיל לד","קו אור נקי בתקרה"],["wall","מנורות קיר","אור רך לערב"],["ceiling","צמוד תקרה","גוף אחד שמאיר הכול"]],
     dining:[["pendant","מנורות תלויות","מעל שולחן האוכל"],["recessed","ספוטים שקועים","אור כללי מסביב"],["magSpot","פס מגנטי","ראשים שמכוונים לשולחן"],["wall","מנורות קיר","אור רך על הקירות"]],
     kitchen:[["recessed","ספוטים שקועים","אור נקי ואחיד מהתקרה"],["pendant",y.island?"מנורות תלויות מעל האי":"מנורה תלויה מעל השולחן",y.island?"שלוש בשורה, מעל המשטח":"אור ממוקד לארוחות"],["strip","פס לד מתחת לארונות","אור ישר על השיש"],["magSpot","פס מגנטי","ראשים שמכוונים לאן שרוצים"],["ceiling","צמוד תקרה","גוף אחד שמאיר הכול"]],
     bedroom:[["ceiling","צמוד תקרה","גוף אחד שמאיר הכול"],["recessed","ספוטים שקועים","אור נקי מהתקרה"],["wall","מנורות קיר ליד המיטה","קוראים בלי להדליק את כל החדר"],["profile","פרופיל לד עקיף","אור רך מסביב לתקרה"],["pendant","מנורות תלויות ליד המיטה","במקום מנורות לילה"]],
     kids:[["ceiling","צמוד תקרה","גוף אחד שמאיר הכול"],["recessed","ספוטים שקועים","אור אחיד על כל הרצפה"],["wall","מנורת קריאה על הקיר","ליד המיטה או השולחן"],["profile","פרופיל לד עקיף","אור רך ללילה"]],
     bath:[["recessed","ספוטים שקועים","מתאימים לחדר רטוב"],["wall","מנורת קיר למראה","אור על הפנים, בלי צללים"],["ceiling","צמוד תקרה","גוף אטום אחד"]],
     study:[["profile","פרופיל לד","אור אחיד בלי סנוור"],["recessed","ספוטים שקועים","אור נקי מהתקרה"],["magLinear","גוף ליניארי","קו אור ארוך מעל השולחן"],["ceiling","צמוד תקרה","גוף אחד שמאיר הכול"],["pendant","מנורה תלויה","מעל שולחן הישיבות"]],
-    hall:[["recessed","ספוטים שקועים","שורה לאורך המסדרון"],["profile","פרופיל לד","קו אור לכל האורך"],["wall","מנורות קיר","אור רך על הקירות"],["ceiling","צמוד תקרה","גוף אחד או שניים"]].concat(y.art?[["gimbal","ספוטים לתמונות","מכוונים לכל תמונה"]]:[]),
+    hall:[["recessed","ספוטים שקועים","שורה לאורך המסדרון"],["profile","פרופיל לד","קו אור לכל האורך"],["wall","מנורות קיר","אור רך על הקירות"],["ceiling","צמוד תקרה","גוף אחד או שניים"]],
     balcony:(open?[["wall","מנורות קיר חוץ","על הקיר של הבית"],["bollard","עמודונים","עומדים על הרצפה"],["spike","דוקרנים","מאירים עציצים וצמחייה"]]
       :[["recessed","ספוטים שקועים","בתקרה של המרפסת"],["ceiling","צמוד תקרה","גוף אטום אחד"],["wall","מנורות קיר חוץ","על הקיר של הבית"]].concat(a.includes("plants")?[["spike","דוקרנים","מאירים עציצים וצמחייה"]]:[])).concat([["garland","שרשרת נורות","גרלנדה חמה לאווירה"]]),
     yard:(open?[]:[["recessed","ספוטים שקועים","בתקרה או בפרגולה"],["ceiling","צמוד תקרה","גוף אטום אחד"]]).concat([["bollard","עמודונים","לאורך שביל או גדר"],["spike","דוקרנים","מאירים עצים וצמחייה"],["wall","מנורות קיר חוץ","על הקירות של החצר"],["garland","שרשרת נורות","גרלנדה חמה מעל החצר"]]),
     shop:[["trackSpot","ספוטים למסילה","מכוונים על המוצרים"],["magSpot","פס מגנטי","ראשים שמכוונים לאן שרוצים"],["recessed","ספוטים שקועים","אור כללי נקי"],["magLinear","גוף ליניארי","קו אור מעל הדלפק"],["profile","פרופיל לד","קו אור נקי בתקרה"]]
   };
-  return (C[r]||C.living).filter(c=>avail(c[0]));
+  let list=(C[r]||C.living).slice();
+  /* concrete: surface mounted instead of recessed */
+  if(conc()){list=list.map(c=>c[0]==="profile"?[c[0],c[1],"צמוד לתקרה, בלי שקע"]:c);
+    if(!list.some(c=>c[0]==="ceiling"))list.push(["ceiling","צמוד תקרה","גוף אחד שמאיר הכול"]);
+    if(!list.some(c=>c[0]==="trackSpot"||c[0]==="magSpot"))list.push(["trackSpot","ספוטים על מסילה","מסילה צמודה לתקרה"])}
+  return raw?list:list.filter(c=>avail(c[0]));
 }
 /* what we mark as "מומלץ", from the room and the answers */
 function recTypes(){
   const r=S.room,a=S.acts,y=S.yn,o=[];
   switch(r){
-    case"living":o.push("recessed");if(a.includes("read"))o.push("wall");if(a.includes("tv"))o.push("profile");if(a.includes("host"))o.push("pendant");if(y.books)o.push("gimbal");break;
+    case"living":o.push("recessed");if(a.includes("tv"))o.push("profile");if(a.includes("host"))o.push("pendant");break;
     case"dining":o.push("pendant");break;
     case"kitchen":o.push("recessed");if(y.island)o.push("pendant");if(a.includes("cook"))o.push("strip");break;
     case"bedroom":o.push("recessed","wall");break;
     case"kids":o.push("ceiling","recessed");break;
     case"bath":o.push("recessed");if(y.mirror)o.push("wall");break;
     case"study":o.push("profile");if(a.includes("meet"))o.push("pendant");break;
-    case"hall":o.push("recessed");if(y.art)o.push("gimbal");break;
+    case"hall":o.push("recessed");break;
     case"balcony":if(openSky())o.push("wall");else o.push("recessed");if(a.includes("sit"))o.push("wall");if(a.includes("plants"))o.push("spike");break;
     case"yard":if(a.includes("path"))o.push("bollard");if(a.includes("trees"))o.push("spike");if(a.includes("sit"))o.push("wall","garland");if(!o.length)o.push("bollard","wall");break;
     case"shop":o.push("trackSpot");if(a.includes("counter"))o.push("magLinear");break;
   }
+  if(conc()){const sub=cardsFor().some(c=>c[0]==="ceiling")?"ceiling":"trackSpot";return o.map(t=>NEED_GYP.includes(t)?sub:t).filter((t,i,arr)=>arr.indexOf(t)===i)}
   return o;
 }
 const icoSym=t=>ico(FXU[t].ic);
@@ -1723,19 +1801,33 @@ const isM=t=>FIXTURES[t].unit==="מטר";
 
 /* ---------------- state ---------------- */
 const DMIN=1,DMAX=30;
-const PLACES=["auto","center","grid","wall-t","wall-b","wall-r","wall-l","corners","table"];
+const PLACES=["auto","center","grid","wall-t","wall-b","wall-r","wall-l","corners","table","beds"];
 /* gen = groups of generic fixture types (the same type may appear in several groups, each in its own place) */
-const S={room:"living",covered:true,yw:1,L:5,W:4,H:2.7,walls:"light",pref:"bright",atm:null,acts:[],yn:{},types:[],cct:3000,cctUser:false,last:null,gen:[],gseq:0,cat:[],cseq:0,manual:false,arr:"all",side:"t"};
+const S={room:"living",covered:true,yw:1,L:5,W:4,H:2.7,walls:"light",pref:"bright",atm:null,acts:[],yn:{},types:[],cct:3000,cctUser:false,last:null,gen:[],gseq:0,cat:[],cseq:0,manual:false,arr:"all",side:"t",ceil:"gyp",foc:[],door:null,wd:{on:false,len:2.4,dep:.6,w:"b"},beds:2,desk:{on:false,at:"l"},kit:{w:"b",sh:"i"},noAuto:{}};
 const WZ={open:0,done:[false,false,false,false,false],cov:false,yw:false,res:false};
-const SKEY="sl-calc9";
+const SKEY="sl-calc10";
 const cleanPos=o=>{const out={};if(o&&typeof o==="object")Object.keys(o).forEach(i=>{const x=o[i];if(/^\d+$/.test(i)&&x&&isFinite(x.u)&&isFinite(x.v)){const y={u:clamp(+x.u,0,1),v:clamp(+x.v,0,1)};if(/^[bflr]$/.test(x.side))y.side=x.side;out[i]=y}});return out};
 const defW=t=>{const ks=Object.keys(FIXTURES[t].opts);return ks[Math.min(1,ks.length-1)]};
+/* a group the customer changed (quantity, watts, place, a dragged fixture) is never proposed again */
+const gSig=g=>[g.w,g.q,g.mode,g.place,JSON.stringify(g.pos||{}),g.dbl?1:0].join("|");
+const isEd=g=>!!g.ed||!g.sig0||gSig(g)!==g.sig0;
+/* double spots: two heads in one frame */
+const DBL=["recessed","gimbal"];
+const hd=g=>g.dbl&&DBL.includes(g.t)?2:1;
 /* a finished plan comes back after a refresh; a half answered one starts again */
-try{const st=JSON.parse(localStorage.getItem(SKEY)||"null");
+/* a plan saved in version 9 is carried over */
+try{const st=JSON.parse(localStorage.getItem(SKEY)||localStorage.getItem("sl-calc9")||"null");
   if(st&&st.wz&&st.wz.res&&ROOMS[st.room]){
     S.room=st.room;S.covered=st.covered!==false;if(st.yw>=0&&st.yw<=4)S.yw=Math.round(st.yw);if(st.arr==="side")S.arr="side";if(/^[tblr]$/.test(st.side))S.side=st.side;
     ["L","W"].forEach(k=>{if(isFinite(st[k])&&st[k]!==null)S[k]=clamp(Math.round(+st[k]*1000)/1000,DMIN,DMAX)});
-    if(isFinite(st.H))S.H=clamp(+st.H,2.3,4.5);
+    if(isFinite(st.H))S.H=clamp(+st.H,2,4.5);
+    if(st.ceil==="con")S.ceil="con";
+    if(st.door&&/^[bflr]$/.test(st.door.w)&&/^[amz]$/.test(st.door.p))S.door={w:st.door.w,p:st.door.p};
+    if(st.wd&&typeof st.wd==="object")S.wd={on:!!st.wd.on,len:clamp(+st.wd.len||2.4,.4,8),dep:clamp(+st.wd.dep||.6,.3,1),w:/^[bflr]$/.test(st.wd.w)?st.wd.w:"b"};
+    if(st.beds>=0&&st.beds<=4)S.beds=Math.round(st.beds);
+    if(st.desk&&typeof st.desk==="object")S.desk={on:!!st.desk.on,at:/^[bflrc]$/.test(st.desk.at)?st.desk.at:"l"};
+    if(st.kit&&typeof st.kit==="object")S.kit={w:/^[bflr]$/.test(st.kit.w)?st.kit.w:"b",sh:st.kit.sh==="l"?"l":"i"};
+    if(st.noAuto&&typeof st.noAuto==="object")Object.keys(st.noAuto).forEach(k=>{if(FIXTURES[k])S.noAuto[k]=true});
     if(WALLS[st.walls])S.walls=st.walls;if(PREFS[st.pref])S.pref=st.pref;if(ATM[st.atm])S.atm=st.atm;
     if(Array.isArray(st.acts))S.acts=st.acts.filter(a=>ACTS[a]&&(QS[S.room].acts||[]).includes(a));
     if(st.yn&&typeof st.yn==="object")(QS[S.room].yn||[]).forEach(k=>{if(st.yn[k])S.yn[k]=true});
@@ -1743,23 +1835,31 @@ try{const st=JSON.parse(localStorage.getItem(SKEY)||"null");
     if(isFinite(st.cct))S.cct=clamp(Math.round(+st.cct/100)*100,2200,6500);S.cctUser=!!st.cctUser;S.manual=!!st.manual;
     if(Array.isArray(st.gen))st.gen.forEach(g=>{if(!g||!FIXTURES[g.t]||S.gen.length>=40)return;const m=isM(g.t);
       S.gen.push({gid:"g"+(++S.gseq),t:g.t,w:FIXTURES[g.t].opts[g.w]!=null?String(g.w):defW(g.t),q:m?clamp(Math.round(+g.q*2)/2||1,.5,60):clamp(Math.round(+g.q)||1,1,40),
-        mode:g.mode==="ind"?"ind":"dir",place:PLACES.includes(g.place)?g.place:"auto",pl0:PLACES.includes(g.pl0)?g.pl0:undefined,pos:cleanPos(g.pos),lab:typeof g.lab==="string"?g.lab.slice(0,60):""})});
+        mode:g.mode==="ind"?"ind":"dir",place:okPl(g.place)?g.place:"auto",pl0:okPl(g.pl0)?g.pl0:undefined,pos:cleanPos(g.pos),lab:typeof g.lab==="string"?g.lab.slice(0,60):"",
+        dbl:!!g.dbl,ed:!!g.ed,fk:FCS[g.fk]?g.fk:undefined})});
+    S.gen.forEach(g=>{if(!g.ed)g.sig0=gSig(g)});
+    /* what to light: saved, or (from version 9) read from the older answers */
+    const fr=FOCR[S.room]||[];
+    if(Array.isArray(st.foc))S.foc=st.foc.filter(k=>fr.includes(k));
+    else fr.forEach(k=>{const F=FCS[k];if((F.yn&&st.yn&&st.yn[F.yn])||(F.act&&Array.isArray(st.acts)&&st.acts.includes(F.act)))S.foc.push(k)});
+    deriveFoc();
     if(Array.isArray(st.cat))st.cat.forEach(x=>{if(!x||typeof x.pid!=="string"||S.cat.length>=30)return;
       S.cat.push({uid:"c"+(++S.cseq),pid:x.pid,fi:Math.max(0,Math.round(+x.fi||0)),q:clamp(Math.round(+x.q||1),1,40),place:PLACES.includes(x.place)?x.place:"auto",pl0:PLACES.includes(x.pl0)?x.pl0:undefined,pos:cleanPos(x.pos)})});
-    if(S.types.length){WZ.done=[true,true,true,true,true];WZ.cov=true;WZ.yw=true;WZ.res=true;WZ.open=-1}
+    if(S.types.length||S.cat.length||S.gen.length){WZ.done=[true,true,true,true,true];WZ.cov=true;WZ.yw=true;WZ.res=true;WZ.open=-1}
   }}catch(e){}
-const saveState=()=>{try{localStorage.setItem(SKEY,JSON.stringify(Object.assign({},S,{wz:{res:WZ.res}})))}catch(e){}};
+const saveState=()=>{try{S.gen.forEach(g=>{g.ed=isEd(g)});localStorage.setItem(SKEY,JSON.stringify(Object.assign({},S,{wz:{res:WZ.res}})))}catch(e){}};
 
 /* ---------------- the math ---------------- */
 function ufAt(K,row){for(let i=0;i<UF_K.length-1;i++){if(K<=UF_K[i+1]){const t=(K-UF_K[i])/(UF_K[i+1]-UF_K[i]);return row[i]+t*(row[i+1]-row[i])}}return row[row.length-1]}
-const gc=g=>g.t==="profile"&&g.mode==="ind"?FIXTURES.profile.contribIndirect:FIXTURES[g.t].contrib;
+/* focused light counts only in part toward the room, like accent light */
+const gc=g=>(g.t==="profile"&&g.mode==="ind"?FIXTURES.profile.contribIndirect:FIXTURES[g.t].contrib)*(g.fk&&FCS[g.fk]&&FCS[g.fk].t?.6:1);
 const gName=g=>g.lab||FIXTURES[g.t].he+(g.t==="profile"&&g.mode==="ind"?" (אור עקיף)":"");
 /* every line in the plan: generic groups and real products. ok=false lines stay listed but do not count */
 function planLines(){
   const out=[];
   S.gen.forEach(g=>{if(!(g.q>0)||!avail(g.t))return;
-    const w=parseFloat(g.w),ul=FIXTURES[g.t].opts[g.w],c=gc(g);
-    out.push(Object.assign({id:"g:"+g.gid,src:"gen",t:g.t,q:g.q,w,ul,c,W:w*g.q,E:ul*g.q*c,ok:true,noW:false,st:g,name:gName(g)},GK[g.t]||{}))});
+    const h2=hd(g),w=parseFloat(g.w),ul=FIXTURES[g.t].opts[g.w]*h2,c=gc(g),uc=g.t==="strip"&&kitRun()>0?{sym:"ucab",vk:"ucab"}:null;
+    out.push(Object.assign({id:"g:"+g.gid,src:"gen",t:g.t,q:g.q,w,ul,c,W:w*h2*g.q,E:ul*g.q*c,ok:true,noW:false,st:g,name:gName(g),dbl:h2===2,fk:g.fk},GK[g.t]||uc||{}))});
   S.cat.forEach(x=>{const p=pById(x.pid);if(!p)return;
     const fi=Math.min(x.fi,Math.max(0,p.fins.length-1)),ok=(!openSky()||okOpen(p))&&(wallsOk()||p.kind.sym!=="wall"),noW=p.w==null,c=CCON[p.cat];
     out.push(Object.assign({id:"c:"+x.uid,src:"cat",uid:x.uid,p,fi,sku:catVar(p,fi).sku,fin:catFin(p,fi),q:x.q,w:p.w,ul:p.lmU,c,
@@ -1783,50 +1883,96 @@ const STATE_HE={low:"חסר אור",ok:"בדיוק",over:"יותר מדי"};
 const IDEAL={recessed:a=>Math.max(2,Math.round(a/1.8)),gimbal:a=>Math.max(2,Math.round(a/3)),ceiling:a=>Math.max(1,Math.round(a/12)),magSpot:a=>Math.max(2,Math.round(a/3)),
   magLinear:a=>Math.max(2,Math.round(a/4)),trackSpot:a=>Math.max(2,Math.round(a/3)),bulb:a=>Math.max(1,Math.round(a/6)),bollard:a=>Math.max(2,Math.round(a/6)),wall:()=>2,spike:()=>3,pendant:()=>2};
 const CAP={pendant:6,wall:14,gimbal:12,strip:30,spike:20,bollard:30,ceiling:6,recessed:40,magSpot:30,magLinear:20,trackSpot:30,bulb:12,profile:40,garland:40};
-const gLm=g=>FIXTURES[g.t].opts[g.w]*g.q*gc(g);
-function propose(){
-  const L=S.L,W=S.W,A=L*W,rm=S.room,a=S.acts,y=S.yn,out=!!ROOMS[rm].out,lm=calc().lm,G=[];
+const gLm=g=>FIXTURES[g.t].opts[g.w]*g.q*gc(g)*hd(g);
+/* the proposal for these types, within the light still missing (budget). full = what the whole room needs */
+function proposeFor(types,budget,full,zeroOk){
+  const L=S.L,W=S.W,A=L*W,rm=S.room,a=S.acts,y=S.yn,out=!!ROOMS[rm].out,G=[];
   const add=(t,q,place,ex)=>{const g=Object.assign({gid:"g"+(++S.gseq),t,w:defW(t),q,mode:"dir",place:place||"auto",pos:{},lab:""},ex||{});G.push(g);return g};
-  const types=S.types.filter(avail);
+  types=types.filter(avail);
   const ACC=new Set(["pendant","wall","strip","spike","garland"]);if(y.books||y.art)ACC.add("gimbal");if(a.includes("path"))ACC.add("bollard");
+  const fo=S.foc;
   types.forEach(t=>{if(!ACC.has(t))return;
     switch(t){
-      case"pendant":{const isl=rm==="kitchen"&&y.island,n=isl?3:rm==="dining"?clamp(Math.round(Math.max(L,W)/1.6),1,3):rm==="bedroom"?2:1;
-        add(t,n,isl||rm==="dining"||rm==="living"||rm==="study"||rm==="kitchen"?"table":rm==="bedroom"?"wall-t":"center",isl?{lab:"מנורות תלויות מעל האי"}:null);break}
-      case"wall":{let n=2,pl="auto";
-        if(rm==="bath"){n=y.mirror?1:2;pl="wall-t"}else if(rm==="bedroom")pl="wall-t";else if(rm==="kids"){n=1;pl="wall-t"}
+      case"pendant":{const isl=rm==="kitchen"&&y.island;
+        /* a table or an island chosen in "מה חשוב לכם להאיר" already has its pendants */
+        if(isl||(fo.includes("dining")&&(rm==="dining"||rm==="living"||rm==="kitchen")))break;
+        const n=rm==="dining"?clamp(Math.round(Math.max(L,W)/1.6),1,3):rm==="bedroom"?2:1;
+        add(t,n,rm==="dining"||rm==="living"||rm==="study"||rm==="kitchen"?"table":rm==="bedroom"?"wall-t":"center");break}
+      case"wall":{let n=2,pl="auto",ex=null;
+        if(rm==="bath"){if(fo.includes("mirror"))break;pl="wall-t"}
+        else if(rm==="bedroom"){if(S.beds>0){n=S.beds;pl="beds";ex={lab:"מנורות לילה מעל המיטות"}}else pl="wall-t"}
+        else if(rm==="kids"){n=1;pl="wall-t"}
         else if(out)n=Math.max(2,Math.round((L+2*W)/3.5));else if(rm==="hall")n=Math.max(2,Math.round(Math.max(L,W)/1.8));
-        add(t,n,pl,rm==="bath"&&y.mirror?{lab:"מנורת קיר למראה"}:null);break}
-      case"strip":add(t,clamp(Math.round(Math.max(L,W)*.8*2)/2,1,30),"auto",{lab:"פס לד מתחת לארונות"});break;
+        add(t,n,pl,ex);break}
+      case"strip":{const run=kitRun();add(t,run?clamp(Math.round(run*2)/2,.5,30):clamp(Math.round(Math.max(L,W)*.8*2)/2,1,30),"auto",{lab:"פס לד מתחת לארונות"});break}
       case"spike":add(t,a.includes("trees")?4:3,rm==="yard"?"corners":"wall-t");break;
-      case"gimbal":if(y.books)add(t,2,"wall-l",{lab:"ספוטים לארון הספרים"});else add(t,Math.max(2,Math.round(Math.max(L,W)/1.5)),"wall-t",{lab:"ספוטים לתמונות"});break;
+      case"gimbal":break;
       case"bollard":add(t,Math.max(3,Math.ceil(L/1.6)),"wall-b",{lab:"עמודונים לשביל"});break;
       /* two strands across the space */
       case"garland":add(t,clamp(Math.floor(Math.max(L,W)*.9*2*2)/2,2,CAP.garland),"auto");break;
     }});
-  const E=G.reduce((s,g)=>s+gLm(g),0),gens=types.filter(t=>!ACC.has(t)),R=Math.max(0,lm-E);
+  const E=G.reduce((s,g)=>s+gLm(g),0),gens=types.filter(t=>!ACC.has(t)),R=Math.max(0,budget-E),low=R<full*.08;
   if(gens.length){const share=R/gens.length;
     gens.forEach(t=>{
       if(isM(t)){const g=add(t,1,"auto",{mode:t==="profile"&&(rm==="bedroom"||rm==="kids")?"ind":"dir"}),per=FIXTURES[t].opts[g.w]*gc(g);
-        g.q=clamp(Math.round(share/per*2)/2,1,Math.min(CAP[t],Math.round(2*(L+W)*2)/2));return}
-      const f=FIXTURES[t],id=(IDEAL[t]||(()=>2))(A);let best=null;
+        if(low&&zeroOk&&R<full*.03){G.splice(G.indexOf(g),1);return}
+        g.q=low?1:clamp(Math.round(share/per*2)/2,1,Math.min(CAP[t],Math.round(2*(L+W)*2)/2));return}
+      const f=FIXTURES[t],id=(IDEAL[t]||(()=>2))(A);
+      /* the room already has its light: a small default, not a full proposal */
+      if(low){if(zeroOk&&R<full*.03)return;add(t,1,"auto");return}
+      let best=null;
       Object.keys(f.opts).forEach(w=>{const n=Math.max(1,Math.ceil(share/(f.opts[w]*f.contrib))),sc=Math.abs(n-id);if(!best||sc<best.sc)best={w,n,sc}});
       add(t,Math.min(CAP[t]||40,best.n),"auto",{w:best.w})});
-  }else if(G.length&&R>lm*.1){
-    /* only accent types were chosen: the main one carries the room */
-    /* string lights are decoration: they never carry the room on their own */
-    const g=["bollard","wall","spike","pendant","gimbal","strip"].map(t=>G.find(x=>x.t===t)).find(Boolean);
+  }else if(G.length&&R>full*.1){
+    /* only accent types were chosen: the main one carries the room. String lights never do */
+    const g=["bollard","wall","spike","pendant","strip"].map(t=>G.find(x=>x.t===t&&x.place!=="beds")).find(Boolean);
     if(g){const ks=Object.keys(FIXTURES[g.t].opts);
     g.w=ks[ks.length-1];const other=G.reduce((s,x)=>s+(x===g?0:gLm(x)),0),per=FIXTURES[g.t].opts[g.w]*gc(g);
-    const n=Math.ceil(Math.max(0,lm-other)/per);
-    /* a path gets a second row on the other side, rather than bollards crowded on one side */
+    const n=Math.ceil(Math.max(0,budget-other)/per);
     if(g.t==="bollard"&&g.place==="wall-b"){if(n>g.q)add("bollard",Math.min(g.q,n-g.q),"wall-t",{w:g.w,lab:g.lab})}
     else g.q=isM(g.t)?clamp(Math.round(n*2)/2,g.q,CAP[g.t]):clamp(Math.max(g.q,n),1,CAP[g.t]||40);}
   }
+  return G}
+/* focused light: one group for each thing chosen in "מה חשוב לכם להאיר" */
+function focN(k){const O=FUget().obj;switch(k){
+  case"books":return O.bk?clamp(Math.round(O.bk.len/.8),2,4):2;
+  case"art":return O.art&&O.art.len>1.1?2:1;
+  case"display":return O.shelf?clamp(Math.round(O.shelf.len/.9),2,5):3;
+  case"wd":return O.wd?clamp(Math.round(O.wd.len/1.1),2,4):2;
+  case"dining":return O.dt&&Math.max(O.dt.w,O.dt.h)>=1.6?3:2;
+  case"island":return O.isl&&Math.max(O.isl.w,O.isl.h)>=1.6?3:2;
+  case"scounter":return 2;
+  default:return 1}}
+function focGroups(keys){const G=[];
+  keys.forEach(k=>{const F=FCS[k];if(!F||!F.t)return;let t=F.t;
+    if(t==="gimbal"&&!avail(t))t=avail("trackSpot")?"trackSpot":"ceiling";if(t==="recessed"&&!avail(t))t=avail("ceiling")?"ceiling":"wall";if(!avail(t))return;
+    G.push({gid:"g"+(++S.gseq),t,w:S.pref==="soft"?Object.keys(FIXTURES[t].opts)[0]:defW(t),q:focN(k),mode:"dir",place:"foc:"+k,pos:{},lab:F.lab,fk:k})});
+  return G}
+/* types the room proposes on its own: the LED under the kitchen cabinets, night lights over the beds */
+function autoTypes(){const add=t=>{if(!S.types.includes(t)&&!S.noAuto[t]&&avail(t)&&cardsFor().some(c=>c[0]===t))S.types.push(t)};
+  if(S.room==="kitchen"&&kitRun()>0)add("strip");
+  if(S.room==="bedroom"&&S.beds>0)add("wall")}
+/* mode "fill": the groups the customer changed stay exactly as they are, the rest is proposed again (the room, its size or the brightness changed)
+   mode "add":  everything stays, only the new type gets a proposal, sized to the light still missing
+   mode "all":  start again from our proposal */
+function propose(mode,nt){
+  mode=mode||"fill";const c0=calc(),lm=c0.lm;
+  if(mode!=="add")autoTypes();
+  let keep;
+  if(mode==="all")keep=[];
+  else if(mode==="add")keep=S.gen.slice();
+  else{const base=S.gen.filter(g=>!g.fk),edT=new Set(base.filter(isEd).map(g=>g.t)),cards=cardsFor(true).map(c=>c[0]);
+    keep=base.filter(g=>edT.has(g.t)&&(S.types.includes(g.t)||!cards.includes(g.t))).concat(S.gen.filter(g=>g.fk&&S.foc.includes(g.fk)&&isEd(g)))}
+  const keepF=new Set(keep.filter(g=>g.fk).map(g=>g.fk)),keepT=new Set(keep.filter(g=>!g.fk).map(g=>g.t));
+  const FG=mode==="add"?[]:focGroups(S.foc.filter(k=>!keepF.has(k)));
+  const types=mode==="add"?[nt]:S.types.filter(t=>!keepT.has(t));
+  const K=keep.concat(FG).reduce((s,g)=>s+(avail(g.t)&&g.q>0?gLm(g):0),0)+c0.all.reduce((s,x)=>s+(x.src==="cat"?x.E:0),0);
+  const G=proposeFor(types,Math.max(0,lm-K),lm,mode!=="add"&&keep.concat(FG).some(g=>g.fk)).concat(FG);
   /* "בצד אחד" stays on when the proposal is made again */
-  if(S.arr==="side")G.forEach(g=>{g.pl0=g.place;g.place="wall-"+S.side});
-  S.gen=G;S.manual=false;S.last=null;
-}
+  if(S.arr==="side")G.forEach(g=>{if(!g.fk){g.pl0=g.place;g.place="wall-"+S.side}});
+  G.forEach(g=>{g.sig0=gSig(g)});
+  S.gen=keep.concat(G);S.manual=false;if(mode!=="add")S.last=null;
+  return G}
 
 /* colour temperature (Kelvin to RGB, Tanner Helland's fit; matches the CCT table above) */
 function k2rgb(k){const t=k/100;let r,g,b;
@@ -1835,6 +1981,8 @@ function k2rgb(k){const t=k/100;let r,g,b;
   return [clamp(r,0,255),clamp(g,0,255),clamp(b,0,255)]}
 function rec(){const r=ROOMS[S.room];
   if(S.atm){const v=(r.cct[0]+r.cct[1])/4+ATM[S.atm].k/2;const k=[2700,3000,4000].reduce((a,b)=>Math.abs(b-v)<Math.abs(a-v)?b:a);return {k,k2:k,why:`ל${r.he}, באווירה של ${ATM[S.atm].he}.`}}
+  if(S.pref==="soft")return {k:2700,k2:2700,why:`ל${r.he}, באווירה רכה.`};
+  if(S.pref==="bright")return {k:r.cct[1],k2:r.cct[1],why:`ל${r.he}, באור מלא.`};
   return {k:r.cct[0],k2:r.cct[1],why:`ל${r.he}.`}}
 const curK=()=>S.cctUser?S.cct:rec().k;
 const cctInfo=k=>{const keys=Object.keys(CCT).map(Number);const n=keys.reduce((a,b)=>Math.abs(b-k)<Math.abs(a-k)?b:a);return CCT[n]};
@@ -1848,7 +1996,7 @@ const Viz=(function(){
   const cur={L:S.L,W:S.W,H:S.H,E:0,cove:0,yaw:0,pitch:5,show:0}, tgt=Object.assign({},cur);
   const col={rgb:[255,190,120],wall:[236,230,220]}, tcol={rgb:[255,190,120],wall:[236,230,220]};
   const lights=new Map();
-  let lab={L:S.L,W:S.W,H:S.H},open=false,dims=false,spin=false,spinT=0,dragging=false,onUser=null,wset=null,wh=0,posts=false,hlT=-1e9;
+  let lab={L:S.L,W:S.W,H:S.H},open=false,dims=false,spin=false,spinT=0,dragging=false,onUser=null,wset=null,wh=0,posts=false,hlT=-1e9,fur=[],door=null,dragCb=null,picks=[],geo=null,fd=null;
   /* string lights always glow warm (about 2400K), whatever the room tone */
   const GL=k2rgb(2400),GLC=GL.map(v=>v|0).join(","),GLH=GL.map(v=>(v+(255-v)*.6)|0).join(",");
   const FLOOR=[152,130,106], CEIL=[232,228,220], D2R=Math.PI/180;
@@ -1873,7 +2021,7 @@ const Viz=(function(){
     return mv;
   }
   function set(o){if(o.n)Object.assign(tgt,o.n);if(o.rgb)tcol.rgb=o.rgb;if(o.wall)tcol.wall=o.wall;if(o.lab)lab=o.lab;if(o.open!=null)open=!!o.open;if(o.dims!=null)dims=!!o.dims;
-    if(o.ws!==undefined)wset=o.ws;if(o.wh!=null)wh=o.wh;if(o.posts!=null)posts=!!o.posts;
+    if(o.ws!==undefined)wset=o.ws;if(o.wh!=null)wh=o.wh;if(o.posts!=null)posts=!!o.posts;if(o.fur)fur=o.fur;if(o.door!==undefined)door=o.door;
     if(o.show!=null){tgt.show=o.show;if(RM)cur.show=o.show}kick()}
   function setLights(list,anyLight){
     const seen=new Set();
@@ -1891,12 +2039,27 @@ const Viz=(function(){
     if(RM){cur.yaw=tgt.yaw;cur.pitch=tgt.pitch}kick()}
   function orbit(dx,dy){tgt.yaw=clamp(tgt.yaw+dx,-80,80);tgt.pitch=clamp(tgt.pitch+dy,4,89);cur.yaw=tgt.yaw;cur.pitch=tgt.pitch;kick()}
   /* drag to rotate: mouse turns and tilts, a finger turns sideways (scrolling the page up and down stays free) */
+  /* drag a fixture: the nearest light under the pointer moves on its own plane (ceiling, floor or its wall).
+     Where that plane is seen almost edge on (the front view), the fixture follows the pointer sideways only */
   let px=0,py=0,pid=null;
-  cv.addEventListener("pointerdown",e=>{if(e.button>0||cur.show<.5)return;dragging=true;spin=false;pid=e.pointerId;px=e.clientX;py=e.clientY;
+  const locXY=e=>{const r=cv.getBoundingClientRect();return [e.clientX-r.left,e.clientY-r.top]};
+  function pickAt(x,y,touch){if(!dragCb||cur.show<.5)return null;let best=null,bd=touch?26:16;picks.forEach(p=>{const d=Math.hypot(p.x-x,p.y-y);if(d<bd){bd=d;best=p}});return best}
+  function worldAt(x,y,pk){const g=geo;if(!g)return null;const a=(x-g.ox)/g.s0,b=-(y-g.oy)/g.s0,d=[0,1,2].map(i=>g.rt[i]*a+g.up[i]*b+g.fw[i]),dl=Math.hypot(d[0],d[1],d[2]);let t;
+    if(pk.k==="wall"){const sd=pk.side;if(sd==="b"||sd==="f"){if(Math.abs(d[2])/dl<.12)return null;t=((sd==="b"?g.W:0)-g.cam[2])/d[2]}else{if(Math.abs(d[0])/dl<.12)return null;t=((sd==="l"?-g.hx:g.hx)-g.cam[0])/d[0]}}
+    else{if(Math.abs(d[1])/dl<.2)return null;t=(pk.Y-g.cam[1])/d[1]}
+    if(!(t>0))return null;return {X:g.cam[0]+t*d[0],Z:g.cam[2]+t*d[2]}}
+  cv.addEventListener("pointerdown",e=>{if(e.button>0||cur.show<.5)return;const [x,y]=locXY(e),pk=pickAt(x,y,e.pointerType==="touch");
+    if(pk){e.preventDefault();spin=false;const w=worldAt(x,y,pk);fd={id:e.pointerId,pk,dx:w?pk.X-w.X:0,dz:w?pk.Z-w.Z:0,x0:x};try{cv.setPointerCapture(e.pointerId)}catch(_){}cv.classList.add("drag");return}
+    dragging=true;spin=false;pid=e.pointerId;px=e.clientX;py=e.clientY;
     try{cv.setPointerCapture(pid)}catch(_){}cv.classList.add("drag");if(onUser)onUser()});
-  cv.addEventListener("pointermove",e=>{if(!dragging||e.pointerId!==pid)return;const dx=e.clientX-px,dy=e.clientY-py;px=e.clientX;py=e.clientY;
+  cv.addEventListener("pointermove",e=>{
+    if(fd){if(e.pointerId!==fd.id)return;const [x,y]=locXY(e),w=worldAt(x,y,fd.pk);dragCb(fd.pk.key,w?w.X+fd.dx:fd.pk.X+(x-fd.x0)/fd.pk.ppm,w?w.Z+fd.dz:fd.pk.Z,"move");return}
+    if(!dragging){if(e.pointerType==="mouse"){const [x,y]=locXY(e);cv.style.cursor=pickAt(x,y,false)?"move":""}return}
+    if(e.pointerId!==pid)return;const dx=e.clientX-px,dy=e.clientY-py;px=e.clientX;py=e.clientY;
     orbit(-dx*.35,e.pointerType==="mouse"?dy*.3:0)});
-  const endD=e=>{if(e.pointerId!==pid)return;dragging=false;pid=null;cv.classList.remove("drag")};
+  const endD=e=>{if(fd&&e.pointerId===fd.id){const k=fd.pk.key;fd=null;cv.classList.remove("drag");dragCb(k,0,0,"end");return}
+    if(e.pointerId!==pid)return;dragging=false;pid=null;cv.classList.remove("drag")};
+  cv.addEventListener("touchstart",e=>{const t=e.touches[0];if(!t)return;const r=cv.getBoundingClientRect();if(pickAt(t.clientX-r.left,t.clientY-r.top,true))e.preventDefault()},{passive:false});
   cv.addEventListener("pointerup",endD);cv.addEventListener("pointercancel",endD);
 
   /* drawing helpers */
@@ -1972,6 +2135,9 @@ const Viz=(function(){
     if(fF.vis){ctx.lineWidth=1;ctx.strokeStyle=`rgba(255,244,225,${.05+amb*.03})`;ctx.beginPath();
       for(let x=1;x<L-.05;x++){const a=P(-hx+x,0,0),b=P(-hx+x,0,W);ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1])}
       for(let z=1;z<W-.05;z++){const a=P(-hx,0,z),b=P(hx,0,z);ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1])}ctx.stroke()}
+    /* the door: a dark opening on its wall */
+    if(door&&cur.pitch<50){const df=face(door.s);if(df&&df.vis){const sd=door.s,a=door.a,b=door.a+door.len,top=Math.min(2.05,WH-.05),pt=(t,y)=>sd==="b"?P(t-hx,y,W):sd==="f"?P(t-hx,y,0):sd==="l"?P(-hx,y,W-t):P(hx,y,W-t);
+      path([pt(a,0),pt(b,0),pt(b,top),pt(a,top)]);ctx.fillStyle="rgba(6,6,5,.88)";ctx.fill();ctx.strokeStyle=`rgba(255,244,225,${.22+amb*.2})`;ctx.lineWidth=1.2;ctx.stroke()}}
 
     /* the lights, in metres */
     const items=[];
@@ -1979,9 +2145,9 @@ const Viz=(function(){
       let X,Z;
       if(l.kind==="wall"){if(l.side==="b"){X=(l.u-.5)*L;Z=W}else if(l.side==="f"){X=(l.u-.5)*L;Z=0}else{X=l.side==="l"?-hx:hx;Z=l.u*W}}
       else{X=(l.u-.5)*L;Z=l.v*W}
-      const lin2=l.kind==="prof"||l.kind==="garl",hX=lin2&&!l.vert?l.lenM/2:0, hZ=lin2&&l.vert?l.lenM/2:0;
+      const lin2=l.kind==="prof"||l.kind==="garl"||l.kind==="ucab",hX=lin2&&!l.vert?l.lenM/2:0, hZ=lin2&&l.vert?l.lenM/2:0;
       items.push({l,k:l.kind,X,Z,i,hX,hZ})});
-    const aim=o=>{if(o.k==="gimbal")return[o.X,o.Z+Math.min(.7,(W-o.Z)*.5)];
+    const aim=o=>{if((o.k==="gimbal"||o.k==="head")&&o.l.ax!=null)return[o.l.ax,o.l.az];if(o.k==="gimbal")return[o.X,o.Z+Math.min(.7,(W-o.Z)*.5)];
       if(o.k==="head")return[o.X+(o.l.alt?.25:-.25),clamp(o.Z+(o.l.alt?.3*(W-o.Z):-.25*o.Z),.2,Math.max(.2,W-.2))];return[o.X,o.Z]};
     const ybP=()=>Math.max(1.6,H-.95);
     ctx.globalCompositeOperation="lighter";
@@ -2008,6 +2174,7 @@ const Viz=(function(){
       const dOf=o=>f.k==="b"?W-o.Z:f.k==="f"?o.Z:f.k==="l"?o.X+hx:hx-o.X;
       const on=(o,y)=>f.k==="b"?[o.X,y,W]:f.k==="f"?[o.X,y,0]:f.k==="l"?[-hx,y,o.Z]:[hx,y,o.Z];
       items.forEach(o=>{const {k,i}=o;
+        if(k==="ucab"){if(o.l.side===f.k)sg(f,on(o,(o.l.ub+.9)/2),o.hX+o.hZ+.25,.5,lc,.6*I*i);return}
         if(k==="wall"){if(o.l.side!==f.k)return;const y=o.l.y;sg(f,on(o,Math.min(H-.2,y+.55)),.38,.8,lc,.6*I*i);sg(f,on(o,y-.5),.3,.6,lc,.42*I*i);sg(f,on(o,y),.16,.16,hot,.45*i);return}
         const d=dOf(o);
         if(k==="floor"){if(d<.9)sg(f,on(o,o.l.h*.7),.45,.5,lc,.32*(1-d/.9)*I*i);return}
@@ -2027,6 +2194,15 @@ const Viz=(function(){
       else if(k==="wall"){const sd=o.l.side,zz=sd==="b"?W-.4:sd==="f"?.4:Z,xx=sd==="b"||sd==="f"?X:X+(sd==="l"?.4:-.4);sg(fC,[xx,H,zz],.8,.8,lc,.22*I*i);return}
       if(r)sg(fC,[X,H,Z],r+o.hX,r+o.hZ,lc,a*I*i)});
       if(cur.cove>.01){const a=Math.min(1,cur.cove)*.5*I;sg(fC,[0,H,W],hx+.3,.9,lc,a);sg(fC,[0,H,0],hx+.3,.9,lc,a*.7);sg(fC,[-hx,H,W/2],.9,W/2+.3,lc,a*.8);sg(fC,[hx,H,W/2],.9,W/2+.3,lc,a*.8)}});
+
+    /* furniture: simple boxes, far to near, lit by the room */
+    if(fur.length){ctx.globalCompositeOperation="source-over";
+      fur.map(b=>Object.assign({d:Math.hypot((b.x0+b.x1)/2-cam[0],(b.y0+b.y1)/2-cam[1],(b.z0+b.z1)/2-cam[2])},b)).sort((a,b)=>b.d-a.d).forEach(b=>{const {x0,x1,y0,y1,z0,z1}=b,alb=b.alb||[190,180,165];
+        [[[0,1,0],[[x0,y1,z0],[x1,y1,z0],[x1,y1,z1],[x0,y1,z1]],.75],[[0,-1,0],[[x0,y0,z0],[x1,y0,z0],[x1,y0,z1],[x0,y0,z1]],.3],
+         [[0,0,-1],[[x0,y0,z0],[x1,y0,z0],[x1,y1,z0],[x0,y1,z0]],.55],[[0,0,1],[[x0,y0,z1],[x1,y0,z1],[x1,y1,z1],[x0,y1,z1]],.5],
+         [[-1,0,0],[[x0,y0,z0],[x0,y0,z1],[x0,y1,z1],[x0,y1,z0]],.45],[[1,0,0],[[x1,y0,z0],[x1,y0,z1],[x1,y1,z1],[x1,y1,z0]],.42]].forEach(([n,pts,fa])=>{const c=pts[0];
+          if((cam[0]-c[0])*n[0]+(cam[1]-c[1])*n[1]+(cam[2]-c[2])*n[2]<=0)return;path(pts.map(q=>P(q[0],q[1],q[2])));ctx.fillStyle=sh(alb,fa);ctx.fill();ctx.strokeStyle=`rgba(255,244,225,${(.1+amb*.1).toFixed(3)})`;ctx.lineWidth=1;ctx.stroke()})});
+      ctx.globalCompositeOperation="lighter"}
 
     /* soft beams in the air */
     items.forEach(o=>{const {k,X,Z,i}=o;let r,top,a=.075;const [x,z]=aim(o);
@@ -2053,9 +2229,12 @@ const Viz=(function(){
       seg(a,b);ctx.strokeStyle="#2c2925";ctx.lineWidth=Math.max(2,.045*s);ctx.stroke();ctx.strokeStyle=`rgba(255,244,225,${.1+amb*.12})`;ctx.lineWidth=1;ctx.stroke();ctx.globalAlpha=show});
     items.filter(o=>o.k!=="rail").map(o=>(o.d=cs(o.X,H*.7,o.Z)[2],o)).sort((a,b)=>b.d-a.d).forEach(o=>{const {k,X,Z,i}=o,s=sAt(X,H,Z);
       switch(k){
-        case"spot":case"gimbal":{const p=P(X,H,Z);
-          ctx.globalCompositeOperation="source-over";disk(fC,[X,H,Z],.075,"#1d1b18");
-          ctx.globalCompositeOperation="lighter";bg(p,.38*s,.38*s,lc,.5*i);disk(fC,[X,H-.005,Z+(k==="gimbal"?.02:0)],.055,`rgba(${hot},${.25+.75*i})`);break}
+        case"spot":case"gimbal":{(o.l.dbl?[-.065,.065]:[0]).forEach(dx=>{const p=P(X+dx,H,Z);
+          ctx.globalCompositeOperation="source-over";disk(fC,[X+dx,H,Z],.075,"#1d1b18");
+          ctx.globalCompositeOperation="lighter";bg(p,.38*s,.38*s,lc,.5*i);disk(fC,[X+dx,H-.005,Z+(k==="gimbal"?.02:0)],.055,`rgba(${hot},${.25+.75*i})`)});break}
+        case"ucab":{const yb=o.l.ub-.02,a=P(X-o.hX,yb,Z-o.hZ),b=P(X+o.hX,yb,Z+o.hZ);ctx.globalCompositeOperation="lighter";ctx.lineCap="round";
+          [[.12,.18,lc],[.04,.5,lc],[.015,1,hot]].forEach(([w,al,c])=>{seg(a,b);ctx.strokeStyle=`rgba(${c},${al*i})`;ctx.lineWidth=Math.max(1,w*s);ctx.stroke()});
+          const nn=Math.max(2,Math.round((o.hX+o.hZ)*2/.6));for(let j=0;j<=nn;j++){const t=j/nn-.5,qx=X+t*2*o.hX,qz=Z+t*2*o.hZ,pc=P(qx,.92,qz),sc=sAt(qx,.92,qz);bg(pc,.5*sc,.22*sc,lc,.4*i)}break}
         case"head":{const dir=o.l.alt?1:-1,a1=P(X,H,Z),a2=P(X,H-.1,Z),tip=P(X+dir*.07,H-.27,Z+(o.l.alt?.08:-.05));
           ctx.globalCompositeOperation="source-over";ctx.lineCap="round";
           seg(a1,a2);ctx.strokeStyle="#2c2925";ctx.lineWidth=Math.max(1,.02*s);ctx.stroke();
@@ -2102,6 +2281,10 @@ const Viz=(function(){
       }
     });
     /* a fixture just added from the catalog: a yellow ring for a moment */
+    /* where each fixture is on screen, for dragging it */
+    geo={cam,rt,up,fw,s0,ox,oy,W,hx};
+    picks=items.filter(o=>o.k!=="rail"&&o.k!=="ucab"&&!o.l.dead).map(o=>{const Y=o.k==="floor"?o.l.h:o.k==="wall"||o.k==="garl"?o.l.y:o.k==="pendant"?ybP():H-.04,p=P(o.X,Y,o.Z);
+      return {key:o.l.key,x:p[0],y:p[1],k:o.k,X:o.X,Z:o.Z,Y,side:o.l.side,ppm:Math.max(4,sAt(o.X,Y,o.Z))}});
     const hp=(performance.now()-hlT)/2600;
     if(hp>=0&&hp<1)items.forEach(o=>{if(!o.l.hl)return;const Y=o.k==="floor"?o.l.h:o.k==="wall"||o.k==="garl"?o.l.y:H-.06,pp=P(o.X,Y,o.Z),pu=(hp*3)%1;
       ctx.globalCompositeOperation="source-over";ctx.lineWidth=2;ctx.strokeStyle=`rgba(255,189,0,${((1-hp)*(1-pu)).toFixed(3)})`;ctx.beginPath();ctx.arc(pp[0],pp[1],10+pu*24,0,6.2832);ctx.stroke();
@@ -2126,7 +2309,7 @@ const Viz=(function(){
         ctx.fillStyle="rgba(8,8,7,.82)";ctx.fillRect(x-tw/2-5,m[1]-8,tw+10,16);ctx.fillStyle="rgba(243,239,231,.78)";ctx.fillText(t,x,m[1])}
     }
   }
-  return {set,setLights,kick,view,on:fn=>{onUser=fn},flash:()=>{hlT=performance.now();kick()}};
+  return {set,setLights,kick,view,on:fn=>{onUser=fn},flash:()=>{hlT=performance.now();kick()},onDrag:fn=>{dragCb=fn},picks:()=>picks.slice()};
 })();
 
 /* ---------------- where everything goes ----------------
@@ -2172,13 +2355,16 @@ function autoGen(L,W){
   if((n=N("bollard")))A.bollard=perim(n,L,W,.35).map(p=>({u:p[0],v:p[1]}));
   if((n=N("spike")))A.spike=perim(n,L,W,.3,.5).map(p=>({u:p[0],v:p[1]}));
   /* a cove: strips anywhere, and profiles set to indirect light */
-  const sm=avail("strip")?S.gen.filter(g=>g.t==="strip").reduce((s,g)=>s+g.q,0):0,pm=avail("profile")?S.gen.filter(g=>g.t==="profile"&&g.mode==="ind").reduce((s,g)=>s+g.q,0):0;
+  const sm=avail("strip")&&!kitRun()?S.gen.filter(g=>g.t==="strip").reduce((s,g)=>s+g.q,0):0,pm=avail("profile")?S.gen.filter(g=>g.t==="profile"&&g.mode==="ind").reduce((s,g)=>s+g.q,0):0;
   const cove=sm+pm>0?clamp((sm*.8+pm*1.2)/(L+2*W),.25,1.3):0;
   return {A,cove};
 }
 /* the "מיקום" presets */
 function presetPts(pl,n,L,W,sym){
   const fr=(x,y)=>({u:x/L,v:1-y/W}),out=[];
+  if(pl.startsWith("foc:"))return focPts(pl.slice(4),n,sym);
+  /* night lights: on the wall above the head of each bed */
+  if(sym==="wall"&&pl==="beds"){const bs=FUget().beds,o=bs.slice(0,n).map(x=>x.s==="b"||x.s==="f"?{side:x.s,u:x.c/L,v:x.s==="b"?1:0}:{side:x.s,u:x.s==="l"?0:1,v:1-x.c/W});return n>o.length?o.concat(wallAuto(n-o.length,L)):o}
   if(sym==="wall"){const ws=wallSet();if(ws){const sd={t:"b",b:"f",l:"l",r:"r"}[pl.slice(5)];return pl.startsWith("wall-")&&ws.includes(sd)?wallAlong(pl.slice(5),n):wallOn(ws,n,L,W)}
     return pl.startsWith("wall-")?wallAlong(pl.slice(5),n):wallAuto(n,L)}
   const ins=Math.min(sym==="bollard"||sym==="spike"?.3:.45,L*.22,W*.22);
@@ -2212,7 +2398,7 @@ function profPts(pl,total,L,W,unit){
   return segs.map((len,i)=>vert?{u:offs[i]/L,v:.5,lenM:len,vert:true}:{u:.5,v:1-offs[i]/W,lenM:len})}
 const CDEF={spot:"grid",ring:"center",pend:"table",head:"table",lin:"table",prof:"grid",lamp:"corners",bollard:"corners",spike:"wall-b"};
 function clampInst(o,L,W,sym){
-  const mg=.08;
+  const mg=.08;if(sym==="ucab")return o;
   if(sym==="wall"){if(o.side==="b"||o.side==="f"){o.u=clamp(o.u,.12/L,1-.12/L);o.v=o.side==="b"?1:0}else{o.v=clamp(o.v,.12/W,1-.12/W);o.u=o.side==="l"?0:1}return o}
   if(sym==="prof"||sym==="garl"){const hx=o.vert?0:o.lenM/2,hz=o.vert?o.lenM/2:0;
     o.u=clamp(o.u,Math.min(.5,(hx+mg)/L),Math.max(.5,1-(hx+mg)/L));o.v=clamp(o.v,Math.min(.5,(hz+mg)/W),Math.max(.5,1-(hz+mg)/W));return o}
@@ -2222,9 +2408,10 @@ function layout(c){
   c.all.forEach(ln=>{
     const st=ln.st,sym=ln.sym;let pts;
     if(ln.src==="gen"){
-      if(!GK[ln.t]||(ln.t==="profile"&&st.mode==="ind"))return;
+      if((!GK[ln.t]&&ln.sym!=="ucab")||(ln.t==="profile"&&st.mode==="ind"))return;
       const n=Math.min(40,Math.round(ln.q));
-      if(st.place==="auto"){
+      if(ln.sym==="ucab")pts=ucabPts(ln.q);
+      else if(st.place==="auto"){
         if(ln.t==="profile"){pts=off.profile?profPts("grid",ln.q,L,W,false):(A.profile||[]).map(p=>Object.assign({},p));off.profile=1}
         else if(ln.t==="garland")pts=profPts("spread",ln.q,L,W,false);
         else{const o=off[ln.t]||0;pts=(A[ln.t]||[]).slice(o,o+n).map(p=>Object.assign({},p));off[ln.t]=o+n}
@@ -2239,15 +2426,26 @@ function layout(c){
       const dist=p=>pl==="wall-t"?(1-p.v)*W:pl==="wall-b"?p.v*W:pl==="wall-l"?p.u*L:(1-p.u)*L,ds=pts.map(dist);
       if(d){const o2={"wall-t":[0,-d/W],"wall-b":[0,d/W],"wall-l":[d/L,0],"wall-r":[-d/L,0]}[pl];pts.forEach(p=>{p.u+=o2[0];p.v+=o2[1]})}
       sl[pl]=d+(Math.max(...ds)-Math.min(...ds))+.5}
-    pts.forEach((p,i)=>{if(p.alt==null)p.alt=i%2;const ov=st.pos&&st.pos[i];if(ov){p.u=ov.u;p.v=ov.v;if(sym==="wall"&&ov.side)p.side=ov.side}clampInst(p,L,W,sym)});
+    /* nothing proposed over the wardrobe or the upper cabinets (in front of them is fine) */
+    if(sym!=="wall"&&sym!=="ucab")avoidPts(pts,L,W);
+    pts.forEach((p,i)=>{if(p.alt==null)p.alt=i%2;if(ln.dbl)p.dbl=1;const ov=st.pos&&st.pos[i];if(ov){p.u=ov.u;p.v=ov.v;if(sym==="wall"&&ov.side)p.side=ov.side}clampInst(p,L,W,sym)});
     taken.push(...pts);
     lines.push({ln,pts,custom:!!st.pos&&pts.some((_,i)=>st.pos[i])});
   });
+  /* the general light keeps 50 cm away from focused fixtures and from the pendants over a table. A point placed by hand never moves */
+  const anc=[];lines.forEach(o=>{const ln=o.ln;if(ln.src==="gen"&&(ln.st.fk||ln.t==="pendant")&&ln.sym!=="wall")o.pts.forEach(p=>anc.push([p.u*L,(1-p.v)*W]))});
+  if(anc.length){const done=[];lines.forEach(o=>{const ln=o.ln;if((ln.src==="gen"&&(ln.st.fk||ln.t==="pendant"))||/^(wall|ucab|prof|garl)$/.test(ln.sym))return;
+    o.pts.forEach((p,i)=>{if(ln.st.pos&&ln.st.pos[i])return;let x=p.u*L,y=(1-p.v)*W;
+      for(let it=0;it<4;it++){let mv=false;anc.concat(done).forEach(([ax,ay])=>{const dx=x-ax,dy=y-ay,d=Math.hypot(dx,dy);if(d<.5){const k=d<1e-3?[0,1]:[dx/d,dy/d];x=ax+k[0]*.55;y=ay+k[1]*.55;mv=true}});
+        x=clamp(x,.15,L-.15);y=clamp(y,.15,W-.15);if(!mv)break}
+      /* still too close (between two pendants, say): the nearest free spot around it */
+      {const all=anc.concat(done),near=(a,b)=>all.some(([ax,ay])=>Math.hypot(a-ax,b-ay)<.5);if(near(x,y)){const x0=p.u*L,y0=(1-p.v)*W;let best=null;[.6,.8,1.05].some(r=>{for(let j=0;j<12;j++){const t=j*Math.PI/6,cx=clamp(x0+r*Math.cos(t),.15,L-.15),cy=clamp(y0+r*Math.sin(t),.15,W-.15);if(!near(cx,cy)){best=[cx,cy];return true}}return false});if(best){x=best[0];y=best[1]}}}
+      p.u=x/L;p.v=1-y/W;done.push([x,y])})})}
   /* rails under track and magnetic heads, when the heads of one rail sit on one line */
   const groups={};lines.forEach(o=>{if(!o.ln.rg||!o.ln.ok)return;const g=o.ln.rg==="c"||o.ln.st.place!=="auto"?o.ln.id:o.ln.rg;(groups[g]=groups[g]||[]).push(...o.pts)});
   const rails=[];Object.values(groups).forEach(arr=>{if(!arr.length)return;const v0=arr[0].v;
     if(arr.every(p=>Math.abs((p.v-v0)*W)<.05)){const us=arr.map(p=>p.u),a=Math.min(...us),b=Math.max(...us),ext=.2/L;rails.push({u:(a+b)/2,v:v0,len:Math.min(1,(b-a)+2*ext)})}});
-  return {L,W,lines,rails,cove,open:openSky(),ws:wallSet()};
+  return {L,W,lines,rails,cove,open:openSky(),ws:wallSet(),fu:FUget()};
 }
 /* equal spacing in a line: a row, a column or a full grid */
 function spacing(pts,L,W){
@@ -2261,14 +2459,15 @@ function spacing(pts,L,W){
   if(xs.length*ys.length===P.length){const sx=reg(xs),sy=reg(ys);if(sx&&sy)return {a:sx,b:sy,ax:"g",P,xs,ys}}
   return null}
 const spTxt=s=>s.ax==="g"&&Math.abs(s.a-s.b)>=.03?`מרווח ${m2(s.a)} × ${m2(s.b)} מ׳`:`מרווח ${m2(s.a)} מ׳`;
-const perInst=(ln,p)=>ln.ul==null?0:ln.src==="gen"&&(ln.t==="profile"||ln.t==="garland")?ln.ul*p.lenM*ln.c:ln.ul*ln.c;
+const perInst=(ln,p)=>ln.ul==null?0:ln.src==="gen"&&isM(ln.t)?ln.ul*(p.lenM||0)*ln.c:ln.ul*ln.c;
 
 /* ---------------- top view plan (SVG, metres) ---------------- */
 const SIDE_HE={b:"העליון",f:"התחתון",l:"השמאלי",r:"הימני"};
 function symShape(sym,p,u){
   const hit=`<circle class="hit" r="${u(18)}"/><circle class="selr" r="${u(15)}"/><circle class="flr" r="${u(14)}"/>`;
   switch(sym){
-    case"spot":{const r=u(6.5),e=r+u(3.5);return hit+`<circle class="sy" r="${r}"/><path class="sy" d="M${-e} 0H${e}M0 ${-e}V${e}"/>`}
+    case"spot":if(p.dbl){const r=u(4.4),d=u(5.2);return hit+`<rect class="sy" x="${-d-r-u(2)}" y="${-r-u(2)}" width="${2*(d+r+u(2))}" height="${2*(r+u(2))}" style="fill:none"/><circle class="sy" cx="${-d}" r="${r}"/><circle class="sy" cx="${d}" r="${r}"/>`}
+    {const r=u(6.5),e=r+u(3.5);return hit+`<circle class="sy" r="${r}"/><path class="sy" d="M${-e} 0H${e}M0 ${-e}V${e}"/>`}
     case"head":{const r=u(5),e=r+u(3);return hit+`<circle class="sy" r="${r}"/><path class="sy" d="M${-e} 0H${e}M0 ${-e}V${e}"/>`}
     case"ring":return hit+`<circle class="sy" r="${u(10.5)}" style="stroke-width:2px"/><circle class="sy" r="${u(6.5)}" style="fill:none"/>`;
     case"pend":return hit+`<circle class="sy" r="${u(8.5)}"/><circle class="sf" r="${u(4)}"/>`;
@@ -2280,6 +2479,7 @@ function symShape(sym,p,u){
     case"prof":{const hl=p.lenM/2,t=u(5),v=p.vert;
       const hb=v?`<rect class="hit" x="${-u(14)}" y="${-hl-u(6)}" width="${u(28)}" height="${2*hl+u(12)}"/>`:`<rect class="hit" x="${-hl-u(6)}" y="${-u(14)}" width="${2*hl+u(12)}" height="${u(28)}"/>`;
       return hb+`<path class="sk" d="${v?`M0 ${-hl}V${hl}`:`M${-hl} 0H${hl}`}"/><path class="sy" d="${v?`M${-t} ${-hl}H${t}M${-t} ${hl}H${t}`:`M${-hl} ${-t}V${t}M${hl} ${-t}V${t}`}"/>`}
+    case"ucab":{const hl=p.lenM/2,v=p.vert;return `<path class="sk" d="${v?`M0 ${-hl}V${hl}`:`M${-hl} 0H${hl}`}" style="stroke-dasharray:6 3"/>`}
     case"garl":{const hl=p.lenM/2,v=p.vert,nb=Math.max(2,Math.round(p.lenM/.5));let dots="";
       for(let j=0;j<=nb;j++){const d=-hl+2*hl*j/nb;dots+=`<circle class="sf" ${v?`cx="0" cy="${d}"`:`cx="${d}" cy="0"`} r="${u(2.6)}"/>`}
       const hb=v?`<rect class="hit" x="${-u(14)}" y="${-hl-u(6)}" width="${u(28)}" height="${2*hl+u(12)}"/>`:`<rect class="hit" x="${-hl-u(6)}" y="${-u(14)}" width="${2*hl+u(12)}" height="${u(28)}"/>`;
@@ -2303,7 +2503,7 @@ function planMarkup(LY,k,opt){
   h+=`<g clip-path="url(#${gid}c)">`;
   LY.lines.forEach(o=>{if(!o.ln.ok||o.ln.noW)return;o.pts.forEach(p=>{const per=perInst(o.ln,p);if(!per)return;const [x,y]=pos(p);
     const r=clamp(.45+Math.sqrt(per)/32,.6,3.2),a=clamp(.3+per/2600,.32,.9).toFixed(2);
-    if(o.ln.sym==="prof"||o.ln.sym==="garl"){const hl=p.lenM/2;h+=`<ellipse class="pool" cx="${f(x)}" cy="${f(y)}" rx="${f(p.vert?r*.8:hl+r*.7)}" ry="${f(p.vert?hl+r*.7:r*.8)}" fill="url(#${gid})" opacity="${a}"/>`}
+    if(o.ln.sym==="prof"||o.ln.sym==="garl"||o.ln.sym==="ucab"){const hl=p.lenM/2;h+=`<ellipse class="pool" cx="${f(x)}" cy="${f(y)}" rx="${f(p.vert?r*.8:hl+r*.7)}" ry="${f(p.vert?hl+r*.7:r*.8)}" fill="url(#${gid})" opacity="${a}"/>`}
     else{let cx=x,cy=y;if(o.ln.sym==="wall"){const d=.3;if(p.side==="b")cy+=d;else if(p.side==="f")cy-=d;else if(p.side==="l")cx+=d;else cx-=d}
       h+=`<circle class="pool" cx="${f(cx)}" cy="${f(cy)}" r="${f(r)}" fill="url(#${gid})" opacity="${a}"/>`}})});
   if(LY.cove)h+=`<rect class="pc" x="${f(.14)}" y="${f(.14)}" width="${f(L-.28)}" height="${f(W-.28)}"/>`;
@@ -2311,6 +2511,24 @@ function planMarkup(LY,k,opt){
   if(LY.ws){h+=`</g><rect class="pw open" x="0" y="0" width="${f(L)}" height="${f(W)}"/>`;
     LY.ws.forEach(s=>{const q={b:[0,0,L,0],f:[0,W,L,W],l:[0,0,0,W],r:[L,0,L,W]}[s];h+=`<line class="pwl" x1="${f(q[0])}" y1="${f(q[1])}" x2="${f(q[2])}" y2="${f(q[3])}"/>`})}
   else h+=`</g><rect class="pw${LY.open?" open":""}" x="0" y="0" width="${f(L)}" height="${f(W)}"/>`;
+  /* furniture and the door */
+  if(LY.fu){const F=LY.fu,R=(r,c)=>`<rect class="${c}" x="${f(r.x)}" y="${f(r.y)}" width="${f(r.w)}" height="${f(r.h)}"/>`;
+    F.items.forEach(it=>{const hz=it.w>=it.h;switch(it.k){
+      case"kup":h+=R(it,"fu up");break;
+      case"path":h+=R(it,"fpath");break;
+      case"tree":h+=`<circle class="fu" cx="${f(it.x+it.w/2)}" cy="${f(it.y+it.h/2)}" r="${f(it.w/2)}"/>`;break;
+      case"art":case"mir":h+=hz?`<line class="fart" x1="${f(it.x)}" y1="${f(it.y+it.h/2)}" x2="${f(it.x+it.w)}" y2="${f(it.y+it.h/2)}"/>`:`<line class="fart" x1="${f(it.x+it.w/2)}" y1="${f(it.y)}" x2="${f(it.x+it.w/2)}" y2="${f(it.y+it.h)}"/>`;break;
+      case"bed":h+=R(it,"fu")+R(pillowRect(it),"fl2");break;
+      case"wd":h+=R(it,"fu")+`<path class="fl2" d="M${f(it.x)} ${f(it.y)}L${f(it.x+it.w)} ${f(it.y+it.h)}"/>`;break;
+      case"bk":{h+=R(it,"fu");const n=Math.max(2,Math.round((hz?it.w:it.h)/.4));for(let j=1;j<n;j++){const t=j/n;h+=hz?`<line class="fl2" x1="${f(it.x+it.w*t)}" y1="${f(it.y)}" x2="${f(it.x+it.w*t)}" y2="${f(it.y+it.h)}"/>`:`<line class="fl2" x1="${f(it.x)}" y1="${f(it.y+it.h*t)}" x2="${f(it.x+it.w)}" y2="${f(it.y+it.h*t)}"/>`}break}
+      case"dt":case"otab":{h+=R(it,"fu");const span=hz?it.w:it.h,n=Math.max(1,Math.floor(span/.6)),cw=.42,cd=.36;for(let j=0;j<n;j++){const a=(hz?it.x:it.y)+span*(j+.5)/n-cw/2;
+        h+=hz?R({x:a,y:it.y-cd-.06,w:cw,h:cd},"fl2")+R({x:a,y:it.y+it.h+.06,w:cw,h:cd},"fl2"):R({x:it.x-cd-.06,y:a,w:cd,h:cw},"fl2")+R({x:it.x+it.w+.06,y:a,w:cd,h:cw},"fl2")}break}
+      case"seat":h+=R(it,"fu")+R({x:it.x+.12,y:it.y+.12,w:it.w-.24,h:it.h-.24},"fl2");break;
+      default:h+=R(it,"fu")}});
+    if(F.door){const D=F.door,sd=D.s,org={b:[0,0],f:[0,W],l:[0,0],r:[L,0]}[sd],tv=sd==="b"||sd==="f"?[1,0]:[0,1],nv={b:[0,1],f:[0,-1],l:[1,0],r:[-1,0]}[sd];
+      const pt=t=>[org[0]+tv[0]*t,org[1]+tv[1]*t],a=pt(D.a),b=pt(D.a+D.len),hg=D.hinge==="z"?b:a,ot=D.hinge==="z"?a:b,le=[hg[0]+nv[0]*D.len,hg[1]+nv[1]*D.len];
+      const cr=(le[0]-hg[0])*(ot[1]-hg[1])-(le[1]-hg[1])*(ot[0]-hg[0]);
+      h+=`<line class="pdg" x1="${f(a[0])}" y1="${f(a[1])}" x2="${f(b[0])}" y2="${f(b[1])}"/><path class="pdo" d="M${f(hg[0])} ${f(hg[1])}L${f(le[0])} ${f(le[1])}A${f(D.len)} ${f(D.len)} 0 0 ${cr>0?1:0} ${f(ot[0])} ${f(ot[1])}"/>`}}
   /* the dimensions of the room, outside the walls */
   const yD=W+u(20),xD=L+u(20),tk=u(5),fs=u(12);
   h+=`<path class="pd" d="M0 ${f(W+u(6))}V${f(yD+tk)}M${f(L)} ${f(W+u(6))}V${f(yD+tk)}M0 ${f(yD)}H${f(L)}M${f(L+u(6))} 0H${f(xD+tk)}M${f(L+u(6))} ${f(W)}H${f(xD+tk)}M${f(xD)} 0V${f(W)}"/>`;
@@ -2330,8 +2548,8 @@ function planMarkup(LY,k,opt){
   if(opt.guides){const g=opt.guides;if(g.x!=null)h+=`<line class="pgd" x1="${f(g.x)}" y1="${f(-u(8))}" x2="${f(g.x)}" y2="${f(W+u(8))}"/>`;if(g.y!=null)h+=`<line class="pgd" x1="${f(-u(8))}" y1="${f(g.y)}" x2="${f(L+u(8))}" y2="${f(g.y)}"/>`}
   /* the fixtures */
   LY.lines.forEach(o=>{const ln=o.ln,n=o.pts.length;o.pts.forEach((p,i)=>{const [x,y]=pos(p),key=ln.id+"#"+i;
-    const cls="ps"+(ln.ok?"":" off")+(opt.hl===ln.id?" hl":"")+(opt.drag===key?" drag":"")+(opt.sel===key?" sel":"")+(opt.fl===ln.id?" fl":"");
-    const at=pr?"":` tabindex="0" role="button" aria-roledescription="גוף בתוכנית" aria-label="${esc(symLabel(ln,p,i,n,L,W))}" data-k="${esc(key)}"`;
+    const cls="ps"+(ln.sym==="ucab"?" st":"")+(ln.ok?"":" off")+(opt.hl===ln.id?" hl":"")+(opt.drag===key?" drag":"")+(opt.sel===key?" sel":"")+(opt.fl===ln.id?" fl":"");
+    const at=pr||ln.sym==="ucab"?"":` tabindex="0" role="button" aria-roledescription="גוף בתוכנית" aria-label="${esc(symLabel(ln,p,i,n,L,W))}" data-k="${esc(key)}"`;
     h+=`<g class="${cls}" data-line="${esc(ln.id)}"${at} transform="translate(${f(x)} ${f(y)})">${symShape(ln.sym,p,u)}</g>`})});
   return h}
 const lightCol=()=>`rgb(${k2rgb(curK()).map(v=>Math.round(v+(255-v)*.1)).join(",")})`;
@@ -2364,7 +2582,7 @@ function findInst(key){const j=key.lastIndexOf("#"),id=key.slice(0,j),i=+key.sli
 const stOf=id=>id.startsWith("g:")?S.gen.find(g=>g.gid===id.slice(2)):S.cat.find(x=>x.uid===id.slice(2));
 function snapXY(key,x,y){
   const L=S.L,W=S.W,th=Math.max(.05,10/planK),gx=[L/2],gy=[W/2];
-  LY.lines.forEach(o=>{if(o.ln.sym==="prof"||o.ln.sym==="garl")return;o.pts.forEach((p,i)=>{if(o.ln.id+"#"+i===key)return;gx.push(p.u*L);gy.push((1-p.v)*W)})});
+  LY.lines.forEach(o=>{if(o.ln.sym==="prof"||o.ln.sym==="garl"||o.ln.sym==="ucab")return;o.pts.forEach((p,i)=>{if(o.ln.id+"#"+i===key)return;gx.push(p.u*L);gy.push((1-p.v)*W)})});
   const pick=(v,arr)=>{let best=null,bd=th;arr.forEach(a=>{const d=Math.abs(a-v);if(d<bd){bd=d;best=a}});return best};
   const ax=pick(x,gx),ay=pick(y,gy);
   return {x:ax!=null?ax:Math.round(x/GRID)*GRID,y:ay!=null?ay:Math.round(y/GRID)*GRID,gx:ax,gy:ay};
@@ -2413,15 +2631,16 @@ $("#pList").addEventListener("mouseleave",()=>hlSet(null));
 $("#adv").addEventListener("focusin",e=>{const li=e.target.closest(".fx[data-id]");hlSet(li?li.dataset.id:null)});
 
 /* the room view gets the same positions */
-function vizLights(LY){const out=[],H=effH(),wt=wallTop(),fl=flashOn(),sky=openSky();
+function vizLights(LY){const out=[],H=effH(),wt=wallTop(),fl=flashOn(),sky=openSky(),O=FUget().obj;
   LY.rails.forEach((r,i)=>out.push({key:"rail"+i,kind:"rail",u:r.u,v:r.v,len:r.len}));
   LY.lines.forEach(o=>{const ln=o.ln;if(!ln.ok)return;const hl=ln.id===fl;o.pts.forEach((p,i)=>{const key=ln.id+"#"+i;
-    if(ln.vk==="wall")out.push({key,kind:"wall",side:p.side,u:p.side==="l"||p.side==="r"?p.v:p.u,v:p.v,y:ln.low?.45:Math.min(1.8,wt-.45),hl});
+    if(ln.vk==="wall")out.push({key,kind:"wall",side:p.side,u:p.side==="l"||p.side==="r"?p.v:p.u,v:p.v,y:ln.low?.45:ln.st&&(ln.st.place==="beds"||ln.st.fk==="seat")?1.2:Math.min(1.8,wt-.45),hl});
     else if(ln.vk==="prof")out.push({key,kind:"prof",u:p.u,v:p.v,lenM:p.lenM,vert:!!p.vert,hl});
     /* string lights: on poles at 2.4 m under the open sky, under the ceiling when covered */
     else if(ln.vk==="garl")out.push({key,kind:"garl",u:p.u,v:p.v,lenM:p.lenM,vert:!!p.vert,y:sky?OPEN_H:H-.25,poles:sky,hl});
     else if(ln.vk==="floor")out.push({key,kind:"floor",u:p.u,v:p.v,h:ln.h,hl});
-    else out.push({key,kind:ln.vk,u:p.u,v:p.v,alt:p.alt,hl})})});
+    else if(ln.vk==="ucab")out.push({key,kind:"ucab",u:p.u,v:p.v,lenM:p.lenM,vert:!!p.vert,side:p.side,ub:p.ub,hl});
+    else{const ta=aimFor(ln,p,O);out.push({key,kind:ln.vk,u:p.u,v:p.v,alt:p.alt,hl,dbl:!!ln.dbl,ax:ta?ta[0]:undefined,az:ta?ta[1]:undefined})}})});
   return out}
 
 /* ---------------- the questions: one at a time, each answer opens the next ---------------- */
@@ -2430,18 +2649,19 @@ const press=(el,fn)=>$$("button[data-v]",el).forEach(b=>b.setAttribute("aria-pre
 const onChip=(el,fn)=>el.addEventListener("click",e=>{const b=e.target.closest("button[data-v]");if(b){fn(b.dataset.v);render()}});
 $("#rType").innerHTML=chipsHTML(Object.entries(ROOMS).map(([k,r])=>[k,r.he]));
 $("#rWall").innerHTML=chipsHTML(Object.entries(WALLS).map(([k,w])=>[k,`<i class="swt" style="background:${w.c}" aria-hidden="true"></i>${w.he}`]));
-$("#rPref").innerHTML=chipsHTML(Object.entries(PREFS));
+/* one scale, the two ends in plain words */
+$("#rPref").innerHTML=[["soft","אווירה רכה","כמו לאונג׳"],["regular","רגיל",""],["bright","מואר וחגיגי","כמו בית כנסת"]].map(([v,b,m])=>`<button type="button" data-v="${v}" aria-pressed="false"><b>${b}</b>${m?`<small>${m}</small>`:""}</button>`).join("");
 $("#rAtm").innerHTML=chipsHTML(Object.entries(ATM).map(([k,a])=>[k,a.he]));
 onChip($("#rWall"),v=>S.walls=v);
 onChip($("#rAtm"),v=>S.atm=S.atm===v?null:v);
 const steps=$$(".wq"),nL=$("#nL"),nW=$("#nW"),rH=$("#rH"),oH=$("#oH");
 const fillTo=(r,v)=>r.style.setProperty("--p",((v-r.min)/(r.max-r.min)*100)+"%");
-const ansList=()=>S.acts.map(x=>ACTS[x].he).concat(Object.keys(S.yn).filter(k=>S.yn[k]).map(k=>YN[k].sum));
+const ansList=()=>S.foc.map(focHe).concat(furList());
 const typeLabel=t=>{const c=cardsFor().find(x=>x[0]===t);return c?c[1]:FIXTURES[t].he};
 function sumTxt(i){
   switch(i){
     case 0:return ROOMS[S.room].he;
-    case 1:return `${dimTxt(S.L)} × ${dimTxt(S.W)} מ׳`+(ROOMS[S.room].cov?(S.covered?" · מקורה":" · פתוחה"):"")+(isYard()?" · "+YWT[S.yw]:"")+(openSky()?"":` · תקרה ${num1(S.H)} מ׳`);
+    case 1:return `${dimTxt(S.L)} × ${dimTxt(S.W)} מ׳`+(ROOMS[S.room].cov?(S.covered?" · מקורה":" · פתוחה"):"")+(isYard()?" · "+YWT[S.yw]:"")+(openSky()?"":` · תקרה ${num1(S.H)} מ׳`)+(conc()?", בטון":"");
     case 2:{const a=ansList();return a.length?a.join(" · "):"בלי תוספות"}
     case 3:return PREFS[S.pref];
     case 4:return S.types.map(typeLabel).join(" · ")||"עוד לא נבחר";
@@ -2464,7 +2684,8 @@ function openStep(i,focus){WZ.open=i;if(i===2)buildQ3();if(i===4)buildCards();re
   if(focus){const s=steps[i];requestAnimationFrame(()=>{$(".wq-h",s).focus({preventScroll:true});bringIn(s)})}}
 function finishStep(i){
   WZ.done[i]=true;
-  if(S.types.length&&i<4&&!S.manual){S.types=S.types.filter(t=>cardsFor().some(c=>c[0]===t));propose()}
+  /* answers changed: only what the customer did not touch is proposed again */
+  if(i<4&&(S.types.length||S.foc.length)){S.types=S.types.filter(t=>cardsFor().some(c=>c[0]===t));propose("fill")}
   const n=WZ.done.indexOf(false);
   if(n>-1){openStep(n,true);return}
   WZ.open=-1;
@@ -2480,6 +2701,7 @@ let busy=0;
 $("#rType").addEventListener("click",e=>{const b=e.target.closest("button[data-v]");if(!b||busy)return;const v=b.dataset.v;
   if(v!==S.room||!WZ.done[0]){
     S.room=v;S.acts=[];S.yn={};S.types=[];S.gen=[];S.manual=false;WZ.done[2]=WZ.done[4]=false;
+    S.foc=[];S.door=null;S.wd={on:false,len:2.4,dep:.6,w:"b"};S.beds=2;S.desk={on:false,at:"l"};S.kit={w:"b",sh:"i"};S.noAuto={};
     if(WZ.res)hideResult();
     S.arr="all";
     if(ROOMS[v].cov){WZ.cov=false;WZ.yw=false;WZ.done[1]=false;S.covered=v==="balcony"}
@@ -2501,21 +2723,61 @@ function tidyDim(k){const n=k==="L"?nL:nW;let v=pNum(n.value);if(!isFinite(v))v=
   n.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();tidyDim("L");tidyDim("W");finishStep(1)}});
 });
 rH.addEventListener("input",()=>{S.H=+rH.value;render()});
-/* 3. questions that fit this room only */
-function buildQ3(){const q=QS[S.room]||{},h=[];
-  const yn=(q.yn||[]).map(k=>`<div class="q3f"><div class="lb" id="lbY-${k}">${YN[k].q}</div><div class="opts big" role="group" aria-labelledby="lbY-${k}" data-yn="${k}"><button type="button" data-v="1" aria-pressed="false">כן</button><button type="button" data-v="0" aria-pressed="false">לא</button></div></div>`);
-  const ac=q.acts?[`<div class="q3f"><div class="lb"><span id="lbAct">${q.t}</span><small>אפשר לבחור כמה</small></div><div class="opts big" id="rAct" role="group" aria-labelledby="lbAct">${chipsHTML(q.acts.map(a=>[a,ACTS[a].he]))}</div></div>`]:[];
-  $("#q3in").innerHTML=(S.room==="kitchen"?yn.concat(ac):ac.concat(yn)).join("")}
-$("#q3in").addEventListener("click",e=>{const b=e.target.closest("button[data-v]");if(!b)return;const g=b.closest("[data-yn]");
-  if(g)S.yn[g.dataset.yn]=b.dataset.v==="1";else{const v=b.dataset.v,i=S.acts.indexOf(v);i>-1?S.acts.splice(i,1):S.acts.push(v)}
+/* the ceiling height can also be typed, from 2.00 m */
+oH.addEventListener("input",()=>{const v=parseFloat(String(oH.value).replace(",","."));if(v>=2&&v<=4.5){S.H=v;render()}});
+oH.addEventListener("change",()=>{let v=parseFloat(String(oH.value).replace(",","."));if(!isFinite(v))v=S.H;S.H=clamp(Math.round(v*100)/100,2,4.5);oH.value=String(S.H);render()});
+/* gypsum or concrete: concrete takes nothing recessed */
+$("#rCeil").addEventListener("click",e=>{const b=e.target.closest("button[data-v]");if(!b)return;S.ceil=b.dataset.v;
+  if(conc()){const gone=S.types.filter(t=>NEED_GYP.includes(t));
+    if(gone.length){S.types=S.types.filter(t=>!NEED_GYP.includes(t));S.gen=S.gen.filter(g=>!NEED_GYP.includes(g.t)||g.fk);
+      const sub=cardsFor().some(c=>c[0]==="ceiling")?"ceiling":"trackSpot";if(!S.types.includes(sub))S.types.push(sub);if(!S.gen.some(g=>g.t===sub&&!g.fk))propose("add",sub)}
+    /* focused spots move to what a concrete ceiling takes */
+    const fx=S.gen.filter(g=>g.fk&&NEED_GYP.includes(g.t)).map(g=>g.fk);if(fx.length){S.gen=S.gen.filter(g=>!(g.fk&&NEED_GYP.includes(g.t)));S.gen.push(...focGroups(fx).map(g=>Object.assign(g,{sig0:gSig(g)})))}}
   render()});
+/* 3. questions that fit this room only */
+const WCH=[["b","למעלה"],["f","למטה"],["r","ימין"],["l","שמאל"]];
+const WSIDE={b:"בקיר העליון",f:"בקיר התחתון",r:"בקיר הימני",l:"בקיר השמאלי"};
+const grp=(f,lb,arr,cls)=>`<div class="opts${cls==null?" big":cls?" "+cls:""}" role="group" aria-labelledby="${lb}" data-f="${f}">${chipsHTML(arr)}</div>`;
+const doorPos=()=>{const w=S.door?S.door.w:"f";return w==="b"||w==="f"?[["z","ימין"],["m","באמצע"],["a","שמאל"]]:[["a","למעלה"],["m","באמצע"],["z","למטה"]]};
+function buildQ3(){const r=S.room,fs=FOCR[r]||[],h=[],out=!!ROOMS[r].out;
+  if(fs.length)h.push(`<div class="q3f"><div class="lb"><span id="lbFoc">מה חשוב לכם להאיר?</span><small>אפשר לבחור כמה. נכוון לשם אור ממוקד.</small></div><div class="opts big" id="rFoc" role="group" aria-labelledby="lbFoc">${chipsHTML(fs.map(k=>[k,focHe(k)]))}</div></div>`);
+  if(!out)h.push(`<p class="wq-hint q3n">הקירות לפי ההדמיה: למעלה זה הקיר שמולכם, למטה זה הקיר הקרוב אליכם.</p>`);
+  if(r==="kitchen")h.push(`<div class="q3f"><div class="lb" id="lbKw">המטבח לאורך איזה קיר?</div>${grp("kit-w","lbKw",WCH)}</div>`,`<div class="q3f"><div class="lb" id="lbKs">צורת המטבח</div>${grp("kit-sh","lbKs",[["i","קיר אחד"],["l","צורת ר"]])}</div>`);
+  if(r==="bedroom"){
+    h.push(`<div class="q3f"><div class="lb" id="lbWd">יש ארון?</div>${grp("wd","lbWd",[["1","כן"],["0","לא"]])}<div class="q3s" id="wdBox"><label class="dn"><span>אורך</span><span class="nbox"><input id="wdLen" type="number" min="40" max="800" step="1" inputmode="numeric" value="${Math.round(S.wd.len*100)}"><span>ס״מ</span></span></label><label class="dn"><span>עומק</span><span class="nbox"><input id="wdDep" type="number" min="30" max="100" step="1" inputmode="numeric" value="${Math.round(S.wd.dep*100)}"><span>ס״מ</span></span></label><div class="q3w"><div class="lb" id="lbWdW">על איזה קיר</div>${grp("wd-w","lbWdW",WCH,"")}</div></div></div>`);
+    h.push(`<div class="q3f"><div class="lb"><span id="lbBeds">כמה מיטות?</span><small>מעל כל מיטה נציע מנורת לילה</small></div>${grp("beds","lbBeds",[["0","בלי"],["1","1"],["2","2"],["3","3"],["4","4"]])}</div>`);
+    h.push(`<div class="q3f"><div class="lb" id="lbDesk">יש שולחן?</div>${grp("desk","lbDesk",[["1","כן"],["0","לא"]])}<div class="q3s" id="deskBox"><div class="q3w"><div class="lb" id="lbDeskAt">איפה</div>${grp("desk-at","lbDeskAt",WCH.concat([["c","באמצע החדר"]]),"")}</div></div></div>`)}
+  if(!out)h.push(`<div class="q3f"><div class="lb" id="lbDoor">איפה הדלת?</div>${grp("door-w","lbDoor",WCH)}<div class="q3s" id="doorP"><div class="q3w"><div class="lb" id="lbDoorP">באיזה חלק של הקיר</div>${grp("door-p","lbDoorP",doorPos(),"")}</div></div></div>`);
+  $("#q3in").innerHTML=h.join("")}
+function fVal(f){switch(f){case"door-w":return S.door?S.door.w:"";case"door-p":return S.door?S.door.p:"";case"wd":return S.wd.on?"1":"0";case"wd-w":return S.wd.w;
+  case"beds":return String(S.beds);case"desk":return S.desk.on?"1":"0";case"desk-at":return S.desk.at;case"kit-w":return S.kit.w;case"kit-sh":return S.kit.sh}return ""}
+function setF(f,v){const off=k=>{const i=S.foc.indexOf(k);if(i>-1){S.foc.splice(i,1);deriveFoc()}};
+  switch(f){case"door-w":S.door={w:v,p:S.door?S.door.p:"m"};break;case"door-p":S.door={w:S.door?S.door.w:"f",p:v};break;
+  case"wd":S.wd.on=v==="1";if(!S.wd.on)off("wd");break;case"wd-w":S.wd.w=v;break;case"beds":S.beds=+v;break;
+  case"desk":S.desk.on=v==="1";if(!S.desk.on)off("desk");break;case"desk-at":S.desk.at=v;break;case"kit-w":S.kit.w=v;break;case"kit-sh":S.kit.sh=v;break}}
+function toggleFoc(k){const i=S.foc.indexOf(k);if(i>-1)S.foc.splice(i,1);else{S.foc.push(k);
+    if(k==="wd")S.wd.on=true;if(k==="desk")S.desk.on=true;if(k==="counter")delete S.noAuto.strip;if(k==="readbed")delete S.noAuto.wall}
+  deriveFoc()}
+$("#q3in").addEventListener("click",e=>{const b=e.target.closest("button[data-v]");if(!b)return;
+  if(b.closest("#rFoc")){toggleFoc(b.dataset.v);render();return}
+  const fg=b.closest("[data-f]");if(!fg)return;const f=fg.dataset.f,v=b.dataset.v;setF(f,v);
+  if(f==="door-w"){buildQ3();render();const nb=$(`#q3in [data-f="door-w"] [data-v="${v}"]`);if(nb)nb.focus({preventScroll:true});return}
+  render()});
+$("#q3in").addEventListener("input",e=>{const t=e.target,v=parseFloat(String(t.value).replace(",","."));
+  if(t.id==="wdLen"&&v>=40&&v<=800){S.wd.len=v/100;render()}else if(t.id==="wdDep"&&v>=30&&v<=100){S.wd.dep=v/100;render()}});
+$("#q3in").addEventListener("change",e=>{const t=e.target;if(t.id==="wdLen"){t.value=Math.round(S.wd.len*100)}else if(t.id==="wdDep"){t.value=Math.round(S.wd.dep*100)}});
 /* 4. how much light */
 $("#rPref").addEventListener("click",e=>{const b=e.target.closest("button[data-v]");if(!b||busy)return;S.pref=b.dataset.v;render();busy=1;setTimeout(()=>{busy=0;finishStep(3)},RM?0:280)});
 /* 5. the fixture types: choosing them lights the room straight away */
-function buildCards(){const cs=cardsFor(),rc=recTypes();S.types=S.types.filter(t=>cs.some(c=>c[0]===t));
-  $("#cards").innerHTML=cs.map(([t,ti,d])=>`<button type="button" class="card" data-t="${t}" aria-pressed="${S.types.includes(t)}">${ico(FXU[t].ic)}<b>${ti}</b><small>${d}</small>${rc.includes(t)?`<em>מומלץ</em>`:""}<span class="ck" aria-hidden="true"><svg><use href="#i-check"/></svg></span></button>`).join("")}
-$("#cards").addEventListener("click",e=>{const b=e.target.closest(".card");if(!b)return;const t=b.dataset.t,i=S.types.indexOf(t);
-  i>-1?S.types.splice(i,1):S.types.push(t);propose();render();
+function buildCards(){const cs=cardsFor(),rc=recTypes(),gy=conc()?cardsFor(true).filter(c=>NEED_GYP.includes(c[0])):[];S.types=S.types.filter(t=>cs.some(c=>c[0]===t));
+  $("#cards").innerHTML=cs.map(([t,ti,d])=>`<button type="button" class="card" data-t="${t}" aria-pressed="${S.types.includes(t)}">${ico(FXU[t].ic)}<b>${ti}</b><small>${d}</small>${rc.includes(t)?`<em>מומלץ</em>`:""}<span class="ck" aria-hidden="true"><svg><use href="#i-check"/></svg></span></button>`).join("")
+    +gy.map(([t,ti,d])=>`<button type="button" class="card" data-t="${t}" disabled>${ico(FXU[t].ic)}<b>${ti}</b><small>${d}</small><em class="gyp">דורש תקרת גבס</em></button>`).join("")}
+$("#cards").addEventListener("click",e=>{const b=e.target.closest(".card");if(!b||b.disabled)return;const t=b.dataset.t,i=S.types.indexOf(t);
+  /* before anything was changed by hand the light is split again; after that, what is there stays */
+  const fresh=!WZ.res&&!S.gen.some(isEd);
+  if(i>-1){S.types.splice(i,1);S.noAuto[t]=true;S.gen=S.gen.filter(g=>g.t!==t||g.fk);if(fresh)propose("fill")}
+  else{S.types.push(t);delete S.noAuto[t];if(fresh)propose("fill");else{const G=propose("add",t);if(G.length)flashLine("g:"+G[0].gid)}}
+  render();
   const c=calc();$("#live").textContent=S.types.length?`${typeLabel(t)} ${i>-1?"הוסר":"נוסף"}. החדר צריך כ-${c.w} וואט.`:"עוד לא נבחר סוג תאורה."});
 
 /* the result */
@@ -2530,6 +2792,8 @@ const planWrap=$("#planWrap");
 /* the plan sits under the room view on a computer, and inside the result on a phone */
 function placePlan(){const t=isMob()?(WZ.res?$("#resPlanSlot"):$("#advPlanSlot")):$("#planHome");if(planWrap.parentNode!==t)t.appendChild(planWrap);requestAnimationFrame(drawPlan)}
 if(mqMob.addEventListener)mqMob.addEventListener("change",placePlan);else mqMob.addListener(placePlan);
+$("#q5Cat").addEventListener("click",()=>openPicker());
+$("#resetP").addEventListener("click",()=>{propose("all");selKey=null;render();$("#live").textContent="חזרנו להצעה שלנו מההתחלה."});
 function setAdv(on){$("#advT").setAttribute("aria-expanded",on);$("#adv").hidden=!on;$("#tool").classList.toggle("adv-open",on);placePlan();render()}
 $("#advT").addEventListener("click",()=>{const on=$("#adv").hidden;setAdv(on);if(on)requestAnimationFrame(()=>bringIn($("#adv")))});
 /* the angle of the sketch */
@@ -2539,8 +2803,9 @@ vbs.forEach(b=>b.addEventListener("click",()=>setView(b.dataset.view)));
 Viz.on(()=>setView(null));
 
 /* placement menu */
-const PL_HE={auto:"אוטומטי",center:"מרכז החדר",grid:"פיזור אחיד ברשת","wall-t":"למעלה בשרטוט","wall-b":"למטה בשרטוט","wall-r":"בצד ימין","wall-l":"בצד שמאל",corners:"בפינות",table:"מעל השולחן או האי"};
-function plOpts(sym){const o=k=>`<option value="${k}">${PL_HE[k]}</option>`,walls=`<optgroup label="לאורך קיר">${["wall-t","wall-b","wall-r","wall-l"].map(o).join("")}</optgroup>`,cu=`<option value="custom" disabled>הוזז ביד</option>`;
+const PL_HE={beds:"מעל המיטות",auto:"אוטומטי",center:"מרכז החדר",grid:"פיזור אחיד ברשת","wall-t":"למעלה בשרטוט","wall-b":"למטה בשרטוט","wall-r":"בצד ימין","wall-l":"בצד שמאל",corners:"בפינות",table:"מעל השולחן או האי"};
+function plOpts(sym,cur){const fo=cur&&cur.startsWith("foc:")?`<option value="${cur}">מכוון למה שבחרתם</option>`:"",bd=sym==="wall"&&S.room==="bedroom"?`<option value="beds">${PL_HE.beds}</option>`:"";return fo+plOpts0(sym).replace(`<optgroup`,bd+`<optgroup`)}
+function plOpts0(sym){const o=k=>`<option value="${k}">${PL_HE[k]}</option>`,walls=`<optgroup label="לאורך קיר">${["wall-t","wall-b","wall-r","wall-l"].map(o).join("")}</optgroup>`,cu=`<option value="custom" disabled>הוזז ביד</option>`;
   return sym==="wall"?o("auto")+walls+cu:o("auto")+o("center")+o("grid")+walls+o("corners")+o("table")+cu}
 function placeUI(li,st,lo){const box=$(".fx-pl",li);if(!box)return;const sel=$("[data-pl]",box),on=!!lo&&lo.pts.length>0;box.hidden=!on;if(!on)return;
   if(document.activeElement!==sel)sel.value=lo.custom?"custom":st.place;
@@ -2562,8 +2827,9 @@ function gRowHTML(g){const t=g.t,f=FIXTURES[t],m=isM(t),nm=esc(gName(g)),same=S.
   <div class="fx-ctl">
    <div class="fx-w"><div class="opts sm" role="group" aria-label="הספק של ${nm}, בוואט${m?" למטר":""}">${Object.keys(f.opts).map(w=>`<button type="button" data-w="${w}" aria-pressed="false">${w}</button>`).join("")}</div><span class="fx-u">וואט${m?" למטר":""}</span></div>
    <div class="fx-q"><div class="qty">${bi}<input type="number" min="${m?0.5:1}" max="${m?60:40}" step="${m?0.5:1}" inputmode="decimal" aria-label="${m?"כמה מטר":"כמה יחידות"} של ${nm}">${bd}</div><span class="fx-u">${m?"מטר":"יחידות"}</span></div>
+   ${DBL.includes(t)?`<div class="opts sm fx-mode" role="group" aria-label="ספוטים בודדים או זוגיים"><button type="button" data-dbl="0" aria-pressed="false">בודדים</button><button type="button" data-dbl="1" aria-pressed="false">זוגיים</button></div>`:""}
    ${t==="profile"?`<div class="opts sm fx-mode" role="group" aria-label="איך הפרופיל מאיר"><button type="button" data-m="dir" aria-pressed="false">אור ישיר</button><button type="button" data-m="ind" aria-pressed="false">אור עקיף</button></div><a class="lnk fx-plan" href="profile.html">לתכנון פרופיל במידה</a>`:""}
-   ${GK[t]?`<div class="fx-pl" hidden><label><span>מיקום</span><select class="sel" data-pl aria-label="מיקום של ${nm} בחדר">${plOpts(GK[t].sym)}</select></label><span class="fx-sp" data-sp></span>${dupBtn("data-dup")}</div>`:""}
+   ${GK[t]?`<div class="fx-pl" hidden><label><span>מיקום</span><select class="sel" data-pl aria-label="מיקום של ${nm} בחדר">${plOpts(GK[t].sym,g.place)}</select></label><span class="fx-sp" data-sp></span>${dupBtn("data-dup")}</div>`:""}
   </div></li>`}
 function renderGen(){
   const ul=$("#gList"),sig=S.gen.map(g=>g.gid+":"+g.t+":"+g.lab+":"+S.gen.filter(x=>x.t===g.t).length).join(",");
@@ -2572,9 +2838,10 @@ function renderGen(){
     li.hidden=!avail(t);li.classList.toggle("on",on);
     $$("[data-w]",li).forEach(b=>b.setAttribute("aria-pressed",b.dataset.w===g.w));
     $$("[data-m]",li).forEach(b=>b.setAttribute("aria-pressed",b.dataset.m===g.mode));
+    $$("[data-dbl]",li).forEach(b=>b.setAttribute("aria-pressed",(b.dataset.dbl==="1")===!!g.dbl));
     $("[data-lmu]",li).textContent=`${fmt(u)} לומן ${m?"למטר":"ליחידה"}`;
     const qi=$(".qty input",li);if(document.activeElement!==qi)qi.value=m?num1(g.q):g.q;
-    $("[data-sum]",li).innerHTML=on?`<b>${fmt(parseFloat(g.w)*g.q)} וואט</b>${fmt(Math.round(u*g.q*gc(g)/10)*10)} לומן לחדר`:"";
+    $("[data-sum]",li).innerHTML=on?`<b>${fmt(parseFloat(g.w)*g.q*hd(g))} וואט</b>${fmt(Math.round(u*g.q*gc(g)*hd(g)/10)*10)} לומן לחדר`:"";
     placeUI(li,g,on&&LY?LY.lines.find(o=>o.ln.id==="g:"+g.gid):null)});
   const sel=$("#addT"),ts=ORDER.filter(avail),sg=ts.join(",");
   if(sel.dataset.sig!==sg){sel.dataset.sig=sg;sel.innerHTML=`<option value="">בחירה מהרשימה</option>`+ts.map(t=>`<option value="${t}">${FIXTURES[t].he}</option>`).join("")}
@@ -2582,14 +2849,21 @@ function renderGen(){
 const gOf=el=>{const li=el.closest(".fx[data-g]");return li?S.gen.find(g=>g.gid===li.dataset.g):null};
 const setGQ=(g,q)=>{const m=isM(g.t);g.q=m?clamp(Math.round(q*2)/2,.5,60):clamp(Math.round(q),1,40);S.manual=true;S.last="g:"+g.gid};
 function dupGroup(g){
-  const sym=GK[g.t]?GK[g.t].sym:"",n=Object.assign({},g,{gid:"g"+(++S.gseq),pos:{},pl0:undefined,place:dupPlace(g.place,sym,S.gen.filter(x=>x.t===g.t).map(x=>x.place))});
+  const sym=GK[g.t]?GK[g.t].sym:"",n=Object.assign({},g,{gid:"g"+(++S.gseq),pos:{},pl0:undefined,ed:true,fk:undefined,place:dupPlace(g.place,sym,S.gen.filter(x=>x.t===g.t).map(x=>x.place))});
   S.gen.splice(S.gen.indexOf(g)+1,0,n);S.manual=true;render();
   const li=$(`#gList [data-g="${n.gid}"]`);if(li){li.classList.add("flash");$(".qty input",li).focus({preventScroll:true});li.scrollIntoView({block:"nearest",behavior:RM?"auto":"smooth"})}
   $("#live").textContent=`נוספה קבוצה חדשה של ${gName(n)}: ${PL_HE[n.place]}.`;return n}
-function removeGroup(g){S.gen.splice(S.gen.indexOf(g),1);if(!S.gen.some(x=>x.t===g.t)){const i=S.types.indexOf(g.t);if(i>-1)S.types.splice(i,1)}S.manual=true;render()}
+/* removing a focused group also takes it out of "מה חשוב לכם להאיר"; removing a proposed type keeps it from coming back by itself */
+function removeGroup(g){S.gen.splice(S.gen.indexOf(g),1);
+  if(g.fk){const i=S.foc.indexOf(g.fk);if(i>-1){S.foc.splice(i,1);deriveFoc()}}
+  else if(!S.gen.some(x=>x.t===g.t&&!x.fk)){const i=S.types.indexOf(g.t);if(i>-1){S.types.splice(i,1);S.noAuto[g.t]=true}}S.manual=true;render()}
+/* single or double spots: the light stays about the same, so the number of units halves or doubles */
+function setDbl(g,on){if(!!g.dbl===on)return;g.q=on?Math.max(1,Math.ceil(g.q/2)):Math.min(40,g.q*2);g.dbl=on;g.pos={};g.ed=true;S.manual=true;render();
+  $("#live").textContent=on?`${gName(g)}: ${g.q} זוגיים, ${g.q*2} ראשים.`:`${gName(g)}: ${g.q} בודדים.`}
 $("#gList").addEventListener("click",e=>{const g=gOf(e.target);if(!g)return;const stp=isM(g.t)?.5:1;
   const w=e.target.closest("[data-w]");if(w){g.w=w.dataset.w;S.manual=true;render();return}
   const m=e.target.closest("[data-m]");if(m){g.mode=m.dataset.m;S.manual=true;render();return}
+  const db=e.target.closest("[data-dbl]");if(db){setDbl(g,db.dataset.dbl==="1");return}
   if(e.target.closest("[data-inc]")){setGQ(g,g.q+stp);render();return}
   if(e.target.closest("[data-dec]")){setGQ(g,g.q-stp);render();return}
   if(e.target.closest("[data-dup]")){dupGroup(g);return}
@@ -2599,7 +2873,8 @@ $("#gList").addEventListener("change",e=>{const g=gOf(e.target);if(!g)return;
   if(e.target.matches("[data-pl]")){if(e.target.value!=="custom"){g.place=e.target.value;g.pos={};S.manual=true;render()}return}
   const i=e.target.closest(".qty input");if(!i)return;const v=parseFloat(i.value);setGQ(g,isFinite(v)?v:1);i.value=isM(g.t)?num1(g.q):g.q;render()});
 $("#addT").addEventListener("change",e=>{const t=e.target.value;if(!FIXTURES[t])return;
-  const g={gid:"g"+(++S.gseq),t,w:defW(t),q:isM(t)?2:1,mode:"dir",place:S.arr==="side"?"wall-"+S.side:"auto",pos:{},lab:""};S.gen.push(g);if(!S.types.includes(t)&&cardsFor().some(c=>c[0]===t))S.types.push(t);
+  /* a new type gets its own proposal; nothing that is already in the plan changes */
+  if(!S.types.includes(t)&&cardsFor().some(c=>c[0]===t))S.types.push(t);delete S.noAuto[t];const g=propose("add",t)[0];if(!g){e.target.value="";return}g.ed=true;
   S.manual=true;e.target.value="";render();const li=$(`#gList [data-g="${g.gid}"]`);if(li){li.classList.add("flash");$(".qty input",li).focus({preventScroll:true})}});
 $("#fxClear").addEventListener("click",()=>{S.gen.length=0;S.cat.length=0;S.types.length=0;S.last=null;S.manual=true;render();$("#addT").focus()});
 
@@ -2750,6 +3025,122 @@ function setArr(a){const all=S.gen.concat(S.cat);
 $("#rArr").addEventListener("click",e=>{const b=e.target.closest("button[data-v]");if(b)setArr(b.dataset.v)});
 $("#rSide").addEventListener("click",e=>{const b=e.target.closest("button[data-v]");if(!b)return;S.side=b.dataset.v;setArr("side")});
 
+/* ---------------- furniture: what is in the room, drawn on the plan and in the 3D view ----------------
+   Plan coordinates in metres: x from the left wall, y from the top wall (b = top, f = bottom, l, r) */
+const wLen=s=>s==="b"||s==="f"?S.L:S.W;
+function wRect(s,a,len,dep){const L=S.L,W=S.W;return s==="b"?{x:a,y:0,w:len,h:dep}:s==="f"?{x:a,y:W-dep,w:len,h:dep}:s==="l"?{x:0,y:a,w:dep,h:len}:{x:L-dep,y:a,w:dep,h:len}}
+function wPt(s,a,d){const L=S.L,W=S.W;return s==="b"?[a,d]:s==="f"?[a,W-d]:s==="l"?[d,a]:[L-d,a]}
+const pillowRect=it=>it.s==="b"?{x:it.x+.1,y:it.y+.08,w:it.w-.2,h:.3}:it.s==="f"?{x:it.x+.1,y:it.y+it.h-.38,w:it.w-.2,h:.3}:it.s==="l"?{x:it.x+.08,y:it.y+.1,w:.3,h:it.h-.2}:{x:it.x+it.w-.38,y:it.y+.1,w:.3,h:it.h-.2};
+let fuK="",fuV=null;
+function FUget(){const k=JSON.stringify([S.room,S.L,S.W,S.H,S.covered,S.door,S.wd,S.beds,S.desk,S.kit,S.foc,!!S.yn.island,WZ.done[0]]);if(k!==fuK){fuK=k;fuV=furn()}return fuV}
+const kitRun=()=>FUget().cab.reduce((s,c)=>s+c.b-c.a,0);
+function furn(){
+  const L=S.L,W=S.W,r=S.room,H=S.H,F=S.foc,o={items:[],beds:[],door:null,cab:[],avoid:[],obj:{}};
+  if(!WZ.done[0])return o;
+  const it=(k,R,z0,z1,ex)=>{const x=Object.assign({k,z0,z1},R,ex||{});o.items.push(x);return x};
+  if(ROOMS[r].out){
+    if(F.includes("path")&&W>2)it("path",{x:.3,y:W-1.25,w:L-.6,h:.9},0,0);
+    if(F.includes("trees")&&L>2.6&&W>2.6)[[1,1],[L-1,1]].forEach(([x,y])=>it("tree",{x:x-.45,y:y-.45,w:.9,h:.9},0,Math.min(2.6,effH()+.2)));
+    if(F.includes("oseat")){const w=Math.min(1.6,L-1.2),h=Math.min(.9,W-1.2);if(w>.6&&h>.5)o.obj.ot=it("otab",{x:(L-w)/2,y:W*.42-h/2,w,h},0,.75)}
+    return o}
+  const occ={b:[],f:[],l:[],r:[]};
+  const occupy=R=>{const e=.02;if(R.y<e)occ.b.push([R.x,R.x+R.w]);if(R.y+R.h>W-e)occ.f.push([R.x,R.x+R.w]);if(R.x<e)occ.l.push([R.y,R.y+R.h]);if(R.x+R.w>L-e)occ.r.push([R.y,R.y+R.h])};
+  const gaps=s=>{const WL=wLen(s),iv=occ[s].slice().sort((a,b)=>a[0]-b[0]),g=[];let p=0;iv.forEach(([a,b])=>{if(a>p+1e-3)g.push([p,Math.min(a,WL)]);p=Math.max(p,b)});if(WL>p+1e-3)g.push([Math.max(0,p),WL]);return g.filter(x=>x[1]-x[0]>.05)};
+  const fit=(s,len,pref)=>{const ok=gaps(s).filter(g=>g[1]-g[0]>=len-1e-6);if(!ok.length)return null;
+    if(pref==="start")return ok[0][0];if(pref==="end"){const g=ok[ok.length-1];return g[1]-len}
+    const g=ok.reduce((a,b)=>b[1]-b[0]>a[1]-a[0]?b:a);return (g[0]+g[1]-len)/2};
+  const big=s=>{const g=gaps(s);return g.length?g.reduce((a,b)=>b[1]-b[0]>a[1]-a[0]?b:a):null};
+  const pickWall=(len,excl)=>{for(const s of ["b","r","l","f"]){if((excl||[]).includes(s))continue;const a=fit(s,len,"center");if(a!=null)return {s,a}}return null};
+  const dw0=S.door?S.door.w:null;
+  /* the door, about 90 cm, with room to open */
+  if(S.door){const s=S.door.w,WL=wLen(s),dw=Math.min(.9,WL*.45),c=S.door.p==="a"?.12+dw/2:S.door.p==="z"?WL-.12-dw/2:WL/2;
+    o.door={s,a:c-dw/2,len:dw,hinge:S.door.p==="z"?"z":"a"};occ[s].push([c-dw/2-.05,c+dw/2+.05])}
+  /* kitchen: lower cabinets 60 cm deep and 90 cm high, upper cabinets 35 cm deep from about 150 cm */
+  if(r==="kitchen"){const s1=S.kit.w,adj=s1==="b"||s1==="f"?["l","r"]:["b","f"],s2=S.kit.sh==="l"?(adj.find(x=>x!==dw0)||adj[0]):null;
+    const ub=Math.min(1.5,H-.75),ut=Math.min(ub+.72,H-.02);
+    const run=s=>{gaps(s).forEach(([a,b])=>{if(b-a<.3)return;const lo=wRect(s,a,b-a,.6),up=wRect(s,a,b-a,.35);it("klo",lo,0,.9);it("kup",up,ub,ut);o.avoid.push(up);o.cab.push({s,a,b,ub});occupy(lo)})};
+    run(s1);if(s2)run(s2);
+    if(S.yn.island){const w=Math.min(1.8,L-2.4),h=Math.min(.9,W-2.4);if(w>.8&&h>.5)o.obj.isl=it("isl",{x:(L-w)/2,y:(W-h)/2+(s1==="b"?.3:s1==="f"?-.3:0),w,h},0,.9)}}
+  /* bedroom: the wardrobe, then the beds (90 x 190) with a nightstand between them */
+  if(r==="bedroom"){
+    if(S.wd.on){const s=S.wd.w;let len=Math.min(S.wd.len,wLen(s)),a=fit(s,len,"start");if(a==null){const g=big(s);if(g){len=g[1]-g[0];a=g[0]}}
+      if(a!=null&&len>.3){const R=wRect(s,a,len,S.wd.dep);it("wd",R,0,Math.min(2.4,H-.05));o.avoid.push(R);occupy(R);o.obj.wd={s,a,len,dep:S.wd.dep}}}
+    let n=S.beds;const opp={b:"f",f:"b",l:"r",r:"l"},key=s=>(dw0&&opp[dw0]===s?0:100)+(s===dw0?50:0)-wLen(s);
+    const cand=["b","l","r","f"].filter(s=>!(S.wd.on&&S.wd.w===s)).sort((x,y)=>key(x)-key(y));
+    for(const s of cand){if(n<=0)break;if((s==="b"||s==="f"?W:L)<2.4)continue;const g=big(s);if(!g)continue;const av=g[1]-g[0];let k=Math.min(n,Math.floor((av+.45)/1.35));if(k<1)continue;
+      const one=k===1&&av>=1.4,tot=k*.9+(k-1)*.45+(one?.45:0);let a=g[0]+(av-tot)/2;
+      for(let j=0;j<k;j++){const R=wRect(s,a,.9,1.9);it("bed",R,0,.5,{s});o.beds.push({s,c:a+.45});occupy(R);a+=.9;
+        if(j<k-1||one){const N=wRect(s,a,.45,.4);it("ns",N,0,.5);occupy(N);a+=.45}}
+      n-=k}}
+  /* a desk on a wall, or a table in the middle */
+  if(S.desk.on&&(r==="bedroom"||F.includes("desk"))){
+    if(S.desk.at==="c"){const w=Math.min(1.4,L-1.6),h=Math.min(.8,W-1.6);if(w>.6&&h>.4){const R={x:(L-w)/2,y:(W-h)/2,w,h};it("desk",R,0,.75);o.obj.desk={R}}}
+    else{const s=S.desk.at;let len=1.2,a=fit(s,len,"center");if(a==null){const g=big(s);if(g&&g[1]-g[0]>=.7){len=Math.min(1.2,g[1]-g[0]);a=g[0]}}
+      if(a!=null){const R=wRect(s,a,len,.6);it("desk",R,0,.75);occupy(R);o.obj.desk={s,a,len,dep:.6,R}}}}
+  /* what to light: drawn when it is not in the room yet */
+  if(F.includes("books")){const len=Math.min(2,Math.max(1,Math.min(L,W)*.45)),p=pickWall(len,[dw0]);if(p){const R=wRect(p.s,p.a,len,.35);it("bk",R,0,Math.min(2.1,H-.1));occupy(R);o.obj.bk={s:p.s,a:p.a,len,dep:.35}}}
+  if(F.includes("display")){const len=Math.min(3,L*.6),p=pickWall(len,[dw0]);if(p){const R=wRect(p.s,p.a,len,.45);it("bk",R,0,Math.min(2,H-.1));occupy(R);o.obj.shelf={s:p.s,a:p.a,len,dep:.45}}}
+  if(F.includes("art")){const len=Math.min(1.4,Math.max(.8,Math.min(L,W)*.3)),ex=[o.obj.bk&&o.obj.bk.s,dw0].filter(Boolean),p=pickWall(len,ex)||pickWall(len);
+    if(p){const R=wRect(p.s,p.a,len,.04);it("art",R,1.15,Math.min(1.85,H-.3));o.obj.art={s:p.s,a:p.a,len,dep:.04}}}
+  if(F.includes("mirror")){const len=Math.min(.9,Math.min(L,W)*.5),p=pickWall(len,[dw0]);if(p){const R=wRect(p.s,p.a,len,.03);it("mir",R,1.05,Math.min(1.95,H-.25));o.obj.mir={s:p.s,a:p.a,len}}}
+  if(F.includes("seat"))for(const s of ["l","r","b","f"]){const a=fit(s,.85,"end");if(a!=null&&(s==="b"||s==="f"?W:L)>2){const R=wRect(s,a,.85,.85);it("seat",R,0,.8);occupy(R);o.obj.seat={s,c:a+.425};break}}
+  if(F.includes("dining")&&!(r==="kitchen"&&S.yn.island)){const w=Math.min(1.8,L-1.4),h=Math.min(.9,W-1.6);
+    if(w>.7&&h>.5){const cx=r==="living"&&L>=4.5?L*.62:L/2,cy=r==="kitchen"?W*.6:W/2;o.obj.dt=it("dt",{x:cx-w/2,y:cy-h/2,w,h},0,.76)}}
+  if(F.includes("scounter")){const w=Math.min(1.8,L-1.4);if(w>.6)o.obj.cnt=it("cnt",{x:(L-w)/2,y:W-1.6,w,h:.6},0,1)}
+  return o}
+/* points for a focused group, at its object */
+function focPts(k,n,sym){const O=FUget().obj,L=S.L,W=S.W,out=[],uv=(x,y)=>({u:clamp(x/L,0,1),v:clamp(1-y/W,0,1)});
+  const along=(o,dist)=>{for(let i=0;i<n;i++){const p=wPt(o.s,o.a+o.len*(i+.5)/n,dist);out.push(uv(p[0],p[1]))}};
+  const row=R=>{const hz=R.w>=R.h,span=hz?R.w:R.h,sp=n>1?Math.min(.7,span*.75/(n-1)):0,cx=R.x+R.w/2,cy=R.y+R.h/2;for(let i=0;i<n;i++){const d=(i-(n-1)/2)*sp;out.push(uv(hz?cx+d:cx,hz?cy:cy+d))}};
+  const onWall=o=>{for(let i=0;i<n;i++){const a=o.a+o.len*(i+.5)/n;out.push(o.s==="b"||o.s==="f"?{side:o.s,u:a/L,v:o.s==="b"?1:0}:{side:o.s,u:o.s==="l"?0:1,v:1-a/W})}};
+  switch(k){
+    case"books":if(O.bk)along(O.bk,O.bk.dep+.5);break;
+    case"display":if(O.shelf)along(O.shelf,O.shelf.dep+.6);break;
+    case"art":if(O.art)along(O.art,.6);break;
+    case"wd":if(O.wd)along(O.wd,O.wd.dep+.45);break;
+    case"dining":if(O.dt)row(O.dt);break;
+    case"island":if(O.isl)row(O.isl);break;
+    case"scounter":if(O.cnt)row(O.cnt);break;
+    case"desk":if(O.desk){if(O.desk.s)along(O.desk,.35);else row(O.desk.R)}break;
+    case"seat":if(O.seat)onWall({s:O.seat.s,a:O.seat.c-.4,len:.8});break;
+    case"mirror":if(O.mir)onWall(O.mir);break;
+    case"entry":{const D=FUget().door,p=D?wPt(D.s,D.a+D.len/2,.8):wPt("f",L/2,.8);for(let i=0;i<n;i++)out.push(uv(p[0],p[1]));break}
+  }
+  if(out.length<n){const rest=sym==="wall"?wallAuto(n-out.length,L):grid(n-out.length,L,W).map(p=>({u:p[0],v:p[1]}));out.push(...rest)}
+  return out.slice(0,n)}
+/* a focused adjustable spot looks at its object: the wall behind the bookcase or the picture, or the desk */
+function aimFor(ln,p,O){const fk=ln.st&&ln.st.fk;if(!fk||!/^(gimbal|head)$/.test(ln.vk))return null;const L=S.L,W=S.W;let tx=p.u*L,ty=(1-p.v)*W;
+  const o=fk==="books"?O.bk:fk==="art"?O.art:fk==="display"?O.shelf:fk==="wd"?O.wd:null;
+  if(o){if(o.s==="b")ty=.1;else if(o.s==="f")ty=W-.1;else if(o.s==="l")tx=.1;else tx=L-.1}
+  else if(fk==="desk"&&O.desk){const R=O.desk.R;tx=R.x+R.w/2;ty=R.y+R.h/2}else return null;
+  return [tx-L/2,W-ty]}
+/* nothing proposed over the wardrobe or the upper cabinets: such a point moves out in front of them */
+function avoidPts(pts,L,W){const A=FUget().avoid;if(!A.length)return;
+  pts.forEach(p=>{let x=p.u*L,y=(1-p.v)*W;A.forEach(R=>{if(x>R.x-.05&&x<R.x+R.w+.05&&y>R.y-.05&&y<R.y+R.h+.05){
+    if(R.y<.02&&R.w>=R.h)y=R.y+R.h+.3;else if(R.y+R.h>W-.02&&R.w>=R.h)y=R.y-.3;else if(R.x<.02)x=R.x+R.w+.3;else x=R.x-.3}});p.u=clamp(x/L,0,1);p.v=clamp(1-y/W,0,1)})}
+/* LED under the upper cabinets: runs 30 cm from the wall, along the cabinets */
+function ucabPts(total){const F=FUget(),L=S.L,W=S.W,out=[];let rem=total;F.cab.forEach(c=>{if(rem<=.05)return;const len=Math.min(c.b-c.a,rem),m=c.a+len/2,d=.3;rem-=len;
+  if(c.s==="b")out.push({u:m/L,v:1-d/W,lenM:len,side:"b",ub:c.ub});else if(c.s==="f")out.push({u:m/L,v:d/W,lenM:len,side:"f",ub:c.ub});
+  else if(c.s==="l")out.push({u:d/L,v:1-m/W,lenM:len,vert:true,side:"l",ub:c.ub});else out.push({u:1-d/L,v:1-m/W,lenM:len,vert:true,side:"r",ub:c.ub})});return out}
+const FALB={wd:[200,186,160],klo:[214,204,188],kup:[214,204,188],isl:[214,204,188],bed:[176,166,150],pil:[228,222,210],ns:[150,128,100],desk:[160,134,104],dt:[160,134,104],otab:[150,140,125],
+  bk:[120,96,72],art:[236,226,200],mir:[196,212,222],seat:[140,118,96],cnt:[200,186,160],tree:[70,92,58],trunk:[92,74,56]};
+function vizFur(){const F=FUget(),L=S.L,W=S.W,out=[],bx=(k,R,y0,y1)=>out.push({k,alb:FALB[k],x0:R.x-L/2,x1:R.x+R.w-L/2,z0:W-R.y-R.h,z1:W-R.y,y0,y1});
+  F.items.forEach(it=>{switch(it.k){
+    case"path":return;
+    case"dt":case"desk":case"otab":{bx(it.k,it,it.z1-.04,it.z1);[[it.x+.04,it.y+.04],[it.x+it.w-.09,it.y+.04],[it.x+.04,it.y+it.h-.09],[it.x+it.w-.09,it.y+it.h-.09]].forEach(([x,y])=>bx(it.k,{x,y,w:.05,h:.05},0,it.z1-.04));return}
+    case"tree":{const cx=it.x+it.w/2,cy=it.y+it.h/2;bx("trunk",{x:cx-.07,y:cy-.07,w:.14,h:.14},0,it.z1*.55);bx("tree",it,it.z1*.55,it.z1);return}
+    case"bed":bx("bed",it,0,.45);bx("pil",pillowRect(it),.45,.55);return;
+    default:bx(it.k,it,it.z0,it.z1)}});
+  return out}
+/* the furniture answers, in words (summary line, WhatsApp, print) */
+function furList(){const o=[],r=S.room;
+  if(r==="bedroom"){o.push(S.beds===0?"בלי מיטות":S.beds===1?"מיטה אחת":`${S.beds} מיטות`);if(S.wd.on)o.push(`ארון ${Math.round(S.wd.len*100)} ס״מ`);if(S.desk.on)o.push("שולחן")}
+  if(r==="kitchen")o.push(S.kit.sh==="l"?"מטבח בצורת ר":"מטבח לאורך קיר");
+  if(S.door&&!ROOMS[r].out)o.push("דלת "+WSIDE[S.door.w]);
+  return o}
+/* dragging a fixture in the 3D view moves it like on the plan: 25 cm grid, the same stored position */
+Viz.onDrag((key,X,Z,ph)=>{if(ph==="end"){render();$("#live").textContent=posTxt(key);return}if(!findInst(key))return;moveTo(key,X+S.L/2,S.W-Z,"grid");selKey=key;schedule()});
+
 /* ---------------- "הוספה מהקטלוג" in the result: a picker over the page ---------------- */
 const cpk=$("#cpk"),cpQ=$("#cpQ"),cpCat=$("#cpCat"),cpRes=$("#cpRes");let cpLast=null,cpMode="";
 function cpSearch(){
@@ -2786,7 +3177,7 @@ const placeTxt=lo=>{if(!lo)return "";if(lo.custom)return "מיקום שסומן 
 const lineIco=x=>x.src==="gen"?icoSym(x.t):ico(x.p.cat);
 const qTxt=x=>x.src==="gen"&&isM(x.t)?num1(x.q)+" מ׳":String(x.q);
 function lineMeta(x){const lo=LY&&LY.lines.find(o=>o.ln.id===x.id),m=x.src==="gen"&&isM(x.t),sp=lo&&x.ok?spacing(lo.pts,S.L,S.W):null;
-  return [x.src==="cat"?`מק״ט ⁨${x.sku}⁩`:"",x.w!=null?`${fmtN(x.w)} וואט${m?" למטר":""}`:"אין נתון הספק",placeTxt(lo),sp?spTxt(sp):""].filter(Boolean).join(" · ")}
+  return [x.src==="gen"&&x.st.fk?"אור ממוקד":"",x.dbl?`זוגיים, ${x.q*2} ראשים`:"",x.src==="cat"?`מק״ט ⁨${x.sku}⁩`:"",x.w!=null?`${fmtN(x.w)} וואט${m?" למטר":""}`:"אין נתון הספק",placeTxt(lo),sp?spTxt(sp):""].filter(Boolean).join(" · ")}
 let liveT;
 function render(){
   const c=calc(), r=c.r, k=curK(), rc=rec(), open=c.open, ip=ipRec();
@@ -2800,12 +3191,17 @@ function render(){
   press($("#rWall"),v=>v===S.walls);press($("#rAtm"),v=>v===S.atm);
   const ra=$("#rAct");if(ra)press(ra,v=>S.acts.includes(v));
   $$("#q3in [data-yn]").forEach(g=>press(g,v=>S.yn[g.dataset.yn]===(v==="1")));
+  {const rf=$("#rFoc");if(rf)press(rf,v=>S.foc.includes(v));$$("#q3in [data-f]").forEach(g=>press(g,v=>fVal(g.dataset.f)===v));
+   const wb=$("#wdBox");if(wb)wb.hidden=!S.wd.on;const db=$("#deskBox");if(db)db.hidden=!S.desk.on;const dp=$("#doorP");if(dp)dp.hidden=!S.door}
   $$("#cards .card").forEach(b=>b.setAttribute("aria-pressed",S.types.includes(b.dataset.t)));
-  $("#toRes").disabled=!S.types.length;$("#cardsHint").hidden=!!S.types.length;
+  const canRes=!!(S.types.length||S.cat.length||S.gen.length);$("#toRes").disabled=!canRes;$("#cardsHint").hidden=canRes;
+  $("#q5Cat").textContent=S.cat.length?`נבחרו מהקטלוג: ${S.cat.length}. לבחירת עוד גוף`:"או לבחור גוף מסוים מהקטלוג";
   $("#fCov").hidden=!cvq;$("#fYw").hidden=!yd||!WZ.cov;$("#dimBox").hidden=cvq&&(!WZ.cov||(yd&&!WZ.yw));
   $("#fH").hidden=open;$("#fWall").hidden=open;
   if(document.activeElement!==nL)nL.value=String(S.L);if(document.activeElement!==nW)nW.value=String(S.W);
-  rH.value=S.H;oH.textContent=num1(S.H);fillTo(rH,S.H);
+  rH.value=S.H;if(document.activeElement!==oH)oH.value=String(Math.round(S.H*100)/100);fillTo(rH,S.H);
+  press($("#rCeil"),v=>v===S.ceil);$("#fCeil").hidden=open||!!ROOMS[S.room].out;$("#ceilHint").hidden=!conc();
+  {const k0=rec().k;$("#prefK").textContent=`גוון שמתאים לבחירה הזו: ${k0}K, ${cctInfo(k0).he}.`}
   layoutWiz();
   caOptions();
 
@@ -2818,8 +3214,11 @@ function render(){
     $("#eqn").innerHTML=`${dimTxt(c.A)} מ״ר × ${r.lux} לוקס${pf} ÷ ${f} = ${fmt(roundLm(c.lm))} לומן ÷ 90 = ${c.w} וואט<small>${f}: כמה מהאור מגיע בפועל לחדר, ${open?"וכשאין תקרה מחשבים כמו בקירות כהים, כי חלק מהאור בורח למעלה.":"לפי צורת החדר וצבע הקירות."} נורת לד בגוף שלם נותנת כ-90 לומן לוואט.</small>`;
     const pl=$("#pList"),sig=c.all.map(x=>x.id).join(",");
     if(pl.dataset.sig!==sig){pl.dataset.sig=sig;
-      pl.innerHTML=c.all.map((x,i)=>`<li class="pl" style="--i:${i}" data-id="${esc(x.id)}">${lineIco(x)}<span><b>${esc(x.name)}</b><small data-meta></small><button type="button" class="pl-rm" data-prm aria-label="הסרת ${esc(x.name)} מהתכנון">הסרה</button></span><span class="qty"><button type="button" data-pinc aria-label="עוד של ${esc(x.name)}"><svg aria-hidden="true"><use href="#i-plus"/></svg></button><output aria-live="polite"></output><button type="button" data-pdec aria-label="פחות של ${esc(x.name)}"><svg aria-hidden="true"><use href="#i-minus"/></svg></button></span></li>`).join("")}
-    c.all.forEach(x=>{const li=pl.querySelector(`[data-id="${CSS.escape(x.id)}"]`);if(!li)return;$("[data-meta]",li).textContent=lineMeta(x);$("output",li).textContent=qTxt(x)});
+      pl.innerHTML=c.all.map((x,i)=>`<li class="pl" style="--i:${i}" data-id="${esc(x.id)}">${lineIco(x)}<span><b>${esc(x.name)}</b><small data-meta></small>${x.src==="gen"&&DBL.includes(x.t)?`<span class="seg sm2" role="group" aria-label="${esc(x.name)}: בודדים או זוגיים"><button type="button" data-dbl="0" aria-pressed="false">בודדים</button><button type="button" data-dbl="1" aria-pressed="false">זוגיים</button></span><br>`:""}<button type="button" class="pl-rm" data-prm aria-label="הסרת ${esc(x.name)} מהתכנון">הסרה</button></span><span class="qty"><button type="button" data-pinc aria-label="עוד של ${esc(x.name)}"><svg aria-hidden="true"><use href="#i-plus"/></svg></button><output aria-live="polite"></output><button type="button" data-pdec aria-label="פחות של ${esc(x.name)}"><svg aria-hidden="true"><use href="#i-minus"/></svg></button></span></li>`).join("")}
+    c.all.forEach(x=>{const li=pl.querySelector(`[data-id="${CSS.escape(x.id)}"]`);if(!li)return;$("[data-meta]",li).textContent=lineMeta(x);$("output",li).textContent=qTxt(x);$$("[data-dbl]",li).forEach(b=>b.setAttribute("aria-pressed",(b.dataset.dbl==="1")===!!x.dbl))});
+    const nF=c.all.filter(x=>x.src==="gen"&&x.st.fk).length;
+    $("#resSub").textContent=!c.all.length?"עוד לא נבחרו גופים.":nF?"אור ממוקד על מה שחשוב לכם, ואור כללי שמשלים אותו.":"אור כללי לחדר. אור ממוקד מוסיפים בשאלה 3, מה חשוב לכם להאיר.";
+    $("#resetP").hidden=!S.gen.some(isEd);
     $("#pTot").innerHTML=has?`בהצעה: <b>${fmt(c.cw)} וואט</b> · ${pc}% ממה שהחדר צריך${s==="ok"?"":` · <span>${STATE_HE[s]}</span>`}`:"עוד לא נבחרו גופים.";
     const tips=[];S.acts.forEach(a=>tips.push(ACTS[a].tip));Object.keys(S.yn).forEach(y=>{if(S.yn[y])tips.push(YN[y].tip)});if(r.note)tips.push(r.note);
     if(ip)tips.push(`בחוץ מומלץ IP${ip} ומעלה. ${IP_WHAT}`);
@@ -2849,7 +3248,7 @@ function render(){
   $("#hudRoom").textContent=WZ.done[0]?`${r.he}${WZ.done[1]?` · ${dimTxt(S.L)} × ${dimTxt(S.W)} מ׳${open?" · בלי תקרה":` · תקרה ${num1(S.H)} מ׳`}`:""}`:"";
   const lr=k2rgb(k).map(v=>v+(255-v)*.1);
   Viz.set({n:{L:S.L,W:S.W,H:effH(),E:has?c.pct:0,cove:LY.cove},rgb:lr,wall:WALLS[open?"dark":S.walls].alb,lab:{L:S.L,W:S.W,H:effH()},open,dims:WZ.done[1]||WZ.open===1,show:WZ.done[0]?1:0,
-    ws:wallSet(),wh:yd?wallTop():0,posts:yd&&!open&&S.yw<4});
+    ws:wallSet(),wh:yd?wallTop():0,posts:yd&&!open&&S.yw<4,fur:vizFur(),door:FUget().door});
   Viz.setLights(vizLights(LY),has);
   $("#viz").classList.toggle("room",!!WZ.done[0]);
   $("#vizMsg").textContent=!WZ.done[0]?"בחרו סוג חדר, והוא יופיע כאן.":has?"":WZ.open===4||WZ.done[3]?"בחרו סוג תאורה, והחדר יידלק.":"עוד כמה שאלות, והחדר יידלק.";
@@ -2871,6 +3270,7 @@ function render(){
   saveState();
 }
 $("#pList").addEventListener("click",e=>{const li=e.target.closest(".pl");if(!li)return;const id=li.dataset.id,st=stOf(id);if(!st)return;
+  const db=e.target.closest("[data-dbl]");if(db){if(id.startsWith("g:"))setDbl(st,db.dataset.dbl==="1");return}
   if(e.target.closest("[data-prm]")){const nm=li.querySelector("b").textContent;if(id.startsWith("g:"))removeGroup(st);else{S.cat.splice(S.cat.indexOf(st),1);if(S.last===id)S.last=null;S.manual=true;render()}
     $("#live").textContent=`הוסר מהתכנון: ${nm}.`;($("#pList [data-prm]")||$("#cpOpen")).focus({preventScroll:true});return}
   const up=!!e.target.closest("[data-pinc]"),dn=!!e.target.closest("[data-pdec]");if(!up&&!dn)return;
@@ -2879,18 +3279,18 @@ $("#pList").addEventListener("click",e=>{const li=e.target.closest(".pl");if(!li
 const roomLine=()=>`${ROOMS[S.room].he}${S.room==="balcony"?(S.covered?" מקורה":" פתוחה, בלי תקרה"):isYard()?(S.covered?" מקורה":" פתוחה")+", "+YWT[S.yw]:""}`;
 function planText(c,rc){
   let t=`היי, תכננתי תאורה במחשבון באתר.\n`;
-  t+=`החדר: ${roomLine()}, ${dimTxt(S.L)} × ${dimTxt(S.W)} מ׳${c.open?"":`, תקרה ${num1(S.H)} מ׳, קירות ${WALLS[S.walls].he}`}.\n`;
+  t+=`החדר: ${roomLine()}, ${dimTxt(S.L)} × ${dimTxt(S.W)} מ׳${c.open?"":`, תקרה ${num1(S.H)} מ׳${ROOMS[S.room].out?"":conc()?" (בטון)":" (גבס)"}, קירות ${WALLS[S.walls].he}`}.\n`;
   const a=ansList();if(a.length)t+=`בחדר: ${a.join(", ")}.\n`;
   t+=`אור: ${PREFS[S.pref]}.\n`;
-  t+=`צריך: כ-${c.w} וואט לד (כ-${fmt(roundLm(c.lm))} לומן).\n`;
   if(ipRec())t+=`אטימות מומלצת: IP${ipRec()} ומעלה.\n`;
   t+=`גוון מומלץ: ${rc.k}K${S.atm?`, לאווירה של ${ATM[S.atm].he}`:""}.\n`;
   if(c.all.length)t+=`מה בחרתי:\n`+c.all.map(x=>{const lo=LY&&LY.lines.find(o=>o.ln.id===x.id),m=x.src==="gen"&&isM(x.t),pl=placeTxt(lo),sp=lo&&x.ok?spacing(lo.pts,S.L,S.W):null;
-    const base=x.src==="cat"?`${x.name}, מק״ט ${x.sku}${x.fin?`, ${x.fin}`:""}`:`${x.name} ${x.w} וואט${m?" למטר":""}`;
-    let s2=`- ${base} × ${qTxt(x)}${pl?`, ${pl}`:""}${sp?` (${spTxt(sp)})`:""}${x.noW?" (אין נתון הספק)":!x.ok?" (לא לחוץ פתוח)":""}`;
+    const base=x.src==="cat"?`${x.name}, מק״ט ${x.sku}${x.fin?`, ${x.fin}`:""}`:`${x.name}${x.dbl?" (זוגיים)":""} ${x.w} וואט${m?" למטר":""}`;
+    let s2=`- ${base} × ${qTxt(x)}${x.dbl?` (${x.q*2} ראשים)`:""}${pl?`, ${pl}`:""}${sp?` (${spTxt(sp)})`:""}${x.noW?" (אין נתון הספק)":!x.ok?" (לא לחוץ פתוח)":""}`;
     if(lo&&lo.custom)s2+=`\n  נקודות (מ׳ מהקיר השמאלי, מ׳ מהקיר העליון): `+lo.pts.map(p=>`${m2(p.u*S.L)}/${m2((1-p.v)*S.W)}`).join(", ");
     return s2}).join("\n")+"\n";
   if(c.sel.length)t+=`סה״כ ${fmt(c.cw)} וואט, ${Math.round(c.pct*100)}% ממה שהחדר צריך.\n`;
+  t+=`החדר צריך בסך הכול כ-${c.w} וואט לד (כ-${fmt(roundLm(c.lm))} לומן).\n`;
   if(PH.has())t+=`יש לי גם תמונה של החדר עם האורות, אשלח אותה כאן.\n`;
   return t+`אשמח שתעברו על זה איתי.`;
 }
@@ -2905,9 +3305,9 @@ function buildPrint(){
   const rowsH=c.all.map((x,i)=>{const lo=L2.lines.find(o=>o.ln.id===x.id),sp=lo&&x.ok?spacing(lo.pts,S.L,S.W):null,m=x.src==="gen"&&isM(x.t);
     const nm=esc(x.name)+(x.src==="cat"&&x.fin?`<br><small>${esc(x.fin)}</small>`:"");
     const lmT=!x.ok?"לא נספר":x.noW?"אין נתון":fmt(Math.round(x.E/10)*10);
-    return `<tr><td>${i+1}</td><td>${x.sym?legend(x.sym):""}${nm}</td><td class="ltr">${x.src==="cat"?esc(x.sku):"-"}</td><td>${x.w!=null?fmtN(x.w)+" וואט"+(m?" למטר":""):"אין נתון"}</td><td>${qTxt(x)}</td><td>${esc(placeTxt(lo)||"-")}</td><td>${lmT}</td><td>${sp?spTxt(sp).replace("מרווח ",""):""}</td></tr>`}).join("");
+    return `<tr><td>${i+1}</td><td>${x.sym?legend(x.sym):""}${nm}</td><td class="ltr">${x.src==="cat"?esc(x.sku):"-"}</td><td>${x.w!=null?fmtN(x.w)+" וואט"+(m?" למטר":""):"אין נתון"}</td><td>${qTxt(x)}${x.dbl?` זוגיים (${x.q*2} ראשים)`:""}</td><td>${esc(placeTxt(lo)||"-")}</td><td>${lmT}</td><td>${sp?spTxt(sp).replace("מרווח ",""):""}</td></tr>`}).join("");
   const ans=ansList();
-  const room=[["החדר",roomLine()],["מידות",`${dimTxt(S.L)} × ${dimTxt(S.W)} מ׳ · ${dimTxt(c.A)} מ״ר`],["תקרה",c.open?"בלי תקרה":`${num1(S.H)} מ׳`],["קירות",isYard()?YWT[S.yw]:c.open?"חוץ":WALLS[S.walls].he],
+  const room=[["החדר",roomLine()],["מידות",`${dimTxt(S.L)} × ${dimTxt(S.W)} מ׳ · ${dimTxt(c.A)} מ״ר`],["תקרה",c.open?"בלי תקרה":`${num1(S.H)} מ׳${ROOMS[S.room].out?"":conc()?", בטון":", גבס"}`],["קירות",isYard()?YWT[S.yw]:c.open?"חוץ":WALLS[S.walls].he],
     ["אור",PREFS[S.pref]],["גוון מומלץ",`${rc.k}K`],["בחדר",ans.length?ans.join(", "):"-"],["תאריך",new Date().toLocaleDateString("he-IL")]];
   let ph="";if(PH.has()){try{ph=`<div class="ps-ph"><img src="${PH.dataURL()}" alt="ההדמיה על התמונה שלכם"><p>ההדמיה על התמונה שלכם</p></div>`}catch(e){}}
   $("#printSheet").innerHTML=`<div class="ps-h"><b>תכנון תאורה</b><span>ספוטליין · ייעוץ ושיווק תאורה · 08-6377033</span></div>
@@ -3225,7 +3625,7 @@ fetch("assets/products.json").then(r=>{if(!r.ok)throw new Error(r.status);return
   PRODS=prepP(Array.isArray(raw)?raw:[]);PMAP=new Map(PRODS.map(p=>[p.id,p]));pLoaded=true;
   S.cat=S.cat.filter(x=>PMAP.has(x.pid));render();if(caOpen)caSearch();if(cpk.classList.contains("on"))cpSearch();
 }).catch(()=>{pErr=true;pLoaded=true;render();if(caOpen)caSearch();if(cpk.classList.contains("on"))cpSearch()});
-window.__calc={S,WZ,calc,render,layout:()=>LY,addCat,moveTo,buildPrint,propose,dupGroup,PH,planText,addAt,removeAt,setArr,openPicker};
+window.__calc={S,WZ,calc,render,layout:()=>LY,addCat,moveTo,buildPrint,propose,dupGroup,PH,planText,addAt,removeAt,setArr,openPicker,FUget,isEd,Viz};
 window.__sl=true;
 })();
 </script>
