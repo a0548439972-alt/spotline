@@ -994,7 +994,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
           <div class="seg" id="toneSeg" role="group" aria-labelledby="toneL">
             <span class="knob" aria-hidden="true"></span>
             <button type="button" data-tone="warm" aria-pressed="true"><b>חם</b><small>3000K</small></button>
-            <button type="button" data-tone="neutral" aria-pressed="false"><b>ניטרלי</b><small>4000K</small></button>
+            <button type="button" data-tone="neutral" aria-pressed="false"><b>ניטרלי</b><small>4500K</small></button>
             <button type="button" data-tone="cool" aria-pressed="false"><b>קר</b><small>6000K</small></button>
           </div>
         </div>
@@ -1311,7 +1311,7 @@ const PRODUCTS=[
  {id:"SL-3120",n:"מנורה תלויה דיסק",c:"pendant",img:"assets/p6.jpg",f:["tr","br","bk"]},
  {id:"SL-4011",n:"מנורת שולחן פטרייה",c:"table",img:"assets/p7.jpg",f:["tr","br"]}
 ];
-const TONES={warm:{l:"חם 3000K",rgb:"255,176,90"},neutral:{l:"ניטרלי 4000K",rgb:"255,244,225"},cool:{l:"קר 6000K",rgb:"160,196,255"}};
+const TONES={warm:{l:"חם 3000K",rgb:"255,176,90"},neutral:{l:"ניטרלי 4500K",rgb:"255,244,225"},cool:{l:"קר 6000K",rgb:"160,196,255"}};
 const catName=id=>(CATS.find(c=>c.id===id)||{}).n||"";
 const prod=id=>PRODUCTS.find(p=>p.id===id);
 const ico=id=>`<svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><use href="#c-${id}"/></svg>`;

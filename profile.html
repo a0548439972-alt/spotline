@@ -524,6 +524,7 @@ section[id]{scroll-margin-top:calc(var(--hdr) + 12px)}
 .wq[data-st="open"] .wq-b{display:block;animation:fadeUp .6s var(--p3) both}
 .wq-h{font-family:var(--fd);font-weight:700;font-size:clamp(30px,2.8vw,44px);line-height:1.08;margin-bottom:22px;outline:0}
 .wq-sub{font-size:15.5px;color:var(--mut);margin:-12px 0 22px;line-height:1.55;max-width:520px}
+@media (max-width:560px){#wO{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}#wO button{justify-content:center}}
 .wq-hint{font-size:14.5px;color:var(--mut);margin-top:12px;line-height:1.55}
 .wq-hint b{color:#fff;font-weight:500}
 .wq-go{display:flex;align-items:center;flex-wrap:wrap;gap:12px 16px;margin-top:30px}
@@ -1195,7 +1196,7 @@ const DEMO=[
  {id:"SL-2236",n:"מנורת קיר עגולה עם ספוט עץ",img:"assets/p3.jpg"},{id:"SL-3105",n:"מנורה תלויה כיפה טרוורטין",img:"assets/p5.jpg"},
  {id:"SL-2248",n:"מנורת קיר אנכית טרוורטין",img:"assets/p4.jpg"},{id:"SL-3120",n:"מנורה תלויה דיסק",img:"assets/p6.jpg"},
  {id:"SL-4011",n:"מנורת שולחן פטרייה",img:"assets/p7.jpg"}];
-const DFIN={tr:"טרוורטין",br:"פליז",bk:"שחור",wh:"לבן",wd:"עץ"}, DTONE={warm:"חם 3000K",neutral:"ניטרלי 4000K",cool:"קר 6000K"};
+const DFIN={tr:"טרוורטין",br:"פליז",bk:"שחור",wh:"לבן",wd:"עץ"}, DTONE={warm:"חם 3000K",neutral:"ניטרלי 4500K",cool:"קר 6000K"};
 const SWC={"שחור":"#161616","לבן":"#efede8","אפור":"#8d8c88","אלומיניום":"#b8bbbe","ברונזה":"#8a6a42","פליז":"#b8893b","זהב":"#c9a24a","נחושת":"#b06a3b","ניקל":"#c4c3bd","שחור מבריק":"#0b0b0b"};
 const dot=c=>{const b=SWC[c];return `<i${b?` style="background:${b}"`:' class="nd"'} aria-hidden="true"></i>`};
 function kText(k){k=String(k||"").trim();if(!k)return "";if(!/\d/.test(k))return "אור "+k;const n=k.match(/\d{4}/g)||[];return n.length>1?n.join("/")+"K":n[0]+"K"}
@@ -1241,9 +1242,9 @@ const TYPES=[
   {id:"pend",n:"תלוי",d:"תלוי בכבלים מהתקרה, מעל שולחן או אי."},
   {id:"strip",n:"סרט לד",d:"סרט בלבד, בלי גוף. לנישה, למדף או לארון."}];
 const typeOf=id=>TYPES.find(t=>t.id===id);
-const KS=[{v:"3000",n:"חם",c:"#ffb46b"},{v:"4000",n:"ניטרלי",c:"#fff1d6"},{v:"6000",n:"קר",c:"#dfe7ff"}];
+const KS=[{v:"3000",n:"חם",c:"#ffb46b"},{v:"4500",n:"ניטרלי",c:"#fff1d6"},{v:"6000",n:"קר",c:"#dfe7ff"}];
 const kOf=v=>KS.find(k=>k.v===v)||KS[0];
-const WPM=[10,14,20];
+const WPM=[7,10,14,20,24,28];
 const PSU=[30,60,100,150,200,300];
 const DEF_FINS=["לבן","שחור","אלומיניום"];
 const MAXR=12, MIN=5, MAX=2000;
@@ -1323,8 +1324,8 @@ const runShort=run=>run.shape?`${run.shape==="L"?"ר":SH[run.shape].n} · ${dims
 
 /* models */
 function inferType(n){if(/שקוע/.test(n))return "rec";if(/על הטיח|עה"ט|עה״ט|צמוד/.test(n))return "sur";if(/תלי|תלוי/.test(n))return "pend";return ""}
-function modelK(m){const n=(String(m.k).match(/\d{4}/)||[])[0];if(!n)return "";return +n<3500?"3000":+n<5000?"4000":"6000"}
-function modelW(m){if(m.w==null||m.w>24)return 0;return WPM.reduce((a,b)=>Math.abs(b-m.w)<Math.abs(a-m.w)?b:a)}
+function modelK(m){const n=(String(m.k).match(/\d{4}/)||[])[0];if(!n)return "";return +n<3500?"3000":+n<5250?"4500":"6000"}
+function modelW(m){if(m.w==null||m.w>28)return 0;return WPM.reduce((a,b)=>Math.abs(b-m.w)<Math.abs(a-m.w)?b:a)}
 const finsFor=run=>{const m=modelOf(run);return m&&m.fins.length?m.fins:DEF_FINS};
 function applyModel(run,m){
   run.model=m?m.id:"";if(!m)return;
@@ -1469,7 +1470,7 @@ function renderWiz(){
   press($("#finO"),"[data-fin]",b=>b.dataset.fin===run.fin);
   press($("#kO"),"[data-k]",b=>b.dataset.k===run.k);
   press($("#wO"),"[data-w]",b=>+b.dataset.w===run.wpm);
-  $("#wHint").textContent="10W לאור רך ועקיף, 14W לרוב החדרים, 20W לאור חזק במטבח או במשרד."+(run.wpmModel&&modelOf(run)?" בחרנו לפי הדגם שלכם.":"");
+  $("#wHint").textContent="7W עד 10W לאור רך ועקיף, 14W לרוב החדרים, 20W ומעלה לאור חזק במטבח, במשרד או בחנות."+(run.wpmModel&&modelOf(run)?" בחרנו לפי הדגם שלכם.":"");
   /* 4: feed */
   const tot=g&&g.ok?g.total:0,rng=$("#fdR"),mx=g&&g.closed?Math.max(0,Math.ceil(tot/5)*5-5):Math.floor(tot/5)*5;
   rng.max=String(mx||0);rng.disabled=!tot;

@@ -505,6 +505,24 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
 .klab{position:relative;height:20px;font-size:13px;color:var(--mut)}
 .klab span{position:absolute;top:0;translate:50% 0;white-space:nowrap}
 .ktip{margin-top:16px;font-size:15px;color:#d6d0c4;line-height:1.6}
+/* three tones only: segmented buttons */
+.kseg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line2);margin-top:18px}
+.kseg button{position:relative;min-height:72px;padding:12px 6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#d6d0c4;font-size:15.5px;transition:background-color .3s,color .3s}
+.kseg button+button{border-inline-start:1px solid var(--line2)}
+.kseg button:hover{background:#151413;color:#fff}
+.kseg .kn{font-weight:500}
+.kseg .kv{direction:ltr;font-size:13px;color:var(--mut)}
+.kseg .ksw{width:14px;height:14px;border-radius:50%;border:1px solid rgba(255,255,255,.35);margin-bottom:3px}
+.kseg button[aria-pressed="true"]{background:#fff;color:#0a0a0a}
+.kseg button[aria-pressed="true"] .kn{font-weight:700}
+.kseg button[aria-pressed="true"] .kv{color:#4a4640}
+.kseg button[aria-pressed="true"] .ksw{border-color:rgba(0,0,0,.35)}
+.kseg .kr{position:absolute;top:-10px;left:50%;translate:-50% 0;background:var(--y);color:#0a0a0a;font-size:11.5px;font-weight:700;line-height:1;padding:4px 8px;display:none;white-space:nowrap}
+.kseg button.rec .kr{display:block}
+.kseg.sm{display:inline-flex;margin-top:0;background:rgba(10,10,9,.74)}
+.kseg.sm button{min-height:32px;padding:0 10px;flex-direction:row;gap:6px;font-size:12.5px}
+.kseg.sm .kv{font-size:11.5px}
+.kseg.sm button.rec::after{content:"";position:absolute;top:4px;inset-inline-end:4px;width:5px;height:5px;border-radius:50%;background:var(--y)}
 
 /* ---------- tips list ---------- */
 .why-row{margin-top:clamp(36px,4.4vw,56px);border-bottom:1px solid var(--line)}
@@ -1019,6 +1037,74 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
 .viz:not(.lit) .vhint{opacity:0}
 @media (max-width:999px){.vhint{display:block;bottom:10px;left:10px;font-size:11.5px}.vh2{display:none}}
 @media (max-width:560px){#rPref button{min-height:66px;padding:6px 6px;font-size:15px}.q3s{padding-inline-start:10px}}
+/* the customer's own plan or photo of the room */
+.upq{margin-top:26px;padding-top:20px;border-top:1px solid var(--line)}
+.upq-r{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+.upq-t{font-size:16.5px;font-weight:500;color:#f3efe7}
+.upq .btn{height:48px;padding:0 20px;font-size:15px;gap:9px}
+.upq .btn svg{width:13px;height:13px}
+.upq-s{margin-top:8px;font-size:13.5px;color:var(--mut);line-height:1.5}
+.up-list{list-style:none;display:grid;gap:8px;margin-top:12px}
+.up-list:empty{display:none}
+.up-list li{display:flex;align-items:center;gap:12px;padding:8px;border:1px solid var(--line2);background:#0e0d0c}
+.up-tn{width:64px;height:48px;object-fit:cover;background:#fff;flex:none}
+.up-tnb{flex:none;display:block}
+.up-tnb:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.up-i{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.up-i b{font-size:14.5px;font-weight:500;color:#f3efe7}
+.up-i small{font-size:13px;color:var(--mut);line-height:1.45}
+.up-list .lnk{flex:none;min-height:44px;padding:0 8px}
+.up-bar:empty{display:none}
+.up-bar .pb-l{color:#f3efe7}
+.up-op{display:inline-flex;align-items:center}
+.up-op input{width:120px}
+.up-th{display:inline-flex;align-items:center;gap:9px;min-height:38px;padding:3px 3px 3px 12px;border:1px solid var(--line2);font-size:14px;color:#e9e4da;transition:border-color .3s}
+.up-th:hover{border-color:#fff}
+.up-th img{width:46px;height:32px;object-fit:cover;background:#fff}
+.up-hint{flex-basis:100%;font-size:12.5px;color:var(--dim);line-height:1.5}
+.pul{pointer-events:none}
+.up-note{margin-top:14px;font-size:14.5px;color:#f3efe7;line-height:1.5}
+.up-note::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--y);margin-inline-end:9px;vertical-align:1px}
+.dr-f .up-note{margin:0 0 10px;font-size:13.5px}
+/* the two dialogs */
+.updlg{position:fixed;inset:0;z-index:300;margin:auto;width:min(520px,calc(100% - 32px));height:fit-content;max-height:calc(100% - 32px);overflow:auto;padding:0;border:1px solid var(--line2);background:#0f0e0d;color:var(--tx);overscroll-behavior:contain}
+.updlg:not([open]){display:none}
+.updlg::backdrop{background:rgba(0,0,0,.74)}
+.upd-in{display:flex;flex-direction:column;gap:14px;padding:26px 24px 18px}
+.upd-in h2{font-family:var(--fd);font-weight:700;font-size:25px;line-height:1.2;color:#fff}
+.upd-msg{font-size:15px;color:#d6d0c4;line-height:1.55}
+.upd-msg:empty{display:none}
+.upd-pv img{max-height:min(34vh,300px);margin:0 auto;background:#fff;border:1px solid var(--line2)}
+.upd-ch{display:grid;gap:10px}
+.upd-b{display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-height:68px;padding:12px 16px;border:1px solid var(--line2);text-align:start;transition:border-color .3s,background-color .3s}
+.upd-b b{font-size:17px;font-weight:700;color:#fff}
+.upd-b small{font-size:13.5px;color:var(--mut);line-height:1.45}
+.upd-b:hover,.upd-b:focus-visible{border-color:var(--y);background:#171513}
+.upd-x{align-self:flex-start;min-height:44px}
+.updlg[data-m="load"] .upd-pv,.updlg[data-m="load"] .upd-ch,.updlg[data-m="err"] .upd-pv,.updlg[data-m="err"] .upd-ch{display:none}
+.updlg[data-m="load"] h2::after{content:"";display:block;height:2px;margin-top:16px;background:linear-gradient(to left,var(--y) 0 30%,rgba(255,255,255,.12) 30%);background-size:200% 100%;animation:upLoad 1.1s linear infinite}
+@keyframes upLoad{from{background-position:100% 0}to{background-position:-100% 0}}
+.upv{width:min(1100px,calc(100% - 24px))}
+.upv .upd-in{padding:14px 16px 16px}
+.upv-h{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.upv-h h2{font-size:20px}
+.upv img{max-height:calc(100vh - 190px);margin:0 auto}
+.upv-f{display:flex;flex-wrap:wrap;align-items:center;gap:10px 22px}
+.upv-f .btn{height:48px;padding:0 20px;font-size:15px}
+@media (prefers-reduced-motion:reduce){.updlg[data-m="load"] h2::after{animation:none}}
+@media (max-width:560px){
+  .upq .btn{width:100%;justify-content:center}
+  .up-bar{gap:8px}
+  .up-bar .pb-b,.up-th{min-height:44px}
+  .up-bar .pb-l{flex-basis:100%}
+  .up-op{flex:1 1 140px}
+  .up-op input{width:100%}
+  .up-add{width:100%;justify-content:center}
+  .upd-in{padding:22px 18px 14px}
+  .upd-in h2{font-size:22px}
+  .upv .upd-in{padding:12px}
+  .upv img{max-height:calc(100vh - 210px)}
+}
 </style>
 </head>
 <body>
@@ -1177,6 +1263,11 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
             </div>
             <div class="fld" id="fCeil"><div class="lb" id="lbCeil">סוג התקרה</div><div class="opts" id="rCeil" role="group" aria-labelledby="lbCeil"><button type="button" data-v="gyp" aria-pressed="false">גבס</button><button type="button" data-v="con" aria-pressed="false">בטון</button></div><p class="wq-hint" id="ceilHint" hidden>בתקרת בטון אין גופים שקועים. נציע גופים צמודי תקרה, ספוטים על מסילה ומנורות תלויות.</p>
             </div>
+            <div class="upq" id="upQ">
+              <div class="upq-r"><p class="upq-t">יש לכם תוכנית או תמונה של החדר?</p><button type="button" class="btn btn-o" data-upgo data-upf><svg aria-hidden="true"><use href="#i-plus"/></svg><span class="bl">העלו אותה</span></button></div>
+              <p class="upq-s">תמונה, צילום מהטלפון או PDF. הקובץ נשאר אצלכם במכשיר.</p>
+              <ul class="up-list" id="upList" aria-label="הקבצים שהעליתם"></ul>
+            </div>
             <div class="wq-go"><button type="button" class="btn btn-y" data-next="1"><span class="bl">המשך</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
           </div>
         </div>
@@ -1234,6 +1325,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
             <a class="btn btn-y" data-wa href="#" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg><span class="bl">שלחו לנו את התכנון</span></a>
             <a class="cta-tel" href="tel:086377033">או התקשרו <span>08-6377033</span></a>
           </div>
+          <p class="up-note" data-upnote hidden></p>
           <div class="cta-f"><button type="button" class="lnk" id="printBtn">הדפסה / שמירה כ-PDF</button></div>
         </div>
         <button type="button" class="adv-t" id="advT" aria-expanded="false" aria-controls="adv"><span>לתכנון מתקדם</span><small>למעצבות ולמי שרוצה לדייק</small><svg aria-hidden="true"><use href="#i-chev"/></svg></button>
@@ -1297,7 +1389,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
             <div class="ph-ctl">
               <div class="fld"><div class="lb" id="lbPhT">איזה גוף מוסיפים בנגיעה</div><div class="opts" id="phT" role="group" aria-labelledby="lbPhT"></div></div>
               <div class="fld dim"><div class="top"><label for="phDark">ערב</label><span class="nbox"><output id="phDarkV" for="phDark">65%</output></span></div><input type="range" id="phDark" min="0" max="100" step="1" value="65"></div>
-              <p class="ph-help">נוגעים בתמונה כדי להוסיף גוף, וגוררים כדי להזיז. הגוון משתנה לפי הסליידר "גוון" בהדמיה.</p>
+              <p class="ph-help">נוגעים בתמונה כדי להוסיף גוף, וגוררים כדי להזיז. גוון האור הוא הגוון שבחרתם: חם, ניטרלי או קר.</p>
               <div class="ph-sel" id="phSel" hidden><label><span>מרחק מהמצלמה</span><input type="range" id="phSize" min="40" max="240" step="1" value="100" aria-label="גודל האור שנבחר: קרוב או רחוק"></label><button type="button" class="lnk" id="phDel">הסרת הגוף שנבחר</button></div>
               <p class="ph-scale" id="phScale"></p>
               <div class="ph-f"><button type="button" class="lnk" id="phClear">ניקוי האורות</button><button type="button" class="lnk" id="phOff">הסרת התמונה</button></div>
@@ -1311,7 +1403,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
     <div class="stage" id="stage">
       <div class="viz" id="viz">
         <canvas id="roomCv" role="img" aria-label="הדמיה של החדר לפי התשובות שלכם. אפשר לסובב בגרירה, ולגרור גוף כדי להזיז אותו."></canvas>
-        <div class="hud"><span id="hudRoom"></span><label class="kmini"><span>גוון</span><input type="range" id="kMini" class="krange" min="2200" max="6500" step="100" aria-label="גוון האור בהדמיה, בקלווין"><b id="kMiniV">3000K</b></label></div>
+        <div class="hud"><span id="hudRoom"></span><div class="kmini"><span id="lbKMini">גוון</span><div class="kseg sm" id="kMini" role="group" aria-labelledby="lbKMini" data-kseg></div></div></div>
         <div class="vbtns" role="group" aria-label="זווית הצפייה"><button type="button" data-view="front" aria-pressed="true">מלפנים</button><button type="button" data-view="top" aria-pressed="false">מלמעלה</button><button type="button" data-view="spin" aria-pressed="false">סיבוב</button></div>
         <span class="vhint" aria-hidden="true">אפשר לגרור כל גוף<span class="vh2">. גרירה במקום ריק מסובבת</span></span>
         <p class="viz-msg" id="vizMsg">בחרו סוג חדר, והוא יופיע כאן.</p>
@@ -1321,6 +1413,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
           <div class="pbar" id="pbar">
             <div class="pb-row"><span class="pb-l" id="lbArr">סידור</span><div class="seg" id="rArr" role="group" aria-labelledby="lbArr"><button type="button" data-v="all" aria-pressed="true">בכל החדר</button><button type="button" data-v="side" aria-pressed="false">בצד אחד</button></div><div class="seg" id="rSide" role="group" aria-label="באיזה צד של התוכנית" hidden><button type="button" data-v="t" aria-pressed="false">למעלה</button><button type="button" data-v="b" aria-pressed="false">למטה</button><button type="button" data-v="r" aria-pressed="false">ימין</button><button type="button" data-v="l" aria-pressed="false">שמאל</button></div></div>
             <div class="pb-row"><button type="button" class="pb-b" id="plAdd" aria-pressed="false"><svg aria-hidden="true"><use href="#i-plus"/></svg><span>הוספת גוף</span></button><label class="pb-sel" id="plAddW" hidden><span class="sr">איזה גוף מוסיפים</span><select class="sel" id="plAddT"></select></label><button type="button" class="pb-b" id="plDel" disabled><svg aria-hidden="true"><use href="#i-minus"/></svg><span>הסרת הגוף שנבחר</span></button></div>
+            <div class="pb-row up-bar" id="upBar"></div>
           </div>
           <div class="plan-h"><span id="planH">גררו כל גוף למקום שלו</span><small>כל גוף נצמד לרשת של 25 ס״מ</small></div>
           <div class="plan" id="plan">
@@ -1364,7 +1457,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
   <div class="wrap">
     <div class="shead">
       <h2 class="h2" id="cctH" data-split><span class="l1"><span>איזה גוון</span></span><span class="l2"><span>מתאים לחדר?</span></span></h2>
-      <p data-fade data-d=".1">הזיזו את הסליידר, וראו את אותו חדר באור חם, ניטרלי וקר.</p>
+      <p data-fade data-d=".1">בחנות יש שלושה גוונים: חם, ניטרלי וקר. בחרו גוון, וראו את אותו חדר באור שלו.</p>
     </div>
     <div class="cct" data-fade>
       <!-- placeholder photo: replace assets/calc-room.jpg with a real 16:9 room photo (object-fit stays cover) -->
@@ -1376,14 +1469,13 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
       <div class="cct-side">
         <div class="rec">
           <div class="lb" id="recFor">ההמלצה לסלון</div>
-          <b class="rec-k" id="recK">2700K</b>
+          <b class="rec-k" id="recK">3000K</b>
           <p id="recWhy"></p>
           <button type="button" class="btn btn-o" id="kRec"><span class="bl">להציג את הגוון המומלץ</span></button>
         </div>
         <div class="kfld">
-          <div class="lb"><label for="kRange">גוון האור</label><b id="kVal">3000K</b></div>
-          <div class="kwrap"><input type="range" id="kRange" class="krange" min="2200" max="6500" step="100"><i class="krec" id="kRecTick" aria-hidden="true"></i></div>
-          <div class="klab" aria-hidden="true"><span style="right:11.6%">חם</span><span style="right:41.9%">ניטרלי</span><span style="right:88.4%">קר</span></div>
+          <div class="lb"><span id="lbK">גוון האור</span><b id="kVal">3000K</b></div>
+          <div class="kseg" id="kSeg" role="group" aria-labelledby="lbK" data-kseg></div>
         </div>
         <p class="ktip" id="kTip"></p>
       </div>
@@ -1415,6 +1507,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
         <a class="btn btn-k" data-wa href="#" target="_blank" rel="noopener"><span class="bl">שלחו לנו את התכנון</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
         <a class="btn btn-ok" href="index.html#cats"><span class="bl">לקטלוג המוצרים</span></a>
       </div>
+      <p class="up-note" data-upnote hidden></p>
     </div>
     <ul class="pro-list" id="sumList" data-fade data-d=".15"></ul>
   </div>
@@ -1479,6 +1572,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
     <label class="inp" id="fN"><span>שם</span><input name="n" required placeholder="איך קוראים לכם?" autocomplete="name" aria-describedby="errN"><em class="err" id="errN">נא לכתוב שם</em></label>
     <label class="inp" id="fP"><span>טלפון לחזרה</span><input name="p" type="tel" dir="rtl" required inputmode="tel" autocomplete="tel" placeholder="לאיזה מספר לחזור?" aria-describedby="errP"><em class="err" id="errP">מספר טלפון לא תקין</em></label>
     <label class="inp"><span>הערות (לא חובה)</span><textarea name="note" id="cartNote" rows="2"></textarea></label>
+    <p class="up-note" data-upnote data-upcart hidden></p>
     <button class="btn btn-y" type="submit"><span class="bl">שלחו לי הצעת מחיר</span></button>
     <p class="fine">בלי התחייבות.</p>
   </form>
@@ -1508,6 +1602,28 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
 </div>
 <div class="toast" id="toast" role="status"><span id="toastT"></span><button type="button" id="toastB">לצפייה בסל</button></div>
 <div id="printSheet"></div>
+
+<!-- the customer's own plan or photo: one hidden picker, a question, and a large view -->
+<input type="file" id="upFile" class="sr" accept="image/*,application/pdf,.pdf,.heic,.heif" tabindex="-1" aria-hidden="true">
+<dialog class="updlg" id="upDlg" aria-labelledby="upDlgH" data-m="load">
+  <div class="upd-in">
+    <h2 id="upDlgH">מה העליתם?</h2>
+    <p class="upd-msg" id="upDlgMsg" role="status"></p>
+    <div class="upd-pv"><img id="upDlgImg" alt="הקובץ שהעליתם"></div>
+    <div class="upd-ch">
+      <button type="button" class="upd-b" data-kind="plan"><b>תוכנית של החדר</b><small>תופיע מתחת לגופים בתוכנית מלמעלה, ואפשר לסדר עליה</small></button>
+      <button type="button" class="upd-b" data-kind="photo"><b>תמונה של החדר</b><small>תישאר כאן, ואפשר לפתוח אותה בגדול</small></button>
+    </div>
+    <button type="button" class="lnk upd-x" data-upcancel>ביטול</button>
+  </div>
+</dialog>
+<dialog class="updlg upv" id="upView" aria-labelledby="upViewH">
+  <div class="upd-in">
+    <div class="upv-h"><h2 id="upViewH">התמונה של החדר</h2><button class="x" type="button" data-upclose aria-label="סגירה"><svg aria-hidden="true"><use href="#i-x"/></svg></button></div>
+    <img id="upViewImg" alt="התמונה של החדר שהעליתם">
+    <div class="upv-f"><button type="button" class="btn btn-y" data-uptry><span class="bl">לנסות עליה אורות</span></button><button type="button" class="lnk" data-uprm="photo">הסרת התמונה</button></div>
+  </div>
+</dialog>
 
 <script>
 (function(){
@@ -1547,7 +1663,7 @@ const PRODUCTS=[
  {id:"SL-3120",n:"מנורה תלויה דיסק",c:"pendant",img:"assets/p6.jpg",f:["tr","br","bk"]},
  {id:"SL-4011",n:"מנורת שולחן פטרייה",c:"table",img:"assets/p7.jpg",f:["tr","br"]}
 ];
-const TONES={warm:{l:"חם 3000K"},neutral:{l:"ניטרלי 4000K"},cool:{l:"קר 6000K"}};
+const TONES={warm:{l:"חם 3000K"},neutral:{l:"ניטרלי 4500K"},cool:{l:"קר 6000K"}};
 const catName=id=>(CATS.find(c=>c.id===id)||{}).n||"";
 const prod=id=>PRODUCTS.find(p=>p.id===id);
 const ico=id=>`<svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><use href="#c-${id}"/></svg>`;
@@ -1556,17 +1672,17 @@ const arrow=`<svg aria-hidden="true"><use href="#i-arrow"/></svg>`;
 /* ---------------- calculator data: source of truth is calc-research.md (11.11.2026) ---------------- */
 /* d = the default size we start from, before the customer types their own */
 const ROOMS={
-  living:  {he:'סלון',             lux:150, range:[100,300], wp:0.75, cct:[2700,3000], d:[5,4]},
-  kitchen: {he:'מטבח',             lux:300, range:[200,500], wp:0.75, cct:[3000,4000], d:[4,3], note:'במטבח: מעל משטח העבודה צריך כ-500 לוקס. כדאי אור ממוקד מעל השיש.'},
-  dining:  {he:'פינת אוכל',        lux:200, range:[150,300], wp:0.75, cct:[2700,3000], d:[4,3.5]},
-  bedroom: {he:'חדר שינה',         lux:120, range:[75,200],  wp:0.75, cct:[2700,3000], d:[3.5,3.2]},
-  kids:    {he:'חדר ילדים',        lux:250, range:[150,300], wp:0.75, cct:[3000,4000], d:[3.2,3]},
-  bath:    {he:'אמבטיה',           lux:200, range:[150,300], wp:0.75, cct:[3000,4000], d:[2.5,2], note:'באמבטיה: מול המראה צריך 300 עד 500 לוקס.'},
-  study:   {he:'משרד / חדר עבודה', lux:400, range:[300,500], wp:0.75, cct:[4000,4000], d:[3.5,3]},
+  living:  {he:'סלון',             lux:150, range:[100,300], wp:0.75, cct:[3000,3000], d:[5,4]},
+  kitchen: {he:'מטבח',             lux:300, range:[200,500], wp:0.75, cct:[3000,4500], d:[4,3], note:'במטבח: מעל משטח העבודה צריך כ-500 לוקס. כדאי אור ממוקד מעל השיש.'},
+  dining:  {he:'פינת אוכל',        lux:200, range:[150,300], wp:0.75, cct:[3000,3000], d:[4,3.5]},
+  bedroom: {he:'חדר שינה',         lux:120, range:[75,200],  wp:0.75, cct:[3000,3000], d:[3.5,3.2]},
+  kids:    {he:'חדר ילדים',        lux:250, range:[150,300], wp:0.75, cct:[3000,4500], d:[3.2,3]},
+  bath:    {he:'אמבטיה',           lux:200, range:[150,300], wp:0.75, cct:[3000,4500], d:[2.5,2], note:'באמבטיה: מול המראה צריך 300 עד 500 לוקס.'},
+  study:   {he:'משרד / חדר עבודה', lux:400, range:[300,500], wp:0.75, cct:[4500,4500], d:[3.5,3]},
   hall:    {he:'מסדרון',           lux:100, range:[50,150],  wp:0,    cct:[3000,3000], d:[4,1.2]},
-  balcony: {he:'מרפסת',            lux:75,  range:[30,150],  wp:0,    cct:[2700,3000], d:[4,2], out:true, cov:true},
-  yard:    {he:'חצר / גינה',       lux:50,  range:[20,100],  wp:0,    cct:[2700,3000], d:[8,6], out:true, cov:true},
-  shop:    {he:'חנות / עסק',       lux:500, range:[300,750], wp:0.75, cct:[3000,4000], d:[8,6], biz:true}
+  balcony: {he:'מרפסת',            lux:75,  range:[30,150],  wp:0,    cct:[3000,3000], d:[4,2], out:true, cov:true},
+  yard:    {he:'חצר / גינה',       lux:50,  range:[20,100],  wp:0,    cct:[3000,3000], d:[8,6], out:true, cov:true},
+  shop:    {he:'חנות / עסק',       lux:500, range:[300,750], wp:0.75, cct:[3000,4500], d:[8,6], biz:true}
 };
 const UF_K=[0.6,0.8,1.0,1.25,1.5,2.0,2.5,3.0,4.0,5.0];
 const UF={
@@ -1619,12 +1735,13 @@ const OLD={
   cfl:         {8:450,11:650,15:900,20:1200,23:1500,30:2000}
 };
 const toLedW=lm=>Math.round(lm/100);
+/* the store sells three tones only: 3000K, 4500K, 6000K. Every recommendation and every saved value snaps to one of them */
+const KS=[3000,4500,6000];
+const snapK=k=>KS.reduce((a,b)=>Math.abs(b-k)<Math.abs(a-k)?b:a);
 const CCT={
-  2700:{rgb:'255,169,87', he:'חם מאוד', tip:'אור צהבהב ונעים כמו נורה ישנה. לסלון ולחדר שינה.'},
-  3000:{rgb:'255,180,107',he:'חם',      tip:'נעים וביתי, קצת יותר נקי. לסלון, לפינת אוכל ולאמבטיה.'},
-  4000:{rgb:'255,209,163',he:'ניטרלי',  tip:'לבן טבעי שעוזר להתרכז. למטבח, לחדר עבודה, לחנות ולמשרד.'},
-  5000:{rgb:'255,228,206',he:'קריר',    tip:'לבן חד. למחסן, לחניה ולסדנה.'},
-  6500:{rgb:'255,249,253',he:'קר',      tip:'לבן כחלחל ובוהק. פחות מומלץ בבית, במיוחד בערב.'}
+  3000:{he:'חם',     l:'חם',     tip:'אור צהבהב, נעים וביתי. מתאים לסלון, לפינת אוכל, לחדרי שינה ולמרפסת.'},
+  4500:{he:'ניטרלי', l:'ניטרלי', tip:'לבן טבעי ונקי, לא צהוב ולא כחלחל. רואים טוב ומתרכזים. מתאים למטבח, לאמבטיה, לחדר עבודה ולחנות.'},
+  6000:{he:'קר',     l:'קר',     tip:'לבן בוהק עם נטייה לכחול. מתאים למחסן, לחניה ולסדנה. בבית הוא פחות נעים, במיוחד בערב.'}
 };
 
 /* ui data */
@@ -1687,7 +1804,7 @@ const catVar=(p,fi)=>{const f=p.fins[fi];return p.v[f?f.vi:0]||p.v[0]};
 const catFin=(p,fi)=>{const f=p.fins[fi];return f?f.c:""};
 const WALLS={light:{he:"בהירים",c:"#ebe5da",alb:[236,230,220]},medium:{he:"בינוניים",c:"#b3a791",alb:[182,170,150]},dark:{he:"כהים",c:"#4b453e",alb:[86,80,72]}};
 const PREFS={soft:"רך, כמו לאונג׳",regular:"רגיל",bright:"מואר, כמו בית כנסת"};
-const ATM={calm:{he:"רוגע",k:2700},warm:{he:"חמימות",k:2700},lux:{he:"יוקרה",k:3000},focus:{he:"ריכוז",k:4000},energy:{he:"אנרגיה",k:4000}};
+const ATM={calm:{he:"רוגע",k:3000},warm:{he:"חמימות",k:3000},lux:{he:"יוקרה",k:3000},focus:{he:"ריכוז",k:4500},energy:{he:"אנרגיה",k:4500}};
 const ACTS={
   host:{he:"אירוח",tip:"לאירוח: מנורה תלויה מעל השולחן, ודימר לאור הכללי כדי לעבור לאור ערב רך."},
   tv:{he:"טלוויזיה",tip:"מול הטלוויזיה: אור רך מהצד או מאחור. ספוט ישר מעל המסך יוצר השתקפות."},
@@ -1805,6 +1922,9 @@ const PLACES=["auto","center","grid","wall-t","wall-b","wall-r","wall-l","corner
 /* gen = groups of generic fixture types (the same type may appear in several groups, each in its own place) */
 const S={room:"living",covered:true,yw:1,L:5,W:4,H:2.7,walls:"light",pref:"bright",atm:null,acts:[],yn:{},types:[],cct:3000,cctUser:false,last:null,gen:[],gseq:0,cat:[],cseq:0,manual:false,arr:"all",side:"t",ceil:"gyp",foc:[],door:null,wd:{on:false,len:2.4,dep:.6,w:"b"},beds:2,desk:{on:false,at:"l"},kit:{w:"b",sh:"i"},noAuto:{}};
 const WZ={open:0,done:[false,false,false,false,false],cov:false,yw:false,res:false};
+/* a plan or a photo of the room that the customer added. Kept in memory (and in IndexedDB when the browser allows it), never in localStorage */
+const UP={plan:null,photo:null};
+const upNoun=()=>UP.plan&&UP.photo?"תוכנית ותמונה":UP.plan?"תוכנית":UP.photo?"תמונה":"";
 const SKEY="sl-calc10";
 const cleanPos=o=>{const out={};if(o&&typeof o==="object")Object.keys(o).forEach(i=>{const x=o[i];if(/^\d+$/.test(i)&&x&&isFinite(x.u)&&isFinite(x.v)){const y={u:clamp(+x.u,0,1),v:clamp(+x.v,0,1)};if(/^[bflr]$/.test(x.side))y.side=x.side;out[i]=y}});return out};
 const defW=t=>{const ks=Object.keys(FIXTURES[t].opts);return ks[Math.min(1,ks.length-1)]};
@@ -1832,7 +1952,7 @@ try{const st=JSON.parse(localStorage.getItem(SKEY)||localStorage.getItem("sl-cal
     if(Array.isArray(st.acts))S.acts=st.acts.filter(a=>ACTS[a]&&(QS[S.room].acts||[]).includes(a));
     if(st.yn&&typeof st.yn==="object")(QS[S.room].yn||[]).forEach(k=>{if(st.yn[k])S.yn[k]=true});
     if(Array.isArray(st.types))S.types=st.types.filter(t=>FIXTURES[t]);
-    if(isFinite(st.cct))S.cct=clamp(Math.round(+st.cct/100)*100,2200,6500);S.cctUser=!!st.cctUser;S.manual=!!st.manual;
+    if(isFinite(st.cct))S.cct=snapK(+st.cct);S.cctUser=!!st.cctUser;S.manual=!!st.manual;
     if(Array.isArray(st.gen))st.gen.forEach(g=>{if(!g||!FIXTURES[g.t]||S.gen.length>=40)return;const m=isM(g.t);
       S.gen.push({gid:"g"+(++S.gseq),t:g.t,w:FIXTURES[g.t].opts[g.w]!=null?String(g.w):defW(g.t),q:m?clamp(Math.round(+g.q*2)/2||1,.5,60):clamp(Math.round(+g.q)||1,1,40),
         mode:g.mode==="ind"?"ind":"dir",place:okPl(g.place)?g.place:"auto",pl0:okPl(g.pl0)?g.pl0:undefined,pos:cleanPos(g.pos),lab:typeof g.lab==="string"?g.lab.slice(0,60):"",
@@ -1980,8 +2100,8 @@ function k2rgb(k){const t=k/100;let r,g,b;
   else{r=329.698727446*Math.pow(t-60,-.1332047592);g=288.1221695283*Math.pow(t-60,-.0755148492);b=255}
   return [clamp(r,0,255),clamp(g,0,255),clamp(b,0,255)]}
 function rec(){const r=ROOMS[S.room];
-  if(S.atm){const v=(r.cct[0]+r.cct[1])/4+ATM[S.atm].k/2;const k=[2700,3000,4000].reduce((a,b)=>Math.abs(b-v)<Math.abs(a-v)?b:a);return {k,k2:k,why:`ל${r.he}, באווירה של ${ATM[S.atm].he}.`}}
-  if(S.pref==="soft")return {k:2700,k2:2700,why:`ל${r.he}, באווירה רכה.`};
+  if(S.atm){const v=(r.cct[0]+r.cct[1])/4+ATM[S.atm].k/2;const k=snapK(v);return {k,k2:k,why:`ל${r.he}, באווירה של ${ATM[S.atm].he}.`}}
+  if(S.pref==="soft")return {k:3000,k2:3000,why:`ל${r.he}, באווירה רכה.`};
   if(S.pref==="bright")return {k:r.cct[1],k2:r.cct[1],why:`ל${r.he}, באור מלא.`};
   return {k:r.cct[0],k2:r.cct[1],why:`ל${r.he}.`}}
 const curK=()=>S.cctUser?S.cct:rec().k;
@@ -1996,7 +2116,7 @@ const Viz=(function(){
   const cur={L:S.L,W:S.W,H:S.H,E:0,cove:0,yaw:0,pitch:5,show:0}, tgt=Object.assign({},cur);
   const col={rgb:[255,190,120],wall:[236,230,220]}, tcol={rgb:[255,190,120],wall:[236,230,220]};
   const lights=new Map();
-  let lab={L:S.L,W:S.W,H:S.H},open=false,dims=false,spin=false,spinT=0,dragging=false,onUser=null,wset=null,wh=0,posts=false,hlT=-1e9,fur=[],door=null,dragCb=null,picks=[],geo=null,fd=null;
+  let under=null,lab={L:S.L,W:S.W,H:S.H},open=false,dims=false,spin=false,spinT=0,dragging=false,onUser=null,wset=null,wh=0,posts=false,hlT=-1e9,fur=[],door=null,dragCb=null,picks=[],geo=null,fd=null;
   /* string lights always glow warm (about 2400K), whatever the room tone */
   const GL=k2rgb(2400),GLC=GL.map(v=>v|0).join(","),GLH=GL.map(v=>(v+(255-v)*.6)|0).join(",");
   const FLOOR=[152,130,106], CEIL=[232,228,220], D2R=Math.PI/180;
@@ -2132,6 +2252,12 @@ const Viz=(function(){
     vis.forEach(f=>{path(f.sp);ctx.fillStyle=sh(f.alb,f.fa);ctx.fill()});
     /* a 1 m grid on the floor */
     const fF=face("floor");
+    /* the customer's plan, on the floor. Drawn only when looking down (an affine map is exact there) */
+    if(under&&fF.vis){const fa=clamp((cur.pitch-62)/20,0,1);if(fa>0){const p0=P(-hx,0,W),p1=P(hx,0,W),p2=P(-hx,0,0),r=under.rot,od=r%2;
+      ctx.save();path(fF.sp);ctx.clip();ctx.globalCompositeOperation="screen";ctx.globalAlpha=show*fa*under.op*.85;
+      ctx.transform((p1[0]-p0[0])/L,(p1[1]-p0[1])/L,(p2[0]-p0[0])/W,(p2[1]-p0[1])/W,p0[0],p0[1]);
+      if(r===1){ctx.translate(L,0);ctx.rotate(Math.PI/2)}else if(r===2){ctx.translate(L,W);ctx.rotate(Math.PI)}else if(r===3){ctx.translate(0,W);ctx.rotate(-Math.PI/2)}
+      ctx.drawImage(under.src,0,0,od?W:L,od?L:W);ctx.restore()}}
     if(fF.vis){ctx.lineWidth=1;ctx.strokeStyle=`rgba(255,244,225,${.05+amb*.03})`;ctx.beginPath();
       for(let x=1;x<L-.05;x++){const a=P(-hx+x,0,0),b=P(-hx+x,0,W);ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1])}
       for(let z=1;z<W-.05;z++){const a=P(-hx,0,z),b=P(hx,0,z);ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1])}ctx.stroke()}
@@ -2309,7 +2435,7 @@ const Viz=(function(){
         ctx.fillStyle="rgba(8,8,7,.82)";ctx.fillRect(x-tw/2-5,m[1]-8,tw+10,16);ctx.fillStyle="rgba(243,239,231,.78)";ctx.fillText(t,x,m[1])}
     }
   }
-  return {set,setLights,kick,view,on:fn=>{onUser=fn},flash:()=>{hlT=performance.now();kick()},onDrag:fn=>{dragCb=fn},picks:()=>picks.slice()};
+  return {set,setLights,kick,view,under:o=>{under=o;kick()},on:fn=>{onUser=fn},flash:()=>{hlT=performance.now();kick()},onDrag:fn=>{dragCb=fn},picks:()=>picks.slice()};
 })();
 
 /* ---------------- where everything goes ----------------
@@ -2496,6 +2622,7 @@ function planMarkup(LY,k,opt){
   const pos=p=>[p.u*L,(1-p.v)*W];
   let h=`<defs><radialGradient id="${gid}"><stop offset="0" stop-color="${opt.col}" stop-opacity=".95"/><stop offset=".45" stop-color="${opt.col}" stop-opacity=".42"/><stop offset="1" stop-color="${opt.col}" stop-opacity="0"/></radialGradient><clipPath id="${gid}c"><rect x="0" y="0" width="${f(L)}" height="${f(W)}"/></clipPath></defs>`;
   h+=`<rect class="pf" x="0" y="0" width="${f(L)}" height="${f(W)}"/>`;
+  if(opt.under){const a=ulAttrs(L,W,opt.under.rot);h+=`<image class="pul" href="${opt.under.href}" x="0" y="0" width="${f(a.w)}" height="${f(a.h)}"${a.tf?` transform="${a.tf}"`:""} preserveAspectRatio="none" opacity="${opt.under.op}"/>`}
   /* grid every 50 cm, a little stronger every metre */
   for(let x=.5;x<L-.01;x+=.5)h+=`<line class="pg${Math.abs(x-Math.round(x))<.01?" m":""}" x1="${f(x)}" y1="0" x2="${f(x)}" y2="${f(W)}"/>`;
   for(let y=.5;y<W-.01;y+=.5)h+=`<line class="pg${Math.abs(y-Math.round(y))<.01?" m":""}" x1="0" y1="${f(y)}" x2="${f(L)}" y2="${f(y)}"/>`;
@@ -2566,6 +2693,7 @@ function drawPlan(){
   planSv.setAttribute("viewBox",`${-mL} ${-mT} ${vw} ${vh}`);planSv.setAttribute("width",Math.round(vw*k));planSv.setAttribute("height",Math.round(vh*k));
   const ae=document.activeElement,fk=ae&&planSv.contains(ae)&&ae.dataset?ae.dataset.k:null;
   planSv.innerHTML=planMarkup(LY,k,{col:lightCol(),hl:hlLine,drag:drag&&drag.key,guides:drag&&drag.g,sel:selKey,fl:flashOn()});
+  ulPlace(LY.L,LY.W);
   if(fk){const el=planSv.querySelector(`[data-k="${CSS.escape(fk)}"]`);if(el)el.focus({preventScroll:true})}
   $("#planEmpty").hidden=LY.lines.some(o=>o.pts.length)||!!LY.cove;
   lastBox=Math.round(br.width)+"x"+Math.round(br.height);
@@ -3262,7 +3390,8 @@ function render(){
 
   /* mobile bar, the send band, WhatsApp */
   $("#mbar").hidden=!WZ.res;document.body.classList.toggle("has-mbar",WZ.res);$("#mbW").textContent=c.w;
-  $("#sumList").innerHTML=[["החדר",`${r.he}, ${dimTxt(S.L)} × ${dimTxt(S.W)} מ׳`],["צריך",`כ-${c.w} וואט לד`],["בתכנון",has?`${fmt(c.cw)} וואט, ${pc}%`:"עוד לא נבחרו גופים"],["גוון מומלץ",`${rc.k}K`]].map(([a,b2])=>`<li><span>${a}</span><b>${b2}</b></li>`).join("");
+  $("#sumList").innerHTML=[["החדר",`${r.he}, ${dimTxt(S.L)} × ${dimTxt(S.W)} מ׳`],["צריך",`כ-${c.w} וואט לד`],["בתכנון",has?`${fmt(c.cw)} וואט, ${pc}%`:"עוד לא נבחרו גופים"],["גוון מומלץ",`${rc.k}K`]].concat(UP.plan||UP.photo?[["צירפתם",`${upNoun()} של החדר`]]:[]).map(([a,b2])=>`<li><span>${a}</span><b>${b2}</b></li>`).join("");
+  upSync();
   const url=`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(planText(c,rc))}`;
   $$("[data-wa]").forEach(a=>a.href=url);
 
@@ -3291,6 +3420,7 @@ function planText(c,rc){
     return s2}).join("\n")+"\n";
   if(c.sel.length)t+=`סה״כ ${fmt(c.cw)} וואט, ${Math.round(c.pct*100)}% ממה שהחדר צריך.\n`;
   t+=`החדר צריך בסך הכול כ-${c.w} וואט לד (כ-${fmt(roundLm(c.lm))} לומן).\n`;
+  if(UP.plan||UP.photo)t+=`יש לי ${upNoun()} של החדר, ${UP.plan&&UP.photo?"אשלח אותן":"אשלח אותה"} כאן.\n`;
   if(PH.has())t+=`יש לי גם תמונה של החדר עם האורות, אשלח אותה כאן.\n`;
   return t+`אשמח שתעברו על זה איתי.`;
 }
@@ -3299,7 +3429,7 @@ function planText(c,rc){
 function buildPrint(){
   const c=calc(),rc=rec(),L2=layout(c),k=Math.min(620/L2.L,330/L2.W);
   const vw=L2.L+(PAD.l+PAD.r)/k,vh=L2.W+(PAD.t+PAD.b)/k;
-  const svg=`<svg class="pp" xmlns="http://www.w3.org/2000/svg" viewBox="${-PAD.l/k} ${-PAD.t/k} ${vw} ${vh}" width="${Math.round(vw*k)}" height="${Math.round(vh*k)}" role="img" aria-label="תוכנית החדר מלמעלה">${planMarkup(L2,k,{col:"#f2a33a",print:true})}</svg>`;
+  const svg=`<svg class="pp" xmlns="http://www.w3.org/2000/svg" viewBox="${-PAD.l/k} ${-PAD.t/k} ${vw} ${vh}" width="${Math.round(vw*k)}" height="${Math.round(vh*k)}" role="img" aria-label="תוכנית החדר מלמעלה">${planMarkup(L2,k,{col:"#f2a33a",print:true,under:UP.plan&&UP.plan.show?{href:UP.plan.url,rot:UP.plan.rot,op:.5}:null})}</svg>`;
   const legend=sym=>`<svg class="pp" viewBox="-12 -12 24 24" width="16" height="16" aria-hidden="true" style="display:inline-block;vertical-align:-3px;margin-inline-end:6px;overflow:visible"><g class="ps">${symShape(sym,{lenM:18,side:"b"},v=>v)}</g></svg>`;
   const has=c.sel.length>0,pc=Math.round(c.pct*100);
   const rowsH=c.all.map((x,i)=>{const lo=L2.lines.find(o=>o.ln.id===x.id),sp=lo&&x.ok?spacing(lo.pts,S.L,S.W):null,m=x.src==="gen"&&isM(x.t);
@@ -3309,7 +3439,7 @@ function buildPrint(){
   const ans=ansList();
   const room=[["החדר",roomLine()],["מידות",`${dimTxt(S.L)} × ${dimTxt(S.W)} מ׳ · ${dimTxt(c.A)} מ״ר`],["תקרה",c.open?"בלי תקרה":`${num1(S.H)} מ׳${ROOMS[S.room].out?"":conc()?", בטון":", גבס"}`],["קירות",isYard()?YWT[S.yw]:c.open?"חוץ":WALLS[S.walls].he],
     ["אור",PREFS[S.pref]],["גוון מומלץ",`${rc.k}K`],["בחדר",ans.length?ans.join(", "):"-"],["תאריך",new Date().toLocaleDateString("he-IL")]];
-  let ph="";if(PH.has()){try{ph=`<div class="ps-ph"><img src="${PH.dataURL()}" alt="ההדמיה על התמונה שלכם"><p>ההדמיה על התמונה שלכם</p></div>`}catch(e){}}
+  let ph="";if(UP.photo)ph+=`<div class="ps-ph"><img src="${UP.photo.url}" alt="התמונה של החדר"><p>התמונה של החדר</p></div>`;if(PH.has()){try{ph+=`<div class="ps-ph"><img src="${PH.dataURL()}" alt="ההדמיה על התמונה שלכם"><p>ההדמיה על התמונה שלכם</p></div>`}catch(e){}}
   $("#printSheet").innerHTML=`<div class="ps-h"><b>תכנון תאורה</b><span>ספוטליין · ייעוץ ושיווק תאורה · 08-6377033</span></div>
    <div class="ps-room">${room.map(([a,b])=>`<div><span>${a}</span>${esc(b)}</div>`).join("")}</div>
    <div class="ps-plan">${svg}</div>
@@ -3329,11 +3459,15 @@ $("#catToCart").addEventListener("click",()=>{let n=0;
   if(!n)return;renderCart();popBadge();toast(n===1?"הוספנו לסל גוף אחד מהקטלוג":`הוספנו לסל ${n} גופים מהקטלוג`)});
 
 /* ---------------- colour temperature ---------------- */
-const kR=$("#kRange"),kM=$("#kMini"),ph=$("#cctPh"),wbM=$("#wbM");
-const REF=k2rgb(4500);
+const ph=$("#cctPh"),wbM=$("#wbM"),ksegs=$$("[data-kseg]");
+/* the sample photo was taken in warm light: 3000K shows it as it is, 4500K and 6000K turn it white and cool */
+const REF=k2rgb(3000);
+/* three buttons, the same in the tone section and in the sketch. The recommended one carries a small "מומלץ" */
+ksegs.forEach(g=>{const sm=g.classList.contains("sm");
+  g.innerHTML=KS.map(k=>`<button type="button" data-k="${k}" aria-pressed="false">${sm?"":`<i class="ksw" aria-hidden="true" style="background:rgb(${k2rgb(k).map(v=>v|0).join(",")})"></i>`}<span class="kn">${CCT[k].l}</span><span class="kv">${k}K</span>${sm?"":`<small class="kr" aria-hidden="true">מומלץ</small>`}<span class="sr kr-sr"></span></button>`).join("")});
 function renderCct(k,rc){
-  [kR,kM].forEach(x=>{if(document.activeElement!==x||+x.value!==k)x.value=k});
-  $("#kVal").textContent=k+"K";$("#kMiniV").textContent=k+"K";
+  ksegs.forEach(g=>$$("button",g).forEach(b=>{const v=+b.dataset.k,isRec=v===rc.k;b.setAttribute("aria-pressed",v===k);b.classList.toggle("rec",isRec);$(".kr-sr",b).textContent=isRec?", הגוון המומלץ":""}));
+  $("#kVal").textContent=k+"K";
   const info=cctInfo(k);
   $("#kTag").innerHTML=`<span>${k}K</span> · ${info.he}`;
   $("#kTip").textContent=info.tip;
@@ -3345,10 +3479,14 @@ function renderCct(k,rc){
   $("#recFor").textContent=S.atm?`ההמלצה ל${r.he} באווירה של ${ATM[S.atm].he}`:`ההמלצה ל${r.he}`;
   $("#recK").textContent=rc.k2&&rc.k2!==rc.k?`${rc.k}K עד ${rc.k2}K`:`${rc.k}K`;
   $("#recWhy").textContent=cctInfo(rc.k).tip+(S.atm?"":" בחרו אווירה בשלב החדר, ונדייק את ההמלצה.");
-  $("#kRecTick").style.right=((rc.k-2200)/4300*100)+"%";
   $("#kRec").disabled=!S.cctUser||S.cct===rc.k;
 }
-[kR,kM].forEach(x=>x.addEventListener("input",()=>{S.cct=+x.value;S.cctUser=true;render()}));
+ksegs.forEach(g=>{
+  g.addEventListener("click",e=>{const b=e.target.closest("button[data-k]");if(!b)return;S.cct=+b.dataset.k;S.cctUser=true;render()});
+  /* arrows move between the three tones, like a radio group (RTL: right is the previous one) */
+  g.addEventListener("keydown",e=>{const d={ArrowRight:-1,ArrowLeft:1,ArrowUp:-1,ArrowDown:1}[e.key];if(d==null&&e.key!=="Home"&&e.key!=="End")return;e.preventDefault();
+    const bs=$$("button",g),i=bs.indexOf(document.activeElement),j=e.key==="Home"?0:e.key==="End"?bs.length-1:clamp((i<0?KS.indexOf(curK()):i)+d,0,bs.length-1);
+    S.cct=+bs[j].dataset.k;S.cctUser=true;render();bs[j].focus()})});
 $("#kRec").addEventListener("click",()=>{S.cctUser=false;render()});
 
 /* ---------------- old bulb converter ---------------- */
@@ -3384,7 +3522,7 @@ const calcN=(t,w,mode)=>`${FIXTURES[t].he}${mode==="ind"?" (אור עקיף)":""
 try{const st=JSON.parse(localStorage.getItem(KEY)||"[]");if(Array.isArray(st))st.forEach(x=>{
   if(!x||typeof x.id!=="string"||cart.some(y=>y.id===x.id))return;
   const pc=x.calc?parseCalc(x.id):null;
-  if(pc)cart.push({id:x.id,q:clamp(Math.round(+x.q||1),1,99),calc:1,t:pc.t,w:pc.w,mode:pc.mode,n:calcN(pc.t,pc.w,pc.mode),k:isFinite(x.k)?+x.k:null});
+  if(pc)cart.push({id:x.id,q:clamp(Math.round(+x.q||1),1,99),calc:1,t:pc.t,w:pc.w,mode:pc.mode,n:calcN(pc.t,pc.w,pc.mode),k:x.k!=null&&x.k!==""&&isFinite(x.k)?snapK(+x.k):null});
   else if(prod(x.id))cart.push({id:x.id,q:clamp(+x.q||1,1,99),fin:FIN[x.fin]&&prod(x.id).f.includes(x.fin)?x.fin:null,tone:TONES[x.tone]?x.tone:null});
   else if(x.src==="cat"&&x.sku)cart.push(Object.assign({},x,{q:clamp(Math.round(+x.q||1),1,99)}));
   else keep.push(x)})}catch(e){}
@@ -3596,10 +3734,145 @@ const PH=(function(){
   return {
     draw:()=>{if(img){chips();draw();hint()}},
     has:()=>!!img,
+    load,
     lights:()=>L.slice(),
     dataURL:()=>{const w=Math.min(1400,img.naturalWidth),h=Math.round(w*img.naturalHeight/img.naturalWidth),c2=document.createElement("canvas");c2.width=w;c2.height=h;paint(c2.getContext("2d"),w,h,false);return c2.toDataURL("image/jpeg",.85)}
   };
 })();
+
+/* ---------------- the customer's own plan or photo of the room ----------------
+   An image (or page 1 of a PDF: pdf.js is loaded only then) is shrunk in the browser to 1800 px, JPEG, and kept in memory.
+   When the browser allows it, it is also kept in IndexedDB, so it is still here after a refresh (never in localStorage, it is too small).
+   Nothing is uploaded from this page: the customer sends the file with the WhatsApp message.
+   A plan lies under the fixtures in the top view, stretched to L x W, with its colours inverted for the dark drawing.
+   A photo stays here as a reference, opens large, and can be tried with lights in "הדמיה על תמונה שלכם". */
+const UPMAX=1800,UPMB=50,PDFJS="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/";
+const upInp=$("#upFile"),upDlg=$("#upDlg"),upVw=$("#upView");
+let upSeq=0,upPdfP=null,upTok=0,upFrom=null,upFromBox=null;
+function upThe(){return UP.plan&&UP.photo?"התוכנית והתמונה":UP.plan?"התוכנית":"התמונה"}
+/* the plan image in the drawing: its own size and turn, so that after the turn it fills L x W exactly */
+function ulAttrs(L,W,rot){const f=v=>Math.round(v*1000)/1000,od=rot%2;
+  return {w:od?W:L,h:od?L:W,tf:["",`translate(${f(L)} 0) rotate(90)`,`translate(${f(L)} ${f(W)}) rotate(180)`,`translate(0 ${f(W)}) rotate(270)`][rot]||""}}
+/* the same <image> element is moved into every new drawing, so it is never decoded again while dragging */
+function ulPlace(L,W){const P=UP.plan;if(!P||!P.show||!P.el)return;const pf=planSv.querySelector(".pf");if(!pf)return;const a=ulAttrs(L,W,P.rot),el=P.el;
+  el.setAttribute("width",a.w);el.setAttribute("height",a.h);if(a.tf)el.setAttribute("transform",a.tf);else el.removeAttribute("transform");el.setAttribute("opacity",P.op);pf.after(el)}
+function upVis(el){return !!el&&el.offsetParent!==null&&!el.disabled}
+function upFocusIn(...boxes){for(const b of boxes){if(!b)continue;const el=$$("input[data-upop],button",b).find(upVis);if(el){el.focus({preventScroll:true});return true}}return false}
+/* the list in question 2, the row under the plan, and the notes near the send buttons */
+function upSync(){
+  const P=UP.plan,F=UP.photo,n=upNoun();
+  $$("[data-upnote]").forEach(el=>{el.hidden=!n;if(n)el.textContent=el.hasAttribute("data-upcart")?`את ${upThe()} של החדר שלחו לנו בוואטסאפ.`:`כשהוואטסאפ נפתח, צרפו להודעה את ${upThe()} של החדר.`});
+  const sig=[P?P.id:0,P?P.rot:0,P?P.show:0,F?F.id:0,S.L,S.W,WZ.res?1:0].join("|");
+  if(UP.sig===sig)return;UP.sig=sig;
+  const ae=document.activeElement,bar=$("#upBar"),inBar=bar.contains(ae),key=inBar?["data-upop","data-uprot","data-uphide","data-upgo","data-upview"].find(a=>ae.hasAttribute(a)):null;
+  const li=[];
+  if(P)li.push(`<li><img class="up-tn" src="${P.url}" alt=""><span class="up-i"><b>תוכנית של החדר</b><small>${WZ.res?"מופיעה בתוכנית מלמעלה, מתחת לגופים.":"תופיע בתוכנית מלמעלה, מתחת לגופים."}</small></span><button type="button" class="lnk" data-uprm="plan" aria-label="הסרת התוכנית">הסרה</button></li>`);
+  if(F)li.push(`<li><button type="button" class="up-tnb" data-upview aria-label="פתיחת התמונה של החדר בגדול"><img class="up-tn" src="${F.url}" alt=""></button><span class="up-i"><b>תמונה של החדר</b><small>נגיעה בתמונה פותחת אותה בגדול.</small></span><button type="button" class="lnk" data-uprm="photo" aria-label="הסרת התמונה">הסרה</button></li>`);
+  $("#upList").innerHTML=li.join("");
+  $("#upQ [data-upgo] .bl").textContent=P||F?"העלו עוד קובץ":"העלו אותה";
+  let h="";
+  if(P){const od=P.rot%2,ia=od?P.h/P.w:P.w/P.h,off=Math.abs(Math.log(ia/(S.L/S.W)))>Math.log(1.3);
+    h+=`<span class="pb-l">התוכנית שלכם</span>`
+      +(P.show?`<label class="up-op"><span class="sr">כמה רואים את התוכנית</span><input type="range" min="15" max="100" step="5" value="${Math.round(P.op*100)}" data-upop></label>`:"")
+      +(P.show?`<button type="button" class="pb-b" data-uprot>סיבוב 90°</button>`:"")
+      +`<button type="button" class="pb-b" data-uphide>${P.show?"הסתרה":"הצגה"}</button>`
+      +`<button type="button" class="pb-b" data-uprm="plan" aria-label="הסרת התוכנית">הסרה</button>`
+      +(P.show&&off?`<p class="up-hint">התוכנית נמתחת למידות החדר, ${dimTxt(S.L)} × ${dimTxt(S.W)} מ׳. אם היא נראית עקומה, סובבו אותה או בדקו את המידות.</p>`:"")}
+  if(F)h+=`<button type="button" class="up-th" data-upview aria-label="פתיחת התמונה של החדר בגדול"><img src="${F.url}" alt=""><span>התמונה שלכם</span></button>`;
+  if(!P||!F)h+=`<button type="button" class="pb-b up-add" data-upgo><svg aria-hidden="true"><use href="#i-plus"/></svg><span>${P||F?"עוד קובץ":"העלאת תוכנית או תמונה של החדר"}</span></button>`;
+  bar.innerHTML=h;bar.classList.toggle("has",!!P);
+  const op=$("[data-upop]",bar);if(op)fillTo(op,+op.value);
+  if(inBar&&!bar.contains(document.activeElement)){const el=key&&$(`[${key}]`,bar);if(upVis(el))el.focus({preventScroll:true});else upFocusIn(bar,$("#upQ"))}
+}
+
+/* reading the file */
+function upLoadImg(src){return new Promise((res,rej)=>{const im=new Image();im.onload=()=>res(im);im.onerror=()=>rej(new Error("img"));im.src=src})}
+function upShrink(src,w,h){const s=Math.min(1,UPMAX/Math.max(w,h)),cv=document.createElement("canvas");cv.width=Math.max(1,Math.round(w*s));cv.height=Math.max(1,Math.round(h*s));
+  const g=cv.getContext("2d");g.fillStyle="#fff";g.fillRect(0,0,cv.width,cv.height);g.imageSmoothingQuality="high";g.drawImage(src,0,0,cv.width,cv.height);return cv}
+const upBlob=cv=>new Promise((res,rej)=>cv.toBlob(b=>b?res(b):rej(new Error("blob")),"image/jpeg",.85));
+/* an <img> turns the photo by its EXIF, and opens HEIC where the browser can (Safari). createImageBitmap is the second try */
+async function upImage(file){const u=URL.createObjectURL(file);
+  try{const im=await upLoadImg(u);if(!im.naturalWidth)throw new Error("img");return upShrink(im,im.naturalWidth,im.naturalHeight)}
+  catch(e){if(!("createImageBitmap" in window))throw e;const b=await createImageBitmap(file);try{return upShrink(b,b.width,b.height)}finally{if(b.close)b.close()}}
+  finally{URL.revokeObjectURL(u)}}
+function upPdfLib(){return upPdfP||(upPdfP=new Promise((res,rej)=>{if(window.pdfjsLib)return res(window.pdfjsLib);const s=document.createElement("script");s.src=PDFJS+"pdf.min.js";s.crossOrigin="anonymous";
+  s.onload=()=>{const L=window.pdfjsLib;if(!L){upPdfP=null;return rej(new Error("pdf"))}L.GlobalWorkerOptions.workerSrc=PDFJS+"pdf.worker.min.js";res(L)};
+  s.onerror=()=>{upPdfP=null;s.remove();rej(new Error("pdf"))};document.head.appendChild(s)}))}
+async function upPdf(file){const L=await upPdfLib(),doc=await L.getDocument({data:new Uint8Array(await file.arrayBuffer())}).promise;
+  try{const pg=await doc.getPage(1),v1=pg.getViewport({scale:1}),sc=Math.min(4,UPMAX/Math.max(v1.width,v1.height)),vp=pg.getViewport({scale:sc});
+    const cv=document.createElement("canvas");cv.width=Math.round(vp.width);cv.height=Math.round(vp.height);const g=cv.getContext("2d");g.fillStyle="#fff";g.fillRect(0,0,cv.width,cv.height);
+    await pg.render({canvasContext:g,viewport:vp}).promise;return cv}
+  finally{try{doc.destroy()}catch(_){}}}
+async function upEntry(blob,o){const url=URL.createObjectURL(blob);
+  try{const img=await upLoadImg(url);return Object.assign({id:++upSeq,blob,url,img,w:img.naturalWidth,h:img.naturalHeight,rot:0,op:.6,show:true,name:"",pdf:false},o||{})}
+  catch(e){URL.revokeObjectURL(url);throw e}}
+/* the drawing is dark: dark lines on white paper become light lines on the dark floor (in grey, so colours do not turn odd) */
+async function upInvert(e){const cv=document.createElement("canvas");cv.width=e.w;cv.height=e.h;const g=cv.getContext("2d");g.drawImage(e.img,0,0);
+  try{const d=g.getImageData(0,0,e.w,e.h),p=d.data;for(let i=0;i<p.length;i+=4){const v=255-(p[i]*.299+p[i+1]*.587+p[i+2]*.114);p[i]=p[i+1]=p[i+2]=v}g.putImageData(d,0,0)}
+  catch(_){g.globalCompositeOperation="difference";g.fillStyle="#fff";g.fillRect(0,0,e.w,e.h)}
+  e.inv=cv;e.invUrl=URL.createObjectURL(await upBlob(cv));
+  const el=document.createElementNS("http://www.w3.org/2000/svg","image");[["class","pul"],["href",e.invUrl],["x","0"],["y","0"],["preserveAspectRatio","none"],["aria-hidden","true"]].forEach(([a,v])=>el.setAttribute(a,v));e.el=el}
+function upFree(e){if(!e)return;try{URL.revokeObjectURL(e.url);if(e.invUrl)URL.revokeObjectURL(e.invUrl)}catch(_){}if(e.el)e.el.remove();e.inv=e.img=e.el=null}
+
+/* IndexedDB, when the browser allows it. Every call may fail quietly: the page works the same without it */
+const IDB=(function(){let dbp=null;
+  function db(){if(!dbp)dbp=new Promise((res,rej)=>{try{const r=indexedDB.open("sl-calc-files",1);r.onupgradeneeded=()=>{try{r.result.createObjectStore("f")}catch(e){}};r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);r.onblocked=()=>rej(new Error("blocked"))}catch(e){rej(e)}});return dbp}
+  function run(mode,fn){return db().then(d=>new Promise((res,rej)=>{const t=d.transaction("f",mode),q=fn(t.objectStore("f"));t.oncomplete=()=>res(q&&q.result);t.onerror=t.onabort=()=>rej(t.error)}))}
+  return {get:k=>run("readonly",s=>s.get(k)).catch(()=>null),put:(k,v)=>run("readwrite",s=>s.put(v,k)).catch(()=>{}),del:k=>run("readwrite",s=>s.delete(k)).catch(()=>{})}})();
+function upSave(kind){const e=UP[kind];if(e)IDB.put(kind,{blob:e.blob,name:e.name,rot:e.rot,op:e.op,show:e.show,pdf:!!e.pdf});else IDB.del(kind)}
+function upApply(kind,save){const P=UP.plan;Viz.under(P&&P.show&&P.inv?{src:P.inv,rot:P.rot,op:P.op}:null);UP.sig="";render();if(save&&kind)upSave(kind)}
+
+/* the dialog: getting the file ready, then one question: a plan or a photo */
+const upOpen=d=>{if(d.open)return;try{d.showModal()}catch(e){d.setAttribute("open","")}};
+const upClose=d=>{if(!d.open)return;try{d.close()}catch(e){d.removeAttribute("open")}};
+function upMode(m,msg){upDlg.dataset.m=m;$("#upDlgH").textContent=m==="ask"?"מה העליתם?":m==="err"?"לא הצלחנו לפתוח את הקובץ":"רגע, מכינים את הקובץ";
+  $("#upDlgMsg").textContent=msg||"";$("[data-upcancel]",upDlg).textContent=m==="err"?"סגירה":"ביטול";
+  const im=$("#upDlgImg");if(m==="ask"&&UP.pend)im.src=UP.pend.url;else im.removeAttribute("src");
+  upOpen(upDlg);requestAnimationFrame(()=>{const b=m==="ask"?$("[data-kind]",upDlg):$("[data-upcancel]",upDlg);if(upDlg.open)b.focus()})}
+async function upTake(file){if(!file)return;const my=++upTok;
+  const nm=String(file.name||""),isPdf=file.type==="application/pdf"||/\.pdf$/i.test(nm),isImg=/^image\//.test(file.type)||/\.(heic|heif|jpe?g|png|webp|gif|bmp|avif)$/i.test(nm);
+  if(UP.pend){upFree(UP.pend);UP.pend=null}
+  upMode("load");$("#live").textContent="מכינים את הקובץ.";
+  if(!isPdf&&!isImg){upMode("err","אפשר להעלות תמונה או קובץ PDF.");return}
+  if(file.size>UPMB*1048576){upMode("err",`הקובץ גדול מ-${UPMB}MB. נסו צילום מסך שלו.`);return}
+  try{const cv=isPdf?await upPdf(file):await upImage(file),e=await upEntry(await upBlob(cv),{name:nm.slice(0,80),pdf:isPdf});
+    if(my!==upTok||!upDlg.open){upFree(e);return}
+    UP.pend=e;upMode("ask");$("#live").textContent="הקובץ מוכן. מה העליתם, תוכנית של החדר או תמונה של החדר?"}
+  catch(err){if(my!==upTok||!upDlg.open)return;
+    upMode("err",isPdf?"לא הצלחנו לקרוא את ה-PDF. נסו לצלם את התוכנית, או לשלוח צילום מסך שלה.":"נסו תמונה בפורמט JPG או PNG, או צילום מסך שלה.")}}
+async function upChoose(kind){const e=UP.pend;if(!e||(kind!=="plan"&&kind!=="photo"))return;UP.pend=null;UP.chosen=true;upClose(upDlg);
+  e.kind=kind;
+  if(kind==="plan"){
+    /* a plan drawn the other way round (tall for a wide room) starts turned by 90° */
+    const a=Math.log(e.w/e.h),b=Math.log(S.L/S.W);if(Math.abs(a)>.15&&Math.abs(b)>.15&&(a>0)!==(b>0))e.rot=1;
+    try{await upInvert(e)}catch(_){}}
+  if(UP[kind])upFree(UP[kind]);UP[kind]=e;upApply(kind,true);
+  if(kind==="plan"&&WZ.done[0])setView("top");
+  $("#live").textContent=kind==="plan"?"התוכנית נוספה. היא מופיעה בתוכנית מלמעלה, מתחת לגופים.":"התמונה של החדר נשמרה. אפשר לפתוח אותה בגדול.";
+  upFocusIn(upFromBox&&document.contains(upFromBox)?upFromBox:null,$("#upBar"),$("#upQ"))}
+const UPF={take:upTake,choose:upChoose};
+
+upInp.addEventListener("change",()=>{const f=upInp.files&&upInp.files[0];upInp.value="";if(f)upTake(f)});
+upDlg.addEventListener("close",()=>{upTok++;if(UP.chosen){UP.chosen=false;return}if(UP.pend){upFree(UP.pend);UP.pend=null}
+  setTimeout(()=>{if(document.activeElement===document.body)upFocusIn(upFromBox,$("#upBar"),$("#upQ"))},0)});
+upVw.addEventListener("close",()=>{$("#upViewImg").removeAttribute("src");setTimeout(()=>{if(document.activeElement===document.body)upFocusIn(upFromBox,$("#upBar"),$("#upQ"))},0)});
+[upDlg,upVw].forEach(d=>d.addEventListener("click",e=>{if(e.target===d)upClose(d)}));
+document.addEventListener("click",ev=>{const t=ev.target.closest("[data-upgo],[data-uprm],[data-upview],[data-uprot],[data-uphide],[data-upcancel],[data-upclose],[data-uptry],[data-kind]");if(!t)return;
+  if(t.hasAttribute("data-upgo")){upFrom=t;upFromBox=t.closest("#upQ,#upBar");upInp.click();return}
+  if(t.hasAttribute("data-kind")){upChoose(t.dataset.kind);return}
+  if(t.hasAttribute("data-upcancel")){upClose(upDlg);return}
+  if(t.hasAttribute("data-upclose")){upClose(upVw);return}
+  if(t.hasAttribute("data-upview")){if(!UP.photo)return;upFrom=t;upFromBox=t.closest("#upQ,#upBar");$("#upViewImg").src=UP.photo.url;upOpen(upVw);return}
+  if(t.hasAttribute("data-uptry")){const F=UP.photo;if(!F)return;upClose(upVw);if($("#adv").hidden)setAdv(true);PH.load(F.url);
+    requestAnimationFrame(()=>{bringIn($("#phBlk"));$("#phCv").focus({preventScroll:true})});return}
+  if(t.hasAttribute("data-uprm")){const k=t.dataset.uprm,box=t.closest("#upQ,#upBar");if(!UP[k])return;if(k==="photo")upClose(upVw);upFree(UP[k]);UP[k]=null;upApply(k,true);
+    $("#live").textContent=k==="plan"?"התוכנית הוסרה.":"התמונה הוסרה.";upFocusIn(box,$("#upBar"),$("#upQ"));return}
+  const P=UP.plan;if(!P)return;
+  if(t.hasAttribute("data-uprot")){P.rot=(P.rot+1)%4;upApply("plan",true);$("#live").textContent="התוכנית הסתובבה ב-90 מעלות.";return}
+  if(t.hasAttribute("data-uphide")){P.show=!P.show;upApply("plan",true);$("#live").textContent=P.show?"התוכנית מוצגת.":"התוכנית מוסתרת."}});
+document.addEventListener("input",ev=>{const r=ev.target.closest&&ev.target.closest("[data-upop]"),P=UP.plan;if(!r||!P)return;
+  P.op=clamp(+r.value/100,.15,1);fillTo(r,+r.value);if(P.el)P.el.setAttribute("opacity",P.op);
+  Viz.under(P.show&&P.inv?{src:P.inv,rot:P.rot,op:P.op}:null);clearTimeout(UP.opT);UP.opT=setTimeout(()=>upSave("plan"),400)});
 
 /* ---------------- reveals ---------------- */
 if("IntersectionObserver" in window){
@@ -3620,12 +3893,16 @@ buildQ3();buildCards();
 if(WZ.res)$("#wres").hidden=false;
 placePlan();
 renderCart();renderOld();renderRev();render();
+/* a plan or a photo from an earlier visit, when the browser kept it */
+["plan","photo"].forEach(k=>IDB.get(k).then(async v=>{if(!v||!(v.blob instanceof Blob)||UP[k])return;
+  const e=await upEntry(v.blob,{name:String(v.name||"").slice(0,80),rot:(v.rot|0)&3,op:clamp(+v.op||.6,.15,1),show:v.show!==false,pdf:!!v.pdf,kind:k});
+  if(k==="plan")await upInvert(e);if(UP[k]){upFree(e);return}UP[k]=e;upApply(k,false)}).catch(()=>{}));
 /* the real catalog (same file the catalog page uses) */
 fetch("assets/products.json").then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(raw=>{
   PRODS=prepP(Array.isArray(raw)?raw:[]);PMAP=new Map(PRODS.map(p=>[p.id,p]));pLoaded=true;
   S.cat=S.cat.filter(x=>PMAP.has(x.pid));render();if(caOpen)caSearch();if(cpk.classList.contains("on"))cpSearch();
 }).catch(()=>{pErr=true;pLoaded=true;render();if(caOpen)caSearch();if(cpk.classList.contains("on"))cpSearch()});
-window.__calc={S,WZ,calc,render,layout:()=>LY,addCat,moveTo,buildPrint,propose,dupGroup,PH,planText,addAt,removeAt,setArr,openPicker,FUget,isEd,Viz};
+window.__calc={S,WZ,UP,UPF,calc,render,layout:()=>LY,addCat,moveTo,buildPrint,propose,dupGroup,PH,planText,addAt,removeAt,setArr,openPicker,FUget,isEd,Viz};
 window.__sl=true;
 })();
 </script>
