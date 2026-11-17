@@ -133,6 +133,9 @@ section[id]{scroll-margin-top:calc(var(--hdr) + 12px)}
 .mega-side h4{font-size:13.5px;font-weight:500;color:var(--mut);margin-bottom:2px}
 .mega-side a.room{font-size:15.5px;color:#d9d3c8;transition:color .3s,translate .3s var(--ease)}
 .mega-side a.room:hover{color:#fff;translate:-4px 0}
+.mega-plan{display:block;margin-top:14px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;font-size:14px;color:#d9d3c8;transition:border-color .3s,color .3s}
+.mega-plan b{color:#fff;font-weight:500}.mega-plan svg{width:14px;height:14px;vertical-align:middle}
+.mega-plan:hover{border-color:currentColor;color:#fff}
 .mega-help{margin-top:auto;padding-top:16px;border-top:1px solid var(--line);font-size:14px;color:var(--mut)}
 .mega-help a{color:#fff;font-weight:700;direction:ltr;display:inline-block}
 
@@ -409,6 +412,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
 .calc-res .unit{margin-top:8px;font-size:18px;color:#e9e4da}
 .calc-res .unit small{font-size:13px;color:var(--mut);margin-inline-start:4px}
 .calc-res .eq{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);font-size:17px;color:#e9e4da;align-self:stretch}
+.calc-plan{display:block;margin-top:14px;font-size:15px;color:var(--dim)}.calc-plan b{font-weight:500;text-decoration:underline;text-underline-offset:4px}.calc-plan:hover b{text-decoration-thickness:2px}
 .calc-note{margin-top:6px;font-size:14px;color:var(--dim)}
 .calc-res .btn{margin-top:26px}
 
@@ -716,7 +720,8 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
 .mnav .mcall{width:100%;justify-content:center;padding:0 20px;margin-top:26px}
 
 /* ---------- responsive ---------- */
-@media (max-width:1360px){.ibtn .lbl.tel{display:none}}
+@media (max-width:1500px){.ibtn .lbl.tel{display:none}}
+@media (max-width:1330px) and (min-width:1181px){.ibtn .lbl{display:none}.nav{gap:18px}}
 @media (max-width:1180px){
   .nav{display:none}
   .burger{display:inline-flex}
@@ -866,6 +871,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
     </div>
     <a href="#rooms">תאורה לפי חלל</a>
     <a href="calculator.html">מחשבון תאורה</a>
+    <a href="profile.html">פרופיל במידה</a>
     <a href="#why">למה ספוטליין</a>
     <a href="#visit">הגעה ויצירת קשר</a>
   </nav>
@@ -885,6 +891,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
     <div class="mega-side">
       <h4>לפי חלל</h4>
       <div id="megaRooms" style="display:flex;flex-direction:column;gap:10px"></div>
+      <a class="mega-plan" href="profile.html">פרופיל לד במידה? <b>לתכנון בכמה צעדים</b> <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
       <div class="mega-help">לא בטוחים מה מתאים? דברו איתנו<br><a href="tel:086377033">08-6377033</a></div>
     </div>
   </div>
@@ -904,6 +911,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
     <div class="mcat" id="mCats"></div>
     <a href="#rooms">תאורה לפי חלל</a>
     <a href="calculator.html">מחשבון תאורה</a>
+    <a href="profile.html">פרופיל במידה</a>
     <a href="#why">למה ספוטליין</a>
     <a href="#visit">הגעה ויצירת קשר</a>
   </nav>
@@ -1033,6 +1041,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
         <p class="eq" id="eq">כ-5,400 לומן, כמות האור שהחדר צריך</p>
         <p class="calc-note">חישוב משוער, לקירות בהירים ולאור רגיל. בחנות נדייק אותו איתכם.</p>
         <a class="btn btn-y" href="calculator.html"><span class="bl">למחשבון המלא</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="calc-plan" href="profile.html">מתכננים פרופיל לד? <b>לתכנון פרופיל במידה</b></a>
       </div>
     </div>
   </div>
@@ -1199,7 +1208,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
       </div>
       <div><h4>מוצרים</h4><ul id="fCats"></ul></div>
       <div><h4>לפי חלל</h4><ul id="fRooms"></ul></div>
-      <div><h4>החנות</h4><ul><li><a href="#why">למה ספוטליין</a></li><li><a href="calculator.html">מחשבון תאורה</a></li><li><a href="#pro">למעצבות ולאדריכלים</a></li><li><a href="#visit">הגעה ויצירת קשר</a></li><li><a href="tel:086377033" style="direction:ltr;display:inline-block">08-6377033</a></li></ul></div>
+      <div><h4>החנות</h4><ul><li><a href="#why">למה ספוטליין</a></li><li><a href="calculator.html">מחשבון תאורה</a></li><li><a href="profile.html">תכנון פרופיל במידה</a></li><li><a href="#pro">למעצבות ולאדריכלים</a></li><li><a href="#visit">הגעה ויצירת קשר</a></li><li><a href="tel:086377033" style="direction:ltr;display:inline-block">08-6377033</a></li></ul></div>
       <div><h4>חיפושים נפוצים</h4><ul>
         <li><a href="category.html?c=recessed">ספוטים שקועים לתקרה</a></li>
         <li><a href="category.html?c=track">פס צבירה מגנטי</a></li>
