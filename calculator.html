@@ -903,6 +903,86 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
   .mb-wa .bl{font-size:14px}
   .ph-sel input[type=range]{width:140px}
 }
+/* =================== v9: the plan in the result, add / remove one fixture, arrangement, catalog picker, garlands, yard walls =================== */
+.tool.res-on .viz{height:clamp(220px,calc((100vh - 190px) * .42),400px)}
+.tool.res-on .plan-wrap .plan{height:clamp(220px,calc((100vh - 190px) * .44),440px)}
+.pbar{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.pb-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px}
+.pb-l{font-size:13.5px;color:var(--mut)}
+.seg{display:inline-flex;flex-wrap:wrap;border:1px solid var(--line2)}
+.seg button{min-height:36px;padding:4px 14px;font-size:14px;color:#d6d0c4;transition:background-color .3s,color .3s}
+.seg button+button{border-inline-start:1px solid var(--line2)}
+.seg button:hover{color:#fff;background:#151413}
+.seg button[aria-pressed="true"]{background:#fff;color:#0a0a0a;font-weight:700}
+.pb-b{display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:0 13px;border:1px solid var(--line2);font-size:14px;color:#e9e4da;transition:border-color .3s,color .3s,background-color .3s}
+.pb-b svg{width:13px;height:13px;flex:none}
+.pb-b:hover:not(:disabled){border-color:#fff;color:#fff}
+.pb-b[aria-pressed="true"]{border-color:var(--y);color:var(--y)}
+.pb-b:disabled{opacity:.38;cursor:default}
+.pb-sel .sel{height:38px;max-width:230px}
+.plan.adding svg{cursor:crosshair}
+.plan.adding .ps{cursor:grab}
+.plan-h #planH{color:#f3efe7}
+.ps .sd{fill:none;stroke:#f3efe7;stroke-width:1.4;stroke-dasharray:1 5;stroke-linecap:round;vector-effect:non-scaling-stroke;transition:stroke .25s}
+.ps:hover .sd,.ps.hl .sd,.ps.drag .sd,.ps:focus-visible .sd,.ps.sel .sd,.ps.fl .sd{stroke:var(--y)}
+.ps.sel .sy,.ps.sel .sk,.ps.fl .sy,.ps.fl .sk{stroke:var(--y)}
+.ps.sel .sf,.ps.fl .sf{fill:var(--y)}
+.ps .selr,.ps .flr{fill:none;stroke:var(--y);vector-effect:non-scaling-stroke;display:none;pointer-events:none}
+.ps.sel .selr{display:block;stroke-width:1.2;stroke-dasharray:3 3}
+.ps.fl .flr{display:block;stroke-width:1.6;transform-box:fill-box;transform-origin:center;animation:flr 1.1s ease-out infinite}
+@keyframes flr{from{transform:scale(.6);opacity:1}to{transform:scale(1.7);opacity:0}}
+.pwl{stroke:rgba(255,244,225,.82);stroke-width:4;stroke-linecap:square;vector-effect:non-scaling-stroke}
+.pp .pwl{stroke:#111}.pp .ps .sd{stroke:#111}
+.res-add{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;margin-top:22px}
+.res-add .btn{height:52px;padding:0 22px;font-size:15.5px}
+.res-add small{font-size:14px;color:var(--mut);line-height:1.45}
+#resPlanSlot:not(:empty){margin-top:26px}
+.pl-rm{display:inline-block;min-height:28px;margin-top:2px;padding:2px 0;font-size:12.5px;color:var(--mut);text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(255,255,255,.25);transition:color .3s}
+.pl-rm:hover{color:#fff}
+.pl.flash{animation:fxFlash 1.8s var(--p3)}
+#fYw{margin-bottom:26px}
+/* catalog picker */
+.cpk{position:fixed;inset:0;z-index:92;display:grid;place-items:center;padding:24px;visibility:hidden;transition:visibility 0s .35s}
+.cpk.on{visibility:visible;transition:none}
+.cpk-bg{position:absolute;inset:0;background:rgba(0,0,0,.68);opacity:0;transition:opacity .35s}
+.cpk.on .cpk-bg{opacity:1}
+.cpk-box{position:relative;width:min(920px,100%);height:min(88vh,800px);background:#0f0e0d;border:1px solid var(--line2);display:flex;flex-direction:column;min-height:0;opacity:0;translate:0 16px;transition:opacity .35s,translate .45s var(--ease)}
+.cpk.on .cpk-box{opacity:1;translate:none}
+.cpk-bar{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,auto);gap:8px;padding:16px 24px 0}
+.cpk-bar .sel{height:46px;min-width:170px}
+.cpk-cnt{padding:10px 24px 8px;font-size:13px;color:var(--mut);min-height:38px}
+.cpk-grid{list-style:none;flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding:0 24px 24px;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;align-content:start}
+.cpc{position:relative;display:flex;flex-direction:column;width:100%;height:100%;text-align:right;border:1px solid var(--line2);transition:border-color .3s,background-color .3s}
+.cpc:hover,.cpc:focus-visible{border-color:#fff;background:#151413}
+.cpc:focus-visible{outline-offset:2px}
+.cpc-im{display:grid;place-items:center;aspect-ratio:1/1;background:#f1efea;color:#6d675e;overflow:hidden}
+.cpc-im img{width:100%;height:100%;object-fit:contain;padding:10px}
+.cpc-im .ico{width:46px;height:46px;stroke-width:2}
+.cpc-t{display:block;padding:10px 12px 12px}
+.cpc-t b{display:block;font-weight:500;font-size:14.5px;line-height:1.35;color:#f3efe7}
+.cpc-t small{display:block;margin-top:3px;font-size:12.5px;color:var(--mut);line-height:1.4}
+.cpc-t small span{direction:ltr;unicode-bidi:isolate;display:inline-block}
+.cpc-in{position:absolute;top:8px;right:8px;padding:3px 8px;background:var(--y);color:#0a0a0a;font-size:12px;font-weight:700}
+.cpk .ca-msg{grid-column:1/-1;border:0;padding:16px 0}
+@media (max-width:999px){
+  .tool.res-on .viz{height:clamp(190px,34vh,300px)}
+  .tool.res-on .plan-wrap .plan{height:auto}
+  .tool.adv-open .viz,.tool.adv-open.res-on .viz{height:clamp(230px,58vw,400px)}
+}
+@media (max-width:560px){
+  .cpk{padding:0}
+  .cpk-box{width:100%;height:100%;border:0}
+  .cpk .dr-h{padding:14px 16px}
+  .cpk-bar{grid-template-columns:1fr;padding:12px 16px 0}
+  .cpk-bar .sel{min-width:0;width:100%}
+  .cpk-cnt{padding:8px 16px}
+  .cpk-grid{grid-template-columns:1fr 1fr;padding:0 16px 16px;gap:8px}
+  .cpc-t{padding:8px 10px 10px}
+  .cpc-t b{font-size:14px}
+  .res-add .btn{width:100%;justify-content:center}
+  .seg button{padding:4px 12px}
+  .pb-sel .sel{max-width:100%}
+}
 </style>
 </head>
 <body>
@@ -938,6 +1018,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
     <symbol id="c-bulb" viewBox="0 0 64 64"><path d="M25 46h14M26 51h12M28 56h8"/><path d="M25 46c0-7-9-11-9-22a16 16 0 0 1 32 0c0 11-9 15-9 22z" style="fill:var(--lf)"/><path d="M28 40v-9l4-4 4 4v9"/><path d="M32 1v2M10 10l2 2M54 10l-2 2M4 26h3M57 26h3" style="opacity:var(--ro)"/></symbol>
     <symbol id="c-bollard" viewBox="0 0 64 64"><path d="M18 58h28"/><path d="M25 58V22h14v36"/><path d="M23 14h18v8H23z"/><path d="M25 22h14v6H25z" style="fill:var(--lf)"/><path d="M16 30l-6 4M48 30l6 4M17 40l-7 2M47 40l7 2" style="opacity:var(--ro)"/></symbol>
     <symbol id="c-spike" viewBox="0 0 64 64"><path d="M8 52h48"/><path d="M32 52v8"/><path d="M32 52V36"/><path d="m26 36 6-4 6 4"/><path d="M24 24h16l-2 8H26z" style="fill:var(--lf)"/><path d="M26 18l-4-9M32 17V6M38 18l4-9" style="opacity:var(--ro)"/></symbol>
+    <symbol id="c-garland" viewBox="0 0 64 64"><path d="M6 12v44M58 12v44"/><path d="M6 17q26 20 52 0"/><circle cx="16" cy="26.5" r="3.2" style="fill:var(--lf)"/><circle cx="32" cy="30.5" r="3.2" style="fill:var(--lf)"/><circle cx="48" cy="26.5" r="3.2" style="fill:var(--lf)"/><path d="M16 34v6M32 38v7M48 34v6" style="opacity:var(--ro)"/></symbol>
   </defs>
 </svg>
 <!-- white balance for the colour temperature photo (values are set by the script) -->
@@ -1046,6 +1127,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
         <div class="wq-b">
           <h2 class="wq-h" id="q2h" tabindex="-1">מה המידות?</h2>
           <div class="fld" id="fCov" hidden><div class="lb" id="lbCov">המרפסת מקורה?</div><div class="opts big" id="rCov" role="group" aria-labelledby="lbCov"><button type="button" data-v="yes" aria-pressed="false">כן, יש תקרה</button><button type="button" data-v="no" aria-pressed="false">לא, פתוחה לשמיים</button></div></div>
+          <div class="fld" id="fYw" hidden><div class="lb" id="lbYw">יש קירות מסביב?</div><div class="opts big" id="rYw" role="group" aria-labelledby="lbYw"></div></div>
           <div id="dimBox">
             <div class="dims2">
               <label class="dn"><span>אורך</span><span class="nbox"><input id="nL" type="number" min="1" max="30" step="any" inputmode="decimal"><span>מ׳</span></span></label>
@@ -1099,6 +1181,8 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
         <p class="eqn" id="eqn"></p>
         <ul class="plist" id="pList" aria-label="ההצעה שלנו לחדר"></ul>
         <p class="ptot" id="pTot"></p>
+        <div class="res-add"><button type="button" class="btn btn-o" id="cpOpen" aria-haspopup="dialog"><svg aria-hidden="true"><use href="#i-plus"/></svg><span class="bl">הוספה מהקטלוג</span></button><small>בוחרים גוף מסוים ורואים אותו בחדר</small></div>
+        <div id="resPlanSlot"></div>
         <ul class="tipsr" id="tipsR" aria-label="שווה לדעת"></ul>
         <div class="cta">
           <h3>רוצים שנדייק את זה איתכם?</h3>
@@ -1132,7 +1216,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
             <p class="note" id="note" hidden>אור עקיף ואור הדגשה נספרים רק בחלקם, ולכן הוואט שבחרתם יכול לצאת גבוה מהיעד.</p>
             <p class="note" id="noteNoW" hidden></p>
           </div>
-          <p class="fx-open" id="fxOpen" hidden style="margin-top:18px">בלי תקרה אין על מה לתלות גוף, ולכן מוצגים רק גופי קיר וגופים שעומדים על הקרקע.</p>
+          <p class="fx-open" id="fxOpen" hidden style="margin-top:18px">בלי תקרה אין על מה לתלות גוף, ולכן מוצגים רק גופי קיר, גופים שעומדים על הקרקע ושרשראות נורות על עמודים.</p>
           <ul class="fxl" id="gList" aria-label="הגופים בתכנון" style="margin-top:22px"></ul>
           <div class="addt"><label for="addT">עוד סוג גוף</label><select class="sel" id="addT"></select></div>
 
@@ -1191,11 +1275,15 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
       </div>
       <div id="planHome">
         <div class="plan-wrap" id="planWrap" hidden>
-          <div class="plan-h"><span id="planH">מבט מלמעלה, בקנה מידה</span><small>גוררים גוף והוא נצמד לרשת של 25 ס״מ</small></div>
+          <div class="pbar" id="pbar">
+            <div class="pb-row"><span class="pb-l" id="lbArr">סידור</span><div class="seg" id="rArr" role="group" aria-labelledby="lbArr"><button type="button" data-v="all" aria-pressed="true">בכל החדר</button><button type="button" data-v="side" aria-pressed="false">בצד אחד</button></div><div class="seg" id="rSide" role="group" aria-label="באיזה צד של התוכנית" hidden><button type="button" data-v="t" aria-pressed="false">למעלה</button><button type="button" data-v="b" aria-pressed="false">למטה</button><button type="button" data-v="r" aria-pressed="false">ימין</button><button type="button" data-v="l" aria-pressed="false">שמאל</button></div></div>
+            <div class="pb-row"><button type="button" class="pb-b" id="plAdd" aria-pressed="false"><svg aria-hidden="true"><use href="#i-plus"/></svg><span>הוספת גוף</span></button><label class="pb-sel" id="plAddW" hidden><span class="sr">איזה גוף מוסיפים</span><select class="sel" id="plAddT"></select></label><button type="button" class="pb-b" id="plDel" disabled><svg aria-hidden="true"><use href="#i-minus"/></svg><span>הסרת הגוף שנבחר</span></button></div>
+          </div>
+          <div class="plan-h"><span id="planH">גררו כל גוף למקום שלו</span><small>כל גוף נצמד לרשת של 25 ס״מ</small></div>
           <div class="plan" id="plan">
             <svg id="planSv" role="group" aria-label="תוכנית החדר מלמעלה, בקנה מידה" aria-describedby="planHelp" xmlns="http://www.w3.org/2000/svg"></svg>
             <p class="plan-empty" id="planEmpty">הגופים יופיעו כאן במקום שלהם.</p>
-            <p class="sr" id="planHelp">כל גוף בתוכנית אפשר לגרור, או לבחור במקש טאב ולהזיז בחיצים, 25 ס״מ בכל לחיצה.</p>
+            <p class="sr" id="planHelp">כל גוף בתוכנית אפשר לגרור, או לבחור במקש טאב ולהזיז בחיצים, 25 ס״מ בכל לחיצה. מקש מחיקה מסיר את הגוף שנבחר.</p>
           </div>
         </div>
       </div>
@@ -1366,6 +1454,15 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
   </div>
 </div>
 
+<div class="cpk" id="cpk" role="dialog" aria-modal="true" aria-labelledby="cpkH">
+  <div class="cpk-bg" data-cpkx></div>
+  <div class="cpk-box">
+    <div class="dr-h"><h2 id="cpkH">הוספה מהקטלוג<small>בוחרים גוף, והוא נכנס לתכנון ולהדמיה.</small></h2><button class="x" type="button" data-cpkx aria-label="סגירה"><svg aria-hidden="true"><use href="#i-x"/></svg></button></div>
+    <div class="cpk-bar"><label class="ca-q"><svg aria-hidden="true"><use href="#i-search"/></svg><input type="search" id="cpQ" placeholder="שם או מק״ט, למשל: ספוט" autocomplete="off" enterkeyhint="search" aria-label="חיפוש בקטלוג, לפי שם או מק״ט" aria-controls="cpRes"></label><select class="sel" id="cpCat" aria-label="סוג הגוף"></select></div>
+    <p class="cpk-cnt" id="cpCnt" aria-live="polite"></p>
+    <ul class="cpk-grid" id="cpRes" aria-label="גופים מהקטלוג"></ul>
+  </div>
+</div>
 <div class="toast" id="toast" role="status"><span id="toastT"></span><button type="button" id="toastB">לצפייה בסל</button></div>
 <div id="printSheet"></div>
 
@@ -1424,8 +1521,8 @@ const ROOMS={
   bath:    {he:'אמבטיה',           lux:200, range:[150,300], wp:0.75, cct:[3000,4000], d:[2.5,2], note:'באמבטיה: מול המראה צריך 300 עד 500 לוקס.'},
   study:   {he:'משרד / חדר עבודה', lux:400, range:[300,500], wp:0.75, cct:[4000,4000], d:[3.5,3]},
   hall:    {he:'מסדרון',           lux:100, range:[50,150],  wp:0,    cct:[3000,3000], d:[4,1.2]},
-  balcony: {he:'מרפסת',            lux:75,  range:[30,150],  wp:0,    cct:[2700,3000], d:[4,2], out:true},
-  yard:    {he:'חצר / גינה',       lux:50,  range:[20,100],  wp:0,    cct:[2700,3000], d:[8,6], out:true, open:true},
+  balcony: {he:'מרפסת',            lux:75,  range:[30,150],  wp:0,    cct:[2700,3000], d:[4,2], out:true, cov:true},
+  yard:    {he:'חצר / גינה',       lux:50,  range:[20,100],  wp:0,    cct:[2700,3000], d:[8,6], out:true, cov:true},
   shop:    {he:'חנות / עסק',       lux:500, range:[300,750], wp:0.75, cct:[3000,4000], d:[8,6], biz:true}
 };
 const UF_K=[0.6,0.8,1.0,1.25,1.5,2.0,2.5,3.0,4.0,5.0];
@@ -1451,13 +1548,24 @@ const FIXTURES={
   wall:      {he:'מנורת קיר',          unit:'יח׳', contrib:0.5,  opts:{6:420,10:700,12:850}},
   bulb:      {he:'נורה E27',           unit:'יח׳', contrib:0.8,  opts:{9:806,12:1100,15:1450}},
   bollard:   {he:'עמודון לגינה',       unit:'יח׳', contrib:0.6,  opts:{7:450,10:650,15:950}},
-  spike:     {he:'דוקרן לגינה',        unit:'יח׳', contrib:0.6,  opts:{3:200,5:350,7:500}}
+  spike:     {he:'דוקרן לגינה',        unit:'יח׳', contrib:0.6,  opts:{3:200,5:350,7:500}},
+  /* string lights: decorative, so only a third of the light counts toward the room */
+  garland:   {he:'שרשרת נורות (גרלנדה)', unit:'מטר', contrib:0.35, opts:{4:300,5:380,6:450}}
 };
 /* outdoor without a ceiling: dark-walls utilization row, maintenance 0.8, a nominal 2.4 m mounting height */
-const OPEN_H=2.4, OUT_T=["bollard","spike"];
-const openSky=()=>{const r=ROOMS[S.room];return !!(r.open||(S.room==="balcony"&&!S.covered))};
+const OPEN_H=2.4, OUT_T=["bollard","spike","garland"];
+/* balcony and yard: covered or open to the sky */
+const openSky=()=>!!(ROOMS[S.room].cov&&!S.covered);
 const effH=()=>openSky()?OPEN_H:S.H;
-const avail=t=>{if(OUT_T.includes(t))return !!ROOMS[S.room].out;return !openSky()||t==="wall"};
+/* the yard: how many walls stand around it (b = top of the plan, f = bottom, l, r) */
+const YW=[["0","אין קירות"],["1","קיר אחד"],["2","2 קירות"],["3","3 קירות"],["4","מוקפת קירות"]];
+const YWT=["בלי קירות","קיר אחד","2 קירות","3 קירות","מוקפת קירות"];
+const WSETS=[[],["b"],["b","r"],["b","l","r"],["b","f","l","r"]];
+const isYard=()=>S.room==="yard";
+const wallSet=()=>isYard()?WSETS[S.yw]||[]:null;
+const wallsOk=()=>!isYard()||S.yw>0;
+const wallTop=()=>isYard()&&openSky()?1.9:effH();
+const avail=t=>{if(t==="wall"&&!wallsOk())return false;if(OUT_T.includes(t))return !!ROOMS[S.room].out;return !openSky()||t==="wall"};
 const ipRec=()=>!ROOMS[S.room].out?0:openSky()?65:44;
 const OLD={
   incandescent:{25:220,40:450,60:800,75:1100,100:1600,150:2600},
@@ -1474,7 +1582,7 @@ const CCT={
 };
 
 /* ui data */
-const ORDER=["recessed","gimbal","ceiling","pendant","trackSpot","magSpot","magLinear","profile","strip","wall","bulb","bollard","spike"];
+const ORDER=["recessed","gimbal","ceiling","pendant","trackSpot","magSpot","magLinear","profile","strip","wall","bulb","bollard","spike","garland"];
 const FXU={
   recessed:{ic:"recessed",pl:"ספוטים שקועים",one:"ספוט שקוע אחד"},
   gimbal:{ic:"gimbal",pl:"ספוטים מתכווננים",one:"ספוט מתכוונן אחד"},
@@ -1488,12 +1596,13 @@ const FXU={
   wall:{ic:"wall",pl:"מנורות קיר",one:"מנורת קיר אחת"},
   bulb:{ic:"bulb",pl:"נורות E27",one:"נורת E27 אחת"},
   bollard:{ic:"bollard",pl:"עמודונים",one:"עמודון אחד"},
-  spike:{ic:"spike",pl:"דוקרנים",one:"דוקרן אחד"}
+  spike:{ic:"spike",pl:"דוקרנים",one:"דוקרן אחד"},
+  garland:{ic:"garland",pl:"שרשראות נורות",one:"שרשרת נורות אחת"}
 };
 /* how each generic type is drawn: sym = symbol on the top view plan, vk = kind in the room view */
 const GK={recessed:{sym:"spot",vk:"spot"},gimbal:{sym:"spot",vk:"gimbal"},ceiling:{sym:"ring",vk:"ceil"},pendant:{sym:"pend",vk:"pendant"},
   trackSpot:{sym:"head",vk:"head",rg:"trk"},magSpot:{sym:"head",vk:"head",rg:"mag"},magLinear:{sym:"lin",vk:"lin",rg:"mag"},profile:{sym:"prof",vk:"prof"},
-  wall:{sym:"wall",vk:"wall"},bulb:{sym:"bulb",vk:"bulb"},bollard:{sym:"bollard",vk:"floor",h:.7},spike:{sym:"spike",vk:"floor",h:.3}};
+  wall:{sym:"wall",vk:"wall"},bulb:{sym:"bulb",vk:"bulb"},bollard:{sym:"bollard",vk:"floor",h:.7},spike:{sym:"spike",vk:"floor",h:.3},garland:{sym:"garl",vk:"garl"}};
 
 /* ---------------- real products (assets/products.json, same data as the catalog page) ---------------- */
 const CCON={recessed:.9,ceiling:1,wall:.5,profile:.9,track:.65,table:.5,outdoor:.6};
@@ -1584,9 +1693,9 @@ function cardsFor(){
     bath:[["recessed","ספוטים שקועים","מתאימים לחדר רטוב"],["wall","מנורת קיר למראה","אור על הפנים, בלי צללים"],["ceiling","צמוד תקרה","גוף אטום אחד"]],
     study:[["profile","פרופיל לד","אור אחיד בלי סנוור"],["recessed","ספוטים שקועים","אור נקי מהתקרה"],["magLinear","גוף ליניארי","קו אור ארוך מעל השולחן"],["ceiling","צמוד תקרה","גוף אחד שמאיר הכול"],["pendant","מנורה תלויה","מעל שולחן הישיבות"]],
     hall:[["recessed","ספוטים שקועים","שורה לאורך המסדרון"],["profile","פרופיל לד","קו אור לכל האורך"],["wall","מנורות קיר","אור רך על הקירות"],["ceiling","צמוד תקרה","גוף אחד או שניים"]].concat(y.art?[["gimbal","ספוטים לתמונות","מכוונים לכל תמונה"]]:[]),
-    balcony:open?[["wall","מנורות קיר חוץ","על הקיר של הבית"],["bollard","עמודונים","עומדים על הרצפה"],["spike","דוקרנים","מאירים עציצים וצמחייה"]]
-      :[["recessed","ספוטים שקועים","בתקרה של המרפסת"],["ceiling","צמוד תקרה","גוף אטום אחד"],["wall","מנורות קיר חוץ","על הקיר של הבית"]].concat(a.includes("plants")?[["spike","דוקרנים","מאירים עציצים וצמחייה"]]:[]),
-    yard:[["bollard","עמודונים","לאורך שביל או גדר"],["spike","דוקרנים","מאירים עצים וצמחייה"],["wall","מנורות קיר חוץ","על הקיר של הבית"]],
+    balcony:(open?[["wall","מנורות קיר חוץ","על הקיר של הבית"],["bollard","עמודונים","עומדים על הרצפה"],["spike","דוקרנים","מאירים עציצים וצמחייה"]]
+      :[["recessed","ספוטים שקועים","בתקרה של המרפסת"],["ceiling","צמוד תקרה","גוף אטום אחד"],["wall","מנורות קיר חוץ","על הקיר של הבית"]].concat(a.includes("plants")?[["spike","דוקרנים","מאירים עציצים וצמחייה"]]:[])).concat([["garland","שרשרת נורות","גרלנדה חמה לאווירה"]]),
+    yard:(open?[]:[["recessed","ספוטים שקועים","בתקרה או בפרגולה"],["ceiling","צמוד תקרה","גוף אטום אחד"]]).concat([["bollard","עמודונים","לאורך שביל או גדר"],["spike","דוקרנים","מאירים עצים וצמחייה"],["wall","מנורות קיר חוץ","על הקירות של החצר"],["garland","שרשרת נורות","גרלנדה חמה מעל החצר"]]),
     shop:[["trackSpot","ספוטים למסילה","מכוונים על המוצרים"],["magSpot","פס מגנטי","ראשים שמכוונים לאן שרוצים"],["recessed","ספוטים שקועים","אור כללי נקי"],["magLinear","גוף ליניארי","קו אור מעל הדלפק"],["profile","פרופיל לד","קו אור נקי בתקרה"]]
   };
   return (C[r]||C.living).filter(c=>avail(c[0]));
@@ -1604,7 +1713,7 @@ function recTypes(){
     case"study":o.push("profile");if(a.includes("meet"))o.push("pendant");break;
     case"hall":o.push("recessed");if(y.art)o.push("gimbal");break;
     case"balcony":if(openSky())o.push("wall");else o.push("recessed");if(a.includes("sit"))o.push("wall");if(a.includes("plants"))o.push("spike");break;
-    case"yard":if(a.includes("path"))o.push("bollard");if(a.includes("trees"))o.push("spike");if(a.includes("sit"))o.push("wall");if(!o.length)o.push("bollard","wall");break;
+    case"yard":if(a.includes("path"))o.push("bollard");if(a.includes("trees"))o.push("spike");if(a.includes("sit"))o.push("wall","garland");if(!o.length)o.push("bollard","wall");break;
     case"shop":o.push("trackSpot");if(a.includes("counter"))o.push("magLinear");break;
   }
   return o;
@@ -1616,15 +1725,15 @@ const isM=t=>FIXTURES[t].unit==="מטר";
 const DMIN=1,DMAX=30;
 const PLACES=["auto","center","grid","wall-t","wall-b","wall-r","wall-l","corners","table"];
 /* gen = groups of generic fixture types (the same type may appear in several groups, each in its own place) */
-const S={room:"living",covered:true,L:5,W:4,H:2.7,walls:"light",pref:"bright",atm:null,acts:[],yn:{},types:[],cct:3000,cctUser:false,last:null,gen:[],gseq:0,cat:[],cseq:0,manual:false};
-const WZ={open:0,done:[false,false,false,false,false],cov:false,res:false};
-const SKEY="sl-calc8";
+const S={room:"living",covered:true,yw:1,L:5,W:4,H:2.7,walls:"light",pref:"bright",atm:null,acts:[],yn:{},types:[],cct:3000,cctUser:false,last:null,gen:[],gseq:0,cat:[],cseq:0,manual:false,arr:"all",side:"t"};
+const WZ={open:0,done:[false,false,false,false,false],cov:false,yw:false,res:false};
+const SKEY="sl-calc9";
 const cleanPos=o=>{const out={};if(o&&typeof o==="object")Object.keys(o).forEach(i=>{const x=o[i];if(/^\d+$/.test(i)&&x&&isFinite(x.u)&&isFinite(x.v)){const y={u:clamp(+x.u,0,1),v:clamp(+x.v,0,1)};if(/^[bflr]$/.test(x.side))y.side=x.side;out[i]=y}});return out};
 const defW=t=>{const ks=Object.keys(FIXTURES[t].opts);return ks[Math.min(1,ks.length-1)]};
 /* a finished plan comes back after a refresh; a half answered one starts again */
 try{const st=JSON.parse(localStorage.getItem(SKEY)||"null");
   if(st&&st.wz&&st.wz.res&&ROOMS[st.room]){
-    S.room=st.room;S.covered=st.covered!==false;
+    S.room=st.room;S.covered=st.covered!==false;if(st.yw>=0&&st.yw<=4)S.yw=Math.round(st.yw);if(st.arr==="side")S.arr="side";if(/^[tblr]$/.test(st.side))S.side=st.side;
     ["L","W"].forEach(k=>{if(isFinite(st[k])&&st[k]!==null)S[k]=clamp(Math.round(+st[k]*1000)/1000,DMIN,DMAX)});
     if(isFinite(st.H))S.H=clamp(+st.H,2.3,4.5);
     if(WALLS[st.walls])S.walls=st.walls;if(PREFS[st.pref])S.pref=st.pref;if(ATM[st.atm])S.atm=st.atm;
@@ -1634,10 +1743,10 @@ try{const st=JSON.parse(localStorage.getItem(SKEY)||"null");
     if(isFinite(st.cct))S.cct=clamp(Math.round(+st.cct/100)*100,2200,6500);S.cctUser=!!st.cctUser;S.manual=!!st.manual;
     if(Array.isArray(st.gen))st.gen.forEach(g=>{if(!g||!FIXTURES[g.t]||S.gen.length>=40)return;const m=isM(g.t);
       S.gen.push({gid:"g"+(++S.gseq),t:g.t,w:FIXTURES[g.t].opts[g.w]!=null?String(g.w):defW(g.t),q:m?clamp(Math.round(+g.q*2)/2||1,.5,60):clamp(Math.round(+g.q)||1,1,40),
-        mode:g.mode==="ind"?"ind":"dir",place:PLACES.includes(g.place)?g.place:"auto",pos:cleanPos(g.pos),lab:typeof g.lab==="string"?g.lab.slice(0,60):""})});
+        mode:g.mode==="ind"?"ind":"dir",place:PLACES.includes(g.place)?g.place:"auto",pl0:PLACES.includes(g.pl0)?g.pl0:undefined,pos:cleanPos(g.pos),lab:typeof g.lab==="string"?g.lab.slice(0,60):""})});
     if(Array.isArray(st.cat))st.cat.forEach(x=>{if(!x||typeof x.pid!=="string"||S.cat.length>=30)return;
-      S.cat.push({uid:"c"+(++S.cseq),pid:x.pid,fi:Math.max(0,Math.round(+x.fi||0)),q:clamp(Math.round(+x.q||1),1,40),place:PLACES.includes(x.place)?x.place:"auto",pos:cleanPos(x.pos)})});
-    if(S.types.length){WZ.done=[true,true,true,true,true];WZ.cov=true;WZ.res=true;WZ.open=-1}
+      S.cat.push({uid:"c"+(++S.cseq),pid:x.pid,fi:Math.max(0,Math.round(+x.fi||0)),q:clamp(Math.round(+x.q||1),1,40),place:PLACES.includes(x.place)?x.place:"auto",pl0:PLACES.includes(x.pl0)?x.pl0:undefined,pos:cleanPos(x.pos)})});
+    if(S.types.length){WZ.done=[true,true,true,true,true];WZ.cov=true;WZ.yw=true;WZ.res=true;WZ.open=-1}
   }}catch(e){}
 const saveState=()=>{try{localStorage.setItem(SKEY,JSON.stringify(Object.assign({},S,{wz:{res:WZ.res}})))}catch(e){}};
 
@@ -1652,7 +1761,7 @@ function planLines(){
     const w=parseFloat(g.w),ul=FIXTURES[g.t].opts[g.w],c=gc(g);
     out.push(Object.assign({id:"g:"+g.gid,src:"gen",t:g.t,q:g.q,w,ul,c,W:w*g.q,E:ul*g.q*c,ok:true,noW:false,st:g,name:gName(g)},GK[g.t]||{}))});
   S.cat.forEach(x=>{const p=pById(x.pid);if(!p)return;
-    const fi=Math.min(x.fi,Math.max(0,p.fins.length-1)),ok=!openSky()||okOpen(p),noW=p.w==null,c=CCON[p.cat];
+    const fi=Math.min(x.fi,Math.max(0,p.fins.length-1)),ok=(!openSky()||okOpen(p))&&(wallsOk()||p.kind.sym!=="wall"),noW=p.w==null,c=CCON[p.cat];
     out.push(Object.assign({id:"c:"+x.uid,src:"cat",uid:x.uid,p,fi,sku:catVar(p,fi).sku,fin:catFin(p,fi),q:x.q,w:p.w,ul:p.lmU,c,
       W:ok&&!noW?p.w*x.q:0,E:ok&&!noW?p.lmU*x.q*c:0,ok,noW,st:x,name:p.n},p.kind))});
   return out;
@@ -1673,13 +1782,13 @@ const STATE_HE={low:"חסר אור",ok:"בדיוק",over:"יותר מדי"};
    the general light is split between the other chosen types */
 const IDEAL={recessed:a=>Math.max(2,Math.round(a/1.8)),gimbal:a=>Math.max(2,Math.round(a/3)),ceiling:a=>Math.max(1,Math.round(a/12)),magSpot:a=>Math.max(2,Math.round(a/3)),
   magLinear:a=>Math.max(2,Math.round(a/4)),trackSpot:a=>Math.max(2,Math.round(a/3)),bulb:a=>Math.max(1,Math.round(a/6)),bollard:a=>Math.max(2,Math.round(a/6)),wall:()=>2,spike:()=>3,pendant:()=>2};
-const CAP={pendant:6,wall:14,gimbal:12,strip:30,spike:20,bollard:30,ceiling:6,recessed:40,magSpot:30,magLinear:20,trackSpot:30,bulb:12,profile:40};
+const CAP={pendant:6,wall:14,gimbal:12,strip:30,spike:20,bollard:30,ceiling:6,recessed:40,magSpot:30,magLinear:20,trackSpot:30,bulb:12,profile:40,garland:40};
 const gLm=g=>FIXTURES[g.t].opts[g.w]*g.q*gc(g);
 function propose(){
   const L=S.L,W=S.W,A=L*W,rm=S.room,a=S.acts,y=S.yn,out=!!ROOMS[rm].out,lm=calc().lm,G=[];
   const add=(t,q,place,ex)=>{const g=Object.assign({gid:"g"+(++S.gseq),t,w:defW(t),q,mode:"dir",place:place||"auto",pos:{},lab:""},ex||{});G.push(g);return g};
   const types=S.types.filter(avail);
-  const ACC=new Set(["pendant","wall","strip","spike"]);if(y.books||y.art)ACC.add("gimbal");if(a.includes("path"))ACC.add("bollard");
+  const ACC=new Set(["pendant","wall","strip","spike","garland"]);if(y.books||y.art)ACC.add("gimbal");if(a.includes("path"))ACC.add("bollard");
   types.forEach(t=>{if(!ACC.has(t))return;
     switch(t){
       case"pendant":{const isl=rm==="kitchen"&&y.island,n=isl?3:rm==="dining"?clamp(Math.round(Math.max(L,W)/1.6),1,3):rm==="bedroom"?2:1;
@@ -1692,6 +1801,8 @@ function propose(){
       case"spike":add(t,a.includes("trees")?4:3,rm==="yard"?"corners":"wall-t");break;
       case"gimbal":if(y.books)add(t,2,"wall-l",{lab:"ספוטים לארון הספרים"});else add(t,Math.max(2,Math.round(Math.max(L,W)/1.5)),"wall-t",{lab:"ספוטים לתמונות"});break;
       case"bollard":add(t,Math.max(3,Math.ceil(L/1.6)),"wall-b",{lab:"עמודונים לשביל"});break;
+      /* two strands across the space */
+      case"garland":add(t,clamp(Math.floor(Math.max(L,W)*.9*2*2)/2,2,CAP.garland),"auto");break;
     }});
   const E=G.reduce((s,g)=>s+gLm(g),0),gens=types.filter(t=>!ACC.has(t)),R=Math.max(0,lm-E);
   if(gens.length){const share=R/gens.length;
@@ -1703,13 +1814,17 @@ function propose(){
       add(t,Math.min(CAP[t]||40,best.n),"auto",{w:best.w})});
   }else if(G.length&&R>lm*.1){
     /* only accent types were chosen: the main one carries the room */
-    const g=["bollard","wall","spike","pendant","gimbal","strip"].map(t=>G.find(x=>x.t===t)).find(Boolean),ks=Object.keys(FIXTURES[g.t].opts);
+    /* string lights are decoration: they never carry the room on their own */
+    const g=["bollard","wall","spike","pendant","gimbal","strip"].map(t=>G.find(x=>x.t===t)).find(Boolean);
+    if(g){const ks=Object.keys(FIXTURES[g.t].opts);
     g.w=ks[ks.length-1];const other=G.reduce((s,x)=>s+(x===g?0:gLm(x)),0),per=FIXTURES[g.t].opts[g.w]*gc(g);
     const n=Math.ceil(Math.max(0,lm-other)/per);
     /* a path gets a second row on the other side, rather than bollards crowded on one side */
     if(g.t==="bollard"&&g.place==="wall-b"){if(n>g.q)add("bollard",Math.min(g.q,n-g.q),"wall-t",{w:g.w,lab:g.lab})}
-    else g.q=isM(g.t)?clamp(Math.round(n*2)/2,g.q,CAP[g.t]):clamp(Math.max(g.q,n),1,CAP[g.t]||40);
+    else g.q=isM(g.t)?clamp(Math.round(n*2)/2,g.q,CAP[g.t]):clamp(Math.max(g.q,n),1,CAP[g.t]||40);}
   }
+  /* "בצד אחד" stays on when the proposal is made again */
+  if(S.arr==="side")G.forEach(g=>{g.pl0=g.place;g.place="wall-"+S.side});
   S.gen=G;S.manual=false;S.last=null;
 }
 
@@ -1733,7 +1848,9 @@ const Viz=(function(){
   const cur={L:S.L,W:S.W,H:S.H,E:0,cove:0,yaw:0,pitch:5,show:0}, tgt=Object.assign({},cur);
   const col={rgb:[255,190,120],wall:[236,230,220]}, tcol={rgb:[255,190,120],wall:[236,230,220]};
   const lights=new Map();
-  let lab={L:S.L,W:S.W,H:S.H},open=false,dims=false,spin=false,spinT=0,dragging=false,onUser=null;
+  let lab={L:S.L,W:S.W,H:S.H},open=false,dims=false,spin=false,spinT=0,dragging=false,onUser=null,wset=null,wh=0,posts=false,hlT=-1e9;
+  /* string lights always glow warm (about 2400K), whatever the room tone */
+  const GL=k2rgb(2400),GLC=GL.map(v=>v|0).join(","),GLH=GL.map(v=>(v+(255-v)*.6)|0).join(",");
   const FLOOR=[152,130,106], CEIL=[232,228,220], D2R=Math.PI/180;
   const FL=[[0,0],[.12,.85],[.24,.2],[.38,1],[.5,.5],[.62,1],[1,1]];
   const flick=t=>{if(t>=1)return 1;for(let i=1;i<FL.length;i++){if(t<=FL[i][0]){const a=FL[i-1],b=FL[i];return a[1]+(b[1]-a[1])*(t-a[0])/(b[0]-a[0])}}return 1};
@@ -1752,9 +1869,11 @@ const Viz=(function(){
       if(l.t<1){l.t=RM?1:Math.min(1,l.t+dt/.7);mv=true}
       if(l.dead){l.f-=RM?1:dt/.35;mv=true;if(l.f<=0)lights.delete(key)}
     });
+    if(performance.now()-hlT<2600)mv=true;
     return mv;
   }
   function set(o){if(o.n)Object.assign(tgt,o.n);if(o.rgb)tcol.rgb=o.rgb;if(o.wall)tcol.wall=o.wall;if(o.lab)lab=o.lab;if(o.open!=null)open=!!o.open;if(o.dims!=null)dims=!!o.dims;
+    if(o.ws!==undefined)wset=o.ws;if(o.wh!=null)wh=o.wh;if(o.posts!=null)posts=!!o.posts;
     if(o.show!=null){tgt.show=o.show;if(RM)cur.show=o.show}kick()}
   function setLights(list,anyLight){
     const seen=new Set();
@@ -1821,15 +1940,18 @@ const Viz=(function(){
     const wl=col.wall;
     const sh=(alb,f)=>{const a=amb*f;return`rgb(${(9+alb[0]/255*lr[0]*a)|0},${(8+alb[1]/255*lr[1]*a)|0},${(8+alb[2]/255*lr[2]*a)|0})`};
     /* surfaces. A wall is drawn only when we look at its inner side, so the near walls are cut away */
+    const WH=wh>0?Math.min(H,wh):H;
     const FC=[
       {k:"floor",n:[0,1,0],o:[0,0,0],p:[[-hx,0,0],[hx,0,0],[hx,0,W],[-hx,0,W]],U:[1,0,0],V:[0,0,1],alb:FLOOR,fa:.6},
       {k:"ceil",n:[0,-1,0],o:[0,H,0],p:[[-hx,H,0],[hx,H,0],[hx,H,W],[-hx,H,W]],U:[1,0,0],V:[0,0,1],alb:CEIL,fa:.3},
-      {k:"b",n:[0,0,-1],o:[0,0,W],p:[[-hx,0,W],[hx,0,W],[hx,H,W],[-hx,H,W]],U:[1,0,0],V:[0,1,0],alb:wl,fa:.72},
-      {k:"f",n:[0,0,1],o:[0,0,0],p:[[-hx,0,0],[hx,0,0],[hx,H,0],[-hx,H,0]],U:[1,0,0],V:[0,1,0],alb:wl,fa:.6},
-      {k:"l",n:[1,0,0],o:[-hx,0,0],p:[[-hx,0,0],[-hx,0,W],[-hx,H,W],[-hx,H,0]],U:[0,0,1],V:[0,1,0],alb:wl,fa:.5},
-      {k:"r",n:[-1,0,0],o:[hx,0,0],p:[[hx,0,0],[hx,0,W],[hx,H,W],[hx,H,0]],U:[0,0,1],V:[0,1,0],alb:wl,fa:.46}];
+      {k:"b",n:[0,0,-1],o:[0,0,W],p:[[-hx,0,W],[hx,0,W],[hx,WH,W],[-hx,WH,W]],U:[1,0,0],V:[0,1,0],alb:wl,fa:.72},
+      {k:"f",n:[0,0,1],o:[0,0,0],p:[[-hx,0,0],[hx,0,0],[hx,WH,0],[-hx,WH,0]],U:[1,0,0],V:[0,1,0],alb:wl,fa:.6},
+      {k:"l",n:[1,0,0],o:[-hx,0,0],p:[[-hx,0,0],[-hx,0,W],[-hx,WH,W],[-hx,WH,0]],U:[0,0,1],V:[0,1,0],alb:wl,fa:.5},
+      {k:"r",n:[-1,0,0],o:[hx,0,0],p:[[hx,0,0],[hx,0,W],[hx,WH,W],[hx,WH,0]],U:[0,0,1],V:[0,1,0],alb:wl,fa:.46}];
     FC.forEach(f=>{f.vis=(cam[0]-f.o[0])*f.n[0]+(cam[1]-f.o[1])*f.n[1]+(cam[2]-f.o[2])*f.n[2]>.001;f.sp=f.p.map(q=>P(q[0],q[1],q[2]))});
     if(open)FC[1].vis=false;
+    /* a yard shows only the walls it has */
+    if(wset)FC.forEach(f=>{if(/^[bflr]$/.test(f.k)&&!wset.includes(f.k))f.vis=false});
     const vis=FC.filter(f=>f.vis),face=k=>FC.find(f=>f.k===k);
     /* a glow lying flat on a surface: the unit circle mapped through the projected surface axes */
     function sg(f,C,ru,rv,c,a){
@@ -1857,7 +1979,7 @@ const Viz=(function(){
       let X,Z;
       if(l.kind==="wall"){if(l.side==="b"){X=(l.u-.5)*L;Z=W}else if(l.side==="f"){X=(l.u-.5)*L;Z=0}else{X=l.side==="l"?-hx:hx;Z=l.u*W}}
       else{X=(l.u-.5)*L;Z=l.v*W}
-      const hX=l.kind==="prof"&&!l.vert?l.lenM/2:0, hZ=l.kind==="prof"&&l.vert?l.lenM/2:0;
+      const lin2=l.kind==="prof"||l.kind==="garl",hX=lin2&&!l.vert?l.lenM/2:0, hZ=lin2&&l.vert?l.lenM/2:0;
       items.push({l,k:l.kind,X,Z,i,hX,hZ})});
     const aim=o=>{if(o.k==="gimbal")return[o.X,o.Z+Math.min(.7,(W-o.Z)*.5)];
       if(o.k==="head")return[o.X+(o.l.alt?.25:-.25),clamp(o.Z+(o.l.alt?.3*(W-o.Z):-.25*o.Z),.2,Math.max(.2,W-.2))];return[o.X,o.Z]};
@@ -1877,6 +1999,7 @@ const Viz=(function(){
         case"prof":r=H*.5;a=o.hZ?.36:.42;break;
         case"wall":r=.95;a=.2;if(o.l.side==="b")z=W-.35;else if(o.l.side==="f")z=.35;else x=o.X+(o.l.side==="l"?.35:-.35);break;
         case"floor":r=Math.max(.6,o.l.h*1.25);a=.5;break;
+        case"garl":r=.8;a=.2;break;
         default:return}
       sg(fF,[x,0,z],r+(k==="lin"?.2:o.hX),r+o.hZ,lc,a*I*i)})});
 
@@ -1923,6 +2046,8 @@ const Viz=(function(){
 
     /* fixtures, far to near */
     const bodyC=`rgb(${(24+amb*30)|0},${(22+amb*26)|0},${(19+amb*21)|0})`;
+    /* a covered yard without all its walls: posts at the corners hold the roof */
+    if(posts){ctx.lineCap="butt";[[-hx,0],[hx,0],[-hx,W],[hx,W]].forEach(([x,z])=>{seg(P(x,0,z),P(x,H,z));ctx.strokeStyle=`rgba(150,138,118,${.55+amb*.3})`;ctx.lineWidth=Math.max(2,.06*sAt(x,H/2,z));ctx.stroke()})}
     items.filter(o=>o.k==="rail").forEach(o=>{const s=sAt(o.X,H,o.Z),a=P(o.X-o.l.len*L/2,H,o.Z),b=P(o.X+o.l.len*L/2,H,o.Z);
       ctx.globalCompositeOperation="source-over";ctx.globalAlpha=o.i*show;ctx.lineCap="butt";
       seg(a,b);ctx.strokeStyle="#2c2925";ctx.lineWidth=Math.max(2,.045*s);ctx.stroke();ctx.strokeStyle=`rgba(255,244,225,${.1+amb*.12})`;ctx.lineWidth=1;ctx.stroke();ctx.globalAlpha=show});
@@ -1966,8 +2091,21 @@ const Viz=(function(){
           const p=P(X+inX,y,Z+inZ),sp=sAt(X,y,Z),bw=Math.max(2,.1*sp),bh=.24*sp;
           ctx.globalCompositeOperation="source-over";ctx.fillStyle=bodyC;ctx.fillRect(p[0]-bw/2,p[1]-bh/2,bw,bh);
           ctx.globalCompositeOperation="lighter";bg([p[0],p[1]-bh/2],bw*1.4,bh*.3,hot,.85*i);bg([p[0],p[1]+bh/2],bw*1.2,bh*.25,hot,.6*i);break}
+        case"garl":{const len=o.l.lenM,vt=o.l.vert,top=o.l.y,sag=Math.min(.42,len*.07),N=30,at=t=>{const d=(t-.5)*len,yy=top-sag*4*t*(1-t);return vt?[X,yy,Z+d]:[X+d,yy,Z]};
+          ctx.globalCompositeOperation="source-over";ctx.lineCap="butt";
+          if(o.l.poles)[at(0),at(1)].forEach(q=>{seg(P(q[0],0,q[2]),P(q[0],top+.06,q[2]));ctx.strokeStyle=`rgba(150,138,118,${.6+amb*.3})`;ctx.lineWidth=Math.max(1.5,.035*sAt(q[0],top,q[2]));ctx.stroke()});
+          ctx.beginPath();for(let j=0;j<=N;j++){const p=P(...at(j/N));j?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1])}ctx.strokeStyle="rgba(210,200,180,.5)";ctx.lineWidth=1;ctx.stroke();
+          ctx.globalCompositeOperation="lighter";const nb=Math.max(2,Math.round(len/.5));
+          for(let j=0;j<=nb;j++){const q=at(j/nb);q[1]-=.07;const p=P(q[0],q[1],q[2]),sb=sAt(q[0],q[1],q[2]);
+            bg(p,.3*sb,.3*sb,GLC,.5*i);ctx.fillStyle=`rgba(${GLH},${.4+.6*i})`;ctx.beginPath();ctx.arc(p[0],p[1],Math.max(1.3,.028*sb),0,6.2832);ctx.fill()}
+          break}
       }
     });
+    /* a fixture just added from the catalog: a yellow ring for a moment */
+    const hp=(performance.now()-hlT)/2600;
+    if(hp>=0&&hp<1)items.forEach(o=>{if(!o.l.hl)return;const Y=o.k==="floor"?o.l.h:o.k==="wall"||o.k==="garl"?o.l.y:H-.06,pp=P(o.X,Y,o.Z),pu=(hp*3)%1;
+      ctx.globalCompositeOperation="source-over";ctx.lineWidth=2;ctx.strokeStyle=`rgba(255,189,0,${((1-hp)*(1-pu)).toFixed(3)})`;ctx.beginPath();ctx.arc(pp[0],pp[1],10+pu*24,0,6.2832);ctx.stroke();
+      ctx.lineWidth=1.5;ctx.strokeStyle=`rgba(255,189,0,${(.9*(1-hp)).toFixed(3)})`;ctx.beginPath();ctx.arc(pp[0],pp[1],9,0,6.2832);ctx.stroke()});
     ctx.globalCompositeOperation="source-over";ctx.globalAlpha=1;
 
     /* vignette */
@@ -1988,7 +2126,7 @@ const Viz=(function(){
         ctx.fillStyle="rgba(8,8,7,.82)";ctx.fillRect(x-tw/2-5,m[1]-8,tw+10,16);ctx.fillStyle="rgba(243,239,231,.78)";ctx.fillText(t,x,m[1])}
     }
   }
-  return {set,setLights,kick,view,on:fn=>{onUser=fn}};
+  return {set,setLights,kick,view,on:fn=>{onUser=fn},flash:()=>{hlT=performance.now();kick()}};
 })();
 
 /* ---------------- where everything goes ----------------
@@ -2005,6 +2143,10 @@ function wallAuto(n,L){const out=[],nbk=Math.min(n,Math.max(1,Math.floor(L/1.4))
   row(nbk,nbk<=2?.3:.12,nbk<=2?.7:.88).forEach(u=>out.push({side:"b",u,v:1}));
   const rest=n-nbk,m=Math.ceil(rest/2);for(let j=0;j<rest;j++){const q=Math.floor(j/2),sd=j%2?"r":"l";out.push({side:sd,u:sd==="l"?0:1,v:m===1?.55:.8-.55*q/(m-1)})}
   return out}
+/* wall lamps on the walls a yard has: split by wall length, the top wall first */
+function wallOn(ws,n,L,W){if(!ws.length)return wallAuto(n,L);const len=s=>s==="b"||s==="f"?L:W,tot=ws.reduce((a,s)=>a+len(s),0),cnt=ws.map(s=>Math.floor(n*len(s)/tot));
+  let rest=n-cnt.reduce((a,b)=>a+b,0);for(let i=0;rest>0;i=(i+1)%ws.length){cnt[i]++;rest--}
+  const out=[];ws.forEach((s,j)=>{const m=cnt[j];for(let i=0;i<m;i++){const f=(i+.5)/m;if(s==="b"||s==="f")out.push({side:s,u:f,v:s==="b"?1:0});else out.push({side:s,u:s==="l"?0:1,v:1-f})}});return out}
 function wallAlong(sd,n){const out=[];for(let i=0;i<n;i++){const f=(i+.5)/n;
   if(sd==="t")out.push({side:"b",u:f,v:1});else if(sd==="b")out.push({side:"f",u:f,v:0});else out.push({side:sd,u:sd==="l"?0:1,v:1-f})}return out}
 
@@ -2026,7 +2168,7 @@ function autoGen(L,W){
   if((n=N("gimbal"))){const per=Math.max(2,Math.round(L/1.1));A.gimbal=[];for(let i=0;i<n;i++){const r=Math.floor(i/per),inRow=Math.min(per,n-r*per),j=i-r*per;A.gimbal.push({u:.08+.84*(j+.5)/inRow,v:r%2?.12:.88})}}
   const nr=N("recessed"),nb=N("bulb"),tot=nr+nb;
   if(tot){const pts=lanes.length?perim(tot,L,W):grid(tot,L,W);A.recessed=pts.slice(0,nr).map(p=>({u:p[0],v:p[1]}));A.bulb=pts.slice(nr).map(p=>({u:p[0],v:p[1]}))}
-  if((n=N("wall")))A.wall=wallAuto(n,L);
+  if((n=N("wall"))){const ws=wallSet();A.wall=ws?wallOn(ws,n,L,W):wallAuto(n,L)}
   if((n=N("bollard")))A.bollard=perim(n,L,W,.35).map(p=>({u:p[0],v:p[1]}));
   if((n=N("spike")))A.spike=perim(n,L,W,.3,.5).map(p=>({u:p[0],v:p[1]}));
   /* a cove: strips anywhere, and profiles set to indirect light */
@@ -2037,12 +2179,15 @@ function autoGen(L,W){
 /* the "מיקום" presets */
 function presetPts(pl,n,L,W,sym){
   const fr=(x,y)=>({u:x/L,v:1-y/W}),out=[];
-  if(sym==="wall")return pl.startsWith("wall-")?wallAlong(pl.slice(5),n):wallAuto(n,L);
+  if(sym==="wall"){const ws=wallSet();if(ws){const sd={t:"b",b:"f",l:"l",r:"r"}[pl.slice(5)];return pl.startsWith("wall-")&&ws.includes(sd)?wallAlong(pl.slice(5),n):wallOn(ws,n,L,W)}
+    return pl.startsWith("wall-")?wallAlong(pl.slice(5),n):wallAuto(n,L)}
   const ins=Math.min(sym==="bollard"||sym==="spike"?.3:.45,L*.22,W*.22);
   switch(pl){
     case"center":{const s=.6,c=Math.ceil(Math.sqrt(n)),rows=Math.ceil(n/c);for(let i=0;i<n;i++){const r=Math.floor(i/c),k=r===rows-1?n-r*c:c,ci=i-r*c;out.push(fr(L/2+(ci-(k-1)/2)*s,W/2+(r-(rows-1)/2)*s))}break}
-    case"wall-t":case"wall-b":{const y=pl==="wall-t"?ins:W-ins;for(let i=0;i<n;i++)out.push(fr(L*(i+.5)/n,y));break}
-    case"wall-l":case"wall-r":{const x=pl==="wall-l"?ins:L-ins;for(let i=0;i<n;i++)out.push(fr(x,W*(i+.5)/n));break}
+    /* along one side: a second (and third) row when the fixtures would stand closer than 70 cm */
+    case"wall-t":case"wall-b":case"wall-l":case"wall-r":{const hz=pl==="wall-t"||pl==="wall-b",span=hz?L:W,rows=Math.min(3,Math.max(1,Math.ceil(n*.7/span))),per=Math.ceil(n/rows);
+      for(let i=0;i<n;i++){const r=Math.floor(i/per),k=r===rows-1?n-r*per:per,j=i-r*per,d=ins+r*.55,a=span*(j+.5)/k;
+        out.push(pl==="wall-t"?fr(a,d):pl==="wall-b"?fr(a,W-d):pl==="wall-l"?fr(d,a):fr(L-d,a))}break}
     case"corners":if(n<=4){const c=[[ins,ins],[L-ins,W-ins],[L-ins,ins],[ins,W-ins]];for(let i=0;i<n;i++)out.push(fr(c[i][0],c[i][1]))}else perim(n,L,W,ins).forEach(p=>out.push({u:p[0],v:p[1]}));break;
     case"table":{const hor=L>=W,span=hor?L:W,s=n>1?Math.min(.8,span*.7/(n-1)):0;for(let i=0;i<n;i++){const d=(i-(n-1)/2)*s;out.push(hor?fr(L/2+d,W/2):fr(L/2,W/2+d))}break}
     default:grid(n,L,W).forEach(p=>out.push({u:p[0],v:p[1]}));
@@ -2061,6 +2206,7 @@ function profPts(pl,total,L,W,unit){
     case"wall-l":offs=segs.map((_,i)=>.3+i*.3);break;
     case"wall-r":offs=segs.map((_,i)=>L-.3-i*.3);break;
     case"center":case"table":offs=segs.map((_,i)=>cross/2+(i-(n-1)/2)*.5);break;
+    case"spread":offs=segs.map((_,i)=>cross*(i+1)/(n+1));break;
     default:offs=segs.map((_,i)=>cross*(i+.5)/n);
   }
   return segs.map((len,i)=>vert?{u:offs[i]/L,v:.5,lenM:len,vert:true}:{u:.5,v:1-offs[i]/W,lenM:len})}
@@ -2068,11 +2214,11 @@ const CDEF={spot:"grid",ring:"center",pend:"table",head:"table",lin:"table",prof
 function clampInst(o,L,W,sym){
   const mg=.08;
   if(sym==="wall"){if(o.side==="b"||o.side==="f"){o.u=clamp(o.u,.12/L,1-.12/L);o.v=o.side==="b"?1:0}else{o.v=clamp(o.v,.12/W,1-.12/W);o.u=o.side==="l"?0:1}return o}
-  if(sym==="prof"){const hx=o.vert?0:o.lenM/2,hz=o.vert?o.lenM/2:0;
+  if(sym==="prof"||sym==="garl"){const hx=o.vert?0:o.lenM/2,hz=o.vert?o.lenM/2:0;
     o.u=clamp(o.u,Math.min(.5,(hx+mg)/L),Math.max(.5,1-(hx+mg)/L));o.v=clamp(o.v,Math.min(.5,(hz+mg)/W),Math.max(.5,1-(hz+mg)/W));return o}
   o.u=clamp(o.u,mg/L,1-mg/L);o.v=clamp(o.v,mg/W,1-mg/W);return o}
 function layout(c){
-  const L=S.L,W=S.W,{A,cove}=autoGen(L,W),lines=[],taken=[],off={};
+  const L=S.L,W=S.W,{A,cove}=autoGen(L,W),lines=[],taken=[],off={},sl={};
   c.all.forEach(ln=>{
     const st=ln.st,sym=ln.sym;let pts;
     if(ln.src==="gen"){
@@ -2080,13 +2226,19 @@ function layout(c){
       const n=Math.min(40,Math.round(ln.q));
       if(st.place==="auto"){
         if(ln.t==="profile"){pts=off.profile?profPts("grid",ln.q,L,W,false):(A.profile||[]).map(p=>Object.assign({},p));off.profile=1}
+        else if(ln.t==="garland")pts=profPts("spread",ln.q,L,W,false);
         else{const o=off[ln.t]||0;pts=(A[ln.t]||[]).slice(o,o+n).map(p=>Object.assign({},p));off[ln.t]=o+n}
-      }else pts=sym==="prof"?profPts(st.place,ln.q,L,W,false):presetPts(st.place,n,L,W,sym);
+      }else pts=sym==="prof"||sym==="garl"?profPts(st.place,ln.q,L,W,false):presetPts(st.place,n,L,W,sym);
     }else{
       const n=Math.min(40,ln.q),pl=st.place==="auto"?(sym==="wall"?"auto":CDEF[sym]||"grid"):st.place;
       pts=sym==="prof"?profPts(pl,n,L,W,true):presetPts(pl,n,L,W,sym);
       if(st.place==="auto"&&sym!=="wall")pts.forEach(p=>{if(taken.some(q=>Math.abs((q.u-p.u)*L)<.3&&Math.abs((q.v-p.v)*W)<.3)){p.u+=.35/L;p.v-=.3/W}});
     }
+    /* several groups along the same side: each one a row further into the room */
+    if(/^wall-/.test(st.place)&&sym!=="wall"&&pts.length){const pl=st.place,d=sl[pl]||0;
+      const dist=p=>pl==="wall-t"?(1-p.v)*W:pl==="wall-b"?p.v*W:pl==="wall-l"?p.u*L:(1-p.u)*L,ds=pts.map(dist);
+      if(d){const o2={"wall-t":[0,-d/W],"wall-b":[0,d/W],"wall-l":[d/L,0],"wall-r":[-d/L,0]}[pl];pts.forEach(p=>{p.u+=o2[0];p.v+=o2[1]})}
+      sl[pl]=d+(Math.max(...ds)-Math.min(...ds))+.5}
     pts.forEach((p,i)=>{if(p.alt==null)p.alt=i%2;const ov=st.pos&&st.pos[i];if(ov){p.u=ov.u;p.v=ov.v;if(sym==="wall"&&ov.side)p.side=ov.side}clampInst(p,L,W,sym)});
     taken.push(...pts);
     lines.push({ln,pts,custom:!!st.pos&&pts.some((_,i)=>st.pos[i])});
@@ -2095,7 +2247,7 @@ function layout(c){
   const groups={};lines.forEach(o=>{if(!o.ln.rg||!o.ln.ok)return;const g=o.ln.rg==="c"||o.ln.st.place!=="auto"?o.ln.id:o.ln.rg;(groups[g]=groups[g]||[]).push(...o.pts)});
   const rails=[];Object.values(groups).forEach(arr=>{if(!arr.length)return;const v0=arr[0].v;
     if(arr.every(p=>Math.abs((p.v-v0)*W)<.05)){const us=arr.map(p=>p.u),a=Math.min(...us),b=Math.max(...us),ext=.2/L;rails.push({u:(a+b)/2,v:v0,len:Math.min(1,(b-a)+2*ext)})}});
-  return {L,W,lines,rails,cove,open:openSky()};
+  return {L,W,lines,rails,cove,open:openSky(),ws:wallSet()};
 }
 /* equal spacing in a line: a row, a column or a full grid */
 function spacing(pts,L,W){
@@ -2109,12 +2261,12 @@ function spacing(pts,L,W){
   if(xs.length*ys.length===P.length){const sx=reg(xs),sy=reg(ys);if(sx&&sy)return {a:sx,b:sy,ax:"g",P,xs,ys}}
   return null}
 const spTxt=s=>s.ax==="g"&&Math.abs(s.a-s.b)>=.03?`מרווח ${m2(s.a)} × ${m2(s.b)} מ׳`:`מרווח ${m2(s.a)} מ׳`;
-const perInst=(ln,p)=>ln.ul==null?0:ln.src==="gen"&&ln.t==="profile"?ln.ul*p.lenM*ln.c:ln.ul*ln.c;
+const perInst=(ln,p)=>ln.ul==null?0:ln.src==="gen"&&(ln.t==="profile"||ln.t==="garland")?ln.ul*p.lenM*ln.c:ln.ul*ln.c;
 
 /* ---------------- top view plan (SVG, metres) ---------------- */
 const SIDE_HE={b:"העליון",f:"התחתון",l:"השמאלי",r:"הימני"};
 function symShape(sym,p,u){
-  const hit=`<circle class="hit" r="${u(18)}"/>`;
+  const hit=`<circle class="hit" r="${u(18)}"/><circle class="selr" r="${u(15)}"/><circle class="flr" r="${u(14)}"/>`;
   switch(sym){
     case"spot":{const r=u(6.5),e=r+u(3.5);return hit+`<circle class="sy" r="${r}"/><path class="sy" d="M${-e} 0H${e}M0 ${-e}V${e}"/>`}
     case"head":{const r=u(5),e=r+u(3);return hit+`<circle class="sy" r="${r}"/><path class="sy" d="M${-e} 0H${e}M0 ${-e}V${e}"/>`}
@@ -2128,6 +2280,10 @@ function symShape(sym,p,u){
     case"prof":{const hl=p.lenM/2,t=u(5),v=p.vert;
       const hb=v?`<rect class="hit" x="${-u(14)}" y="${-hl-u(6)}" width="${u(28)}" height="${2*hl+u(12)}"/>`:`<rect class="hit" x="${-hl-u(6)}" y="${-u(14)}" width="${2*hl+u(12)}" height="${u(28)}"/>`;
       return hb+`<path class="sk" d="${v?`M0 ${-hl}V${hl}`:`M${-hl} 0H${hl}`}"/><path class="sy" d="${v?`M${-t} ${-hl}H${t}M${-t} ${hl}H${t}`:`M${-hl} ${-t}V${t}M${hl} ${-t}V${t}`}"/>`}
+    case"garl":{const hl=p.lenM/2,v=p.vert,nb=Math.max(2,Math.round(p.lenM/.5));let dots="";
+      for(let j=0;j<=nb;j++){const d=-hl+2*hl*j/nb;dots+=`<circle class="sf" ${v?`cx="0" cy="${d}"`:`cx="${d}" cy="0"`} r="${u(2.6)}"/>`}
+      const hb=v?`<rect class="hit" x="${-u(14)}" y="${-hl-u(6)}" width="${u(28)}" height="${2*hl+u(12)}"/>`:`<rect class="hit" x="${-hl-u(6)}" y="${-u(14)}" width="${2*hl+u(12)}" height="${u(28)}"/>`;
+      return hb+`<path class="sd" d="${v?`M0 ${-hl}V${hl}`:`M${-hl} 0H${hl}`}"/>`+dots}
     case"wall":{const r=u(9),rot={b:0,f:180,l:-90,r:90}[p.side]||0;return hit+`<path class="sy" transform="rotate(${rot})" d="M${-r} 0A${r} ${r} 0 0 0 ${r} 0Z"/>`}
   }
   return hit}
@@ -2147,11 +2303,14 @@ function planMarkup(LY,k,opt){
   h+=`<g clip-path="url(#${gid}c)">`;
   LY.lines.forEach(o=>{if(!o.ln.ok||o.ln.noW)return;o.pts.forEach(p=>{const per=perInst(o.ln,p);if(!per)return;const [x,y]=pos(p);
     const r=clamp(.45+Math.sqrt(per)/32,.6,3.2),a=clamp(.3+per/2600,.32,.9).toFixed(2);
-    if(o.ln.sym==="prof"){const hl=p.lenM/2;h+=`<ellipse class="pool" cx="${f(x)}" cy="${f(y)}" rx="${f(p.vert?r*.8:hl+r*.7)}" ry="${f(p.vert?hl+r*.7:r*.8)}" fill="url(#${gid})" opacity="${a}"/>`}
+    if(o.ln.sym==="prof"||o.ln.sym==="garl"){const hl=p.lenM/2;h+=`<ellipse class="pool" cx="${f(x)}" cy="${f(y)}" rx="${f(p.vert?r*.8:hl+r*.7)}" ry="${f(p.vert?hl+r*.7:r*.8)}" fill="url(#${gid})" opacity="${a}"/>`}
     else{let cx=x,cy=y;if(o.ln.sym==="wall"){const d=.3;if(p.side==="b")cy+=d;else if(p.side==="f")cy-=d;else if(p.side==="l")cx+=d;else cx-=d}
       h+=`<circle class="pool" cx="${f(cx)}" cy="${f(cy)}" r="${f(r)}" fill="url(#${gid})" opacity="${a}"/>`}})});
   if(LY.cove)h+=`<rect class="pc" x="${f(.14)}" y="${f(.14)}" width="${f(L-.28)}" height="${f(W-.28)}"/>`;
-  h+=`</g><rect class="pw${LY.open?" open":""}" x="0" y="0" width="${f(L)}" height="${f(W)}"/>`;
+  /* a yard: a dashed line where it is open, a solid one for each wall it has */
+  if(LY.ws){h+=`</g><rect class="pw open" x="0" y="0" width="${f(L)}" height="${f(W)}"/>`;
+    LY.ws.forEach(s=>{const q={b:[0,0,L,0],f:[0,W,L,W],l:[0,0,0,W],r:[L,0,L,W]}[s];h+=`<line class="pwl" x1="${f(q[0])}" y1="${f(q[1])}" x2="${f(q[2])}" y2="${f(q[3])}"/>`})}
+  else h+=`</g><rect class="pw${LY.open?" open":""}" x="0" y="0" width="${f(L)}" height="${f(W)}"/>`;
   /* the dimensions of the room, outside the walls */
   const yD=W+u(20),xD=L+u(20),tk=u(5),fs=u(12);
   h+=`<path class="pd" d="M0 ${f(W+u(6))}V${f(yD+tk)}M${f(L)} ${f(W+u(6))}V${f(yD+tk)}M0 ${f(yD)}H${f(L)}M${f(L+u(6))} 0H${f(xD+tk)}M${f(L+u(6))} ${f(W)}H${f(xD+tk)}M${f(xD)} 0V${f(W)}"/>`;
@@ -2171,7 +2330,7 @@ function planMarkup(LY,k,opt){
   if(opt.guides){const g=opt.guides;if(g.x!=null)h+=`<line class="pgd" x1="${f(g.x)}" y1="${f(-u(8))}" x2="${f(g.x)}" y2="${f(W+u(8))}"/>`;if(g.y!=null)h+=`<line class="pgd" x1="${f(-u(8))}" y1="${f(g.y)}" x2="${f(L+u(8))}" y2="${f(g.y)}"/>`}
   /* the fixtures */
   LY.lines.forEach(o=>{const ln=o.ln,n=o.pts.length;o.pts.forEach((p,i)=>{const [x,y]=pos(p),key=ln.id+"#"+i;
-    const cls="ps"+(ln.ok?"":" off")+(opt.hl===ln.id?" hl":"")+(opt.drag===key?" drag":"");
+    const cls="ps"+(ln.ok?"":" off")+(opt.hl===ln.id?" hl":"")+(opt.drag===key?" drag":"")+(opt.sel===key?" sel":"")+(opt.fl===ln.id?" fl":"");
     const at=pr?"":` tabindex="0" role="button" aria-roledescription="גוף בתוכנית" aria-label="${esc(symLabel(ln,p,i,n,L,W))}" data-k="${esc(key)}"`;
     h+=`<g class="${cls}" data-line="${esc(ln.id)}"${at} transform="translate(${f(x)} ${f(y)})">${symShape(ln.sym,p,u)}</g>`})});
   return h}
@@ -2188,7 +2347,7 @@ function drawPlan(){
   const mL=PAD.l/k,mT=PAD.t/k,vw=L+(PAD.l+PAD.r)/k,vh=W+(PAD.t+PAD.b)/k;
   planSv.setAttribute("viewBox",`${-mL} ${-mT} ${vw} ${vh}`);planSv.setAttribute("width",Math.round(vw*k));planSv.setAttribute("height",Math.round(vh*k));
   const ae=document.activeElement,fk=ae&&planSv.contains(ae)&&ae.dataset?ae.dataset.k:null;
-  planSv.innerHTML=planMarkup(LY,k,{col:lightCol(),hl:hlLine,drag:drag&&drag.key,guides:drag&&drag.g});
+  planSv.innerHTML=planMarkup(LY,k,{col:lightCol(),hl:hlLine,drag:drag&&drag.key,guides:drag&&drag.g,sel:selKey,fl:flashOn()});
   if(fk){const el=planSv.querySelector(`[data-k="${CSS.escape(fk)}"]`);if(el)el.focus({preventScroll:true})}
   $("#planEmpty").hidden=LY.lines.some(o=>o.pts.length)||!!LY.cove;
   lastBox=Math.round(br.width)+"x"+Math.round(br.height);
@@ -2205,19 +2364,22 @@ function findInst(key){const j=key.lastIndexOf("#"),id=key.slice(0,j),i=+key.sli
 const stOf=id=>id.startsWith("g:")?S.gen.find(g=>g.gid===id.slice(2)):S.cat.find(x=>x.uid===id.slice(2));
 function snapXY(key,x,y){
   const L=S.L,W=S.W,th=Math.max(.05,10/planK),gx=[L/2],gy=[W/2];
-  LY.lines.forEach(o=>{if(o.ln.sym==="prof")return;o.pts.forEach((p,i)=>{if(o.ln.id+"#"+i===key)return;gx.push(p.u*L);gy.push((1-p.v)*W)})});
+  LY.lines.forEach(o=>{if(o.ln.sym==="prof"||o.ln.sym==="garl")return;o.pts.forEach((p,i)=>{if(o.ln.id+"#"+i===key)return;gx.push(p.u*L);gy.push((1-p.v)*W)})});
   const pick=(v,arr)=>{let best=null,bd=th;arr.forEach(a=>{const d=Math.abs(a-v);if(d<bd){bd=d;best=a}});return best};
   const ax=pick(x,gx),ay=pick(y,gy);
   return {x:ax!=null?ax:Math.round(x/GRID)*GRID,y:ay!=null?ay:Math.round(y/GRID)*GRID,gx:ax,gy:ay};
 }
+/* a point on the plan (metres from the top left corner) as a stored position. A wall lamp goes to the nearest wall that exists */
+function posAt(sym,x,y){const L=S.L,W=S.W;
+  if(sym==="wall"){const ws=wallSet(),all=ws&&ws.length?ws:["b","f","l","r"],d={b:y,f:W-y,l:x,r:L-x},sd=all.reduce((a,b)=>d[b]<d[a]?b:a);
+    return sd==="b"||sd==="f"?{side:sd,u:clamp(x/L,0,1),v:sd==="b"?1:0}:{side:sd,u:sd==="l"?0:1,v:clamp(1-y/W,0,1)}}
+  return {u:clamp(x/L,0,1),v:clamp(1-y/W,0,1)}}
 function moveTo(key,x,y,mode){
   const f=findInst(key);if(!f)return null;const st=stOf(f.o.ln.id);if(!st)return null;const L=S.L,W=S.W;let v,g=null;
   if(mode==="snap"){const s=snapXY(key,x,y);x=s.x;y=s.y;g={x:s.gx,y:s.gy}}
   else if(mode==="grid"){x=Math.round(x/GRID)*GRID;y=Math.round(y/GRID)*GRID}
-  if(f.o.ln.sym==="wall"){const d={b:y,f:W-y,l:x,r:L-x},sd=Object.keys(d).reduce((a,b)=>d[b]<d[a]?b:a);
-    v=sd==="b"||sd==="f"?{side:sd,u:clamp(x/L,0,1),v:sd==="b"?1:0}:{side:sd,u:sd==="l"?0:1,v:clamp(1-y/W,0,1)};
-    if(g){if(sd==="b"||sd==="f")g.y=null;else g.x=null}}
-  else v={u:clamp(x/L,0,1),v:clamp(1-y/W,0,1)};
+  v=posAt(f.o.ln.sym,x,y);
+  if(g&&v.side){if(v.side==="b"||v.side==="f")g.y=null;else g.x=null}
   /* the rest of the group stays exactly where it is now */
   if(!st.pos)st.pos={};
   f.o.pts.forEach((p,i)=>{if(!st.pos[i])st.pos[i]=Object.assign({u:p.u,v:p.v},p.side?{side:p.side}:{})});
@@ -2230,14 +2392,15 @@ planSv.addEventListener("pointerdown",e=>{const g=e.target.closest("[data-k]");i
   e.preventDefault();const pt=ptOf(e);
   drag={key:g.dataset.k,dx:f.p.u*S.L-pt.x,dy:(1-f.p.v)*S.W-pt.y,id:e.pointerId,g:null};
   try{planSv.setPointerCapture(e.pointerId)}catch(_){}
-  g.focus({preventScroll:true});hlLine=f.o.ln.id;drawPlan()});
+  selKey=g.dataset.k;g.focus({preventScroll:true});hlLine=f.o.ln.id;drawPlan();planBar()});
 planSv.addEventListener("pointermove",e=>{if(!drag||e.pointerId!==drag.id)return;const pt=ptOf(e);drag.g=moveTo(drag.key,pt.x+drag.dx,pt.y+drag.dy,"snap");
   $("#planH").textContent=posTxt(drag.key).replace(/^[^.]*\.\s*/,"");schedule()});
 const endDrag=e=>{if(!drag||e.pointerId!==drag.id)return;const k=drag.key;drag=null;hlLine=null;cancelAnimationFrame(rq);rq=0;render();
-  $("#planH").textContent="מבט מלמעלה, בקנה מידה";$("#live").textContent=posTxt(k)};
+  planBar();$("#live").textContent=posTxt(k)};
 planSv.addEventListener("pointerup",endDrag);planSv.addEventListener("pointercancel",endDrag);
 planSv.addEventListener("touchstart",e=>{if(e.target.closest&&e.target.closest("[data-k]"))e.preventDefault()},{passive:false});
 planSv.addEventListener("keydown",e=>{const g=e.target.closest("[data-k]");if(!g)return;
+  if(e.key==="Delete"||e.key==="Backspace"){e.preventDefault();removeAt(g.dataset.k);const nx=$("[data-k]",planSv);(nx||$("#plAdd")).focus({preventScroll:true});return}
   const d={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key];if(!d)return;e.preventDefault();
   const f=findInst(g.dataset.k);if(!f)return;moveTo(g.dataset.k,f.p.u*S.L+d[0]*GRID,(1-f.p.v)*S.W+d[1]*GRID,"grid");render();
   $("#live").textContent=posTxt(g.dataset.k)});
@@ -2245,16 +2408,20 @@ planSv.addEventListener("keydown",e=>{const g=e.target.closest("[data-k]");if(!g
 function hlSet(id){if(hlLine===id||drag)return;hlLine=id;$$(".ps",planSv).forEach(g=>g.classList.toggle("hl",g.dataset.line===id))}
 $("#adv").addEventListener("mouseover",e=>{const li=e.target.closest(".fx[data-id]");hlSet(li?li.dataset.id:null)});
 $("#adv").addEventListener("mouseleave",()=>hlSet(null));
+$("#pList").addEventListener("mouseover",e=>{const li=e.target.closest(".pl[data-id]");hlSet(li?li.dataset.id:null)});
+$("#pList").addEventListener("mouseleave",()=>hlSet(null));
 $("#adv").addEventListener("focusin",e=>{const li=e.target.closest(".fx[data-id]");hlSet(li?li.dataset.id:null)});
 
 /* the room view gets the same positions */
-function vizLights(LY){const out=[],H=effH();
+function vizLights(LY){const out=[],H=effH(),wt=wallTop(),fl=flashOn(),sky=openSky();
   LY.rails.forEach((r,i)=>out.push({key:"rail"+i,kind:"rail",u:r.u,v:r.v,len:r.len}));
-  LY.lines.forEach(o=>{const ln=o.ln;if(!ln.ok)return;o.pts.forEach((p,i)=>{const key=ln.id+"#"+i;
-    if(ln.vk==="wall")out.push({key,kind:"wall",side:p.side,u:p.side==="l"||p.side==="r"?p.v:p.u,v:p.v,y:ln.low?.45:Math.min(1.8,H-.45)});
-    else if(ln.vk==="prof")out.push({key,kind:"prof",u:p.u,v:p.v,lenM:p.lenM,vert:!!p.vert});
-    else if(ln.vk==="floor")out.push({key,kind:"floor",u:p.u,v:p.v,h:ln.h});
-    else out.push({key,kind:ln.vk,u:p.u,v:p.v,alt:p.alt})})});
+  LY.lines.forEach(o=>{const ln=o.ln;if(!ln.ok)return;const hl=ln.id===fl;o.pts.forEach((p,i)=>{const key=ln.id+"#"+i;
+    if(ln.vk==="wall")out.push({key,kind:"wall",side:p.side,u:p.side==="l"||p.side==="r"?p.v:p.u,v:p.v,y:ln.low?.45:Math.min(1.8,wt-.45),hl});
+    else if(ln.vk==="prof")out.push({key,kind:"prof",u:p.u,v:p.v,lenM:p.lenM,vert:!!p.vert,hl});
+    /* string lights: on poles at 2.4 m under the open sky, under the ceiling when covered */
+    else if(ln.vk==="garl")out.push({key,kind:"garl",u:p.u,v:p.v,lenM:p.lenM,vert:!!p.vert,y:sky?OPEN_H:H-.25,poles:sky,hl});
+    else if(ln.vk==="floor")out.push({key,kind:"floor",u:p.u,v:p.v,h:ln.h,hl});
+    else out.push({key,kind:ln.vk,u:p.u,v:p.v,alt:p.alt,hl})})});
   return out}
 
 /* ---------------- the questions: one at a time, each answer opens the next ---------------- */
@@ -2274,7 +2441,7 @@ const typeLabel=t=>{const c=cardsFor().find(x=>x[0]===t);return c?c[1]:FIXTURES[
 function sumTxt(i){
   switch(i){
     case 0:return ROOMS[S.room].he;
-    case 1:return `${dimTxt(S.L)} × ${dimTxt(S.W)} מ׳`+(S.room==="balcony"?(S.covered?" · מקורה":" · פתוחה"):"")+(openSky()?"":` · תקרה ${num1(S.H)} מ׳`);
+    case 1:return `${dimTxt(S.L)} × ${dimTxt(S.W)} מ׳`+(ROOMS[S.room].cov?(S.covered?" · מקורה":" · פתוחה"):"")+(isYard()?" · "+YWT[S.yw]:"")+(openSky()?"":` · תקרה ${num1(S.H)} מ׳`);
     case 2:{const a=ansList();return a.length?a.join(" · "):"בלי תוספות"}
     case 3:return PREFS[S.pref];
     case 4:return S.types.map(typeLabel).join(" · ")||"עוד לא נבחר";
@@ -2314,12 +2481,17 @@ $("#rType").addEventListener("click",e=>{const b=e.target.closest("button[data-v
   if(v!==S.room||!WZ.done[0]){
     S.room=v;S.acts=[];S.yn={};S.types=[];S.gen=[];S.manual=false;WZ.done[2]=WZ.done[4]=false;
     if(WZ.res)hideResult();
-    if(v==="balcony"){WZ.cov=false;WZ.done[1]=false}
+    S.arr="all";
+    if(ROOMS[v].cov){WZ.cov=false;WZ.yw=false;WZ.done[1]=false;S.covered=v==="balcony"}
     if(!WZ.done[1]){const d=ROOMS[v].d;S.L=d[0];S.W=d[1]}
   }
   WZ.done[0]=true;render();busy=1;setTimeout(()=>{busy=0;finishStep(0)},RM?0:280)});
 /* 2. the size: any value can be typed (1.72). While typing nothing is overwritten; the field is tidied when it loses focus */
 $("#rCov").addEventListener("click",e=>{const b=e.target.closest("button[data-v]");if(!b)return;const first=!WZ.cov;S.covered=b.dataset.v==="yes";WZ.cov=true;
+  S.types=S.types.filter(avail);render();if(first)requestAnimationFrame(()=>(isYard()&&!WZ.yw?$("#rYw button"):nL).focus({preventScroll:true}))});
+/* the yard: how many walls */
+$("#rYw").innerHTML=chipsHTML(YW);
+$("#rYw").addEventListener("click",e=>{const b=e.target.closest("button[data-v]");if(!b)return;const first=!WZ.yw;S.yw=+b.dataset.v;WZ.yw=true;
   S.types=S.types.filter(avail);render();if(first)requestAnimationFrame(()=>nL.focus({preventScroll:true}))});
 const pNum=s=>parseFloat(String(s).replace(",","."));
 function tidyDim(k){const n=k==="L"?nL:nW;let v=pNum(n.value);if(!isFinite(v))v=S[k];S[k]=clamp(Math.round(v*1000)/1000,DMIN,DMAX);n.value=String(S[k])}
@@ -2348,16 +2520,17 @@ $("#cards").addEventListener("click",e=>{const b=e.target.closest(".card");if(!b
 
 /* the result */
 function showResult(){WZ.res=true;const el=$("#wres");el.hidden=false;el.classList.remove("rev");void el.offsetWidth;el.classList.add("rev");
-  $("#wBig")._d=0;render();
+  $("#wBig")._d=0;placePlan();render();
   clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove("rev"),2600);
   requestAnimationFrame(()=>{el.focus({preventScroll:true});bringIn(el)});
   const c=calc();$("#live").textContent=`החדר צריך כ-${c.w} וואט לד. ${$("#pTot").textContent}`}
-function hideResult(){WZ.res=false;$("#wres").hidden=true;setAdv(false)}
+function hideResult(){WZ.res=false;$("#wres").hidden=true;addMode=false;selKey=null;setAdv(false)}
 /* advanced planning, closed until asked for */
 const planWrap=$("#planWrap");
-function placePlan(){const t=isMob()?$("#advPlanSlot"):$("#planHome");if(planWrap.parentNode!==t)t.appendChild(planWrap);requestAnimationFrame(drawPlan)}
+/* the plan sits under the room view on a computer, and inside the result on a phone */
+function placePlan(){const t=isMob()?(WZ.res?$("#resPlanSlot"):$("#advPlanSlot")):$("#planHome");if(planWrap.parentNode!==t)t.appendChild(planWrap);requestAnimationFrame(drawPlan)}
 if(mqMob.addEventListener)mqMob.addEventListener("change",placePlan);else mqMob.addListener(placePlan);
-function setAdv(on){$("#advT").setAttribute("aria-expanded",on);$("#adv").hidden=!on;$("#tool").classList.toggle("adv-open",on);planWrap.hidden=!on;placePlan();render()}
+function setAdv(on){$("#advT").setAttribute("aria-expanded",on);$("#adv").hidden=!on;$("#tool").classList.toggle("adv-open",on);placePlan();render()}
 $("#advT").addEventListener("click",()=>{const on=$("#adv").hidden;setAdv(on);if(on)requestAnimationFrame(()=>bringIn($("#adv")))});
 /* the angle of the sketch */
 const vbs=$$(".vbtns button");
@@ -2374,7 +2547,7 @@ function placeUI(li,st,lo){const box=$(".fx-pl",li);if(!box)return;const sel=$("
   const sp=lo.ln.ok?spacing(lo.pts,S.L,S.W):null;$("[data-sp]",box).textContent=sp?spTxt(sp):""}
 
 /* generic fixture lines */
-const CATMAP={recessed:"recessed",gimbal:"recessed",magSpot:"track",magLinear:"track",trackSpot:"track",profile:"profile",strip:"profile",pendant:"pendant",ceiling:"ceiling",wall:"wall",bulb:"bulb",bollard:"outdoor",spike:"outdoor"};
+const CATMAP={recessed:"recessed",gimbal:"recessed",magSpot:"track",magLinear:"track",trackSpot:"track",profile:"profile",strip:"profile",pendant:"pendant",ceiling:"ceiling",wall:"wall",bulb:"bulb",bollard:"outdoor",spike:"outdoor",garland:"outdoor"};
 const qtyBtns=(inc,dec)=>[`<button type="button" data-inc aria-label="${inc}"><svg aria-hidden="true"><use href="#i-plus"/></svg></button>`,`<button type="button" data-dec aria-label="${dec}"><svg aria-hidden="true"><use href="#i-minus"/></svg></button>`];
 /* ---------------- advanced: the groups of fixtures. The same type can be ordered again, in another place ---------------- */
 const MIRROR={"wall-l":"wall-r","wall-r":"wall-l","wall-t":"wall-b","wall-b":"wall-t"};
@@ -2409,7 +2582,7 @@ function renderGen(){
 const gOf=el=>{const li=el.closest(".fx[data-g]");return li?S.gen.find(g=>g.gid===li.dataset.g):null};
 const setGQ=(g,q)=>{const m=isM(g.t);g.q=m?clamp(Math.round(q*2)/2,.5,60):clamp(Math.round(q),1,40);S.manual=true;S.last="g:"+g.gid};
 function dupGroup(g){
-  const sym=GK[g.t]?GK[g.t].sym:"",n=Object.assign({},g,{gid:"g"+(++S.gseq),pos:{},place:dupPlace(g.place,sym,S.gen.filter(x=>x.t===g.t).map(x=>x.place))});
+  const sym=GK[g.t]?GK[g.t].sym:"",n=Object.assign({},g,{gid:"g"+(++S.gseq),pos:{},pl0:undefined,place:dupPlace(g.place,sym,S.gen.filter(x=>x.t===g.t).map(x=>x.place))});
   S.gen.splice(S.gen.indexOf(g)+1,0,n);S.manual=true;render();
   const li=$(`#gList [data-g="${n.gid}"]`);if(li){li.classList.add("flash");$(".qty input",li).focus({preventScroll:true});li.scrollIntoView({block:"nearest",behavior:RM?"auto":"smooth"})}
   $("#live").textContent=`נוספה קבוצה חדשה של ${gName(n)}: ${PL_HE[n.place]}.`;return n}
@@ -2426,7 +2599,7 @@ $("#gList").addEventListener("change",e=>{const g=gOf(e.target);if(!g)return;
   if(e.target.matches("[data-pl]")){if(e.target.value!=="custom"){g.place=e.target.value;g.pos={};S.manual=true;render()}return}
   const i=e.target.closest(".qty input");if(!i)return;const v=parseFloat(i.value);setGQ(g,isFinite(v)?v:1);i.value=isM(g.t)?num1(g.q):g.q;render()});
 $("#addT").addEventListener("change",e=>{const t=e.target.value;if(!FIXTURES[t])return;
-  const g={gid:"g"+(++S.gseq),t,w:defW(t),q:isM(t)?2:1,mode:"dir",place:"auto",pos:{},lab:""};S.gen.push(g);if(!S.types.includes(t)&&cardsFor().some(c=>c[0]===t))S.types.push(t);
+  const g={gid:"g"+(++S.gseq),t,w:defW(t),q:isM(t)?2:1,mode:"dir",place:S.arr==="side"?"wall-"+S.side:"auto",pos:{},lab:""};S.gen.push(g);if(!S.types.includes(t)&&cardsFor().some(c=>c[0]===t))S.types.push(t);
   S.manual=true;e.target.value="";render();const li=$(`#gList [data-g="${g.gid}"]`);if(li){li.classList.add("flash");$(".qty input",li).focus({preventScroll:true})}});
 $("#fxClear").addEventListener("click",()=>{S.gen.length=0;S.cat.length=0;S.types.length=0;S.last=null;S.manual=true;render();$("#addT").focus()});
 
@@ -2435,18 +2608,21 @@ const fmtN=v=>String(Math.round(v*10)/10);
 const imgTag=(src,p)=>`<img src="${esc(src||"")}" alt="" width="48" height="48" loading="lazy" decoding="async">`;
 const lmLabel=p=>p.lmU==null?"":`${p.est?"כ-":""}${fmt(p.lmU)} לומן${p.est?" (משוער)":""}`;
 const caQ=$("#caQ"),caCat=$("#caCat"),caBox=$("#caBox"),caRes=$("#caRes");let caMode="",caOpen=false;
-function caOptions(){const mode=openSky()?"open":ROOMS[S.room].out?"out":"in";if(mode===caMode)return;caMode=mode;
-  const o=(v,t)=>`<option value="${v}">${t}</option>`,cats=Object.keys(CNAME).filter(k=>k!=="outdoor").map(k=>o(k,CNAME[k])).join("");
-  caCat.innerHTML=mode==="open"?o("open","גופי חוץ בלי תקרה")+["צמודי קיר","שקוע חומה","עמודונים","דוקרנים"].map(s=>o("sub:"+s,s)).join("")
-    :mode==="out"?o("outdoor","תאורת חוץ")+o("all","כל הגופים")+cats:o("all","כל הגופים")+cats+o("outdoor","תאורת חוץ");
-  caCat.value=mode==="open"?"open":mode==="out"?"outdoor":"all";if(caOpen)caSearch()}
-const caPass=(p,f)=>f==="all"||(f==="open"?okOpen(p):f.startsWith("sub:")?p.area==="חוץ"&&p.sub===f.slice(4):p.cat===f);
+/* what the catalog offers here: under the open sky only outdoor products that need no ceiling (and no wall when the yard has none) */
+const caModeNow=()=>openSky()?(wallsOk()?"open":"open-nw"):ROOMS[S.room].out?"out":"in";
+const caDef=m=>m.startsWith("open")?"open":m==="out"?"outdoor":"all";
+function caOptHTML(mode){const o=(v,t)=>`<option value="${v}">${t}</option>`,cats=Object.keys(CNAME).filter(k=>k!=="outdoor").map(k=>o(k,CNAME[k])).join("");
+  return mode.startsWith("open")?o("open","גופי חוץ בלי תקרה")+(mode==="open"?["צמודי קיר","שקוע חומה","עמודונים","דוקרנים"]:["עמודונים","דוקרנים"]).map(s=>o("sub:"+s,s)).join("")
+    :mode==="out"?o("outdoor","תאורת חוץ")+o("all","כל הגופים")+cats:o("all","כל הגופים")+cats+o("outdoor","תאורת חוץ")}
+function caOptions(){const mode=caModeNow();if(mode===caMode)return;caMode=mode;caCat.innerHTML=caOptHTML(mode);caCat.value=caDef(mode);if(caOpen)caSearch()}
+const caPass=(p,f)=>f==="all"||(f==="open"?okOpen(p)&&(wallsOk()||p.kind.sym!=="wall"):f.startsWith("sub:")?p.area==="חוץ"&&p.sub===f.slice(4):p.cat===f);
+const caFind=(q,f)=>{const ts=norm(q).split(" ").filter(Boolean);return PRODS.filter(p=>caPass(p,f)&&ts.every(t=>p.txt.includes(t)))};
 function caSearch(){
   caOpen=true;caBox.hidden=false;
   if(pErr){caRes.innerHTML=`<li class="ca-msg">לא הצלחנו לטעון את הקטלוג. נסו לרענן את העמוד.</li>`;$("#caCnt").textContent="";return}
   if(!pLoaded){caRes.innerHTML=`<li class="ca-msg">טוענים את הקטלוג...</li>`;$("#caCnt").textContent="";return}
-  const ts=norm(caQ.value).split(" ").filter(Boolean),f=caCat.value,rec=ipRec(),inPlan=new Set(S.cat.map(x=>x.pid));
-  const r=PRODS.filter(p=>caPass(p,f)&&ts.every(t=>p.txt.includes(t)));
+  const f=caCat.value,rec=ipRec(),inPlan=new Set(S.cat.map(x=>x.pid));
+  const r=caFind(caQ.value,f);
   const MAX=40,shown=r.slice(0,MAX);
   caRes.innerHTML=shown.length?shown.map(p=>{const inn=inPlan.has(p.id),lm=lmLabel(p);
     const ipT=rec&&p.ip!=null?` · <span class="${p.ip<rec?"lo":""}">IP${p.ip}</span>`:"";
@@ -2462,14 +2638,14 @@ caQ.addEventListener("keydown",e=>{if(e.key==="Escape"&&caOpen){e.stopPropagatio
 caRes.addEventListener("keydown",e=>{const b=e.target.closest(".ca-r");if(!b)return;const all=$$(".ca-r",caRes),i=all.indexOf(b);
   if(e.key==="ArrowDown"&&all[i+1]){e.preventDefault();all[i+1].focus()}else if(e.key==="ArrowUp"){e.preventDefault();(all[i-1]||caQ).focus()}else if(e.key==="Escape"){e.stopPropagation();caHide();caQ.focus()}});
 caRes.addEventListener("click",e=>{const b=e.target.closest(".ca-r");if(b)addCat(b.dataset.pid,true)});
-function addCat(pid,refocus){const p=pById(pid);if(!p)return;let x=S.cat.find(y=>y.pid===pid&&y.fi===0);
-  if(x)x.q=Math.min(40,x.q+1);else{x={uid:"c"+(++S.cseq),pid,fi:0,q:1,place:"auto",pos:{}};S.cat.push(x)}
-  S.last="c:"+x.uid;render();caSearch();
+function addCat(pid,refocus){const p=pById(pid);if(!p)return null;let x=S.cat.find(y=>y.pid===pid&&y.fi===0);
+  if(x)x.q=Math.min(40,x.q+1);else{x={uid:"c"+(++S.cseq),pid,fi:0,q:1,place:S.arr==="side"?"wall-"+S.side:"auto",pos:{}};S.cat.push(x)}
+  S.last="c:"+x.uid;flashLine(S.last);render();if(caOpen)caSearch();
   if(refocus){const nb=caRes.querySelector(`[data-pid="${CSS.escape(pid)}"]`);if(nb)nb.focus({preventScroll:true})}
   const li=$(`#catList [data-c="${x.uid}"]`);if(li){li.classList.remove("flash");void li.offsetWidth;li.classList.add("flash")}
-  $("#live").textContent=`נוסף לתכנון: ${p.n}${x.q>1?`, ${x.q} יחידות`:""}.`}
+  $("#live").textContent=`נוסף לתכנון: ${p.n}${x.q>1?`, ${x.q} יחידות`:""}.`;return x}
 /* a broken product photo falls back to the category icon */
-document.addEventListener("error",e=>{const t=e.target;if(!t||t.tagName!=="IMG")return;const box=t.closest(".ca-im,.cx-im");if(box)box.innerHTML=ico(box.dataset.cat||"recessed")},true);
+document.addEventListener("error",e=>{const t=e.target;if(!t||t.tagName!=="IMG")return;const box=t.closest(".ca-im,.cx-im,.cpc-im");if(box)box.innerHTML=ico(box.dataset.cat||"recessed")},true);
 
 /* catalog lines in the plan */
 function catRowHTML(x){const p=pById(x.pid);
@@ -2499,7 +2675,7 @@ function renderCat(c){
     $("[data-sum]",li).innerHTML=!ln.ok?"":ln.noW?`<b>אין נתון הספק</b>לא נספר בחישוב`:`<b>${fmtN(ln.W)} וואט</b>${fmt(Math.round(ln.E/10)*10)} לומן לחדר`;
     li.classList.toggle("off",!ln.ok);li.classList.toggle("on",ln.ok);
     const low=rec&&p.ip!=null&&p.ip<rec,wn=$("[data-warn]",li);wn.hidden=ln.ok&&!low;
-    wn.textContent=!ln.ok?(p.area!=="חוץ"?"גוף לתוך הבית. בחוץ בלי תקרה הוא לא נספר בחישוב.":"הגוף הזה צריך תקרה. בלי תקרה הוא לא נספר בחישוב."):low?`IP${p.ip} נמוך מהמומלץ כאן (IP${rec} ומעלה).`:"";
+    wn.textContent=!ln.ok?(p.kind.sym==="wall"&&!wallsOk()?"בחצר אין קירות, ולכן גוף קיר לא נספר בחישוב.":p.area!=="חוץ"?"גוף לתוך הבית. בחוץ בלי תקרה הוא לא נספר בחישוב.":"הגוף הזה צריך תקרה. בלי תקרה הוא לא נספר בחישוב."):low?`IP${p.ip} נמוך מהמומלץ כאן (IP${rec} ומעלה).`:"";
     placeUI(li,x,LY&&LY.lines.find(o=>o.ln.id==="c:"+x.uid))});
 }
 $("#catList").addEventListener("click",e=>{const li=e.target.closest(".fx[data-c]");if(!li)return;const x=S.cat.find(y=>y.uid===li.dataset.c);if(!x)return;
@@ -2514,6 +2690,89 @@ $("#catList").addEventListener("change",e=>{const li=e.target.closest(".fx[data-
   if(e.target.matches("[data-cfin]")){x.fi=+e.target.value||0;render();return}
   if(e.target.matches("[data-pl]")){x.place=e.target.value;x.pos={};render()}});
 
+/* ---------------- the plan in the result: pick a fixture, add one by tapping, remove one, the arrangement ---------------- */
+let selKey=null,addMode=false,addSel="",flashId=null,flashAt=0,flT=0;
+const SIDE_TXT={t:"העליון",b:"התחתון",r:"הימני",l:"השמאלי"};
+function flashOn(){return flashId&&performance.now()-flashAt<2600?flashId:null}
+function flashLine(id){flashId=id;flashAt=performance.now();Viz.flash();clearTimeout(flT);flT=setTimeout(()=>{flashId=null;drawPlan()},2700);
+  requestAnimationFrame(()=>{const li=$(`#pList [data-id="${CSS.escape(id)}"]`);if(li){li.classList.remove("flash");void li.offsetWidth;li.classList.add("flash")}})}
+/* one more unit can be placed by a tap for anything counted in units (not lines in metres) */
+const unitLine=o=>o.ln.ok&&o.pts.length&&!/^(prof|garl)$/.test(o.ln.sym)&&!(o.ln.src==="gen"&&isM(o.ln.t));
+function addOptsHTML(){const ls=LY?LY.lines.filter(unitLine):[],ts=ORDER.filter(t=>avail(t)&&!isM(t)&&GK[t]);
+  return (ls.length?`<optgroup label="בתכנון">${ls.map(o=>`<option value="${esc(o.ln.id)}">${esc(o.ln.name)}</option>`).join("")}</optgroup>`:"")+`<optgroup label="סוג אחר">${ts.map(t=>`<option value="t:${t}">${FIXTURES[t].he}</option>`).join("")}</optgroup>`}
+function planBar(){
+  press($("#rArr"),v=>v===S.arr);const rs=$("#rSide");rs.hidden=S.arr!=="side";press(rs,v=>v===S.side);
+  const ab=$("#plAdd");ab.setAttribute("aria-pressed",addMode);$("span",ab).textContent=addMode?"סיום הוספה":"הוספת גוף";$("use",ab).setAttribute("href",addMode?"#i-check":"#i-plus");
+  $("#plAddW").hidden=!addMode;planBox.classList.toggle("adding",addMode);
+  if(addMode){const sel=$("#plAddT"),h=addOptsHTML();if(sel.dataset.h!==h&&document.activeElement!==sel){sel.dataset.h=h;sel.innerHTML=h}
+    const vals=$$("option",sel).map(o=>o.value);
+    /* by default: the last line touched, else the general light (the line with the most units that is not on a wall) */
+    if(!vals.includes(addSel)){const gen=LY?LY.lines.filter(o=>unitLine(o)&&o.ln.sym!=="wall").sort((a,b)=>b.pts.length-a.pts.length)[0]:null;
+      addSel=vals.includes(S.last)?S.last:gen?gen.ln.id:vals[0]||""}
+    sel.value=addSel}
+  if(selKey&&!findInst(selKey))selKey=null;
+  $("#plDel").disabled=!selKey;
+  if(!drag)$("#planH").textContent=addMode?"נגעו בתוכנית במקום שבו רוצים את הגוף":"גררו כל גוף למקום שלו";
+}
+function setAddMode(on){addMode=on;if(on)selKey=null;planBar();drawPlan();$("#live").textContent=on?"בחרו איזה גוף מוסיפים, ונגעו בתוכנית במקום שלו.":"סיימנו להוסיף."}
+$("#plAdd").addEventListener("click",()=>setAddMode(!addMode));
+$("#plAddT").addEventListener("change",e=>{addSel=e.target.value});
+/* a tap on an empty spot adds one unit there, snapped to 25 cm. The rest of the group stays where it is */
+function addAt(x,y){let id=addSel,st,sym;
+  if(id.startsWith("t:")){const t=id.slice(2);if(!FIXTURES[t]||!avail(t)||!GK[t])return;
+    st={gid:"g"+(++S.gseq),t,w:defW(t),q:0,mode:"dir",place:"auto",pos:{},lab:""};S.gen.push(st);if(!S.types.includes(t)&&cardsFor().some(c=>c[0]===t))S.types.push(t);
+    id=addSel="g:"+st.gid;sym=GK[t].sym}
+  else{st=stOf(id);if(!st)return;const o0=LY.lines.find(z=>z.ln.id===id);sym=o0?o0.ln.sym:(GK[st.t]||{}).sym}
+  const o=LY.lines.find(z=>z.ln.id===id),n=o?o.pts.length:0;if(n>=40){$("#live").textContent="אפשר עד 40 גופים בקבוצה אחת.";return}
+  if(!st.pos)st.pos={};if(o)o.pts.forEach((p,i)=>{if(!st.pos[i])st.pos[i]=Object.assign({u:p.u,v:p.v},p.side?{side:p.side}:{})});
+  st.pos[n]=posAt(sym,clamp(Math.round(x/GRID)*GRID,0,S.L),clamp(Math.round(y/GRID)*GRID,0,S.W));
+  st.q=n+1;S.manual=true;S.last=id;selKey=id+"#"+n;render();
+  $("#live").textContent=`נוסף: ${o?o.ln.name:gName(st)}. עכשיו ${n+1}.`}
+/* remove one fixture: one unit, or one run of a line in metres */
+function removeAt(key){const f=findInst(key);if(!f)return;const ln=f.o.ln,st=stOf(ln.id);if(!st)return;
+  const metre=ln.src==="gen"&&isM(ln.t),left=metre?Math.round((st.q-(f.p.lenM||st.q))*2)/2:st.q-1;
+  selKey=null;
+  if(left<(metre?.5:1)){if(ln.src==="gen")removeGroup(st);else{S.cat.splice(S.cat.indexOf(st),1);if(S.last===ln.id)S.last=null;S.manual=true;render()}}
+  else{if(metre)st.pos={};else{const np={};let j=0;f.o.pts.forEach((p,i)=>{if(i===f.i)return;const ov=st.pos&&st.pos[i];np[j++]=ov||Object.assign({u:p.u,v:p.v},p.side?{side:p.side}:{})});st.pos=np}
+    st.q=left;S.manual=true;render()}
+  $("#live").textContent=`הוסר: ${ln.name}.`}
+$("#plDel").addEventListener("click",()=>{if(selKey)removeAt(selKey);$("#plAdd").focus({preventScroll:true})});
+planSv.addEventListener("click",e=>{if(e.target.closest("[data-k]"))return;
+  if(addMode){const pt=ptOf(e);if(pt.x<-.15||pt.y<-.15||pt.x>S.L+.15||pt.y>S.W+.15)return;addAt(clamp(pt.x,0,S.L),clamp(pt.y,0,S.W));return}
+  if(selKey){selKey=null;$$(".ps.sel",planSv).forEach(g=>g.classList.remove("sel"));planBar()}});
+planSv.addEventListener("focusin",e=>{const g=e.target.closest("[data-k]");if(!g||selKey===g.dataset.k)return;selKey=g.dataset.k;$$(".ps.sel",planSv).forEach(x=>x.classList.remove("sel"));g.classList.add("sel");planBar()});
+/* the arrangement: spread over the room (as proposed) or all along one side */
+function setArr(a){const all=S.gen.concat(S.cat);
+  if(a==="side"){const pl="wall-"+S.side;all.forEach(g=>{if(S.arr!=="side")g.pl0=g.place;g.place=pl;g.pos={}})}
+  else all.forEach(g=>{g.place=g.pl0!=null?g.pl0:"auto";delete g.pl0;g.pos={}});
+  S.arr=a;selKey=null;render();
+  $("#live").textContent=a==="side"?`כל הגופים לאורך הצד ${SIDE_TXT[S.side]} של התוכנית.`:"הגופים פרוסים בכל החדר."}
+$("#rArr").addEventListener("click",e=>{const b=e.target.closest("button[data-v]");if(b)setArr(b.dataset.v)});
+$("#rSide").addEventListener("click",e=>{const b=e.target.closest("button[data-v]");if(!b)return;S.side=b.dataset.v;setArr("side")});
+
+/* ---------------- "הוספה מהקטלוג" in the result: a picker over the page ---------------- */
+const cpk=$("#cpk"),cpQ=$("#cpQ"),cpCat=$("#cpCat"),cpRes=$("#cpRes");let cpLast=null,cpMode="";
+function cpSearch(){
+  if(pErr){cpRes.innerHTML=`<li class="ca-msg">לא הצלחנו לטעון את הקטלוג. נסו לרענן את העמוד.</li>`;$("#cpCnt").textContent="";return}
+  if(!pLoaded){cpRes.innerHTML=`<li class="ca-msg">טוענים את הקטלוג...</li>`;$("#cpCnt").textContent="";return}
+  const r=caFind(cpQ.value,cpCat.value),MAX=60,inPlan=new Set(S.cat.map(x=>x.pid));
+  cpRes.innerHTML=r.length?r.slice(0,MAX).map(p=>{const inn=inPlan.has(p.id);
+    return `<li><button type="button" class="cpc" data-pid="${esc(p.id)}" aria-label="${esc(`הוספת ${p.n} לתכנון, מק״ט ${p.v[0].sku}${inn?". כבר בתכנון":""}`)}"><span class="cpc-im" data-cat="${p.cat}">${imgTag(p.img,p)}</span><span class="cpc-t"><b>${esc(p.n)}</b><small>מק״ט <span>${esc(p.v[0].sku)}</span></small>${p.w!=null?`<small>${fmtN(p.w)} וואט</small>`:""}</span>${inn?`<span class="cpc-in">בתכנון</span>`:""}</button></li>`}).join("")
+    :`<li class="ca-msg">לא מצאנו${cpQ.value.trim()?` "${esc(cpQ.value.trim())}"`:""}. נסו שם אחר, מספר דגם או סוג גוף אחר.</li>`;
+  $("#cpCnt").textContent=r.length>MAX?`מציגים ${MAX} מתוך ${r.length}. אפשר לחדד בחיפוש.`:r.length===1?"נמצא גוף אחד":r.length?`נמצאו ${r.length} גופים`:"";
+}
+function openPicker(){cpLast=document.activeElement;const m=caModeNow();if(m!==cpMode){cpMode=m;cpCat.innerHTML=caOptHTML(m);cpCat.value=caDef(m)}
+  cpk.classList.add("on");lockPage(true,[]);cpSearch();cpRes.scrollTop=0;setTimeout(()=>(isMob()?$(".x",cpk):cpQ).focus({preventScroll:true}),60)}
+function closePicker(silent){if(!cpk.classList.contains("on"))return;cpk.classList.remove("on");lockPage(false,[]);
+  if(!silent&&cpLast&&document.contains(cpLast))cpLast.focus({preventScroll:true})}
+$("#cpOpen").addEventListener("click",openPicker);
+cpQ.addEventListener("input",cpSearch);cpCat.addEventListener("change",cpSearch);
+cpQ.addEventListener("keydown",e=>{if(e.key==="Enter")e.preventDefault()});
+cpk.addEventListener("keydown",e=>trap(e,[cpk]));
+cpk.addEventListener("click",e=>{if(e.target.closest("[data-cpkx]")){closePicker();return}const b=e.target.closest(".cpc");if(!b)return;
+  const x=addCat(b.dataset.pid,false);closePicker();
+  if(x)requestAnimationFrame(()=>{const li=$(`#pList [data-id="c:${CSS.escape(x.uid)}"]`);if(li&&isMob())li.scrollIntoView({block:"center",behavior:RM?"auto":"smooth"})})});
+
 /* ---------------- render ---------------- */
 function tweenNum(el,to,f,dur){f=f||fmt;const from=el._d==null?to:el._d;cancelAnimationFrame(el._r);
   if(RM||Math.abs(from-to)<.5){el._d=to;el.textContent=f(to);return}
@@ -2527,19 +2786,23 @@ const placeTxt=lo=>{if(!lo)return "";if(lo.custom)return "מיקום שסומן 
 const lineIco=x=>x.src==="gen"?icoSym(x.t):ico(x.p.cat);
 const qTxt=x=>x.src==="gen"&&isM(x.t)?num1(x.q)+" מ׳":String(x.q);
 function lineMeta(x){const lo=LY&&LY.lines.find(o=>o.ln.id===x.id),m=x.src==="gen"&&isM(x.t),sp=lo&&x.ok?spacing(lo.pts,S.L,S.W):null;
-  return [x.src==="cat"?`מק״ט ${x.sku}`:"",x.w!=null?`${fmtN(x.w)} וואט${m?" למטר":""}`:"אין נתון הספק",placeTxt(lo),sp?spTxt(sp):""].filter(Boolean).join(" · ")}
+  return [x.src==="cat"?`מק״ט ⁨${x.sku}⁩`:"",x.w!=null?`${fmtN(x.w)} וואט${m?" למטר":""}`:"אין נתון הספק",placeTxt(lo),sp?spTxt(sp):""].filter(Boolean).join(" · ")}
 let liveT;
 function render(){
   const c=calc(), r=c.r, k=curK(), rc=rec(), open=c.open, ip=ipRec();
   LY=layout(c);
+  /* the covered question: the balcony and the yard ask it in their own words */
+  const yd=isYard(),cvq=!!ROOMS[S.room].cov,rc0=$("#rCov");
+  if(rc0.dataset.r!==S.room){rc0.dataset.r=S.room;$("#lbCov").textContent=yd?"החצר מקורה?":"המרפסת מקורה?";
+    rc0.innerHTML=yd?chipsHTML([["no","פתוחה"],["yes","מקורה"]]):chipsHTML([["yes","כן, יש תקרה"],["no","לא, פתוחה לשמיים"]])}
   /* the questions */
-  press($("#rType"),v=>WZ.done[0]&&v===S.room);press($("#rCov"),v=>WZ.cov&&(v==="yes")===S.covered);press($("#rPref"),v=>v===S.pref);
+  press($("#rType"),v=>WZ.done[0]&&v===S.room);press($("#rCov"),v=>WZ.cov&&(v==="yes")===S.covered);press($("#rYw"),v=>WZ.yw&&+v===S.yw);press($("#rPref"),v=>v===S.pref);
   press($("#rWall"),v=>v===S.walls);press($("#rAtm"),v=>v===S.atm);
   const ra=$("#rAct");if(ra)press(ra,v=>S.acts.includes(v));
   $$("#q3in [data-yn]").forEach(g=>press(g,v=>S.yn[g.dataset.yn]===(v==="1")));
   $$("#cards .card").forEach(b=>b.setAttribute("aria-pressed",S.types.includes(b.dataset.t)));
   $("#toRes").disabled=!S.types.length;$("#cardsHint").hidden=!!S.types.length;
-  const bal=S.room==="balcony";$("#fCov").hidden=!bal;$("#dimBox").hidden=bal&&!WZ.cov;
+  $("#fCov").hidden=!cvq;$("#fYw").hidden=!yd||!WZ.cov;$("#dimBox").hidden=cvq&&(!WZ.cov||(yd&&!WZ.yw));
   $("#fH").hidden=open;$("#fWall").hidden=open;
   if(document.activeElement!==nL)nL.value=String(S.L);if(document.activeElement!==nW)nW.value=String(S.W);
   rH.value=S.H;oH.textContent=num1(S.H);fillTo(rH,S.H);
@@ -2555,7 +2818,7 @@ function render(){
     $("#eqn").innerHTML=`${dimTxt(c.A)} מ״ר × ${r.lux} לוקס${pf} ÷ ${f} = ${fmt(roundLm(c.lm))} לומן ÷ 90 = ${c.w} וואט<small>${f}: כמה מהאור מגיע בפועל לחדר, ${open?"וכשאין תקרה מחשבים כמו בקירות כהים, כי חלק מהאור בורח למעלה.":"לפי צורת החדר וצבע הקירות."} נורת לד בגוף שלם נותנת כ-90 לומן לוואט.</small>`;
     const pl=$("#pList"),sig=c.all.map(x=>x.id).join(",");
     if(pl.dataset.sig!==sig){pl.dataset.sig=sig;
-      pl.innerHTML=c.all.map((x,i)=>`<li class="pl" style="--i:${i}" data-id="${esc(x.id)}">${lineIco(x)}<span><b>${esc(x.name)}</b><small data-meta></small></span><span class="qty"><button type="button" data-pinc aria-label="עוד של ${esc(x.name)}"><svg aria-hidden="true"><use href="#i-plus"/></svg></button><output aria-live="polite"></output><button type="button" data-pdec aria-label="פחות של ${esc(x.name)}"><svg aria-hidden="true"><use href="#i-minus"/></svg></button></span></li>`).join("")}
+      pl.innerHTML=c.all.map((x,i)=>`<li class="pl" style="--i:${i}" data-id="${esc(x.id)}">${lineIco(x)}<span><b>${esc(x.name)}</b><small data-meta></small><button type="button" class="pl-rm" data-prm aria-label="הסרת ${esc(x.name)} מהתכנון">הסרה</button></span><span class="qty"><button type="button" data-pinc aria-label="עוד של ${esc(x.name)}"><svg aria-hidden="true"><use href="#i-plus"/></svg></button><output aria-live="polite"></output><button type="button" data-pdec aria-label="פחות של ${esc(x.name)}"><svg aria-hidden="true"><use href="#i-minus"/></svg></button></span></li>`).join("")}
     c.all.forEach(x=>{const li=pl.querySelector(`[data-id="${CSS.escape(x.id)}"]`);if(!li)return;$("[data-meta]",li).textContent=lineMeta(x);$("output",li).textContent=qTxt(x)});
     $("#pTot").innerHTML=has?`בהצעה: <b>${fmt(c.cw)} וואט</b> · ${pc}% ממה שהחדר צריך${s==="ok"?"":` · <span>${STATE_HE[s]}</span>`}`:"עוד לא נבחרו גופים.";
     const tips=[];S.acts.forEach(a=>tips.push(ACTS[a].tip));Object.keys(S.yn).forEach(y=>{if(S.yn[y])tips.push(YN[y].tip)});if(r.note)tips.push(r.note);
@@ -2585,11 +2848,15 @@ function render(){
   /* the sketch: builds itself with the answers */
   $("#hudRoom").textContent=WZ.done[0]?`${r.he}${WZ.done[1]?` · ${dimTxt(S.L)} × ${dimTxt(S.W)} מ׳${open?" · בלי תקרה":` · תקרה ${num1(S.H)} מ׳`}`:""}`:"";
   const lr=k2rgb(k).map(v=>v+(255-v)*.1);
-  Viz.set({n:{L:S.L,W:S.W,H:effH(),E:has?c.pct:0,cove:LY.cove},rgb:lr,wall:WALLS[open?"dark":S.walls].alb,lab:{L:S.L,W:S.W,H:effH()},open,dims:WZ.done[1]||WZ.open===1,show:WZ.done[0]?1:0});
+  Viz.set({n:{L:S.L,W:S.W,H:effH(),E:has?c.pct:0,cove:LY.cove},rgb:lr,wall:WALLS[open?"dark":S.walls].alb,lab:{L:S.L,W:S.W,H:effH()},open,dims:WZ.done[1]||WZ.open===1,show:WZ.done[0]?1:0,
+    ws:wallSet(),wh:yd?wallTop():0,posts:yd&&!open&&S.yw<4});
   Viz.setLights(vizLights(LY),has);
   $("#viz").classList.toggle("room",!!WZ.done[0]);
   $("#vizMsg").textContent=!WZ.done[0]?"בחרו סוג חדר, והוא יופיע כאן.":has?"":WZ.open===4||WZ.done[3]?"בחרו סוג תאורה, והחדר יידלק.":"עוד כמה שאלות, והחדר יידלק.";
-  drawPlan();
+  /* the plan is part of the result */
+  planWrap.hidden=!WZ.res;$("#tool").classList.toggle("res-on",WZ.res);
+  if(!WZ.res&&addMode)addMode=false;
+  drawPlan();planBar();
 
   renderCct(k,rc);
   PH.draw();
@@ -2604,10 +2871,12 @@ function render(){
   saveState();
 }
 $("#pList").addEventListener("click",e=>{const li=e.target.closest(".pl");if(!li)return;const id=li.dataset.id,st=stOf(id);if(!st)return;
+  if(e.target.closest("[data-prm]")){const nm=li.querySelector("b").textContent;if(id.startsWith("g:"))removeGroup(st);else{S.cat.splice(S.cat.indexOf(st),1);if(S.last===id)S.last=null;S.manual=true;render()}
+    $("#live").textContent=`הוסר מהתכנון: ${nm}.`;($("#pList [data-prm]")||$("#cpOpen")).focus({preventScroll:true});return}
   const up=!!e.target.closest("[data-pinc]"),dn=!!e.target.closest("[data-pdec]");if(!up&&!dn)return;
   if(id.startsWith("g:"))setGQ(st,st.q+(up?1:-1)*(isM(st.t)?.5:1));else{st.q=clamp(st.q+(up?1:-1),1,40);S.manual=true}
   render()});
-const roomLine=()=>`${ROOMS[S.room].he}${S.room==="balcony"?(S.covered?" מקורה":" פתוחה, בלי תקרה"):""}`;
+const roomLine=()=>`${ROOMS[S.room].he}${S.room==="balcony"?(S.covered?" מקורה":" פתוחה, בלי תקרה"):isYard()?(S.covered?" מקורה":" פתוחה")+", "+YWT[S.yw]:""}`;
 function planText(c,rc){
   let t=`היי, תכננתי תאורה במחשבון באתר.\n`;
   t+=`החדר: ${roomLine()}, ${dimTxt(S.L)} × ${dimTxt(S.W)} מ׳${c.open?"":`, תקרה ${num1(S.H)} מ׳, קירות ${WALLS[S.walls].he}`}.\n`;
@@ -2638,7 +2907,7 @@ function buildPrint(){
     const lmT=!x.ok?"לא נספר":x.noW?"אין נתון":fmt(Math.round(x.E/10)*10);
     return `<tr><td>${i+1}</td><td>${x.sym?legend(x.sym):""}${nm}</td><td class="ltr">${x.src==="cat"?esc(x.sku):"-"}</td><td>${x.w!=null?fmtN(x.w)+" וואט"+(m?" למטר":""):"אין נתון"}</td><td>${qTxt(x)}</td><td>${esc(placeTxt(lo)||"-")}</td><td>${lmT}</td><td>${sp?spTxt(sp).replace("מרווח ",""):""}</td></tr>`}).join("");
   const ans=ansList();
-  const room=[["החדר",roomLine()],["מידות",`${dimTxt(S.L)} × ${dimTxt(S.W)} מ׳ · ${dimTxt(c.A)} מ״ר`],["תקרה",c.open?"בלי תקרה":`${num1(S.H)} מ׳`],["קירות",c.open?"חוץ":WALLS[S.walls].he],
+  const room=[["החדר",roomLine()],["מידות",`${dimTxt(S.L)} × ${dimTxt(S.W)} מ׳ · ${dimTxt(c.A)} מ״ר`],["תקרה",c.open?"בלי תקרה":`${num1(S.H)} מ׳`],["קירות",isYard()?YWT[S.yw]:c.open?"חוץ":WALLS[S.walls].he],
     ["אור",PREFS[S.pref]],["גוון מומלץ",`${rc.k}K`],["בחדר",ans.length?ans.join(", "):"-"],["תאריך",new Date().toLocaleDateString("he-IL")]];
   let ph="";if(PH.has()){try{ph=`<div class="ps-ph"><img src="${PH.dataURL()}" alt="ההדמיה על התמונה שלכם"><p>ההדמיה על התמונה שלכם</p></div>`}catch(e){}}
   $("#printSheet").innerHTML=`<div class="ps-h"><b>תכנון תאורה</b><span>ספוטליין · ייעוץ ושיווק תאורה · 08-6377033</span></div>
@@ -2850,8 +3119,10 @@ function closeSearch(silent){if(!sover.classList.contains("on"))return;sover.cla
 $("#openSearch").addEventListener("click",openSearch);$("#closeSearch").addEventListener("click",()=>closeSearch());
 sover.addEventListener("click",e=>{if(e.target===sover)closeSearch()});sover.addEventListener("keydown",e=>trap(e,[sover]));
 addEventListener("keydown",e=>{if(e.key!=="Escape")return;
+  if(cpk.classList.contains("on")){closePicker();return}
   if(drawer.classList.contains("on")){closeCart();return}if(sover.classList.contains("on")){closeSearch();return}if(mnav.classList.contains("on")){closeMnav();return}
-  if(mega.classList.contains("open")){setMega(false);trigB.focus()}});
+  if(mega.classList.contains("open")){setMega(false);trigB.focus();return}
+  if(addMode){setAddMode(false);$("#plAdd").focus({preventScroll:true})}});
 
 /* in-page anchors */
 document.addEventListener("click",e=>{const a=e.target.closest('a[href^="#"]');if(!a)return;const id=a.getAttribute("href");if(id==="#"){e.preventDefault();return}
@@ -2861,7 +3132,7 @@ document.addEventListener("click",e=>{const a=e.target.closest('a[href^="#"]');i
 const PH=(function(){
   const cv=$("#phCv"),ctx=cv.getContext("2d"),wrap=$("#phWrap"),L=[];
   let img=null,cw=0,chh=0,dpr=1,sel=-1,drag=null,type=null,dark=65,lastW=0;
-  const KIND={recessed:"spot",gimbal:"spot",magSpot:"spot",trackSpot:"spot",ceiling:"ceil",pendant:"pend",bulb:"pend",wall:"wall",bollard:"boll",spike:"spike",profile:"line",magLinear:"line",strip:"line"};
+  const KIND={recessed:"spot",gimbal:"spot",magSpot:"spot",trackSpot:"spot",ceiling:"ceil",pendant:"pend",bulb:"pend",wall:"wall",bollard:"boll",spike:"spike",profile:"line",magLinear:"line",strip:"line",garland:"line"};
   const types=()=>{const cs=cardsFor().map(c=>[c[0],c[1]]);return cs.length?cs:[["recessed","ספוטים שקועים"]]};
   function chips(){const ts=types(),el=$("#phT");if(!type||!ts.some(x=>x[0]===type))type=(ts.find(x=>S.types.includes(x[0]))||ts[0])[0];
     const sig=ts.map(x=>x[0]).join();if(el.dataset.sig!==sig){el.dataset.sig=sig;el.innerHTML=chipsHTML(ts)}press(el,v=>v===type)}
@@ -2952,9 +3223,9 @@ renderCart();renderOld();renderRev();render();
 /* the real catalog (same file the catalog page uses) */
 fetch("assets/products.json").then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(raw=>{
   PRODS=prepP(Array.isArray(raw)?raw:[]);PMAP=new Map(PRODS.map(p=>[p.id,p]));pLoaded=true;
-  S.cat=S.cat.filter(x=>PMAP.has(x.pid));render();if(caOpen)caSearch();
-}).catch(()=>{pErr=true;pLoaded=true;render();if(caOpen)caSearch()});
-window.__calc={S,WZ,calc,render,layout:()=>LY,addCat,moveTo,buildPrint,propose,dupGroup,PH,planText};
+  S.cat=S.cat.filter(x=>PMAP.has(x.pid));render();if(caOpen)caSearch();if(cpk.classList.contains("on"))cpSearch();
+}).catch(()=>{pErr=true;pLoaded=true;render();if(caOpen)caSearch();if(cpk.classList.contains("on"))cpSearch()});
+window.__calc={S,WZ,calc,render,layout:()=>LY,addCat,moveTo,buildPrint,propose,dupGroup,PH,planText,addAt,removeAt,setArr,openPicker};
 window.__sl=true;
 })();
 </script>
