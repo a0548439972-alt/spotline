@@ -3076,10 +3076,10 @@ $("#rCeil").addEventListener("click",e=>{const b=e.target.closest("button[data-v
     const fx=S.gen.filter(g=>g.fk&&NEED_GYP.includes(g.t)).map(g=>g.fk);if(fx.length){S.gen=S.gen.filter(g=>!(g.fk&&NEED_GYP.includes(g.t)));S.gen.push(...focGroups(fx).map(g=>Object.assign(g,{sig0:gSig(g)})))}}
   render()});
 /* 3. questions that fit this room only */
-const WCH=[["b","למעלה"],["f","למטה"],["r","ימין"],["l","שמאל"]];
+const WCH=[["b","מולכם"],["f","מאחוריכם"],["r","ימין"],["l","שמאל"]];
 const WSIDE={b:"בקיר העליון",f:"בקיר התחתון",r:"בקיר הימני",l:"בקיר השמאלי"};
 const grp=(f,lb,arr,cls)=>`<div class="opts${cls==null?" big":cls?" "+cls:""}" role="group" aria-labelledby="${lb}" data-f="${f}">${chipsHTML(arr)}</div>`;
-const wallPos=w=>w==="b"||w==="f"?[["z","ימין"],["m","באמצע"],["a","שמאל"]]:[["a","למעלה"],["m","באמצע"],["z","למטה"]];
+const wallPos=w=>w==="b"||w==="f"?[["z","ימין"],["m","באמצע"],["a","שמאל"]]:[["a","בצד הרחוק"],["m","באמצע"],["z","בצד הקרוב"]];
 const nboxC=(cls,v,mn,mx,lab,al)=>`<label class="dn"><span>${lab}</span><span class="nbox"><input class="${cls}" type="number" min="${mn}" max="${mx}" step="1" inputmode="numeric" value="${v}" aria-label="${al}"><span>ס״מ</span></span></label>`;
 const xBtn=(a,lab)=>`<button type="button" class="dwi-x" ${a} aria-label="${lab}"><svg aria-hidden="true"><use href="#i-x"/></svg></button>`;
 /* the doors (1 to 4) and the windows (0 to 8): a small block for each */
@@ -3114,7 +3114,7 @@ function renderFur(){const ul=$("#furList");if(!ul)return;const P=FUget().pcs,si
 const nbox=(id,v,mn,mx,lab)=>`<label class="dn"><span>${lab}</span><span class="nbox"><input id="${id}" type="number" min="${mn}" max="${mx}" step="1" inputmode="numeric" value="${v}"><span>ס״מ</span></span></label>`;
 function buildQ3(){const r=S.room,fs=focList(),h=[],out=!!ROOMS[r].out;
   if(fs.length)h.push(`<div class="q3f"><div class="lb"><span id="lbFoc">מה חשוב לכם להאיר?</span><small>אפשר לבחור כמה. נכוון לשם אור ממוקד.</small></div><div class="opts big" id="rFoc" role="group" aria-labelledby="lbFoc">${chipsHTML(fs.map(k=>[k,focHe(k)]))}</div></div>`);
-  if(!out)h.push(`<p class="wq-hint q3n">הקירות לפי ההדמיה: למעלה זה הקיר שמולכם, למטה זה הקיר הקרוב אליכם.</p>`);
+  if(!out)h.push(`<p class="wq-hint q3n">הקירות כמו בהדמיה: עומדים בכניסה לחדר ומסתכלים פנימה. "מולכם" זה הקיר הרחוק, ו"מאחוריכם" זה הקיר שאתם עומדים לידו.</p>`);
   if(r==="kitchen")h.push(`<div class="q3f"><div class="lb" id="lbKw">המטבח לאורך איזה קיר?</div>${grp("kit-w","lbKw",WCH)}</div>`,`<div class="q3f"><div class="lb" id="lbKs">צורת המטבח</div>${grp("kit-sh","lbKs",[["i","קיר אחד"],["l","צורת ר"]])}</div>`);
   if(r==="bedroom"){
     h.push(`<div class="q3f"><div class="lb" id="lbWd">יש ארון?</div>${grp("wd","lbWd",[["1","כן"],["0","לא"]])}<div class="q3s" id="wdBox"><label class="dn"><span>אורך</span><span class="nbox"><input id="wdLen" type="number" min="40" max="800" step="1" inputmode="numeric" value="${Math.round(S.wd.len*100)}"><span>ס״מ</span></span></label><label class="dn"><span>עומק</span><span class="nbox"><input id="wdDep" type="number" min="30" max="100" step="1" inputmode="numeric" value="${Math.round(S.wd.dep*100)}"><span>ס״מ</span></span></label><div class="q3w"><div class="lb" id="lbWdW">על איזה קיר</div>${grp("wd-w","lbWdW",WCH,"")}</div></div></div>`);
