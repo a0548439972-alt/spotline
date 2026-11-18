@@ -778,6 +778,88 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
 .ci-ico{width:64px;height:64px;display:grid;place-items:center;border:1px solid var(--line);color:#fff;--lf:#ffe3ad;--ro:.7}
 .ci-ico .ico{width:36px;height:36px;stroke-width:2.2}
 
+/* a pair (shape inside shape) */
+.pair-n{margin:16px 0 0;padding:10px 14px;border-inline-start:2px solid var(--y);background:#0f0e0d;font-size:14.5px;line-height:1.55;color:#d6d0c4}
+.pair-n:empty{display:none}
+.pair-n button{color:#fff;text-decoration:underline;text-decoration-color:rgba(255,255,255,.4);text-underline-offset:3px;min-height:32px;margin-inline-start:4px}
+.sk-meta{display:flex;flex-wrap:wrap;gap:4px 18px;margin-top:10px;font-size:14px;line-height:1.5;color:var(--mut)}
+.sk-meta:empty{display:none}
+.sk-meta .cv{color:#ffd88a}
+/* the other shape of a pair, and small notes, in the sketch */
+.p-gst{fill:none;stroke:rgba(243,239,231,.26);stroke-linejoin:miter;stroke-miterlimit:10}
+.p-gsi{fill:none;stroke:#0c0b0a;stroke-linejoin:miter;stroke-miterlimit:10}
+.p-nt{fill:#cfc9bd;font-size:13px}
+.paper .p-gst{stroke:#c4c4c4}
+.paper .p-gsi{stroke:#fff}
+.paper .p-nt{fill:#444;font-size:11px}
+
+/* free drawing */
+.fdw .wq-sub{margin:0 0 14px}
+.fd-bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.fbtn{min-height:46px;padding:0 16px;border:1px solid var(--line2);font-size:15px;color:#e2ddd3;display:inline-flex;align-items:center;gap:8px;transition:border-color .3s,color .3s,background-color .3s}
+.fbtn:hover{border-color:#fff;color:#fff}
+.fbtn:disabled{opacity:.35;cursor:default}
+.fbtn:disabled:hover{border-color:var(--line2);color:#e2ddd3}
+.fbtn.sn::before{content:"";width:12px;height:12px;border:1px solid currentColor;flex:none}
+.fbtn.sn[aria-pressed="true"]{border-color:#fff;color:#fff}
+.fbtn.sn[aria-pressed="true"]::before{background:var(--y);border-color:var(--y)}
+.fdc{position:relative;height:clamp(340px,58vh,500px);background:#080807;border:1px solid var(--line2);overflow:hidden;touch-action:none;cursor:crosshair;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;overscroll-behavior:contain}
+.fdc svg{position:absolute;inset:0;display:block;font-family:var(--f)}
+.fg1{stroke:rgba(255,244,225,.055);stroke-width:1;fill:none}
+.fg2{stroke:rgba(255,244,225,.15);stroke-width:1;fill:none}
+.fpt{fill:#fff}
+.fpt0{fill:none;stroke:var(--y);stroke-width:2}
+.fprev{stroke:var(--y);stroke-width:2;stroke-dasharray:6 5;fill:none}
+.fdot{fill:var(--y)}
+.fsel{fill:none;stroke:var(--y);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.fchip{cursor:pointer}
+.fchip rect{fill:#151413;stroke:rgba(255,244,225,.3)}
+.fchip text{fill:#f3efe7;font-size:13.5px;font-weight:700}
+.fchip .k{fill:var(--y);font-weight:700}
+.fchip.on rect{fill:var(--y);stroke:var(--y)}
+.fchip.on text,.fchip.on .k{fill:#0a0a0a}
+.fhd{fill:#0a0a0a;stroke:var(--y);stroke-width:3;cursor:grab}
+.fhd-l{stroke:var(--y);stroke-width:1;stroke-dasharray:3 3;fill:none}
+.fpl{fill:#fff;font-size:13.5px;font-weight:700;paint-order:stroke;stroke:#080807;stroke-width:4px}
+.fmsg{fill:#a39e94;font-size:15px}
+.fleg{fill:#8f897f;font-size:12px}
+.fd-stat{margin-top:10px;font-size:14.5px;line-height:1.5;color:#d6d0c4}
+.fd-stat b{color:#fff;font-weight:700}
+.fsegs{list-style:none;margin-top:12px;border-top:1px solid var(--line)}
+.fsegs:empty{display:none}
+.fs{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:8px 6px;border-bottom:1px solid var(--line);transition:background-color .25s}
+.fs.on{background:#151413}
+.fs-k{font-family:var(--fd);font-weight:700;font-size:18px;min-width:22px;color:var(--y);direction:ltr;text-align:center}
+.fs-in{display:inline-flex;align-items:center;gap:8px}
+.fs-l{font-size:13.5px;color:var(--mut)}
+.fs input{width:92px;height:44px;background:#151413;border:1px solid var(--line2);font-family:var(--fd);font-weight:700;font-size:20px;color:#fff;text-align:center;direction:ltr;outline:0;border-radius:0;transition:border-color .3s}
+.fs input:focus{border-color:#fff}
+.fs-u{font-size:13.5px;color:var(--mut)}
+.fs-b{min-height:40px;padding:0 12px;border:1px solid var(--line2);font-size:14px;color:#d6d0c4;transition:border-color .3s,color .3s,background-color .3s}
+.fs-b:hover{border-color:#fff;color:#fff}
+.fs-b[aria-pressed="true"]{background:#fff;color:#0a0a0a;border-color:#fff;font-weight:700}
+.fs-arc{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;width:100%;padding-inline-start:34px}
+.fs-arc input{width:80px;height:40px;font-size:18px}
+.fs-arc small{font-size:13.5px;color:#d6d0c4}
+
+/* send */
+.s-hint{margin-top:10px;font-size:13.5px;line-height:1.5;color:var(--mut)}
+.s-hint:empty{display:none}
+.s-in{margin-top:8px;color:#ffd88a}
+.s-alt{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;margin-top:10px;font-size:14px;color:var(--dim)}
+.s-alt [aria-disabled]{opacity:.35;pointer-events:none}
+.s-alt .lnk:disabled{opacity:.35;cursor:default}
+.btn[aria-busy="true"]{cursor:progress}
+@media (max-width:900px){
+  .tool.free-on #sk,.tool.free-on #skTip{display:none}
+}
+@media (max-width:560px){
+  .fbtn{flex:1 1 calc(50% - 4px);justify-content:center;min-height:48px;padding:0 10px}
+  .fdc{height:min(100vw,400px);margin-inline:calc(var(--g) * -1);border-inline:0}
+  .fs input{width:84px}
+  .fs-arc{padding-inline-start:0}
+}
+
 /* planner responsive */
 @media (max-width:1180px){
   .tool{grid-template-columns:minmax(0,1fr) minmax(0,.92fr);column-gap:32px}
@@ -879,6 +961,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
     <symbol id="i-wa" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2a8.8 8.8 0 0 0-7.6 13.2L3.2 20.8l4.5-1.2A8.8 8.8 0 1 0 12 3.2z"/><path d="M9.1 8.2c.4-.4.9-.3 1.1.1l.7 1.6c.1.3 0 .6-.2.8l-.5.5a6 6 0 0 0 2.7 2.7l.5-.5c.2-.2.5-.3.8-.2l1.6.7c.4.2.5.7.1 1.1-.6.7-1.5 1-2.4.7a8.2 8.2 0 0 1-5.1-5.1c-.3-.9 0-1.8.7-2.4z"/></g></symbol>
     <symbol id="i-filter" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></g></symbol>
     <symbol id="i-zoom" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4.2-4.2M8 11h6M11 8v6"/></g></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 4v11M7 10.5l5 5 5-5M5 20h14"/></symbol>
     <symbol id="i-copy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="8.5" y="8.5" width="11" height="11"/><path d="M15.5 8.5V4.5h-11v11h4"/></g></symbol>
   </defs>
 </svg>
@@ -967,6 +1050,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
       <ul class="runs" id="runs" aria-labelledby="runsL"></ul>
 
       <div class="wz-top"><span id="wzCount" aria-live="polite">שלב 1 מתוך 5</span><ol class="dots" id="dots" aria-hidden="true"><li></li><li></li><li></li><li></li><li></li></ol></div>
+      <p class="pair-n" id="pairN" aria-live="polite"></p>
 
       <!-- 1: shape -->
       <section class="wq" id="q0" data-i="0" aria-labelledby="q0h">
@@ -979,6 +1063,15 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
             <div class="lb" id="dirL">לאיזה צד הפינה?</div>
             <div class="opts" role="group" aria-labelledby="dirL"><button type="button" data-dir="r" aria-pressed="true">פינה מימין</button><button type="button" data-dir="l" aria-pressed="false">פינה משמאל</button></div>
           </div>
+          <div class="fld" id="triF" hidden style="margin-top:22px">
+            <div class="lb" id="triL">איזה משולש?</div>
+            <div class="opts" role="group" aria-labelledby="triL"><button type="button" data-eq="1" aria-pressed="true">שווה צלעות</button><button type="button" data-eq="0" aria-pressed="false">שלוש צלעות שונות</button></div>
+          </div>
+          <div class="fld" id="nestF" hidden style="margin-top:22px">
+            <div class="lb" id="nestL">מה הצורה החיצונית?</div>
+            <div class="opts" role="group" aria-labelledby="nestL"><button type="button" data-nf="rect" aria-pressed="true">מלבן</button><button type="button" data-nf="circle" aria-pressed="false">עיגול</button><button type="button" data-nf="tri" aria-pressed="false">משולש</button></div>
+            <p class="wq-hint">בפנים נכנסת אותה צורה, קטנה יותר לפי המרווח. כל צורה מיוצרת כקו נפרד.</p>
+          </div>
           <p class="err" id="e0" role="alert"></p>
           <div class="wq-go"><button type="button" class="btn btn-y" data-next="0"><span class="bl">המשך</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
         </div>
@@ -990,7 +1083,21 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
         <div class="wq-b">
           <h2 class="wq-h" id="q1h" tabindex="-1">מה המידות?</h2>
           <div class="dims" id="dims"></div>
-          <p class="wq-hint">בסנטימטרים. אפשר גם מידה כמו 120.5. בפינה מודדים עד הקצה החיצוני, כמו בשרטוט.</p>
+          <p class="wq-hint" id="dimHint">בסנטימטרים. אפשר גם מידה כמו 120.5. בפינה מודדים עד הקצה החיצוני, כמו בשרטוט.</p>
+          <p class="wq-hint" id="nestInfo" hidden></p>
+          <div class="fdw" id="fdw" hidden>
+            <p class="wq-sub">לוחצים על המשטח כדי להוסיף נקודה. כל צלע נצמדת לזוויות של 15° ולקפיצות של 5 ס״מ. לחיצה על הנקודה הראשונה סוגרת את הצורה.</p>
+            <div class="fd-bar" role="group" aria-label="כלי שרטוט">
+              <button type="button" class="fbtn" data-fd="undo">ביטול נקודה</button>
+              <button type="button" class="fbtn" data-fd="close">סגירת הצורה</button>
+              <button type="button" class="fbtn" data-fd="clear">ניקוי</button>
+              <button type="button" class="fbtn sn" data-fd="snap" aria-pressed="true">הצמדה</button>
+            </div>
+            <div class="fdc" id="fdc"></div>
+            <p class="fd-stat" id="fdStat" aria-live="polite"></p>
+            <p class="wq-hint">בחרו צלע ברשימה או בשרטוט כדי לכתוב אורך מדויק. גוררים את העיגול הצהוב כדי לעגל צלע לקשת. במחשב, Alt מבטל את ההצמדה.</p>
+            <ol class="fsegs" id="fsegs"></ol>
+          </div>
           <p class="err" id="e1" role="alert"></p>
           <div class="wq-go"><button type="button" class="btn btn-y" data-next="1"><span class="bl">המשך</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></button><span class="lnow" id="lNow"></span></div>
         </div>
@@ -1052,6 +1159,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
       <div class="sk" id="sk"></div>
       <p class="sk-tip" id="skTip"></p>
       <dl class="tot" id="tot"></dl>
+      <p class="sk-meta" id="skMeta"></p>
       <p class="tot-all" id="totAll"></p>
     </aside>
   </div>
@@ -1076,11 +1184,13 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
         <label class="inp"><span>הערות להזמנה (לא חובה)</span><textarea id="cNote" rows="2"></textarea></label>
         <ul class="miss" id="miss"></ul>
         <div class="s-acts">
-          <a class="btn btn-y" id="sWa" href="https://wa.me/97286377033" target="_blank" rel="noopener"><svg class="wa" aria-hidden="true"><use href="#i-wa"/></svg><span class="bl">שליחה לחנות בוואטסאפ</span></a>
+          <button class="btn btn-y" type="button" id="sWa"><svg class="wa" aria-hidden="true"><use href="#i-wa"/></svg><span class="bl">שליחה לחנות בוואטסאפ</span></button>
+          <button class="btn btn-o" type="button" id="sPdf"><svg aria-hidden="true"><use href="#i-down"/></svg><span class="bl">להוריד PDF</span></button>
           <button class="btn btn-o" type="button" id="sAdd"><svg aria-hidden="true"><use href="#i-plus"/></svg><span class="bl">הוספה לסל להצעת מחיר</span></button>
-          <button class="btn btn-o" type="button" id="sPrint"><span class="bl">הדפסה / שמירה כ-PDF</span></button>
         </div>
+        <p class="s-hint" id="sHint"></p>
         <p class="s-in" id="sIn" role="status" aria-live="polite"></p>
+        <p class="s-alt"><a class="lnk" id="sWaTxt" href="https://wa.me/97286377033" target="_blank" rel="noopener">שליחה כהודעת טקסט בלבד</a><span aria-hidden="true">·</span><button class="lnk" type="button" id="sPrint">הדפסה</button></p>
         <p class="fine">אין תשלום באתר. שולחים את התכנון, ואנחנו חוזרים עם הצעת מחיר.</p>
         <button class="lnk s-more" type="button" data-addrun>+ עוד קו להזמנה</button>
       </div>
@@ -1226,16 +1336,25 @@ function trap(e,boxes){if(e.key!=="Tab")return;const f=boxes.flatMap(b=>$$(FOC,b
 
 /* =====================================================================================
    THE PLANNER
-   A run is one profile made in one piece: a straight line, an L (ר), a U (ח) or a closed frame.
-   Lengths are in cm along the outer edge. The feed point is a distance along the profile, snapped to 5 cm.
+   A run is one profile made in one piece. Ready shapes: a straight line, an L (ר), a U (ח), a closed frame,
+   a circle, a rounded rectangle, a triangle, a shape inside a shape (two runs: the outer one and the inner one)
+   and a free drawing. A side is a straight segment or an arc. Lengths are in cm along the outer edge.
+   The feed point is a distance along the profile, snapped to 5 cm.
    ===================================================================================== */
 const SH={
-  line:{n:"קו ישר",keys:["A"],lab:{A:"אורך"},d:"פרופיל אחד לאורך קיר או תקרה"},
-  L:{n:"ר",keys:["A","B"],lab:{A:"צלע A, למעלה",B:"צלע B, יורדת"},d:"שתי צלעות ופינה אחת"},
-  U:{n:"ח",keys:["A","B","C"],lab:{A:"צלע A, ימין",B:"צלע B, למעלה",C:"צלע C, שמאל"},d:"שלוש צלעות ושתי פינות"},
-  frame:{n:"מסגרת סגורה",keys:["W","H"],lab:{W:"רוחב",H:"גובה"},d:"ארבע צלעות, בלי קצוות"}};
-const SH_ORDER=["line","L","U","frame"];
-const PH={line:{A:150},L:{A:120,B:80},U:{A:60,B:140,C:60},frame:{W:120,H:80}};
+  line:{n:"קו ישר",d:"פרופיל אחד לאורך קיר או תקרה"},
+  L:{n:"ר",d:"שתי צלעות ופינה אחת"},
+  U:{n:"ח",d:"שלוש צלעות ושתי פינות"},
+  frame:{n:"מסגרת סגורה",d:"ארבע צלעות, בלי קצוות"},
+  circle:{n:"עיגול",d:"טבעת אור לפי קוטר"},
+  round:{n:"מלבן מעוגל",d:"מסגרת עם פינות מעוגלות"},
+  tri:{n:"משולש",d:"שלוש צלעות, צורה סגורה"},
+  nest:{n:"צורה בתוך צורה",d:"שתי צורות, אחת בתוך השנייה"},
+  free:{n:"שרטוט חופשי",d:"מציירים לבד, נקודה אחרי נקודה"}};
+const SH_ORDER=["line","L","U","frame","circle","round","tri","nest","free"];
+const NF={rect:"מלבן",circle:"עיגול",tri:"משולש"};
+const LET="ABCDEFGHIJKLMNOPQRSTUVWX".split("");
+const MAXP=LET.length+1;
 const TYPES=[
   {id:"rec",n:"שקוע",d:"נכנס לתוך הגבס. רואים רק קו אור."},
   {id:"sur",n:"צמוד",d:"מוצמד לתקרה או לקיר, בלי לפתוח גבס."},
@@ -1248,42 +1367,150 @@ const WPM=[7,10,14,20,24,28];
 const PSU=[30,60,100,150,200,300];
 const DEF_FINS=["לבן","שחור","אלומיניום"];
 const MAXR=12, MIN=5, MAX=2000;
+const CURVE_NOTE="פרופיל מעוגל מיוצר בהזמנה מיוחדת.";
 
 let uidN=0;const newUid=()=>Date.now().toString(36)+(++uidN).toString(36);
-function newRun(from){return {uid:newUid(),shape:"",dir:"r",s:{A:"",B:"",C:"",W:"",H:""},type:from?from.type:"",model:from?from.model:"",fin:from?from.fin:"",k:from?from.k:"3000",wpm:from?from.wpm:14,wpmModel:from?from.wpmModel:false,
+function newRun(from){return {uid:newUid(),shape:"",dir:"r",eq:true,nf:"rect",role:"",pair:"",ownLook:false,fp:[],fc:false,fb:[],
+  s:{A:"",B:"",C:"",W:"",H:"",D:"",R:"",G:""},type:from?from.type:"",model:from?from.model:"",fin:from?from.fin:"",k:from?from.k:"3000",wpm:from?from.wpm:14,wpmModel:from?from.wpmModel:false,
   feed:null,feedLen:"",corner:false,photos:[],note:"",open:0,reached:0}}
 let RUNS=[newRun()], CUR=0, SHOW_SUM=false;
 const R=()=>RUNS[CUR];
+const partnerOf=run=>run&&run.pair?RUNS.find(r=>r.uid===run.pair)||null:null;
 
 /* numbers */
 const num=s=>{const t=String(s==null?"":s).replace(",",".").replace(/[^\d.]/g,"");const n=parseFloat(t);return t&&isFinite(n)?n:NaN};
 const okLen=n=>n>=MIN&&n<=MAX;
+const okKey=(k,n)=>k==="R"?n>=1&&n<=MAX/2:k==="G"?n>=1&&n<=500:okLen(n);
 const r1=n=>Math.round(n*10)/10;
+const r2=n=>Math.round(n*100)/100;
 const fmt=n=>String(r1(n));
 const fmtM=cm=>String(Math.round(cm)/100);
 const f2=n=>Math.round(n*100)/100;
 
-function vals(run){const ks=SH[run.shape].keys,v={},ph={};let ok=true;ks.forEach(k=>{const n=num(run.s[k]);if(okLen(n))v[k]=n;else{v[k]=PH[run.shape][k];ph[k]=1;ok=false}});return {v,ph,ok}}
+/* the fields each shape asks for */
+function keysOf(run){switch(run.shape){
+  case "line":return ["A"];case "L":return ["A","B"];case "U":return ["A","B","C"];case "frame":return ["W","H"];
+  case "circle":return ["D"];case "round":return ["W","H","R"];case "tri":return run.eq?["A"]:["A","B","C"];
+  case "nest":return run.role==="in"?[]:run.nf==="circle"?["D","G"]:run.nf==="tri"?["A","G"]:["W","H","G"];
+  default:return []}}
+const LABS={line:{A:"אורך"},L:{A:"צלע A, למעלה",B:"צלע B, יורדת"},U:{A:"צלע A, ימין",B:"צלע B, למעלה",C:"צלע C, שמאל"},frame:{W:"רוחב",H:"גובה"},
+  circle:{D:"קוטר"},round:{W:"רוחב",H:"גובה",R:"רדיוס הפינה"},tri:{A:"צלע A, בסיס",B:"צלע B, ימין",C:"צלע C, שמאל"}};
+function labOf(run,k){if(run.shape==="tri"&&run.eq)return "אורך צלע";
+  if(run.shape==="nest")return k==="G"?"מרווח בין הצורות":{W:"רוחב חיצוני",H:"גובה חיצוני",D:"קוטר חיצוני",A:"צלע חיצונית"}[k]||k;
+  return (LABS[run.shape]||{})[k]||k}
+const PHS={line:{A:150},L:{A:120,B:80},U:{A:60,B:140,C:60},frame:{W:120,H:80},circle:{D:60},round:{W:120,H:80,R:15},tri:{A:120,B:90,C:90},
+  nestrect:{W:160,H:100,G:15},nestcircle:{D:90,G:15},nesttri:{A:140,G:15}};
+function phOf(run,k){if(run.shape==="tri"&&run.eq)return 100;return (PHS[run.shape==="nest"?"nest"+(run.nf||"rect"):run.shape]||{})[k]}
+/* the inner shape of a pair: the same shape, smaller by the gap on every side */
+function innerOf(nf,v){return nf==="circle"?{D:v.D-2*v.G}:nf==="tri"?{A:v.A-2*Math.sqrt(3)*v.G}:{W:v.W-2*v.G,H:v.H-2*v.G}}
+
+function vals(run){
+  if(run.shape==="nest"&&run.role==="in"){const o=partnerOf(run);if(!o)return {v:{W:130,H:70},ph:{},ok:false,err:"",G:15,nf:"rect"};
+    const r=vals(o);return {v:innerOf(o.nf,r.v),ph:{},ok:r.ok,err:"",G:r.v.G,nf:o.nf}}
+  const ks=keysOf(run),v={},ph={};let ok=true,err="";
+  ks.forEach(k=>{const n=num(run.s[k]);if(okKey(k,n))v[k]=n;else{v[k]=phOf(run,k);ph[k]=1;ok=false}});
+  if(ok){
+    if(run.shape==="round"&&v.R>Math.min(v.W,v.H)/2)err=`רדיוס הפינה יכול להיות עד ${fmt(Math.min(v.W,v.H)/2)} ס״מ, חצי מהצלע הקצרה.`;
+    if(run.shape==="tri"&&!run.eq&&!(v.A<v.B+v.C&&v.B<v.A+v.C&&v.C<v.A+v.B))err="אין משולש כזה. כל צלע צריכה להיות קצרה מסכום שתי האחרות.";
+    if(run.shape==="nest"&&Object.values(innerOf(run.nf,v)).some(x=>x<MIN))err="המרווח גדול מדי. הצורה הפנימית יוצאת קטנה מדי.";
+    if(err){ok=false;ks.forEach(k=>{v[k]=phOf(run,k);ph[k]=1})}}
+  return {v,ph,ok,err,G:v.G,nf:run.nf}}
+
+/* ---------------- segments: a straight line or an arc ---------------- */
+const Lseg=(a,b,m)=>Object.assign({t:"l",a,b},m);
+function Aseg(c,r,a0,da,m){return Object.assign({t:"a",c,r,a0,da,a:[c[0]+r*Math.cos(a0),c[1]+r*Math.sin(a0)],b:[c[0]+r*Math.cos(a0+da),c[1]+r*Math.sin(a0+da)]},m)}
+const segLen=sg=>sg.t==="a"?Math.abs(sg.da)*sg.r:Math.hypot(sg.b[0]-sg.a[0],sg.b[1]-sg.a[1]);
+const chordOf=sg=>Math.hypot(sg.b[0]-sg.a[0],sg.b[1]-sg.a[1]);
+function segPt(sg,t){if(sg.t==="a"){const an=sg.a0+sg.da*t;return [sg.c[0]+sg.r*Math.cos(an),sg.c[1]+sg.r*Math.sin(an)]}return [sg.a[0]+(sg.b[0]-sg.a[0])*t,sg.a[1]+(sg.b[1]-sg.a[1])*t]}
+function segTan(sg,t){if(sg.t==="a"){const an=sg.a0+sg.da*t,s=Math.sign(sg.da)||1;return [-Math.sin(an)*s,Math.cos(an)*s]}const dx=sg.b[0]-sg.a[0],dy=sg.b[1]-sg.a[1],l=Math.hypot(dx,dy)||1;return [dx/l,dy/l]}
+function segNear(sg,x,y){
+  if(sg.t==="a"){const an=Math.atan2(y-sg.c[1],x-sg.c[0]),s=Math.sign(sg.da)||1,TW=2*Math.PI,span=Math.abs(sg.da);let rel=(((an-sg.a0)*s)%TW+TW)%TW;
+    if(rel<=span)return rel/span;return Math.hypot(x-sg.a[0],y-sg.a[1])<=Math.hypot(x-sg.b[0],y-sg.b[1])?0:1}
+  const dx=sg.b[0]-sg.a[0],dy=sg.b[1]-sg.a[1],L2=dx*dx+dy*dy;return L2?Math.max(0,Math.min(1,((x-sg.a[0])*dx+(y-sg.a[1])*dy)/L2)):0}
+/* an arc from a to b through a bulge of s cm (sagitta, + or -), measured from the middle of the chord */
+function arcFrom(a,b,s,meta){const dx=b[0]-a[0],dy=b[1]-a[1],c=Math.hypot(dx,dy);if(c<1e-6||Math.abs(s)<.05)return Lseg(a,b,meta);
+  const u=[dx/c,dy/c],nr=[-u[1],u[0]],m=[(a[0]+b[0])/2,(a[1]+b[1])/2],as=Math.abs(s),r=(c*c/4+s*s)/(2*as),d=s-Math.sign(s)*r,ce=[m[0]+nr[0]*d,m[1]+nr[1]*d];
+  const a0=Math.atan2(a[1]-ce[1],a[0]-ce[0]),th=4*Math.atan(2*as/c),bul=[m[0]+nr[0]*s,m[1]+nr[1]*s];
+  let da=th;const mid=a0+th/2;if(Math.hypot(ce[0]+r*Math.cos(mid)-bul[0],ce[1]+r*Math.sin(mid)-bul[1])>r*.01+1e-6)da=-th;
+  return Object.assign(Aseg(ce,r,a0,da,meta),{a,b,bul:s})}
+function fin(segs,closed){let acc=0;const out=[];segs.forEach(sg=>{const len=segLen(sg);if(len<1e-6)return;out.push(Object.assign(sg,{len,start:acc,i:out.length}));acc+=len});return {segs:out,closed,total:acc}}
+function samples(segs){const out=[];segs.forEach(sg=>{if(sg.t==="a"){const n=Math.max(8,Math.ceil(Math.abs(sg.da)/(Math.PI/24)));for(let k=0;k<=n;k++)out.push(segPt(sg,k/n))}else out.push(sg.a,sg.b)});return out}
+function cornersOf(segs,closed){let n=0;const m=segs.length;if(!m)return 0;for(let i=closed?0:1;i<m;i++){if(closed&&m===1)break;const u=segTan(segs[(i-1+m)%m],1),w=segTan(segs[i],0);if(u[0]*w[0]+u[1]*w[1]<Math.cos(4*Math.PI/180))n++}return n}
+
+/* ---------------- the shapes ---------------- */
+const M=(name,e0,e1,key)=>({name,e0,e1,key});
+const polyLoop=(p,metas)=>metas.map((m,i)=>Lseg(p[i],p[(i+1)%p.length],m));
+function frameLoop(W,H,dx,dy){dx=dx||0;dy=dy||0;return polyLoop([[W+dx,dy],[dx,dy],[dx,H+dy],[W+dx,H+dy]],[M("הצלע העליונה","הפינה הימנית העליונה","הפינה השמאלית העליונה","W"),M("הצלע השמאלית","הפינה השמאלית העליונה","הפינה השמאלית התחתונה","H"),
+  M("הצלע התחתונה","הפינה השמאלית התחתונה","הפינה הימנית התחתונה","W"),M("הצלע הימנית","הפינה הימנית התחתונה","הפינה הימנית העליונה","H")])}
+/* a circle starts at the top and goes clockwise */
+const circLoop=(c,r)=>[Aseg(c,r,-Math.PI/2,2*Math.PI,{name:"העיגול",e0:"הנקודה העליונה",e1:"הנקודה העליונה",key:"D",circ:true})];
+function triPts(A,B,C){const x=(A*A+C*C-B*B)/(2*A),y=-Math.sqrt(Math.max(0,C*C-x*x));return [[x,y],[A,0],[0,0]]}
+const triLoop=(p,eq)=>polyLoop(p,[M(eq?"הצלע הימנית":"צלע B","הקודקוד העליון","הפינה הימנית התחתונה","B"),M(eq?"הבסיס":"צלע A","הפינה הימנית התחתונה","הפינה השמאלית התחתונה","A"),M(eq?"הצלע השמאלית":"צלע C","הפינה השמאלית התחתונה","הקודקוד העליון","C")]);
+function roundLoop(W,H,R){const q=Math.PI/2,h=-q;
+  return [Lseg([W-R,0],[R,0],M("הצלע העליונה","הקשת הימנית העליונה","הקשת השמאלית העליונה","W")),
+    Aseg([R,R],R,-q,h,M("הפינה המעוגלת השמאלית העליונה","הצלע העליונה","הצלע השמאלית","")),
+    Lseg([0,R],[0,H-R],M("הצלע השמאלית","הקשת השמאלית העליונה","הקשת השמאלית התחתונה","H")),
+    Aseg([R,H-R],R,Math.PI,h,M("הפינה המעוגלת השמאלית התחתונה","הצלע השמאלית","הצלע התחתונה","")),
+    Lseg([R,H],[W-R,H],M("הצלע התחתונה","הקשת השמאלית התחתונה","הקשת הימנית התחתונה","W")),
+    Aseg([W-R,H-R],R,q,h,M("הפינה המעוגלת הימנית התחתונה","הצלע התחתונה","הצלע הימנית","")),
+    Lseg([W,H-R],[W,R],M("הצלע הימנית","הקשת הימנית התחתונה","הקשת הימנית העליונה","H")),
+    Aseg([W-R,R],R,0,h,M("הפינה המעוגלת הימנית העליונה","הצלע הימנית","הצלע העליונה",""))]}
+/* both loops of a pair, in the outer shape's coordinates, and the gap between them */
+function nestLoops(nf,O){const G=O.G;
+  if(nf==="circle"){const r=O.D/2,c=[r,r];return {outer:circLoop(c,r),inner:circLoop(c,r-G),gap:[{a:[0,r],b:[G,r],v:G},{a:[O.D,r],b:[O.D-G,r],v:G}]}}
+  if(nf==="tri"){const A=O.A,p=triPts(A,A,A),I=[A/2,-A/(2*Math.sqrt(3))],k=(A-2*Math.sqrt(3)*G)/A,q=p.map(x=>[I[0]+(x[0]-I[0])*k,I[1]+(x[1]-I[1])*k]);
+    const mo=[A/4,-A*Math.sqrt(3)/4],mr=[A*3/4,-A*Math.sqrt(3)/4],hz=x=>[I[0]+(x[0]-I[0])*k,I[1]+(x[1]-I[1])*k];
+    return {outer:triLoop(p,true),inner:triLoop(q,true),gap:[{a:[A/2,0],b:[A/2,-G],v:G},{a:mo,b:hz(mo),v:G},{a:mr,b:hz(mr),v:G}]}}
+  return {outer:frameLoop(O.W,O.H),inner:frameLoop(O.W-2*G,O.H-2*G,G,G),gap:[{a:[0,O.H/2],b:[G,O.H/2],v:G},{a:[O.W,O.H/2],b:[O.W-G,O.H/2],v:G}]}}
+/* the free drawing: points in cm, each side straight or bent by fb[i] */
+function freeLoop(run){const p=run.fp||[],n=p.length,c=!!run.fc&&n>=3,m=c?n:Math.max(0,n-1),out=[];
+  for(let i=0;i<m;i++){const key=LET[i],meta={name:"צלע "+key,key,
+      e0:i===0&&!c?`הקצה של צלע ${key}`:`הפינה בין ${LET[(i-1+m)%m]} ל-${key}`,
+      e1:i===m-1&&!c?`הקצה של צלע ${key}`:`הפינה בין ${key} ל-${LET[(i+1)%m]}`};
+    const s=(run.fb||[])[i]||0;out.push(s?arcFrom(p[i],p[(i+1)%n],s,meta):Lseg(p[i],p[(i+1)%n],meta))}
+  return {segs:out,closed:c}}
+
 /* geometry in cm, x to the right and y down. Each side knows its two ends, so a feed point can be described in words */
 function geo(run){
-  const {v,ph,ok}=vals(run),sh=run.shape,S=(name,e0,e1,key)=>({name,e0,e1,key});let pts,meta,closed=false;
-  if(sh==="line"){pts=[[v.A,0],[0,0]];meta=[S("","הקצה הימני","הקצה השמאלי","A")]}
-  else if(sh==="L"){if(run.dir==="r"){pts=[[0,0],[v.A,0],[v.A,v.B]];meta=[S("צלע A","הקצה השמאלי","הפינה","A"),S("צלע B","הפינה","הקצה התחתון","B")]}
-    else{pts=[[v.A,0],[0,0],[0,v.B]];meta=[S("צלע A","הקצה הימני","הפינה","A"),S("צלע B","הפינה","הקצה התחתון","B")]}}
-  else if(sh==="U"){pts=[[v.B,v.A],[v.B,0],[0,0],[0,v.C]];meta=[S("צלע A","הקצה התחתון","הפינה הימנית","A"),S("צלע B","הפינה הימנית","הפינה השמאלית","B"),S("צלע C","הפינה השמאלית","הקצה התחתון","C")]}
-  else{closed=true;pts=[[v.W,0],[0,0],[0,v.H],[v.W,v.H]];meta=[S("הצלע העליונה","הפינה הימנית העליונה","הפינה השמאלית העליונה","W"),S("הצלע השמאלית","הפינה השמאלית העליונה","הפינה השמאלית התחתונה","H"),
-    S("הצלע התחתונה","הפינה השמאלית התחתונה","הפינה הימנית התחתונה","W"),S("הצלע הימנית","הפינה הימנית התחתונה","הפינה הימנית העליונה","H")]}
-  let acc=0;const segs=meta.map((m,i)=>{const a=pts[i],b=pts[(i+1)%pts.length],len=Math.hypot(b[0]-a[0],b[1]-a[1]),sg=Object.assign(m,{a,b,len,start:acc,i});acc+=len;return sg});
-  return {pts,closed,segs,total:acc,ok,ph,v};
+  const sh=run.shape;let segs=[],closed=false,ghost=null,gap=null;const dims=[],notes=[];
+  if(sh==="free"){const f=freeLoop(run),r=fin(f.segs,f.closed);
+    const ok=r.segs.length>0&&r.segs.every(s=>chordOf(s)>=1)&&r.total>=MIN&&r.total<=10000;
+    r.segs.forEach(sg=>dims.push(sg.t==="a"?{arc:sg,key:sg.key,val:sg.len}:{a:sg.a,b:sg.b,key:sg.key,val:sg.len}));
+    return Object.assign(r,{ok,ph:{},v:{},err:"",dims,notes,ghost,gap,curved:r.segs.some(s=>s.t==="a"),corners:cornersOf(r.segs,r.closed)})}
+  const V=vals(run),v=V.v,ph=V.ph;
+  if(sh==="line"){segs=[Lseg([v.A,0],[0,0],M("","הקצה הימני","הקצה השמאלי","A"))]}
+  else if(sh==="L"){segs=run.dir==="r"?polyLoop([[0,0],[v.A,0],[v.A,v.B]],[M("צלע A","הקצה השמאלי","הפינה","A"),M("צלע B","הפינה","הקצה התחתון","B")]).slice(0,2)
+      :polyLoop([[v.A,0],[0,0],[0,v.B]],[M("צלע A","הקצה הימני","הפינה","A"),M("צלע B","הפינה","הקצה התחתון","B")]).slice(0,2)}
+  else if(sh==="U"){segs=polyLoop([[v.B,v.A],[v.B,0],[0,0],[0,v.C]],[M("צלע A","הקצה התחתון","הפינה הימנית","A"),M("צלע B","הפינה הימנית","הפינה השמאלית","B"),M("צלע C","הפינה השמאלית","הקצה התחתון","C")]).slice(0,3)}
+  else if(sh==="frame"){closed=true;segs=frameLoop(v.W,v.H)}
+  else if(sh==="circle"){closed=true;segs=circLoop([v.D/2,v.D/2],v.D/2)}
+  else if(sh==="round"){closed=true;segs=roundLoop(v.W,v.H,Math.min(v.R,Math.min(v.W,v.H)/2))}
+  else if(sh==="tri"){closed=true;segs=triLoop(run.eq?triPts(v.A,v.A,v.A):triPts(v.A,v.B,v.C),run.eq)}
+  else if(sh==="nest"){closed=true;const inner=run.role==="in",o=inner?partnerOf(run):run,O=inner?(o?vals(o).v:{W:160,H:100,D:90,A:140,G:15}):v,L=nestLoops(V.nf,O);
+    segs=inner?L.inner:L.outer;ghost=inner?L.outer:L.inner;gap=L.gap}
+  const r=fin(segs,closed),S=r.segs;
+  /* dimension lines: what the customer typed, beside the side it belongs to */
+  const nf=V.nf,oc=run.role==="in"?V.G||0:0,box=(a,b,n,key,val,p)=>dims.push({a,b,n,key,val,ph:p,oc});
+  if(sh==="line")dims.push({a:S[0].a,b:S[0].b,key:"",val:v.A,ph:ph.A});
+  else if(sh==="L"||sh==="U")S.forEach(sg=>dims.push({a:sg.a,b:sg.b,key:sg.key,val:v[sg.key],ph:ph[sg.key]}));
+  else if(sh==="frame"){dims.push({a:S[0].a,b:S[0].b,key:"",val:v.W,ph:ph.W},{a:S[3].a,b:S[3].b,key:"",val:v.H,ph:ph.H})}
+  else if(sh==="circle")box([0,v.D],[v.D,v.D],[0,1],"קוטר",v.D,ph.D);
+  else if(sh==="round"){const Rr=Math.min(v.R,Math.min(v.W,v.H)/2);box([v.W,0],[0,0],[0,-1],"",v.W,ph.W);box([v.W,v.H],[v.W,0],[1,0],"",v.H,ph.H);
+    notes.push({at:[Rr,Rr],corner:[0,0],t:`רדיוס ${ph.R?"?":fmt(v.R)}`})}
+  else if(sh==="tri")S.forEach(sg=>dims.push({a:sg.a,b:sg.b,key:run.eq?"":sg.key,val:run.eq?v.A:v[sg.key],ph:run.eq?ph.A:ph[sg.key]}));
+  else if(sh==="nest"){
+    if(nf==="circle"){const sb=samples(S),y=Math.max(...sb.map(p=>p[1])),x0=Math.min(...sb.map(p=>p[0])),x1=Math.max(...sb.map(p=>p[0]));box([x0,y],[x1,y],[0,1],"קוטר",v.D,ph.D)}
+    else if(nf==="tri"){const b=S[1];box(b.a,b.b,[0,1],"",v.A,ph.A)}
+    else{box(S[0].a,S[0].b,[0,-1],"",v.W,ph.W);box(S[3].a,S[3].b,[1,0],"",v.H,ph.H)}}
+  return Object.assign(r,{ok:V.ok,ph,v,err:V.err,dims,notes,ghost:ghost?fin(ghost,true).segs:null,gap,curved:S.some(s=>s.t==="a"),corners:cornersOf(S,closed),rc:sh==="round"?4:0});
 }
 const total=run=>run.shape?geo(run).total:0;
 function at(g,s){
   if(g.closed)s=((s%g.total)+g.total)%g.total;else s=Math.max(0,Math.min(g.total,s));
-  for(const sg of g.segs){if(s<=sg.start+sg.len+1e-6){const t=sg.len?(s-sg.start)/sg.len:0;return {x:sg.a[0]+(sg.b[0]-sg.a[0])*t,y:sg.a[1]+(sg.b[1]-sg.a[1])*t,sg,d0:s-sg.start,d1:sg.start+sg.len-s}}}
-  const sg=g.segs[g.segs.length-1];return {x:sg.b[0],y:sg.b[1],sg,d0:sg.len,d1:0};
+  for(const sg of g.segs){if(s<=sg.start+sg.len+1e-6){const t=sg.len?(s-sg.start)/sg.len:0,p=segPt(sg,t);return {x:p[0],y:p[1],sg,t,d0:s-sg.start,d1:sg.start+sg.len-s}}}
+  const sg=g.segs[g.segs.length-1];return {x:sg.b[0],y:sg.b[1],sg,t:1,d0:sg.len,d1:0};
 }
-function nearest(g,x,y){let best=null;g.segs.forEach(sg=>{const dx=sg.b[0]-sg.a[0],dy=sg.b[1]-sg.a[1],L2=dx*dx+dy*dy;let t=L2?((x-sg.a[0])*dx+(y-sg.a[1])*dy)/L2:0;t=Math.max(0,Math.min(1,t));
-  const d=Math.hypot(x-(sg.a[0]+dx*t),y-(sg.a[1]+dy*t));if(!best||d<best.d)best={d,s:sg.start+t*sg.len}});return best}
+function nearest(g,x,y){let best=null;g.segs.forEach(sg=>{const t=segNear(sg,x,y),p=segPt(sg,t),d=Math.hypot(x-p[0],y-p[1]);if(!best||d<best.d)best={d,s:sg.start+t*sg.len}});return best}
 /* snap to 5 cm, counted from the start of the side the point is on (so a fractional side still gives round distances) */
 function snap(g,s){
   if(g.closed)s=((s%g.total)+g.total)%g.total;else s=Math.max(0,Math.min(g.total,s));
@@ -1292,27 +1519,45 @@ function snap(g,s){
   const r=sg.start+d;return g.closed&&r>=g.total-1e-6?0:r}
 const inB=e=>"ב"+e.slice(1);
 function feedTxt(run){
-  if(run.feed==null||!run.shape)return "";const g=geo(run);if(!g.ok)return "";const p=at(g,run.feed),sg=p.sg,d0=r1(p.d0),d1=r1(p.d1);
+  if(run.feed==null||!run.shape)return "";const g=geo(run);if(!g.ok||!g.segs.length)return "";const p=at(g,run.feed),sg=p.sg,d0=r1(p.d0),d1=r1(p.d1);
+  if(sg.circ)return d0<=0||d1<=0?"בנקודה העליונה של העיגול":`${fmt(d0)} ס״מ מהנקודה העליונה, עם כיוון השעון`;
   if(d1<=0)return inB(sg.e1);if(d0<=0)return inB(sg.e0);
   return `${fmt(d0)} ס״מ מ${sg.e0} ו-${fmt(d1)} ס״מ מ${sg.e1}${sg.name?", על "+sg.name:""}`;
 }
-const segName=run=>{if(run.feed==null||!run.shape)return "";const g=geo(run);return g.ok?(at(g,run.feed).sg.name||"הקו"):""};
-const hasCorner=run=>run.shape&&run.shape!=="line";
+const segName=run=>{if(run.feed==null||!run.shape)return "";const g=geo(run);return g.ok&&g.segs.length?(at(g,run.feed).sg.name||"הקו"):""};
+const hasCorner=run=>!!run.shape&&geo(run).corners>0;
 
 /* texts */
-const shapeTxt=run=>!run.shape?"":run.shape==="L"?`ר, פינה ${run.dir==="r"?"מימין":"משמאל"}`:SH[run.shape].n;
-function dimsTxt(run,short){if(!run.shape)return "";const {v,ph}=vals(run),ks=SH[run.shape].keys;
-  if(short)return ks.map(k=>ph[k]?"?":fmt(v[k])).join(" × ");
-  if(run.shape==="line")return ph.A?"חסר אורך":`אורך ${fmt(v.A)} ס״מ`;
-  if(run.shape==="frame")return `רוחב ${ph.W?"?":fmt(v.W)} ס״מ · גובה ${ph.H?"?":fmt(v.H)} ס״מ`;
-  return ks.map(k=>`${k}: ${ph[k]?"?":fmt(v[k])} ס״מ`).join(" · ")}
+function shapeTxt(run){if(!run.shape)return "";const s=run.shape;
+  if(s==="L")return `ר, פינה ${run.dir==="r"?"מימין":"משמאל"}`;
+  if(s==="tri")return run.eq?"משולש שווה צלעות":"משולש";
+  if(s==="nest"){const p=partnerOf(run),nf=run.role==="in"&&p?p.nf:run.nf,n=NF[nf]||NF.rect;
+    if(run.role==="in")return `${n} פנימי${p?`, בתוך קו ${RUNS.indexOf(p)+1}`:""}`;
+    return `${n} חיצוני${p?`, ובתוכו קו ${RUNS.indexOf(p)+1}`:", ובתוכו צורה פנימית"}`}
+  if(s==="free")return run.fc?"שרטוט חופשי, צורה סגורה":"שרטוט חופשי";
+  return SH[s].n}
+function shortShape(run){const s=run.shape;if(s==="nest"){const p=partnerOf(run),nf=run.role==="in"&&p?p.nf:run.nf;return `${NF[nf]||NF.rect} ${run.role==="in"?"פנימי":"חיצוני"}`}
+  return {line:"קו ישר",L:"ר",U:"ח",frame:"מסגרת",circle:"עיגול",round:"מלבן מעוגל",tri:"משולש",free:"שרטוט חופשי"}[s]||""}
+function dimsTxt(run,short){if(!run.shape)return "";
+  if(run.shape==="free"){const g=geo(run),n=g.segs.length;if(!n)return short?"עוד אין צלעות":"עוד לא שורטט";
+    if(short)return n===1?"צלע אחת":`${n} צלעות`;return g.segs.map(s=>`${s.key} ${fmt(s.len)} ס״מ${s.t==="a"?" בקשת":""}`).join(" · ")}
+  const V=vals(run),v=V.v,ph=V.ph,ks=run.role==="in"?Object.keys(v):keysOf(run),f=k=>ph[k]?"?":fmt(v[k]);
+  if(short)return ks.map(f).join(" × ");
+  switch(run.shape){
+    case "line":return ph.A?"חסר אורך":`אורך ${f("A")} ס״מ`;
+    case "frame":return `רוחב ${f("W")} ס״מ · גובה ${f("H")} ס״מ`;
+    case "circle":return `קוטר ${f("D")} ס״מ`;
+    case "round":return `רוחב ${f("W")} ס״מ · גובה ${f("H")} ס״מ · רדיוס פינה ${f("R")} ס״מ`;
+    case "tri":if(run.eq)return `צלע ${f("A")} ס״מ, שווה צלעות`;break;
+    case "nest":{const nf=V.nf,base=nf==="circle"?`קוטר ${f("D")} ס״מ`:nf==="tri"?`צלע ${f("A")} ס״מ`:`רוחב ${f("W")} ס״מ · גובה ${f("H")} ס״מ`;
+      return run.role==="in"?`${base} · מרווח ${fmt(V.G||0)} ס״מ מהחיצוני`:`${base} · מרווח ${f("G")} ס״מ`}}
+  return ks.map(k=>`${k}: ${f(k)} ס״מ`).join(" · ")}
 const modelOf=run=>run.model?MODELS.find(m=>m.id===run.model)||null:null;
 const isStrip=run=>run.type==="strip";
 function lookTxt(run){const t=typeOf(run.type);if(!t)return "";return [t.n,isStrip(run)?"":run.fin,"גוון "+run.k+"K",run.wpm+"W למטר"].filter(Boolean).join(" · ")}
 function runName(run){
-  const g=geo(run),ks=SH[run.shape].keys,d=ks.map(k=>fmt(g.v[k])).join(" × ")+" ס״מ",t=typeOf(run.type);
-  const base=isStrip(run)?"סרט לד":"פרופיל "+(t?t.n:"");
-  const shape=run.shape==="line"?`, קו ישר ${d}`:run.shape==="frame"?`, מסגרת ${d}`:` בצורת ${SH[run.shape].n}, ${d}`;
+  const t=typeOf(run.type),base=isStrip(run)?"סרט לד":"פרופיל "+(t?t.n:""),d=dimsTxt(run,true);
+  const shape=run.shape==="line"?`, קו ישר ${d} ס״מ`:run.shape==="frame"?`, מסגרת ${d} ס״מ`:run.shape==="free"?`, שרטוט חופשי, ${d}`:` בצורת ${shortShape(run)}, ${d} ס״מ`;
   return `${base}${shape}, ${run.k}K, ${run.wpm}W למטר`;
 }
 const complete=run=>!!run.shape&&geo(run).ok&&!!run.type;
@@ -1320,7 +1565,8 @@ const watts=run=>r1(run.wpm*total(run)/100);
 function psu(w){const need=w*1.25;if(!(need>0))return "";if(need<=300)return PSU.find(s=>s>=need)+"W";const n=Math.ceil(need/300),per=PSU.find(s=>s>=need/n);return `${n} × ${per}W`}
 const fmtW=w=>String(r1(w))+"W";
 const feedLenN=run=>{const n=num(run.feedLen);return n>0&&n<=5000?n:null};
-const runShort=run=>run.shape?`${run.shape==="L"?"ר":SH[run.shape].n} · ${dimsTxt(run,true)}`:"עוד לא נבחרה צורה";
+const runShort=run=>run.shape?`${shortShape(run)} · ${dimsTxt(run,true)}`:"עוד לא נבחרה צורה";
+const cornTxt=(n,rc)=>rc&&!n?`${rc} פינות מעוגלות`:n===0?"בלי פינות":n===1?"פינה אחת":`${n} פינות`;
 
 /* models */
 function inferType(n){if(/שקוע/.test(n))return "rec";if(/על הטיח|עה"ט|עה״ט|צמוד/.test(n))return "sur";if(/תלי|תלוי/.test(n))return "pend";return ""}
@@ -1335,70 +1581,126 @@ function applyModel(run,m){
   const w=modelW(m);run.wpmModel=!!w;if(w)run.wpm=w;
 }
 
+/* pairs (shape inside shape): two runs, the inner one follows the outer one */
+function ensurePair(run){if(run.shape!=="nest"||run.role==="in"||partnerOf(run))return true;if(RUNS.length>=MAXR)return false;
+  const p=newRun(run);Object.assign(p,{shape:"nest",role:"in",pair:run.uid,nf:run.nf,open:-1,reached:2});run.role="out";run.pair=p.uid;
+  RUNS.splice(RUNS.indexOf(run)+1,0,p);return true}
+/* one half of a pair becomes a plain shape with the same geometry (when the other half is removed or copied) */
+function freeze(run){if(!run.role)return;const v=geo(run).v,p=partnerOf(run),nf=run.role==="in"&&p?p.nf:run.nf;
+  Object.keys(run.s).forEach(k=>run.s[k]="");
+  if(nf==="circle"){run.shape="circle";run.s.D=String(r1(v.D))}else if(nf==="tri"){run.shape="tri";run.eq=true;run.s.A=String(r1(v.A))}else{run.shape="frame";run.s.W=String(r1(v.W));run.s.H=String(r1(v.H))}
+  run.role="";run.pair="";clampFeed(run)}
+const LOOK=["type","model","fin","k","wpm","wpmModel"];
+function syncLook(run){if(run.role==="in"){run.ownLook=true;return}const p=partnerOf(run);if(run.role==="out"&&p&&!p.ownLook)LOOK.forEach(k=>p[k]=run[k])}
+
 /* ---------------- icons ---------------- */
-const SHP_D={line:"M6 32H58",Lr:"M8 14H50V56",Ll:"M56 14H14V56",U:"M50 56V12H14V56",frame:"M10 14H54V50H10Z",none:"M6 32H58"};
-const shpD=(s,dir)=>s==="L"?SHP_D["L"+(dir||"r")]:SHP_D[s]||SHP_D.none;
-const shpIcon=(s,dir)=>{const d=shpD(s,dir);return `<svg class="shp" viewBox="0 0 64 64" aria-hidden="true"${s?"":' style="opacity:.35"'}><path class="o" d="${d}"/><path class="i" d="${d}"/><path class="l" d="${d}"/></svg>`};
+const SHP_D={line:"M6 32H58",Lr:"M8 14H50V56",Ll:"M56 14H14V56",U:"M50 56V12H14V56",frame:"M10 14H54V50H10Z",
+  circle:"M10 32A22 22 0 1 0 54 32A22 22 0 1 0 10 32Z",round:"M22 14H42A10 10 0 0 1 52 24V40A10 10 0 0 1 42 50H22A10 10 0 0 1 12 40V24A10 10 0 0 1 22 14Z",
+  tri:"M32 10L56 52H8Z",nestrect:"M6 12H58V52H6ZM19 24H45V40H19Z",nestcircle:"M6 32A26 26 0 1 0 58 32A26 26 0 1 0 6 32ZM19 32A13 13 0 1 0 45 32A13 13 0 1 0 19 32Z",
+  nesttri:"M32 6L60 55H4ZM32 29L43 48H21Z",free:"M8 50L18 18L36 32L56 12",none:"M6 32H58"};
+const shpD=(s,dir,nf)=>s==="L"?SHP_D["L"+(dir||"r")]:s==="nest"?SHP_D["nest"+(nf||"rect")]:SHP_D[s]||SHP_D.none;
+const shpIcon=(s,dir,nf)=>{const d=shpD(s,dir,nf);return `<svg class="shp" viewBox="0 0 64 64" aria-hidden="true"${s?"":' style="opacity:.35"'}><path class="o" d="${d}"/><path class="i" d="${d}"/><path class="l" d="${d}"/></svg>`};
+const runIcon=r=>shpIcon(r.shape,r.dir,r.role==="in"&&partnerOf(r)?partnerOf(r).nf:r.nf);
 const TY_SVG={
   rec:`<path class="s" d="M2 12H17V3H39V12H54"/><path class="s" d="M20 9H36"/><path class="lt" d="M19 12H37M22 17l-3 9M28 18v10M34 17l3 9"/>`,
   sur:`<path class="s" d="M2 5H54"/><path class="s" d="M18 5V13H38V5"/><path class="lt" d="M20 13H36M22 18l-3 9M28 19v10M34 18l3 9"/>`,
   pend:`<path class="s" d="M2 2H54"/><path class="s" d="M21 2V14M35 2V14"/><path class="s" d="M16 14H40V20H16Z"/><path class="lt" d="M18 20H38M22 24l-3 8M28 25v9M34 24l3 8"/>`,
   strip:`<path class="s" d="M5 14H51V19H5Z"/><path class="f" d="M10 15.5h3v2h-3zM19 15.5h3v2h-3zM28 15.5h3v2h-3zM37 15.5h3v2h-3zM46 15.5h3v2h-3z"/><path class="lt" d="M14 23l-2 7M28 24v8M42 23l2 7"/>`};
 
-/* ---------------- the sketch (stage, mobile copy in step 4, and the sheet) ---------------- */
+/* ---------------- the sketch (stage, mobile copy in step 4, the sheet and the PDF) ----------------
+   sketch() builds a list of drawing operations. They become an SVG on the page, and are drawn on a canvas for the PDF. */
+const unit=(a,b)=>{const dx=b[0]-a[0],dy=b[1]-a[1],l=Math.hypot(dx,dy)||1;return [dx/l,dy/l]};
+const perp=u=>[-u[1],u[0]];
+const HEB=/[֐-׿]/;
+function pathD(segs,closed,P,sc){if(!segs.length)return "";let d="M"+P(segs[0].a).map(f2).join(" ");
+  segs.forEach(sg=>{if(sg.t==="a"){const r=f2(sg.r*sc),sw=sg.da>0?1:0,n=Math.abs(sg.da)>Math.PI*1.5?2:1;
+      for(let k=1;k<=n;k++){const e=P(segPt(sg,k/n)),la=Math.abs(sg.da)/n>Math.PI?1:0;d+=`A${r} ${r} 0 ${la} ${sw} ${f2(e[0])} ${f2(e[1])}`}}
+    else d+="L"+P(sg.b).map(f2).join(" ")});
+  return d+(closed?"Z":"")}
+const SW_ATTR=new Set(["p-glow","p-o","p-i","p-led","p-hit","p-gst","p-gsi"]);
+function opSvg(op){
+  if(op.k==="p")return `<path class="${op.cls}" d="${op.d}"${op.sw!=null&&SW_ATTR.has(op.cls)?` stroke-width="${f2(op.sw)}"`:""}/>`;
+  if(op.k==="c")return `<circle class="${op.cls}" cx="${f2(op.cx)}" cy="${f2(op.cy)}" r="${f2(op.r)}"/>`;
+  return `<text class="${op.cls}" x="${f2(op.x)}" y="${f2(op.y)}" text-anchor="${op.anchor}" direction="${op.dir}">${op.parts.map(p=>p.c?`<tspan class="${p.c}">${esc(p.t)}</tspan>`:esc(p.t)).join("")}</text>`}
 function sketch(run,W,H,o){
-  o=o||{};const g=geo(run),pts=g.pts,paper=!!o.paper;
-  const xs=pts.map(p=>p[0]),ys=pts.map(p=>p[1]),minx=Math.min(...xs),maxx=Math.max(...xs),miny=Math.min(...ys),maxy=Math.max(...ys),bw=maxx-minx,bh=maxy-miny;
-  const side=run.shape!=="line",padX=side?(paper?74:W<520?64:96):(paper?50:W<520?42:64),padY=run.shape==="line"?(paper?40:56):(paper?32:50);
-  const aw=Math.max(20,W-2*padX),ah=Math.max(20,H-2*padY);
-  let sc=Math.min(bw?aw/bw:1e9,bh?ah/bh:1e9);if(!isFinite(sc)||sc>1e8)sc=1;
-  const ox=W/2-(minx+bw/2)*sc,oy=H/2-(miny+bh/2)*sc,P=p=>[ox+p[0]*sc,oy+p[1]*sc];
-  const t=paper?9:13,cx=W/2,cy=H/2;
-  const d=pts.map((p,i)=>(i?"L":"M")+P(p).map(f2).join(" ")).join("")+(g.closed?"Z":"");
-  const unit=(a,b)=>{const dx=b[0]-a[0],dy=b[1]-a[1],l=Math.hypot(dx,dy)||1;return [dx/l,dy/l]};
-  const perp=u=>[-u[1],u[0]];
-  let h="";
-  if(!paper)h+=`<path class="p-glow" d="${d}" stroke-width="${t*1.7}"/>`;
-  h+=`<path class="p-o" d="${d}" stroke-width="${t}"/><path class="p-i" d="${d}" stroke-width="${t-3}"/>`;
-  if(!paper)h+=`<path class="p-led" d="${d}" stroke-width="1.6"/>`;
-  /* mitered corners: a thin seam from the inner corner to the outer one */
-  const n=pts.length,corners=g.closed?[...Array(n).keys()]:[...Array(Math.max(0,n-2)).keys()].map(i=>i+1);
-  corners.forEach(i=>{const pr=P(pts[(i-1+n)%n]),cu=P(pts[i]),nx=P(pts[(i+1)%n]),u=unit(pr,cu),v=unit(cu,nx),n1=perp(u),n2=perp(v),dt=1+n1[0]*n2[0]+n1[1]*n2[1];
-    if(dt<.05)return;const k=(t/2)/dt,m=[(n1[0]+n2[0])*k,(n1[1]+n2[1])*k];
-    h+=`<path class="p-seam" d="M${f2(cu[0]-m[0])} ${f2(cu[1]-m[1])}L${f2(cu[0]+m[0])} ${f2(cu[1]+m[1])}"/>`});
-  /* outward normal of a side: away from the middle of the drawing (for the straight line: down) */
-  const outN=sg=>{const a=P(sg.a),b=P(sg.b),u=unit(a,b);let nn=perp(u);const mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2;
-    if(run.shape==="line")return [0,1];if((mx-cx)*nn[0]+(my-cy)*nn[1]<0)nn=[-nn[0],-nn[1]];return nn};
-  /* dimensions: a thin line beside each side, like on the paper form */
-  const label=run.shape==="frame"?[0,3]:g.segs.map(s=>s.i);
-  g.segs.forEach(sg=>{if(!label.includes(sg.i))return;
-    const a=P(sg.a),b=P(sg.b),nn=outN(sg),off=t/2+12,ex=t/2+3;
-    const A=[a[0]+nn[0]*off,a[1]+nn[1]*off],B=[b[0]+nn[0]*off,b[1]+nn[1]*off];
-    h+=`<path class="p-dim" d="M${f2(a[0]+nn[0]*ex)} ${f2(a[1]+nn[1]*ex)}L${f2(a[0]+nn[0]*(off+5))} ${f2(a[1]+nn[1]*(off+5))}M${f2(b[0]+nn[0]*ex)} ${f2(b[1]+nn[1]*ex)}L${f2(b[0]+nn[0]*(off+5))} ${f2(b[1]+nn[1]*(off+5))}M${f2(A[0])} ${f2(A[1])}L${f2(B[0])} ${f2(B[1])}"/>`;
-    const mx=(A[0]+B[0])/2,my=(A[1]+B[1])/2,ph=g.ph[sg.key],key=run.shape==="L"||run.shape==="U"?sg.key:"",val=ph?"?":fmt(g.v[sg.key]);
-    let tx,ty,anc;
-    if(Math.abs(nn[1])>=Math.abs(nn[0])){tx=mx;anc="middle";ty=nn[1]<0?my-8:my+17}
-    else{ty=my+5;if(nn[0]>0){tx=mx+8;anc="start"}else{tx=mx-8;anc="end"}}
-    h+=`<text class="p-dt${ph?" ph":""}" x="${f2(tx)}" y="${f2(ty)}" text-anchor="${anc}" direction="ltr">${key?`<tspan class="k">${key} </tspan>`:""}${val}</text>`});
-  /* the feed point: an X and a short dashed cable going in */
-  if(run.feed!=null){
-    const p=at(g,run.feed),sp=P([p.x,p.y]),nn=outN(p.sg),ni=run.shape==="line"?[0,-1]:[-nn[0],-nn[1]],L=paper?24:30;
-    const e=[sp[0]+ni[0]*L,sp[1]+ni[1]*L],xr=paper?6:7;
-    h+=`<path class="p-cab" d="M${f2(sp[0]+ni[0]*(t/2+3))} ${f2(sp[1]+ni[1]*(t/2+3))}L${f2(e[0])} ${f2(e[1])}"/>`;
-    h+=`<circle class="p-xb" cx="${f2(sp[0])}" cy="${f2(sp[1])}" r="${xr+3}"/><path class="p-x" d="M${f2(sp[0]-xr)} ${f2(sp[1]-xr)}L${f2(sp[0]+xr)} ${f2(sp[1]+xr)}M${f2(sp[0]+xr)} ${f2(sp[1]-xr)}L${f2(sp[0]-xr)} ${f2(sp[1]+xr)}"/>`;
-    const fl=feedLenN(run),lbl=fl?`הזנה ${fmt(fl)}`:"הזנה",tw=lbl.length*(paper?6:7);
-    let lx=e[0]+ni[0]*(Math.abs(ni[0])>.5?tw/2+6:0),ly=e[1]+ni[1]*(Math.abs(ni[1])>.5?12:0)+(Math.abs(ni[1])>.5?(ni[1]>0?4:0):4);
-    lx=Math.max(tw/2+4,Math.min(W-tw/2-4,lx));
-    h+=`<text class="p-ft" x="${f2(lx)}" y="${f2(ly)}" text-anchor="middle">${esc(lbl)}</text>`;
+  o=o||{};const g=geo(run),paper=!!o.paper,t=paper?9:13,fs=paper?12:14,isLine=run.shape==="line";
+  if(!g.segs.length)return {svg:"",ops:[],tf:null,g};
+  const own=samples(g.segs),all=g.ghost?own.concat(samples(g.ghost)):own;
+  const bbox=ps=>[Math.min(...ps.map(p=>p[0])),Math.min(...ps.map(p=>p[1])),Math.max(...ps.map(p=>p[0])),Math.max(...ps.map(p=>p[1]))];
+  const B=bbox(all),OB=bbox(own),bw=B[2]-B[0],bh=B[3]-B[1];
+  const px=isLine?(paper?50:W<520?42:64):(paper?74:W<520?64:96),py=isLine?(paper?40:56):(paper?32:50);
+  /* draw, then check that every label is inside the frame. If one sticks out, make room on that side and draw again */
+  let pad=[px,px,py,py],res;
+  for(let it=0;it<5;it++){res=draw(pad);const e=res.ext,ov=[Math.max(0,5-e[0]),Math.max(0,e[2]-(W-5)),Math.max(0,5-e[1]),Math.max(0,e[3]-(H-5))];
+    if(ov.every(x=>x<.5))break;pad=pad.map((x,i)=>x+(ov[i]>.5?ov[i]+3:0))}
+  function draw(pad){
+    const aw=Math.max(20,W-pad[0]-pad[1]),ah=Math.max(20,H-pad[2]-pad[3]);
+    let sc=Math.min(bw?aw/bw:1e9,bh?ah/bh:1e9);if(!isFinite(sc)||sc>1e8)sc=1;
+    const ox=pad[0]+aw/2-(B[0]+bw/2)*sc,oy=pad[2]+ah/2-(B[1]+bh/2)*sc,P=p=>[ox+p[0]*sc,oy+p[1]*sc];
+    const cx=ox+(OB[0]+OB[2])/2*sc,cy=oy+(OB[1]+OB[3])/2*sc;
+    const ops=[],ext=[1e9,1e9,-1e9,-1e9],grow=(x0,y0,x1,y1)=>{ext[0]=Math.min(ext[0],x0);ext[1]=Math.min(ext[1],y0);ext[2]=Math.max(ext[2],x1);ext[3]=Math.max(ext[3],y1)};
+    const path=(cls,d,sw)=>ops.push({k:"p",cls,d,sw});
+    const text=(cls,x,y,anchor,dir,parts,size)=>{ops.push({k:"t",cls,x,y,anchor,dir,parts});const w=parts.reduce((s,p)=>s+p.t.length,0)*(size||fs)*.6,
+      l=anchor==="middle"?x-w/2:(anchor==="start")===(dir!=="rtl")?x:x-w;grow(l,y-(size||fs),l+w,y+4)};
+    const d=pathD(g.segs,g.closed,P,sc);
+    own.forEach(p=>{const q=P(p);grow(q[0]-t/2,q[1]-t/2,q[0]+t/2,q[1]+t/2)});
+    /* the other shape of a pair, quiet */
+    if(g.ghost){const gd=pathD(g.ghost,true,P,sc);path("p-gst",gd,t);path("p-gsi",gd,Math.max(1,t-3))}
+    if(!paper)path("p-glow",d,t*1.7);
+    path("p-o",d,t);path("p-i",d,Math.max(1,t-3));
+    if(!paper)path("p-led",d,1.6);
+    /* mitered corners: a thin seam from the inner corner to the outer one */
+    const m=g.segs.length;
+    for(let i=g.closed?0:1;i<m;i++){if(g.closed&&m===1)break;const u=segTan(g.segs[(i-1+m)%m],1),v=segTan(g.segs[i],0);if(u[0]*v[0]+u[1]*v[1]>Math.cos(4*Math.PI/180))continue;
+      const n1=perp(u),n2=perp(v),dt=1+n1[0]*n2[0]+n1[1]*n2[1];if(dt<.05)continue;const k=(t/2)/dt,mm=[(n1[0]+n2[0])*k,(n1[1]+n2[1])*k],c=P(g.segs[i].a);
+      path("p-seam",`M${f2(c[0]-mm[0])} ${f2(c[1]-mm[1])}L${f2(c[0]+mm[0])} ${f2(c[1]+mm[1])}`)}
+    /* outward normal at a point: away from the middle of the shape (for the straight line: down) */
+    const outAt=(pt,tan)=>{if(isLine)return [0,1];let nn=perp(tan);if((pt[0]-cx)*nn[0]+(pt[1]-cy)*nn[1]<0)nn=[-nn[0],-nn[1]];return nn};
+    const lab=(q,nn,parts,heb,ph)=>{let x,y,anc;
+      if(Math.abs(nn[1])>=Math.abs(nn[0])){x=q[0];anc="middle";y=nn[1]<0?q[1]-8:q[1]+17}
+      else{y=q[1]+5;if(nn[0]>0){x=q[0]+8;anc=heb?"end":"start"}else{x=q[0]-8;anc=heb?"start":"end"}}
+      text("p-dt"+(ph?" ph":""),x,y,anc,heb?"rtl":"ltr",parts)};
+    /* dimensions: a thin line beside each side, like on the paper form */
+    g.dims.forEach(it=>{
+      const val=it.ph?"?":fmt(it.val),heb=HEB.test(it.key||""),parts=it.key?[{t:it.key+" ",c:"k"},{t:val}]:[{t:val}];
+      if(it.arc){const sg=it.arc,mp=P(segPt(sg,.5)),nn=outAt(mp,segTan(sg,.5));lab([mp[0]+nn[0]*(t/2+4),mp[1]+nn[1]*(t/2+4)],nn,parts,heb,it.ph);return}
+      const a=P(it.a),b=P(it.b),nn=it.n||outAt([(a[0]+b[0])/2,(a[1]+b[1])/2],unit(a,b)),off=t/2+12+(it.oc||0)*sc,ex=t/2+3;
+      const A=[a[0]+nn[0]*off,a[1]+nn[1]*off],Bq=[b[0]+nn[0]*off,b[1]+nn[1]*off];
+      path("p-dim",`M${f2(a[0]+nn[0]*ex)} ${f2(a[1]+nn[1]*ex)}L${f2(a[0]+nn[0]*(off+5))} ${f2(a[1]+nn[1]*(off+5))}M${f2(b[0]+nn[0]*ex)} ${f2(b[1]+nn[1]*ex)}L${f2(b[0]+nn[0]*(off+5))} ${f2(b[1]+nn[1]*(off+5))}M${f2(A[0])} ${f2(A[1])}L${f2(Bq[0])} ${f2(Bq[1])}`);
+      grow(Math.min(A[0],Bq[0]),Math.min(A[1],Bq[1]),Math.max(A[0],Bq[0]),Math.max(A[1],Bq[1]));
+      lab([(A[0]+Bq[0])/2,(A[1]+Bq[1])/2],nn,parts,heb,it.ph)});
+    /* a note sits inside the profile, clear of its inner edge */
+    g.notes.forEach(n=>{const p=P(n.at),c=n.corner?P(n.corner):p;text("p-nt",Math.max(p[0]+2,c[0]+t/2+6),Math.max(p[1]+4,c[1]+t/2+fs+2),"end","rtl",[{t:n.t}],fs-1)});
+    /* the gap between the two shapes of a pair */
+    if(g.gap){/* on the side away from the feed point, so the two labels do not meet */
+      const fp=run.feed!=null?(q=>P([q.x,q.y]))(at(g,run.feed)):null,gp=g.gap.slice().sort((x,y)=>fp?Math.hypot(P(y.b)[0]-fp[0],P(y.b)[1]-fp[1])-Math.hypot(P(x.b)[0]-fp[0],P(x.b)[1]-fp[1]):0)[0];
+      const a=P(gp.a),b=P(gp.b),u=unit(a,b),pp=perp(u),tk=5,o=t/2+(Math.abs(u[1])>.2?20:6);
+      path("p-dim",`M${f2(a[0])} ${f2(a[1])}L${f2(b[0])} ${f2(b[1])}M${f2(a[0]-pp[0]*tk)} ${f2(a[1]-pp[1]*tk)}L${f2(a[0]+pp[0]*tk)} ${f2(a[1]+pp[1]*tk)}M${f2(b[0]-pp[0]*tk)} ${f2(b[1]-pp[1]*tk)}L${f2(b[0]+pp[0]*tk)} ${f2(b[1]+pp[1]*tk)}`);
+      text("p-dt",b[0]+u[0]*o,b[1]+u[1]*o+5,u[0]>.3?"end":u[0]<-.3?"start":"middle","rtl",[{t:"מרווח ",c:"k"},{t:fmt(gp.v)}])}
+    /* the feed point: an X and a short dashed cable going in */
+    if(run.feed!=null){
+      const p=at(g,run.feed),sp=P([p.x,p.y]),nn=outAt(sp,segTan(p.sg,p.t)),ni=isLine?[0,-1]:[-nn[0],-nn[1]],L=paper?24:30;
+      const e=[sp[0]+ni[0]*L,sp[1]+ni[1]*L],xr=paper?6:7;
+      path("p-cab",`M${f2(sp[0]+ni[0]*(t/2+3))} ${f2(sp[1]+ni[1]*(t/2+3))}L${f2(e[0])} ${f2(e[1])}`);
+      ops.push({k:"c",cls:"p-xb",cx:sp[0],cy:sp[1],r:xr+3});
+      path("p-x",`M${f2(sp[0]-xr)} ${f2(sp[1]-xr)}L${f2(sp[0]+xr)} ${f2(sp[1]+xr)}M${f2(sp[0]+xr)} ${f2(sp[1]-xr)}L${f2(sp[0]-xr)} ${f2(sp[1]+xr)}`);
+      const fl=feedLenN(run),lbl=fl?`הזנה ${fmt(fl)}`:"הזנה",tw=lbl.length*(paper?6:7);
+      let lx=e[0]+ni[0]*(Math.abs(ni[0])>.5?tw/2+6:0),ly=e[1]+ni[1]*(Math.abs(ni[1])>.5?12:0)+(Math.abs(ni[1])>.5?(ni[1]>0?4:0):4);
+      lx=Math.max(tw/2+4,Math.min(W-tw/2-4,lx));
+      ops.push({k:"t",cls:"p-ft",x:lx,y:ly,anchor:"middle",dir:"rtl",parts:[{t:lbl}]});
+    }
+    if(o.hit){path("p-hit",d,46);path("p-gh","M-7 -7L7 7M7 -7L-7 7")}
+    return {ops,ext,sc,ox,oy};
   }
-  if(o.hit)h+=`<path class="p-hit" d="${d}" stroke-width="46"/><path class="p-gh" d="M-7 -7L7 7M7 -7L-7 7"/>`;
   const kc=kOf(run.k).c;
-  return {svg:`<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" class="${paper?"paper":""}${g.ok?"":" dimmed"}" style="--kc:${kc}" ${o.attrs||""}>${h}</svg>`,tf:{ox,oy,sc},g};
+  return {svg:`<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" class="${paper?"paper":""}${g.ok?"":" dimmed"}" style="--kc:${kc}" ${o.attrs||""}>${res.ops.map(opSvg).join("")}</svg>`,ops:res.ops,tf:{ox:res.ox,oy:res.oy,sc:res.sc},g};
 }
 function drawInto(box,run){
   const W=box.clientWidth,Hh=box.clientHeight;if(!W||!Hh)return;
   if(!run.shape){box.innerHTML=`<p class="sk-msg">בחרו צורה, והשרטוט יופיע כאן.</p>`;box._tf=null;return}
-  const s=sketch(run,W,Hh,{hit:true,attrs:`role="img" aria-label="${esc(svgLabel(run))}"`});box.innerHTML=s.svg;box._tf=s.tf;box._g=s.g;
+  const s=sketch(run,W,Hh,{hit:true,attrs:`role="img" aria-label="${esc(svgLabel(run))}"`});
+  if(!s.tf){box.innerHTML=`<p class="sk-msg">שרטטו את הצורה בשלב 2, והיא תופיע כאן.</p>`;box._tf=null;return}
+  box.innerHTML=s.svg;box._tf=s.tf;box._g=s.g;
 }
 function svgLabel(run){const f=feedTxt(run);return `שרטוט: ${shapeTxt(run)}, ${dimsTxt(run)}.${f?" הזנה: "+f+".":" נקודת ההזנה עוד לא סומנה."}`}
 function ptFromEvent(box,e){const svg=$("svg",box);if(!svg||!box._tf||!box._g)return null;const r=svg.getBoundingClientRect(),tf=box._tf;
@@ -1411,9 +1713,112 @@ function bindSketch(box){
   box.addEventListener("pointerleave",()=>{const gh=$(".p-gh",box);if(gh)gh.classList.remove("on")});
 }
 
+/* ---------------- free drawing: tap points on a grid ---------------- */
+const fdc=$("#fdc");
+const FD={v:null,uid:"",sel:-1,hover:null,drag:null,snap:true,raf:0};
+const fdSize=()=>[fdc.clientWidth,fdc.clientHeight];
+const fdPx=p=>[(p[0]-FD.v.x0)*FD.v.k,(p[1]-FD.v.y0)*FD.v.k];
+function fdWorld(e){const r=fdc.getBoundingClientRect();return [(e.clientX-r.left)/FD.v.k+FD.v.x0,(e.clientY-r.top)/FD.v.k+FD.v.y0]}
+/* the view only zooms out, and only when the drawing gets close to the edge, so points do not jump under the finger */
+function fdFit(run,reset){const [W,H]=fdSize();if(!W||!H)return;
+  if(reset||!FD.v){const k=Math.min(W,H)/240;FD.v={k,x0:-W/2/k,y0:-H/2/k}}
+  if(!run.fp.length)return;const ps=samples(freeLoop(run).segs).concat(run.fp),v=FD.v;
+  const b=[Math.min(...ps.map(p=>p[0])),Math.min(...ps.map(p=>p[1])),Math.max(...ps.map(p=>p[0])),Math.max(...ps.map(p=>p[1]))],m=48/v.k;
+  if(b[0]-m>=v.x0&&b[1]-m>=v.y0&&b[2]+m<=v.x0+W/v.k&&b[3]+m<=v.y0+H/v.k)return;
+  const k=Math.min(v.k,(W-130)/Math.max(b[2]-b[0],1),(H-130)/Math.max(b[3]-b[1],1));
+  FD.v={k,x0:(b[0]+b[2])/2-W/2/k,y0:(b[1]+b[3])/2-H/2/k}}
+/* snapping: the first point to a 5 cm grid, every next one to 15° and to 5 cm steps from the previous point */
+function fdSnap(run,p,raw){const P=run.fp;
+  if(P.length>=3&&!run.fc){const f=fdPx(P[0]),q=fdPx(p);if(Math.hypot(f[0]-q[0],f[1]-q[1])<24)return {p:P[0].slice(),close:true}}
+  if(raw)return {p:[r1(p[0]),r1(p[1])]};
+  if(!P.length)return {p:[Math.round(p[0]/5)*5,Math.round(p[1]/5)*5]};
+  const l=P[P.length-1],dx=p[0]-l[0],dy=p[1]-l[1],L=Math.max(5,Math.round(Math.hypot(dx,dy)/5)*5),st=Math.PI/12,a=Math.round(Math.atan2(dy,dx)/st)*st;
+  return {p:[r2(l[0]+L*Math.cos(a)),r2(l[1]+L*Math.sin(a))]}}
+function setSegLen(run,i,L){const P=run.fp,n=P.length,closing=run.fc&&i===n-1,a=P[i],b=P[(i+1)%n],c=Math.hypot(b[0]-a[0],b[1]-a[1]);if(c<1e-6)return;
+  const u=[(b[0]-a[0])/c,(b[1]-a[1])/c];
+  if(closing)P[i]=[r2(b[0]-u[0]*L),r2(b[1]-u[1]*L)];
+  else{const dx=u[0]*(L-c),dy=u[1]*(L-c);for(let j=i+1;j<n;j++)P[j]=[r2(P[j][0]+dx),r2(P[j][1]+dy)]}
+  if(run.fb[i])run.fb[i]=r2(run.fb[i]*L/c)}
+const fixFb=run=>{const n=run.fp.length,m=run.fc&&n>=3?n:Math.max(0,n-1);run.fb=Array.from({length:m},(_,i)=>+run.fb[i]||0)};
+function fdAct(run,a){
+  if(a==="undo"){if(run.fc)run.fc=false;else run.fp.pop();fixFb(run)}
+  else if(a==="close"){if(run.fp.length>=3&&!run.fc){run.fc=true;fixFb(run)}}
+  else if(a==="clear"){run.fp=[];run.fb=[];run.fc=false;run.feed=null;fdFit(run,true)}
+  else if(a==="snap"){FD.snap=!FD.snap}
+  const n=run.fc?run.fp.length:Math.max(0,run.fp.length-1);if(FD.sel>=n)FD.sel=-1;
+  clampFeed(run);renderAll()}
+function fdLater(all){if(FD.raf)return;FD.raf=requestAnimationFrame(()=>{FD.raf=0;all?renderAll():renderFree()})}
+function renderFree(){
+  const run=R();if(run.shape!=="free")return;const [W,H]=fdSize();if(!W||!H)return;
+  if(FD.uid!==run.uid){FD.uid=run.uid;FD.sel=-1;FD.hover=null;fdFit(run,true)}if(!FD.v)fdFit(run,true);
+  const v=FD.v,k=v.k,g=geo(run),n=run.fp.length;let h="";
+  /* grid */
+  const minor=[5,10,25,50,100,250].find(s=>s*k>=9)||500,major=[50,100,250,500,1000,2500].find(s=>s>=minor*4&&s*k>=48)||5000;
+  const grid=(s,cls)=>{let d="";for(let x=Math.ceil(v.x0/s)*s;x<=v.x0+W/k;x+=s)d+=`M${f2((x-v.x0)*k)} 0V${H}`;for(let y=Math.ceil(v.y0/s)*s;y<=v.y0+H/k;y+=s)d+=`M0 ${f2((y-v.y0)*k)}H${W}`;return `<path class="${cls}" d="${d}"/>`};
+  h+=grid(minor,"fg1")+grid(major,"fg2");
+  /* the profile */
+  if(g.segs.length){const d=pathD(g.segs,g.closed,fdPx,k);h+=`<path class="p-glow" d="${d}" stroke-width="18"/><path class="p-o" d="${d}" stroke-width="10"/><path class="p-i" d="${d}" stroke-width="7"/><path class="p-led" d="${d}" stroke-width="1.4"/>`}
+  const sg=g.segs[FD.sel];if(sg)h+=`<path class="fsel" d="${pathD([sg],false,fdPx,k)}"/>`;
+  /* the preview of the next side */
+  if(FD.hover&&!run.fc&&n){const l=run.fp[n-1],q=FD.hover.p,a=fdPx(l),b=fdPx(q),L=Math.hypot(q[0]-l[0],q[1]-l[1]);
+    /* the corner angle with the previous side, as the customer would measure it on the wall */
+    let an="";if(n>=2&&L>0){const pv=run.fp[n-2],v1=[pv[0]-l[0],pv[1]-l[1]],v2=[q[0]-l[0],q[1]-l[1]],c=(v1[0]*v2[0]+v1[1]*v2[1])/(Math.hypot(...v1)*Math.hypot(...v2)||1);an=` · זווית ${Math.round(Math.acos(Math.max(-1,Math.min(1,c)))*180/Math.PI)}°`}
+    h+=`<path class="fprev" d="M${f2(a[0])} ${f2(a[1])}L${f2(b[0])} ${f2(b[1])}"/>`;
+    if(!FD.hover.close){const tx=Math.max(80,Math.min(W-80,b[0])),ty=b[1]<46?b[1]+40:b[1]-22;h+=`<text class="fpl" x="${f2(tx)}" y="${f2(ty)}" text-anchor="middle" direction="rtl">${fmt(L)} ס״מ${an}</text>`}}
+  if(FD.hover){const b=fdPx(FD.hover.p);h+=`<circle class="fdot" cx="${f2(b[0])}" cy="${f2(b[1])}" r="${FD.hover.close?9:6}"/>`}
+  /* points; the first one is a ring you can tap to close the shape */
+  run.fp.forEach((p,i)=>{const q=fdPx(p);h+=`<circle class="fpt" cx="${f2(q[0])}" cy="${f2(q[1])}" r="5"/>`;if(i===0&&n>=3&&!run.fc)h+=`<circle class="fpt0" cx="${f2(q[0])}" cy="${f2(q[1])}" r="14"/>`});
+  /* side labels, tap to pick a side */
+  const cxy=run.fp.length?[run.fp.reduce((s,p)=>s+p[0],0)/n,run.fp.reduce((s,p)=>s+p[1],0)/n]:[0,0],cp=fdPx(cxy);
+  g.segs.forEach((s,i)=>{const mp=fdPx(segPt(s,.5)),tn=segTan(s,.5);let nn=perp(tn);if((mp[0]-cp[0])*nn[0]+(mp[1]-cp[1])*nn[1]<0)nn=[-nn[0],-nn[1]];if(run.fp.length<3&&!run.fc)nn=nn[1]>0?[-nn[0],-nn[1]]:nn;
+    const tx=`${fmt(s.len)}`,w=(s.key.length+1+tx.length)*8+18,off=i===FD.sel?42:24,x=Math.max(w/2+2,Math.min(W-w/2-2,mp[0]+nn[0]*off)),y=Math.max(16,Math.min(H-16,mp[1]+nn[1]*off));
+    h+=`<g class="fchip${i===FD.sel?" on":""}" data-chip="${i}"><rect x="${f2(x-w/2)}" y="${f2(y-14)}" width="${f2(w)}" height="28"/><text x="${f2(x)}" y="${f2(y+5)}" text-anchor="middle" direction="ltr"><tspan class="k">${s.key} </tspan>${tx}</text></g>`});
+  /* the bend handle of the picked side: drag it to make an arc */
+  if(sg){const P=run.fp,a=P[sg.i],b=P[(sg.i+1)%n],m=[(a[0]+b[0])/2,(a[1]+b[1])/2],u=unit(a,b),nr=perp(u),s=run.fb[sg.i]||0,hp=fdPx([m[0]+nr[0]*s,m[1]+nr[1]*s]),mq=fdPx(m);
+    h+=`<path class="fhd-l" d="M${f2(mq[0])} ${f2(mq[1])}L${f2(hp[0])} ${f2(hp[1])}"/><circle class="fhd" data-handle="${sg.i}" cx="${f2(hp[0])}" cy="${f2(hp[1])}" r="12"/>`}
+  if(!n)h+=`<text class="fmsg" x="${W/2}" y="${H/2}" text-anchor="middle">לחצו כאן כדי לשים את הנקודה הראשונה</text>`;
+  h+=`<text class="fleg" x="${W-10}" y="${H-10}" text-anchor="start" direction="rtl">משבצת ${minor} ס״מ</text>`;
+  fdc.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${esc(n?`שרטוט חופשי: ${dimsTxt(run)}`:"משטח השרטוט ריק")}">${h}</svg>`;
+  /* buttons, status and the list of sides */
+  const segsN=g.segs.length;
+  $('[data-fd="undo"]').disabled=!n;$('[data-fd="close"]').disabled=n<3||run.fc;$('[data-fd="clear"]').disabled=!n;$('[data-fd="snap"]').setAttribute("aria-pressed",String(FD.snap));
+  $("#fdStat").innerHTML=!n?"עוד אין נקודות.":segsN?`${segsN===1?"צלע אחת":segsN+" צלעות"} · סה״כ <b>${fmtM(g.total)} מ׳</b> · ${run.fc?"צורה סגורה":"צורה פתוחה"} · ${cornTxt(g.corners,g.rc)}`:"נקודה אחת. לחצו שוב כדי לשרטט צלע.";
+  const list=$("#fsegs"),sig=run.uid+"|"+g.segs.map(s=>s.t).join("");
+  if(list._sig!==sig){list._sig=sig;
+    list.innerHTML=g.segs.map((s,i)=>{const arc=s.t==="a";return `<li class="fs" data-row="${i}"><span class="fs-k" aria-hidden="true">${s.key}</span>`+
+      `<label class="fs-in"><span class="fs-l">${arc?"רוחב":"אורך"}</span><input data-slen="${i}" inputmode="decimal" autocomplete="off" aria-label="${arc?"רוחב הקשת":"אורך"} של צלע ${s.key}, בסנטימטרים"></label><span class="fs-u">ס״מ</span>`+
+      `<button type="button" class="fs-b" data-sarc="${i}" aria-pressed="${arc}">קשת</button>`+
+      (arc?`<span class="fs-arc"><label class="fs-in"><span class="fs-l">עומק</span><input data-sbul="${i}" inputmode="decimal" autocomplete="off" aria-label="עומק הקשת של צלע ${s.key}, בסנטימטרים"></label><span class="fs-u">ס״מ</span><button type="button" class="fs-b" data-sflip="${i}">לצד השני</button><small data-alen="${i}"></small></span>`:"")+`</li>`}).join("")}
+  g.segs.forEach((s,i)=>{const li=$(`[data-row="${i}"]`,list);if(!li)return;li.classList.toggle("on",i===FD.sel);
+    const a=$(`[data-slen="${i}"]`,li);if(a&&document.activeElement!==a)a.value=fmt(chordOf(s));
+    const b=$(`[data-sbul="${i}"]`,li);if(b&&document.activeElement!==b)b.value=fmt(Math.abs(run.fb[i]||0));
+    const c=$(`[data-alen="${i}"]`,li);if(c)c.textContent=`לאורך הקשת: ${fmt(s.len)} ס״מ`});
+}
+fdc.addEventListener("pointerdown",e=>{const run=R();if(run.shape!=="free"||!FD.v||(e.button&&e.button>0))return;
+  const hd=e.target.closest("[data-handle]");if(hd){FD.drag={k:"bul",i:+hd.dataset.handle};try{fdc.setPointerCapture(e.pointerId)}catch(_){}e.preventDefault();return}
+  const ch=e.target.closest("[data-chip]");if(ch){FD.sel=+ch.dataset.chip===FD.sel?-1:+ch.dataset.chip;FD.drag={k:"chip"};renderFree();e.preventDefault();return}
+  FD.drag={k:"pt"};try{fdc.setPointerCapture(e.pointerId)}catch(_){}FD.hover=fdSnap(run,fdWorld(e),!FD.snap||e.altKey);fdLater();e.preventDefault()});
+fdc.addEventListener("pointermove",e=>{const run=R();if(run.shape!=="free"||!FD.v)return;
+  if(FD.drag&&FD.drag.k==="bul"){const i=FD.drag.i,P=run.fp,a=P[i],b=P[(i+1)%P.length],m=[(a[0]+b[0])/2,(a[1]+b[1])/2],nr=perp(unit(a,b)),w=fdWorld(e),c=Math.hypot(b[0]-a[0],b[1]-a[1]);
+    let s=(w[0]-m[0])*nr[0]+(w[1]-m[1])*nr[1];s=FD.snap&&!e.altKey?Math.round(s):r1(s);if(Math.abs(s)<1.5)s=0;s=Math.max(-c,Math.min(c,s));run.fb[i]=s;fdLater(true);return}
+  if(run.fc&&!FD.drag)return;
+  if((FD.drag&&FD.drag.k==="pt")||(!FD.drag&&e.pointerType==="mouse")){FD.hover=fdSnap(run,fdWorld(e),!FD.snap||e.altKey);fdLater()}});
+fdc.addEventListener("pointerup",e=>{const run=R(),dr=FD.drag;FD.drag=null;if(run.shape!=="free"||!FD.v||!dr)return;
+  if(dr.k==="bul"){clampFeed(run);renderAll();return}
+  if(dr.k!=="pt")return;
+  if(run.fc){/* a closed shape: a tap picks the nearest side */
+    const g=geo(run),w=fdWorld(e),nb=nearest(g,w[0],w[1]);let i=-1;if(nb&&nb.d*FD.v.k<26)i=g.segs.find(s=>nb.s<=s.start+s.len+1e-6).i;FD.sel=i===FD.sel?-1:i;FD.hover=null;renderFree();return}
+  const s=fdSnap(run,fdWorld(e),!FD.snap||e.altKey),P=run.fp,l=P[P.length-1];
+  if(s.close){run.fc=true;fixFb(run)}
+  else if(!l||Math.hypot(l[0]-s.p[0],l[1]-s.p[1])>=1){if(P.length>=MAXP){$("#e1").textContent=`אפשר עד ${MAXP} נקודות בשרטוט אחד.`}else{P.push(s.p);fixFb(run)}}
+  FD.sel=-1;if(e.pointerType!=="mouse")FD.hover=null;else FD.hover=run.fc?null:fdSnap(run,fdWorld(e),!FD.snap||e.altKey);
+  fdFit(run);clampFeed(run);renderAll()});
+fdc.addEventListener("pointercancel",()=>{FD.drag=null;FD.hover=null;renderFree()});
+fdc.addEventListener("pointerleave",()=>{if(!FD.drag&&FD.hover){FD.hover=null;renderFree()}});
+
 /* ---------------- render: the runs ---------------- */
 function renderRuns(){
-  $("#runs").innerHTML=RUNS.map((r,i)=>`<li class="run${i===CUR?" on":""}"><button type="button" class="run-b" data-run="${i}" aria-current="${i===CUR?"true":"false"}" aria-label="קו ${i+1}: ${esc(runShort(r))}">${shpIcon(r.shape,r.dir)}<span><b>קו ${i+1}</b><small>${esc(runShort(r))}</small></span></button>`+
+  $("#runs").innerHTML=RUNS.map((r,i)=>`<li class="run${i===CUR?" on":""}"><button type="button" class="run-b" data-run="${i}" aria-current="${i===CUR?"true":"false"}" aria-label="קו ${i+1}: ${esc(runShort(r))}">${runIcon(r)}<span><b>קו ${i+1}</b><small>${esc(runShort(r))}</small></span></button>`+
     `<button type="button" class="run-x" data-dup="${i}" aria-label="שכפול קו ${i+1}" title="שכפול"><svg aria-hidden="true"><use href="#i-copy"/></svg></button>`+
     (RUNS.length>1?`<button type="button" class="run-x" data-del="${i}" aria-label="הסרת קו ${i+1}" title="הסרה"><svg aria-hidden="true"><use href="#i-x"/></svg></button>`:"")+`</li>`).join("")+
     `<li><button type="button" class="run-add" data-addrun${RUNS.length>=MAXR?" disabled":""}><svg aria-hidden="true"><use href="#i-plus"/></svg>עוד קו</button></li>`;
@@ -1436,7 +1841,7 @@ function stepValid(run,i){
 }
 function stepVal(run,i){
   if(i===0)return shapeTxt(run);
-  if(i===1){if(!run.shape)return "";const g=geo(run);return g.ok?`${dimsTxt(run)} · סה״כ ${fmtM(g.total)} מ׳`:"חסרות מידות"}
+  if(i===1){if(!run.shape)return "";const g=geo(run);return g.ok?`${dimsTxt(run)} · סה״כ ${fmtM(g.total)} מ׳`:g.err||(run.shape==="free"?"עוד לא שורטט":"חסרות מידות")}
   if(i===2)return lookTxt(run)||"לא נבחר סוג";
   const f=feedTxt(run),fl=feedLenN(run);return (f||"לא סומן")+(fl?` · אורך הזנה ${fmt(fl)} ס״מ`:"");
 }
@@ -1452,15 +1857,30 @@ function renderWiz(){
   /* 1: shape */
   press(shapesEl,"[data-shape]",b=>b.dataset.shape===run.shape);
   const lc=$('[data-shape="L"] .shp',shapesEl);$$("path",lc).forEach(p=>p.setAttribute("d",shpD("L",run.dir)));
+  const nc=$('[data-shape="nest"] .shp',shapesEl);$$("path",nc).forEach(p=>p.setAttribute("d",shpD("nest","",run.nf)));
   $("#dirF").hidden=run.shape!=="L";press($("#dirF"),"[data-dir]",b=>b.dataset.dir===run.dir);
-  /* 2: lengths */
-  const sig=run.uid+":"+run.shape;
+  $("#triF").hidden=run.shape!=="tri";press($("#triF"),"[data-eq]",b=>(b.dataset.eq==="1")===!!run.eq);
+  $("#nestF").hidden=run.shape!=="nest";press($("#nestF"),"[data-nf]",b=>b.dataset.nf===run.nf);
+  /* a pair (shape inside shape): say which run is which */
+  const pr=partnerOf(run),pi=pr?RUNS.indexOf(pr)+1:0;
+  $("#pairN").innerHTML=!pr?"":run.role==="in"?`זו הצורה הפנימית של קו ${pi}. המידות שלה מחושבות מהמרווח. <button type="button" data-run="${pi-1}">לשינוי המידות בקו ${pi}</button>`:`קו ${pi} הוא הצורה הפנימית. המידות שלו מחושבות לבד מהמרווח.`;
+  /* 2: lengths, or the free drawing */
+  const free=run.shape==="free",ks=keysOf(run);
+  $("#q1h").textContent=free?"שרטטו את הצורה":"מה המידות?";
+  $("#fdw").hidden=!free;$("#dims").hidden=free;$("#dimHint").hidden=free||!ks.length;
+  const sig=[run.uid,run.shape,run.eq,run.nf,run.role].join(":");
   if(dimSig!==sig){dimSig=sig;
-    $("#dims").innerHTML=run.shape?SH[run.shape].keys.map((k,i)=>`${i?'<span class="dx" aria-hidden="true">×</span>':""}<label class="dn"><span>${run.shape==="line"||run.shape==="frame"?SH[run.shape].lab[k]:`<b>${k}</b>${SH[run.shape].lab[k].replace(/^צלע [A-C], /,"")}`}</span><span class="nbox"><input data-len="${k}" inputmode="decimal" autocomplete="off" placeholder="${PH[run.shape][k]}" aria-label="${esc(SH[run.shape].lab[k])}, בסנטימטרים" aria-describedby="e1"><span>ס״מ</span></span></label>`).join(""):"";
+    $("#dims").innerHTML=ks.map((k,i)=>{const lb=labOf(run,k),m=lb.match(/^צלע ([A-C]), (.*)$/);return `${i?`<span class="dx" aria-hidden="true">${k==="G"||k==="R"?"·":"×"}</span>`:""}<label class="dn"><span>${m?`<b>${m[1]}</b>${esc(m[2])}`:esc(lb)}</span><span class="nbox"><input data-len="${k}" inputmode="decimal" autocomplete="off" placeholder="${phOf(run,k)}" aria-label="${esc(lb)}, בסנטימטרים" aria-describedby="e1"><span>ס״מ</span></span></label>`}).join("");
     $("#e1").textContent=""}
   $$("[data-len]").forEach(inp=>{if(document.activeElement!==inp)inp.value=run.s[inp.dataset.len]||""});
   const g=run.shape?geo(run):null;
+  $("#dimHint").textContent=run.shape==="circle"||(run.shape==="nest"&&run.nf==="circle")?"בסנטימטרים. הקוטר נמדד עד הקצה החיצוני של הפרופיל.":run.shape==="nest"?"בסנטימטרים. המרווח הוא המרחק בין הצורה החיצונית לפנימית, מכל צד.":run.shape==="round"?"בסנטימטרים. רדיוס הפינה קובע כמה היא מעוגלת. רדיוס גדול, פינה רכה יותר.":"בסנטימטרים. אפשר גם מידה כמו 120.5. בפינה מודדים עד הקצה החיצוני, כמו בשרטוט.";
+  const ni=$("#nestInfo");
+  if(run.shape==="nest"&&run.role!=="in"&&g&&g.ok){const iv=innerOf(run.nf,vals(run).v);ni.hidden=false;ni.innerHTML=`הצורה הפנימית: <b>${run.nf==="circle"?`קוטר ${fmt(iv.D)} ס״מ`:run.nf==="tri"?`צלע ${fmt(iv.A)} ס״מ`:`${fmt(iv.W)} × ${fmt(iv.H)} ס״מ`}</b>. היא נכנסת להזמנה כקו נפרד, עם חשמל משלה.`}else ni.hidden=true;
+  if(g&&!free&&g.err&&ks.every(k=>okKey(k,num(run.s[k]))))$("#e1").textContent=g.err;
   $("#lNow").innerHTML=g&&g.ok?`סה״כ <b>${fmtM(g.total)} מ׳</b>`:"";
+  $(".tool").classList.toggle("free-on",free&&run.open===1);
+  if(free&&run.open===1)renderFree();
   /* 3: type and look */
   press(typesEl,"[data-type]",b=>b.dataset.type===run.type);
   const strip=isStrip(run);$("#mdF").hidden=strip;$("#finF").hidden=strip;
@@ -1511,6 +1931,7 @@ function renderStage(){
   $("#skTip").innerHTML=!ok?"":ft?`<i aria-hidden="true">X</i>${esc(ft)}`:`<i aria-hidden="true">X</i>לחצו על הפרופיל כדי לסמן איפה נכנס החשמל`;
   const w=ok?watts(run):0;
   $("#tot").innerHTML=`<div><dt>אורך</dt><dd>${ok?fmtM(g.total)+"<small>מ׳</small>":"-"}</dd></div><div><dt>הספק</dt><dd>${ok?`<span dir="ltr">${fmtW(w)}</span>`:"-"}</dd></div><div><dt>ספק מומלץ</dt><dd>${ok?`<span dir="ltr">${psu(w)}</span>`:"-"}</dd></div>`;
+  $("#skMeta").innerHTML=ok?`<span>${cornTxt(g.corners,g.rc)}</span>${g.curved?`<span class="cv">${CURVE_NOTE}</span>`:""}`:"";
   const done=RUNS.filter(complete);
   $("#totAll").innerHTML=RUNS.length>1&&done.length?`בכל ההזמנה: <b>${done.length===1?"קו אחד":done.length+" קווים"}</b> · <b>${fmtM(done.reduce((s,r)=>s+total(r),0))} מ׳</b> · <b dir="ltr">${fmtW(done.reduce((s,r)=>s+watts(r),0))}</b>`:"";
 }
@@ -1533,6 +1954,8 @@ function sheetRow(run,i){
     row("גוון לד",`<span class="ltr">${run.k}K</span> ${kOf(run.k).n}`)+
     row("הספק",`<span class="ltr">${run.wpm}W</span> למטר · <span class="ltr">${fmtW(w)}</span> סה״כ`)+
     row("ספק מומלץ",`<span class="ltr">${psu(w)}</span>`)+
+    row("פינות",cornTxt(g.corners,g.rc))+
+    (g.curved?row("ייצור",CURVE_NOTE):"")+
     row("הזנה (X)",ft?esc(ft):"לא סומנה",!ft)+
     row("אורך הזנה",fl?`${fmt(fl)} ס״מ`:"____________",!fl)+
     (run.corner&&hasCorner(run)?row("פינה","עוברת בין קיר לתקרה"+(run.photos.length?`, ${run.photos.length===1?"תמונה מצורפת":run.photos.length+" תמונות מצורפות"}`:", נשלח תמונה")):"")+
@@ -1551,21 +1974,24 @@ function renderSum(){
     if(!complete(r))miss.push(`<li><span>קו ${i+1}: ${!r.shape?"לא נבחרה צורה":!geo(r).ok?"חסרות מידות":"לא נבחר סוג"}. הוא לא נכנס לדף.</span><button type="button" data-gorun="${i}">להשלמה</button></li>`);
     else if(r.feed==null)miss.push(`<li><span>קו ${i+1}: לא סומן איפה נכנס החשמל.</span><button type="button" data-gorun="${i}" data-step="3">לסימון</button></li>`)});
   $("#miss").innerHTML=miss.join("");
-  const none=!done.length;["#sAdd","#sPrint"].forEach(s=>$(s).disabled=none);
-  const wa=$("#sWa");wa.setAttribute("aria-disabled",String(none));wa.style.opacity=none?".35":"";wa.href=none?"#":waLink(waText());
+  const none=!done.length;["#sAdd","#sPdf","#sWa"].forEach(s=>{const b=$(s);if(!b.hasAttribute("aria-busy"))b.disabled=none});$("#sPrint").disabled=none;
+  const share=canShareFiles();if(!$("#sWa").hasAttribute("aria-busy"))$("#sWa .bl").textContent=SHARE_READY?"הקובץ מוכן. לשליחה":share?"שליחת התכנון בוואטסאפ":"שליחה לחנות בוואטסאפ";
+  $("#sHint").textContent=none?"":share?"נפתח חלון שיתוף עם קובץ PDF. בוחרים וואטסאפ ושולחים לספוטליין, 08-6377033.":"יורד קובץ PDF של התכנון, ונפתח וואטסאפ עם הפרטים. מצרפים את הקובץ להודעה.";
+  const wt=$("#sWaTxt");wt.href=none?"#":waLink(waText());wt.toggleAttribute("aria-disabled",none);
   /* the sheet */
   $("#sheet").innerHTML=`<header class="sh-h">${LOGO}<h3>סקיצת ייצור פרופיל וסרטי לד</h3><div class="dt">תאריך<b>${today()}</b></div></header>`+
     `<div class="sh-c"><div>שם לקוח<b>${esc(c.n)}</b></div><div>טלפון<b dir="ltr" style="text-align:right">${esc(c.p)}</b></div><div>עיר<b>${esc(c.c)}</b></div><div>קומה<b>${esc(c.f)}</b></div></div>`+
     (done.length?`<ol class="sh-rows">${done.map(sheetRow).join("")}</ol>`:`<p class="sh-empty">עוד אין קו גמור. השלימו צורה, מידות וסוג.</p>`)+
-    `<p class="sh-f">* מיקום ההזנה מסומן ב-X בשרטוט. המידות בסנטימטרים, עד הקצה החיצוני של הפרופיל.${done.some(r=>r.corner&&hasCorner(r))?"<br>* בפינה שעוברת בין קיר לתקרה מצרפים סקיצה אדריכלית, תלת מימד או תמונה.":""}${c.note?`<br>הערות להזמנה: ${esc(c.note)}`:""}</p>`+
-    (done.some(r=>r.corner&&r.photos.length)?`<div class="sh-ph"><p>תמונות מצורפות</p><div>${done.map(r=>r.corner?r.photos.map(p=>`<figure><img src="${p.url}" alt="${esc(p.n)}"><figcaption>קו ${RUNS.indexOf(r)+1}</figcaption></figure>`).join(""):"").join("")}</div></div>`:"")+
+    `<p class="sh-f">* מיקום ההזנה מסומן ב-X בשרטוט. המידות בסנטימטרים, עד הקצה החיצוני של הפרופיל.${done.some(r=>geo(r).curved)?"<br>* "+CURVE_NOTE:""}${done.some(r=>r.corner&&hasCorner(r))?"<br>* בפינה שעוברת בין קיר לתקרה מצרפים סקיצה אדריכלית, תלת מימד או תמונה.":""}${c.note?`<br>הערות להזמנה: ${esc(c.note)}`:""}</p>`+
+    (done.some(r=>r.photos.length)?`<div class="sh-ph"><p>תמונות מצורפות</p><div>${done.map(r=>r.photos.length?r.photos.map(p=>`<figure><img src="${p.url}" alt="${esc(p.n)}"><figcaption>קו ${RUNS.indexOf(r)+1}</figcaption></figure>`).join(""):"").join("")}</div></div>`:"")+
     `<div class="sh-sig"><span>חתימת לקוח</span><span>לשימוש החנות</span></div>`;
 }
-function waText(){
-  const done=RUNS.filter(complete),c=cust(),L=["היי, תכננתי באתר פרופיל לד במידה. אשמח להצעת מחיר.",""];
+function waText(o){o=o||{};
+  const done=RUNS.filter(complete),c=cust(),L=["היי, תכננתי באתר פרופיל לד במידה. אשמח להצעת מחיר."+(o.pdf?" מצרף גם קובץ PDF עם השרטוט.":""),""];
   done.forEach(r=>{const i=RUNS.indexOf(r),g=geo(r),w=watts(r),m=modelOf(r),fl=feedLenN(r),ft=feedTxt(r);
     L.push(`קו ${i+1}: ${runName(r)}`);
-    L.push(`• צורה: ${shapeTxt(r)}. ${dimsTxt(r)}. סה״כ ${fmtM(g.total)} מ׳`);
+    L.push(`• צורה: ${shapeTxt(r)}. ${dimsTxt(r)}. סה״כ ${fmtM(g.total)} מ׳ · ${cornTxt(g.corners,g.rc)}`);
+    if(g.curved)L.push("• "+CURVE_NOTE);
     if(!isStrip(r))L.push(`• דגם: ${m?`${m.n}, מק״ט ${m.sku}`:"המלצה מהחנות"}. צבע גוף: ${r.fin}`);
     L.push(`• גוון: ${r.k}K ${kOf(r.k).n} · ${r.wpm}W למטר (${fmtW(w)} סה״כ) · ספק מומלץ ${psu(w)}`);
     L.push(`• הזנה (X): ${ft||"לא סימנתי"}${fl?`. אורך הזנה ${fmt(fl)} ס״מ`:""}`);
@@ -1575,6 +2001,7 @@ function waText(){
   if(done.length>1)L.push(`סה״כ: ${done.length} קווים, ${fmtM(done.reduce((s,r)=>s+total(r),0))} מ׳, ${fmtW(done.reduce((s,r)=>s+watts(r),0))}`);
   const who=[c.n&&"שם: "+c.n,c.p&&"טלפון: "+c.p,c.c&&"עיר: "+c.c,c.f&&"קומה: "+c.f].filter(Boolean).join(", ");if(who)L.push(who);
   if(c.note)L.push("הערות: "+c.note);
+  L.push("","לפתיחת התכנון באתר: "+planLink());
   return L.join("\n").trim();
 }
 function renderAll(){renderRuns();renderWiz();renderStage();renderSum()}
@@ -1583,18 +2010,25 @@ function renderAll(){renderRuns();renderWiz();renderStage();renderSum()}
 function focusStep(i){const h=$(`#q${i}h`);if(!h)return;h.focus({preventScroll:true});const r=h.getBoundingClientRect();if(r.top<80||r.top>innerHeight*.7)window.scrollTo({top:scrollY+r.top-(isMob()?90:120),behavior:RM?"auto":"smooth"})}
 function showErr(i){const run=R(),e=$("#e"+i);
   if(i===0)e.textContent=run.shape?"":"בחרו צורה.";
-  if(i===1){const bad=SH[run.shape].keys.filter(k=>!okLen(num(run.s[k])));$$("[data-len]").forEach(inp=>inp.setAttribute("aria-invalid",String(bad.includes(inp.dataset.len))));
-    e.textContent=bad.length?(bad.some(k=>run.s[k]&&String(run.s[k]).trim())?`כל מידה בין ${MIN} ל-${MAX} ס״מ.`:`חסרה מידה: ${bad.map(k=>SH[run.shape].lab[k].split(",")[0]).join(", ")}.`):"";
+  if(i===1){
+    if(run.shape==="free"){const g=geo(run);e.textContent=g.ok?"":!g.segs.length?"שרטטו לפחות צלע אחת: שתי נקודות על המשטח.":"הצורה קצרה מדי. כל צלע לפחות 1 ס״מ, ובסך הכול לפחות 5 ס״מ.";return}
+    const ks=keysOf(run),bad=ks.filter(k=>!okKey(k,num(run.s[k])));$$("[data-len]").forEach(inp=>inp.setAttribute("aria-invalid",String(bad.includes(inp.dataset.len))));
+    e.textContent=bad.length?(bad.some(k=>run.s[k]&&String(run.s[k]).trim())?`כל מידה בין ${MIN} ל-${MAX} ס״מ${ks.includes("R")||ks.includes("G")?". רדיוס ומרווח: מ-1 ס״מ":""}.`:`חסרה מידה: ${bad.map(k=>labOf(run,k).split(",")[0]).join(", ")}.`):(geo(run).err||"");
     if(bad.length){const f=$(`[data-len="${bad[0]}"]`);f&&f.focus()}}
   if(i===2)e.textContent=run.type?"":"בחרו איך הפרופיל יושב.";
 }
 function next(i){
   const run=R();if(!stepValid(run,i)){showErr(i);return}const er=$("#e"+i);if(er)er.textContent="";
+  if(i===1&&run.shape==="nest"&&!ensurePair(run)){$("#e1").textContent=`אפשר עד ${MAXR} קווים בהזמנה. הסירו קו כדי להוסיף את הצורה הפנימית.`;return}
   if(i<3){run.reached=Math.max(run.reached,i+1);
     const bad=[1,2].find(j=>j>i&&!stepValid(run,j));
     run.open=run.reached>=4&&bad==null?-1:i+1;
     renderAll();if(run.open>-1)focusStep(run.open);else{const s=$(`#q${i} .wq-sum`);s&&s.focus({preventScroll:true})}}
-  else{run.open=-1;run.reached=4;SHOW_SUM=true;renderAll();goSum()}
+  else{run.open=-1;run.reached=4;
+    /* the outer shape of a pair is done: go on to the feed point of the inner one */
+    const p=partnerOf(run);if(run.role==="out"&&p&&p.feed==null){CUR=RUNS.indexOf(p);p.reached=Math.max(p.reached,3);p.open=3;renderAll();
+      const top=$("#wiz").getBoundingClientRect().top;if(top<70||top>innerHeight*.6)window.scrollTo({top:scrollY+top-(isMob()?80:100),behavior:RM?"auto":"smooth"});setTimeout(()=>focusStep(3),RM?0:350);return}
+    SHOW_SUM=true;renderAll();goSum()}
 }
 function goSum(){const s=$("#sum");if(s.hidden)return;const y=s.getBoundingClientRect().top+scrollY-(isMob()?70:80);window.scrollTo({top:y,behavior:RM?"auto":"smooth"});$("#sumH").focus({preventScroll:true})}
 function selectRun(i,step){CUR=Math.max(0,Math.min(RUNS.length-1,i));const r=R();if(step!=null){r.open=step;r.reached=Math.max(r.reached,step)}else if(!complete(r)&&r.open===-1){r.open=!r.shape?0:!geo(r).ok?1:2}
@@ -1602,9 +2036,10 @@ function selectRun(i,step){CUR=Math.max(0,Math.min(RUNS.length-1,i));const r=R()
   if(r.open>-1)setTimeout(()=>focusStep(r.open),RM?0:350)}
 function addRun(){if(RUNS.length>=MAXR)return;const r=newRun(R());RUNS.push(r);CUR=RUNS.length-1;renderAll();
   const top=$("#wiz").getBoundingClientRect().top;window.scrollTo({top:scrollY+top-(isMob()?80:100),behavior:RM?"auto":"smooth"});setTimeout(()=>focusStep(0),RM?0:350)}
-function dupRun(i){if(RUNS.length>=MAXR)return;const s=RUNS[i],c=Object.assign({},s,{uid:newUid(),s:Object.assign({},s.s),photos:s.photos.slice()});
+function dupRun(i){if(RUNS.length>=MAXR)return;const s=RUNS[i],c=Object.assign({},s,{uid:newUid(),s:Object.assign({},s.s),photos:s.photos.slice(),fp:s.fp.map(p=>p.slice()),fb:s.fb.slice()});
+  if(c.role)freeze(c);
   c.open=s.shape?1:0;c.reached=Math.max(s.reached,c.open);RUNS.splice(i+1,0,c);CUR=i+1;renderAll();setTimeout(()=>focusStep(c.open),RM?0:200)}
-function delRun(i){if(RUNS.length<2)return;RUNS.splice(i,1);if(CUR>i)CUR--;CUR=Math.min(CUR,RUNS.length-1);renderAll();
+function delRun(i){if(RUNS.length<2)return;const pr=partnerOf(RUNS[i]);if(pr)freeze(pr);RUNS.splice(i,1);if(CUR>i)CUR--;CUR=Math.min(CUR,RUNS.length-1);renderAll();
   const b=$(`[data-run="${Math.min(i,RUNS.length-1)}"]`);b&&b.focus({preventScroll:true})}
 function clampFeed(run){if(run.feed==null||!run.shape)return;const g=geo(run);if(!g.ok)return;run.feed=snap(g,Math.min(run.feed,g.closed?g.total-0.01:g.total))}
 
@@ -1617,41 +2052,205 @@ document.addEventListener("click",e=>{
 });
 $("#wiz").addEventListener("click",e=>{
   const run=R();let b;
-  if((b=e.target.closest("[data-edit]"))){run.open=+b.dataset.edit;renderAll();focusStep(run.open);return}
+  if((b=e.target.closest("[data-edit]"))){const st=+b.dataset.edit,pr=partnerOf(run);if(run.role==="in"&&pr&&st<2){selectRun(RUNS.indexOf(pr),st);return}run.open=st;renderAll();focusStep(run.open);return}
   if((b=e.target.closest("[data-next]"))){next(+b.dataset.next);return}
-  if((b=e.target.closest("[data-shape]"))){if(run.shape!==b.dataset.shape){run.shape=b.dataset.shape;run.feed=null;if(!hasCorner(run))run.corner=false}$("#e0").textContent="";renderAll();return}
+  if((b=e.target.closest("[data-shape]"))){if(run.shape!==b.dataset.shape){const pr=partnerOf(run);if(run.role==="out"&&pr){RUNS.splice(RUNS.indexOf(pr),1);CUR=RUNS.indexOf(run);run.role="";run.pair=""}
+      run.shape=b.dataset.shape;run.feed=null;if(!hasCorner(run))run.corner=false}$("#e0").textContent="";renderAll();return}
   if((b=e.target.closest("[data-dir]"))){run.dir=b.dataset.dir;run.feed=null;renderAll();return}
-  if((b=e.target.closest("[data-type]"))){run.type=b.dataset.type;const m=modelOf(run),mt=m?inferType(m.n):"";if(m&&mt&&mt!==run.type)run.model="";$("#e2").textContent="";renderAll();return}
-  if((b=e.target.closest("[data-model]"))){const id=b.dataset.model;applyModel(run,id?MODELS.find(m=>m.id===id):null);renderAll();return}
-  if((b=e.target.closest("[data-fin]"))){run.fin=b.dataset.fin;renderAll();return}
-  if((b=e.target.closest("[data-k]"))){run.k=b.dataset.k;renderAll();return}
-  if((b=e.target.closest("[data-w]"))){run.wpm=+b.dataset.w;run.wpmModel=false;renderAll();return}
+  if((b=e.target.closest("[data-eq]"))){run.eq=b.dataset.eq==="1";run.feed=null;renderAll();return}
+  if((b=e.target.closest("[data-nf]"))){run.nf=b.dataset.nf;run.feed=null;const pr=partnerOf(run);if(pr){pr.nf=run.nf;pr.feed=null}renderAll();return}
+  if((b=e.target.closest("[data-type]"))){run.type=b.dataset.type;const m=modelOf(run),mt=m?inferType(m.n):"";if(m&&mt&&mt!==run.type)run.model="";$("#e2").textContent="";syncLook(run);renderAll();return}
+  if((b=e.target.closest("[data-model]"))){const id=b.dataset.model;applyModel(run,id?MODELS.find(m=>m.id===id):null);syncLook(run);renderAll();return}
+  if((b=e.target.closest("[data-fin]"))){run.fin=b.dataset.fin;syncLook(run);renderAll();return}
+  if((b=e.target.closest("[data-k]"))){run.k=b.dataset.k;syncLook(run);renderAll();return}
+  if((b=e.target.closest("[data-w]"))){run.wpm=+b.dataset.w;run.wpmModel=false;syncLook(run);renderAll();return}
+  /* free drawing tools */
+  if((b=e.target.closest("[data-fd]"))){fdAct(run,b.dataset.fd);return}
+  if((b=e.target.closest("[data-sarc]"))){const i=+b.dataset.sarc,sg=geo(run).segs[i];if(!sg)return;run.fb[i]=run.fb[i]?0:r1(Math.max(2,chordOf(sg)*.2));FD.sel=i;clampFeed(run);renderAll();return}
+  if((b=e.target.closest("[data-sflip]"))){const i=+b.dataset.sflip;run.fb[i]=-(run.fb[i]||0);FD.sel=i;clampFeed(run);renderAll();return}
   if((b=e.target.closest("[data-rmph]"))){const i=+b.dataset.rmph,p=run.photos[i];run.photos.splice(i,1);if(p&&!RUNS.some(r=>r.photos.includes(p)))URL.revokeObjectURL(p.url);renderAll();$("#ph").focus();return}
 });
 $("#wiz").addEventListener("input",e=>{
   const run=R(),t=e.target;
-  if(t.dataset.len){run.s[t.dataset.len]=t.value.slice(0,10);if(t.getAttribute("aria-invalid")==="true"&&okLen(num(t.value))){t.setAttribute("aria-invalid","false")}if(geo(run).ok)$("#e1").textContent="";clampFeed(run);renderAll();return}
+  if(t.dataset.len){run.s[t.dataset.len]=t.value.slice(0,10);if(t.getAttribute("aria-invalid")==="true"&&okKey(t.dataset.len,num(t.value))){t.setAttribute("aria-invalid","false")}if(geo(run).ok)$("#e1").textContent="";clampFeed(run);const pr=partnerOf(run);if(pr)clampFeed(pr);renderAll();return}
+  if(t.dataset.slen!=null){const n=num(t.value);if(n>=1&&n<=MAX){setSegLen(run,+t.dataset.slen,n);fdFit(run);clampFeed(run);renderAll()}return}
+  if(t.dataset.sbul!=null){const i=+t.dataset.sbul,n=num(t.value),sg=geo(run).segs[i];if(n>=0&&sg){run.fb[i]=(Math.sign(run.fb[i]||1)||1)*Math.min(n,chordOf(sg));clampFeed(run);renderAll()}return}
   if(t.id==="fdR"){run.feed=snap(geo(run),+t.value);renderAll();return}
   if(t.id==="fdL"){run.feedLen=t.value.slice(0,8);renderAll();return}
   if(t.id==="rNote"){run.note=t.value.slice(0,400);renderStage();renderSum();return}
   if(t.id==="mdQ"){renderModels();return}
 });
-$("#wiz").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.dataset&&e.target.dataset.len){e.preventDefault();next(1)}if(e.key==="Enter"&&e.target.id==="fdL"){e.preventDefault()}});
+$("#wiz").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.dataset&&e.target.dataset.len){e.preventDefault();next(1)}if(e.key==="Enter"&&(e.target.id==="fdL"||(e.target.dataset&&(e.target.dataset.slen!=null||e.target.dataset.sbul!=null)))){e.preventDefault()}});
+$("#fsegs").addEventListener("focusin",e=>{const li=e.target.closest("[data-row]");if(li&&FD.sel!==+li.dataset.row){FD.sel=+li.dataset.row;renderFree()}});
 $("#corn").addEventListener("change",e=>{R().corner=e.target.checked;renderAll()});
 $("#ph").addEventListener("change",e=>{const run=R();[...e.target.files].filter(f=>/^image\//.test(f.type)&&f.size<25e6).slice(0,6).forEach(f=>run.photos.push({n:f.name,url:URL.createObjectURL(f)}));e.target.value="";renderAll()});
 bindSketch($("#sk"));bindSketch($("#sk2"));
-let rzT;addEventListener("resize",()=>{cancelAnimationFrame(rzT);rzT=requestAnimationFrame(renderStage)});
+let rzT;addEventListener("resize",()=>{cancelAnimationFrame(rzT);rzT=requestAnimationFrame(()=>{renderStage();if(R().shape==="free"&&R().open===1){fdFit(R());renderFree()}})});
 
 /* summary actions */
 ["#cN","#cP","#cC","#cF","#cNote"].forEach(s=>$(s).addEventListener("input",()=>{if(s==="#cP"&&$("#cPw").classList.contains("bad")&&PHONE.test($("#cP").value.replace(/\s/g,"")))$("#cPw").classList.remove("bad");renderSum()}));
 $("#cP").addEventListener("blur",()=>{const v=$("#cP").value.replace(/\s/g,""),bad=!!v&&!PHONE.test(v);$("#cPw").classList.toggle("bad",bad);$("#cP").setAttribute("aria-invalid",String(bad))});
-$("#sWa").addEventListener("click",e=>{if($("#sWa").getAttribute("aria-disabled")==="true"){e.preventDefault();const m=$("#miss li button");m&&m.focus()}});
 $("#sPrint").addEventListener("click",()=>{renderSum();window.print()});
+
+/* ---------------- a link that opens the same plan: the runs, packed into the hash (photos stay on the device) ---------------- */
+function b64u(str){const by=new TextEncoder().encode(str);let bin="";by.forEach(b=>bin+=String.fromCharCode(b));return btoa(bin).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")}
+function unb64u(s){s=s.replace(/-/g,"+").replace(/_/g,"/");while(s.length%4)s+="=";const bin=atob(s),by=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)by[i]=bin.charCodeAt(i);return new TextDecoder().decode(by)}
+function encPlan(){const L=RUNS.filter(r=>r.shape);
+  return b64u(JSON.stringify({v:1,r:L.map(r=>{const o={h:r.shape};
+    if(r.shape==="L"&&r.dir==="l")o.d="l";
+    const s={};keysOf(r).forEach(k=>{if(String(r.s[k]).trim()!=="")s[k]=r.s[k]});if(Object.keys(s).length)o.s=s;
+    if(r.shape==="tri"&&!r.eq)o.q=0;
+    if(r.shape==="nest"){o.f=r.nf;if(r.role&&partnerOf(r)){o.r=r.role==="in"?1:2;o.p=L.indexOf(partnerOf(r))}}
+    if(r.shape==="free"){o.P=r.fp.map(p=>[r2(p[0]),r2(p[1])]);if(r.fc)o.c=1;if(r.fb.some(Boolean))o.b=r.fb.map(r2)}
+    if(r.type)o.t=r.type;if(r.model)o.m=r.model;if(r.fin)o.n=r.fin;o.k=r.k;o.w=r.wpm;
+    if(r.feed!=null)o.x=r2(r.feed);if(r.feedLen)o.l=r.feedLen;if(r.corner)o.cr=1;if(r.note)o.o=r.note;if(r.ownLook)o.ol=1;
+    return o})}))}
+function decPlan(code){const d=JSON.parse(unb64u(code));if(!d||!Array.isArray(d.r)||!d.r.length)return null;
+  const rs=d.r.slice(0,MAXR).map(o=>{if(!o||!SH[o.h])return null;const r=newRun();r.shape=o.h;if(o.d==="l")r.dir="l";
+    if(o.s&&typeof o.s==="object")Object.keys(r.s).forEach(k=>{if(o.s[k]!=null)r.s[k]=String(o.s[k]).slice(0,10)});
+    r.eq=o.q!==0;if(NF[o.f])r.nf=o.f;if(o.r===1||o.r===2){r.role=o.r===1?"in":"out";r._p=o.p}
+    if(Array.isArray(o.P))r.fp=o.P.filter(p=>Array.isArray(p)&&p.length===2&&p.every(x=>isFinite(x)&&x!==null)).slice(0,MAXP).map(p=>[+p[0],+p[1]]);
+    r.fc=!!o.c&&r.fp.length>=3;r.fb=Array.isArray(o.b)?o.b.map(x=>+x||0):[];fixFb(r);
+    if(typeOf(o.t))r.type=o.t;if(typeof o.m==="string")r.model=o.m.slice(0,80);if(typeof o.n==="string")r.fin=o.n.slice(0,40);
+    if(KS.some(k=>k.v===String(o.k)))r.k=String(o.k);if(WPM.includes(+o.w))r.wpm=+o.w;
+    if(typeof o.x==="number"&&isFinite(o.x))r.feed=o.x;if(o.l)r.feedLen=String(o.l).slice(0,8);r.corner=!!o.cr;if(o.o)r.note=String(o.o).slice(0,400);r.ownLook=!!o.ol;
+    return r});
+  /* a pair needs both halves. An inner shape without its outer one is dropped */
+  rs.forEach(r=>{if(!r||!r.role)return;const p=rs[r._p];if(p&&p.role&&p.role!==r.role&&rs[p._p]===r)r.pair=p.uid;else{r._in=r.role==="in";r.role=""}});
+  const out=rs.filter(r=>r&&!r._in);
+  out.forEach(r=>{delete r._p;delete r._in;clampFeed(r);
+    if(complete(r)){r.open=-1;r.reached=4}else{r.open=!r.shape?0:!geo(r).ok?1:2;r.reached=r.open}});
+  return out}
+const planLink=()=>location.href.split("#")[0].split("?")[0]+"#p="+encPlan();
+
+/* ---------------- the PDF: drawn on a canvas, so Hebrew stays right, then packed by jsPDF ---------------- */
+const PDF_NAME="תכנון-פרופיל-ספוטליין.pdf";
+const JSPDF_URL="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js",JSPDF_SRI="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==";
+let jsLoad=null;
+function loadJsPDF(){if(window.jspdf&&window.jspdf.jsPDF)return Promise.resolve();if(jsLoad)return jsLoad;
+  jsLoad=new Promise((res,rej)=>{const sc=document.createElement("script");sc.src=JSPDF_URL;sc.integrity=JSPDF_SRI;sc.crossOrigin="anonymous";sc.referrerPolicy="no-referrer";
+    sc.onload=()=>window.jspdf&&window.jspdf.jsPDF?res():rej(new Error("jspdf"));sc.onerror=()=>{jsLoad=null;sc.remove();rej(new Error("jspdf"))};document.head.appendChild(sc)});
+  return jsLoad}
+const ON_PHONE=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+function canShareFiles(){try{return ON_PHONE&&!!navigator.canShare&&navigator.canShare({files:[new File(["x"],"t.pdf",{type:"application/pdf"})]})}catch(e){return false}}
+
+const PG={w:1240,h:1754,m:70},PX1=PG.w-PG.m,PX0=PG.m,PCW=PX1-PX0;
+const PFF='"Placebo","Primaries",Arial,sans-serif',pf=(w,s)=>`${w} ${s}px ${PFF}`;
+const PAPER={"p-o":{s:"#151515"},"p-i":{s:"#fff"},"p-seam":{s:"#151515",w:1},"p-dim":{s:"#8a8a8a",w:1},"p-x":{s:"#151515",w:2.4,cap:"round"},"p-cab":{s:"#151515",w:1.3,dash:[3,3]},"p-gst":{s:"#c4c4c4"},"p-gsi":{s:"#fff"},"p-xb":{f:"#fff"}};
+/* the sketch's drawing operations, on paper colours */
+function drawOps(ctx,ops,X,Y,S){ctx.save();ctx.translate(X,Y);ctx.scale(S,S);
+  ops.forEach(op=>{
+    if(op.k==="p"){const st=PAPER[op.cls];if(!st)return;ctx.strokeStyle=st.s;ctx.lineWidth=op.sw!=null&&SW_ATTR.has(op.cls)?op.sw:(st.w||1);ctx.lineJoin="miter";ctx.miterLimit=10;ctx.lineCap=st.cap||"butt";ctx.setLineDash(st.dash||[]);ctx.stroke(new Path2D(op.d));return}
+    if(op.k==="c"){const st=PAPER[op.cls];if(!st)return;ctx.fillStyle=st.f;ctx.beginPath();ctx.arc(op.cx,op.cy,op.r,0,Math.PI*2);ctx.fill();return}
+    const cl=op.cls.split(" "),small=cl[0]==="p-ft"||cl[0]==="p-nt",main=cl.includes("ph")?"#8f897f":cl[0]==="p-nt"?"#444":"#151515";
+    const parts=op.parts.map(p=>({t:p.t,font:pf(p.c==="k"||cl[0]==="p-nt"?400:700,small?11:12),c:p.c==="k"?"#6b6b6b":main}));
+    ctx.setLineDash([]);ctx.direction=op.dir;ctx.textAlign="left";ctx.textBaseline="alphabetic";
+    parts.forEach(p=>{ctx.font=p.font;p.w=ctx.measureText(p.t).width});const w=parts.reduce((s,p)=>s+p.w,0);
+    let x=op.anchor==="middle"?op.x-w/2:(op.anchor==="start")===(op.dir!=="rtl")?op.x:op.x-w;
+    (op.dir==="rtl"?parts.slice().reverse():parts).forEach(p=>{ctx.font=p.font;ctx.fillStyle=p.c;ctx.fillText(p.t,x,op.y);x+=p.w})});
+  ctx.restore()}
+function pText(ctx,str,x,y,o){o=o||{};ctx.font=pf(o.w||400,o.s||20);ctx.fillStyle=o.c||"#151515";ctx.direction=o.dir||(HEB.test(str)?"rtl":"ltr");ctx.textAlign=o.al||"right";ctx.textBaseline="alphabetic";ctx.fillText(str,x,y)}
+function pWrap(ctx,str,maxW,font){ctx.font=font;ctx.direction=HEB.test(str)?"rtl":"ltr";const out=[];
+  String(str).split("\n").forEach(par=>{let cur="";par.split(/\s+/).filter(Boolean).forEach(w=>{const t=cur?cur+" "+w:w;if(cur&&ctx.measureText(t).width>maxW){out.push(cur);cur=w}else cur=t});out.push(cur)});return out}
+function pLogo(ctx,x,y,h){const svg=$("#hdrLogo .lg");if(!svg)return;const s=h/164.94,P=q=>{const e=$(q,svg);return e?new Path2D(e.getAttribute("d")):null};
+  ctx.save();ctx.translate(x,y);ctx.scale(s,s);
+  ctx.save();ctx.beginPath();ctx.rect(0,66,306.29,98.94);ctx.clip();const wd=P(".lg-word");if(wd){ctx.fillStyle="#151515";ctx.fill(wd)}ctx.restore();
+  ctx.strokeStyle="#151515";ctx.lineWidth=3;ctx.setLineDash([]);[".lg-stem",".lg-arc"].forEach(q=>{const p=P(q);if(p)ctx.stroke(p)});
+  const b=P(".lg-bulb");if(b){ctx.fillStyle="#FFBD00";ctx.fill(b)}ctx.restore()}
+function pHead(ctx,first,c,done){let y=PG.m;const lh=72,lw=306.29*lh/164.94;
+  pLogo(ctx,PX1-lw,y,lh);
+  pText(ctx,"תכנון פרופיל לד במידה",PG.w/2,y+50,{w:700,s:first?38:28,al:"center"});
+  pText(ctx,"תאריך",PX0,y+26,{s:17,c:"#555",al:"left"});pText(ctx,today(),PX0,y+56,{w:700,s:22,al:"left",dir:"ltr"});
+  y+=lh+16;ctx.fillStyle="#151515";ctx.fillRect(PX0,y,PCW,3);y+=24;
+  if(!first)return y;
+  const fs=[["שם",c.n],["טלפון",c.p],["עיר",c.c],["קומה",c.f]];
+  if(fs.some(f=>f[1])){const cw=(PCW-3*24)/4;fs.forEach((f,i)=>{const xr=PX1-i*(cw+24);pText(ctx,f[0],xr,y+18,{s:16,c:"#555"});
+      if(f[1]){const v=pWrap(ctx,f[1],cw,pf(700,21))[0];pText(ctx,v,xr,y+48,{w:700,s:21,dir:f[0]==="טלפון"?"ltr":undefined})}
+      ctx.fillStyle="#9a9a9a";ctx.fillRect(xr-cw,y+58,cw,1.5)});y+=82}
+  const tl=done.reduce((s,r)=>s+total(r),0),tw=done.reduce((s,r)=>s+watts(r),0);
+  ctx.fillStyle="#f1efea";ctx.fillRect(PX0,y,PCW,62);
+  pText(ctx,`${done.length===1?"קו אחד":done.length+" קווים"} · אורך כולל ${fmtM(tl)} מ׳ · הספק כולל ${fmtW(tw)}`,PX1-22,y+40,{w:700,s:22});
+  pText(ctx,"בלי מחירים. נחזור אליכם עם הצעת מחיר.",PX0+22,y+40,{s:17,c:"#555",al:"left"});
+  return y+62+22}
+function pFoot(ctx,i,n){const y=PG.h-PG.m+14;ctx.fillStyle="#151515";ctx.fillRect(PX0,y-34,PCW,1.5);
+  pText(ctx,"ספוטליין · ייעוץ ושיווק תאורה · 08-6377033",PX1,y,{s:17,c:"#444"});pText(ctx,`עמוד ${i+1} מתוך ${n}`,PX0,y,{s:17,c:"#444",al:"left",dir:"rtl"})}
+function pRows(run){const g=geo(run),w=watts(run),m=modelOf(run),fl=feedLenN(run),ft=feedTxt(run),strip=isStrip(run),t=typeOf(run.type);
+  return [["צורה",shapeTxt(run)],["מידות",dimsTxt(run)],["אורך",`${fmtM(g.total)} מ׳`],["סוג",t?t.n:""],
+    !strip&&["דגם",m?`${m.n}, מק״ט ${m.sku}`:"המלצה מהחנות"],!strip&&["צבע גוף",run.fin],
+    ["גוון",`${run.k}K ${kOf(run.k).n}`],["הספק",`${run.wpm}W למטר · ${fmtW(w)} סה״כ · ספק מומלץ ${psu(w)}`],
+    ["הזנה (X)",ft||"לא סומנה"],fl&&["אורך הזנה",`${fmt(fl)} ס״מ`],["פינות",cornTxt(g.corners,g.rc)],
+    run.corner&&hasCorner(run)&&["פינה","עוברת בין קיר לתקרה"],g.curved&&["ייצור",CURVE_NOTE],run.note&&["הערות",run.note]].filter(Boolean)}
+function pBlock(ctx,run,idx,imgs){
+  const NUMW=78,SKW=470,SKH=300,DR=PX1-NUMW-22,DL=PX0+SKW+40,DW=DR-DL,LW=126,VW=DW-LW-12,LH=25;
+  const title=pWrap(ctx,runName(run),DW,pf(700,23));
+  const rows=pRows(run).map(([k,v])=>({k,lines:pWrap(ctx,v,VW,pf(700,18))}));
+  const dh=18+title.length*30+10+rows.reduce((s,r)=>s+r.lines.length*LH+5,0)+8;
+  const body=Math.max(dh,SKH+28);
+  /* photos the customer added to this run */
+  const ph=run.photos.map(p=>imgs.get(p.url)).filter(Boolean),TH=150,places=[];let rowsN=0;
+  if(ph.length){let x=PX1-20,yy=0;rowsN=1;ph.forEach(im=>{const w=Math.min(250,TH*im.naturalWidth/Math.max(1,im.naturalHeight));if(x-w<PX0+20){x=PX1-20;yy+=TH+12;rowsN++}places.push({im,x:x-w,y:yy,w});x-=w+12})}
+  const phH=ph.length?44+rowsN*(TH+12)+8:0,h=body+phH;
+  return {h,draw(ctx,y){
+    ctx.strokeStyle="#151515";ctx.setLineDash([]);ctx.lineWidth=2.5;ctx.strokeRect(PX0,y,PCW,h);
+    ctx.fillStyle="#151515";ctx.fillRect(PX1-NUMW,y,1.5,body);ctx.fillRect(DL-20,y,1,body);
+    pText(ctx,String(idx+1),PX1-NUMW/2,y+64,{w:700,s:46,al:"center",dir:"ltr"});
+    let yy=y+18;title.forEach(l=>{yy+=25;pText(ctx,l,DR,yy,{w:700,s:23});yy+=5});yy+=10;
+    rows.forEach(r=>{pText(ctx,r.k,DR,yy+19,{s:16,c:"#5a5a5a"});r.lines.forEach((l,i)=>pText(ctx,l,DR-LW,yy+19+i*LH,{w:700,s:18}));yy+=r.lines.length*LH+5});
+    const sk=sketch(run,SKW/1.25,SKH/1.25,{paper:true});drawOps(ctx,sk.ops,PX0+14,y+14,1.25);
+    if(ph.length){const top=y+body;ctx.setLineDash([6,5]);ctx.lineWidth=1;ctx.strokeStyle="#8a8a8a";ctx.beginPath();ctx.moveTo(PX0,top);ctx.lineTo(PX1,top);ctx.stroke();ctx.setLineDash([]);
+      pText(ctx,`תמונות שצורפו לקו ${idx+1}`,PX1-20,top+30,{w:700,s:18});
+      places.forEach(p=>{ctx.drawImage(p.im,p.x,top+44+p.y,p.w,TH);ctx.strokeStyle="#cccccc";ctx.lineWidth=1;ctx.strokeRect(p.x,top+44+p.y,p.w,TH)})}
+  }}}
+async function planPages(){
+  if(document.fonts&&document.fonts.load)await Promise.all(["400","700"].flatMap(w=>[`${w} 20px "Placebo"`,`${w} 20px "Primaries"`]).map(f=>document.fonts.load(f).catch(()=>null)));
+  const done=RUNS.filter(complete),c=cust(),pages=[],links=[],imgs=new Map();
+  const mk=()=>{const cv=document.createElement("canvas");cv.width=PG.w;cv.height=PG.h;const x=cv.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,PG.w,PG.h);pages.push({cv,x});return x};
+  await Promise.all(done.flatMap(r=>r.photos).map(p=>new Promise(res=>{const im=new Image();im.onload=()=>{imgs.set(p.url,im);res()};im.onerror=()=>res();im.src=p.url})));
+  const bottom=PG.h-PG.m-44;let ctx=mk(),y=pHead(ctx,true,c,done);
+  done.forEach(r=>{const b=pBlock(ctx,r,RUNS.indexOf(r),imgs);if(y+b.h>bottom&&y>PG.m+200){ctx=mk();y=pHead(ctx,false,c,done)}b.draw(ctx,y);y+=b.h+18});
+  const notes=["* מיקום ההזנה מסומן ב-X בשרטוט. המידות בסנטימטרים, עד הקצה החיצוני של הפרופיל.",
+    done.some(r=>r.corner&&hasCorner(r))&&"* בפינה שעוברת בין קיר לתקרה מצרפים סקיצה, תלת מימד או תמונה.",
+    done.some(r=>geo(r).curved)&&"* "+CURVE_NOTE,c.note&&"הערות להזמנה: "+c.note].filter(Boolean);
+  const lines=notes.flatMap(n=>pWrap(ctx,n,PCW,pf(400,17))),nh=lines.length*26+60;
+  if(y+nh>bottom){ctx=mk();y=pHead(ctx,false,c,done)}
+  lines.forEach(l=>{pText(ctx,l,PX1,y+20,{s:17,c:"#333"});y+=26});
+  y+=18;const lt="לפתיחת התכנון באתר, לחצו כאן";pText(ctx,lt,PX1,y+24,{w:700,s:20,c:"#1a56c4"});ctx.font=pf(700,20);const lw=ctx.measureText(lt).width;
+  ctx.fillStyle="#1a56c4";ctx.fillRect(PX1-lw,y+29,lw,1.5);links.push({page:pages.length-1,x:PX1-lw,y:y,w:lw,h:36,url:planLink()});
+  pages.forEach((p,i)=>pFoot(p.x,i,pages.length));
+  return {pages,links}}
+let PDFC=null;
+const pdfSig=()=>JSON.stringify([encPlan(),cust(),RUNS.map(r=>r.photos.map(p=>p.url)),MODELS.length]);
+async function makePdf(){const sig=pdfSig();if(PDFC&&PDFC.sig===sig)return PDFC.file;
+  await loadJsPDF();const {pages,links}=await planPages(),{jsPDF}=window.jspdf,k=210/PG.w;
+  const doc=new jsPDF({unit:"mm",format:"a4",orientation:"portrait",compress:true});
+  pages.forEach((p,i)=>{if(i)doc.addPage("a4","portrait");doc.addImage(p.cv.toDataURL("image/jpeg",.85),"JPEG",0,0,210,297,undefined,"FAST")});
+  links.forEach(l=>{doc.setPage(l.page+1);doc.link(l.x*k,l.y*k,l.w*k,l.h*k,{url:l.url})});
+  doc.setProperties({title:"Spotline - profile plan",creator:"Spotline"});
+  const file=new File([doc.output("blob")],PDF_NAME,{type:"application/pdf"});PDFC={sig,file};return file}
+function saveFile(file){const u=URL.createObjectURL(file),a=document.createElement("a");a.href=u;a.download=file.name;a.rel="noopener";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),10000)}
+function busy(btn,on){const l=$(".bl",btn);if(on){btn._t=l.textContent;l.textContent="מכינים את הקובץ...";btn.setAttribute("aria-busy","true");btn.disabled=true}
+  else{if(btn._t!=null)l.textContent=btn._t;btn._t=null;btn.removeAttribute("aria-busy");btn.disabled=!RUNS.some(complete)}}
+const sayIn=t=>{$("#sIn").textContent=t};
+function shareText(){const c=cust();return ["היי, תכננתי באתר פרופיל לד במידה. מצרף את התכנון כקובץ PDF. אשמח להצעת מחיר.",[c.n&&"שם: "+c.n,c.p&&"טלפון: "+c.p].filter(Boolean).join(", "),"לפתיחת התכנון באתר: "+planLink()].filter(Boolean).join("\n")}
+let SHARE_READY=null;
+/* send: on a phone the PDF goes out through the share sheet. Elsewhere the PDF is downloaded and WhatsApp opens with the text */
+$("#sWa").addEventListener("click",()=>{const b=$("#sWa");if(!RUNS.some(complete)||b.hasAttribute("aria-busy"))return;
+  if(!canShareFiles()){window.open(waLink(waText({pdf:true})),"_blank","noopener");busy(b,true);sayIn("");
+    makePdf().then(f=>{saveFile(f);sayIn("הקובץ ירד למחשב. צרפו אותו להודעה בוואטסאפ.")}).catch(()=>sayIn("לא הצלחנו להכין את הקובץ. ההודעה בוואטסאפ נפתחה עם כל הפרטים.")).finally(()=>busy(b,false));return}
+  const go=f=>navigator.share({files:[f],title:"תכנון פרופיל במידה",text:shareText()}).then(()=>{SHARE_READY=null;sayIn("");renderSum()}).catch(err=>{
+    if(err&&err.name==="NotAllowedError"){SHARE_READY=f;renderSum();sayIn("הקובץ מוכן. לחצו שוב כדי לשלוח.")}
+    else if(!err||err.name!=="AbortError"){SHARE_READY=null;saveFile(f);sayIn("הקובץ ירד למכשיר. צרפו אותו להודעה בוואטסאפ.")}});
+  if(SHARE_READY&&PDFC&&PDFC.file===SHARE_READY&&PDFC.sig===pdfSig()){const f=SHARE_READY;SHARE_READY=null;renderSum();go(f);return}
+  SHARE_READY=null;busy(b,true);sayIn("");makePdf().then(f=>{busy(b,false);return go(f)}).catch(()=>{busy(b,false);sayIn("לא הצלחנו להכין את הקובץ. אפשר לשלוח הודעת טקסט בקישור שלמטה.")})});
+$("#sPdf").addEventListener("click",()=>{const b=$("#sPdf");if(!RUNS.some(complete)||b.hasAttribute("aria-busy"))return;busy(b,true);sayIn("");
+  makePdf().then(f=>{saveFile(f);sayIn("הקובץ ירד. אפשר לצרף אותו להודעה.")}).catch(()=>sayIn("לא הצלחנו להכין את הקובץ. נסו שוב, או השתמשו בהדפסה.")).finally(()=>busy(b,false))});
+$("#sWaTxt").addEventListener("click",e=>{if($("#sWaTxt").hasAttribute("aria-disabled"))e.preventDefault()});
+
 $("#sAdd").addEventListener("click",()=>{
   const done=RUNS.filter(complete);if(!done.length)return;loadCart();
   done.forEach(r=>{const id="pf:"+r.uid,g=geo(r),w=watts(r),m=modelOf(r),ex=cart.find(x=>x.id===id),ft=feedTxt(r),fl=feedLenN(r);
     const d=[shapeTxt(r),dimsTxt(r),isStrip(r)?"":m?"דגם "+m.sku:"דגם לפי המלצה",isStrip(r)?"":r.fin,`ספק ${psu(w)}`,"הזנה: "+(ft||"לא סומנה")+(fl?`, כבל ${fmt(fl)} ס״מ`:""),r.corner&&hasCorner(r)?"פינה בין קיר לתקרה":""].filter(Boolean).join(" · ");
-    const it={id,q:ex?ex.q:1,src:"profile",n:runName(r),d,shape:r.shape,dir:r.shape==="L"?r.dir:"",dims:Object.fromEntries(SH[r.shape].keys.map(k=>[k,r1(g.v[k])])),type:r.type,
+    const it={id,q:ex?ex.q:1,src:"profile",n:runName(r),d,shape:r.shape,dir:r.shape==="L"?r.dir:"",dims:Object.fromEntries(Object.keys(g.v).map(k=>[k,r1(g.v[k])])),segs:r.shape==="free"?g.segs.map(x=>r1(x.len)):undefined,corners:g.corners,type:r.type,
       model:m?m.id:"",sku:m?m.sku:"",fin:isStrip(r)?"":r.fin,k:r.k,wpm:r.wpm,len:r1(g.total),w,psu:psu(w),feed:ft,feedLen:fl||"",corner:!!(r.corner&&hasCorner(r)),note:r.note};
     if(ex)Object.assign(ex,it);else cart.push(it)});
   renderCart();popBadge();
@@ -1829,17 +2428,22 @@ if(document.fonts&&document.fonts.load)Promise.all([document.fonts.load('900 100
 /* ---------------- go ---------------- */
 (function(){const lg=$("#hdrLogo .lg");if(!lg)return;const c=lg.cloneNode(true);const cp=$("clipPath",c);if(cp)cp.id="lgCut-s";const w=$(".lg-word",c);if(w)w.setAttribute("clip-path","url(#lgCut-s)");$$(".lg-pcs",c).forEach(x=>x.remove());LOGO=c.outerHTML})();
 const WANT=(new URLSearchParams(location.search).get("model")||"").trim();
+let FROM_LINK=false;
+{const code=(location.hash.match(/^#p=([\w-]+)/)||[])[1];
+  if(code){try{const rs=decPlan(code);if(rs&&rs.length){RUNS=rs;CUR=0;SHOW_SUM=RUNS.some(complete);FROM_LINK=true;const ph=$("#phModel");ph.textContent="פתחנו את התכנון מהקישור. אפשר לשנות ולשלוח שוב.";ph.hidden=false}}catch(e){}
+    try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}}}
 loadCart();renderCart();renderAll();
+if(FROM_LINK&&SHOW_SUM)setTimeout(goSum,RM?0:400);
 if(document.fonts)document.fonts.ready.then(renderStage);
 fetch("assets/products.json").then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(raw=>{
   ALL=prep(Array.isArray(raw)?raw:[]);loaded=true;
   MODELS=ALL.filter(p=>(p.cat==="profile"&&!p.acc)||(WANT&&p.id===WANT&&(p.cat==="profile"||p.cat==="track"))).map(p=>Object.assign({},p,{ty:inferType(p.n)}));
-  const m=WANT?MODELS.find(x=>x.id===WANT):null;
+  const m=WANT&&!FROM_LINK?MODELS.find(x=>x.id===WANT):null;
   if(m){applyModel(RUNS[0],m);const ph=$("#phModel");ph.innerHTML=`התחלנו עם הדגם <a href="${esc(prodHref(m.id))}">${esc(m.n)}</a>. אפשר להחליף אותו בשלב 3.`;ph.hidden=false}
   renderAll();
 }).catch(err=>{console.error(err);loaded=true;MODELS=[];renderAll()});
 
-window.__pl={get RUNS(){return RUNS},get CUR(){return CUR},renderAll,next,selectRun,addRun,waText,geo,feedTxt,runName,psu,get cart(){return cart}};
+window.__pl={get RUNS(){return RUNS},get CUR(){return CUR},renderAll,next,selectRun,addRun,waText,geo,feedTxt,runName,psu,get cart(){return cart},encPlan,decPlan,planLink,makePdf,shareText,get FD(){return FD}};
 window.__sl=true;
 })();
 </script>
