@@ -821,6 +821,43 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
   .cue i{animation:none;transform:none}
 }
+
+/* ---------- light sections (v13): bright reading areas between the dark "cinema" bands ---------- */
+.tone-light{--bg:#f3efe7;--bg2:#ebe6db;--panel:#fffdf9;--line:rgba(26,21,13,.12);--line2:rgba(26,21,13,.28);--tx:#17140f;--mut:#5c554a;--dim:#6b6457;background:var(--bg);color:var(--tx)}
+.tone-light .h2 .l1{color:var(--tx)}
+.tone-light .h2 .l2>span{color:#9a6c00;background:linear-gradient(90deg,#9a6c00 0 42%,#e0a800 50%,#9a6c00 58% 100%) 0 0/260% 100% no-repeat;-webkit-background-clip:text;background-clip:text}
+.tone-light .shead p,.tone-light .sub{color:var(--mut)}
+.tone-light .btn-o{border-color:rgba(26,21,13,.35);color:var(--tx)}
+.tone-light .btn-o::before{background:#17140f}
+.tone-light .btn-o:hover{color:#fff;border-color:#17140f}
+.tone-light .btn-y::before{background:#17140f}
+.tone-light .btn-y:hover{color:var(--y)}
+.tone-light .cat{background:#faf7f1}
+.tone-light .cat h3,.tone-light .cat .ico{color:#2b261e}
+.tone-light .cat .go{color:#17140f}
+.tone-light .cat .cone{background:linear-gradient(rgba(255,170,30,.26),rgba(255,170,30,0) 92%)}
+.tone-light .cat .cone::before{background:#e8a200}
+.tone-light .cat:hover,.tone-light .cat:focus-visible,.tone-light .cat.hl{background:#fff}
+.tone-light .cat:hover h3,.tone-light .cat:focus-visible h3,.tone-light .cat.hl h3,.tone-light .cat:hover .ico,.tone-light .cat:focus-visible .ico,.tone-light .cat.hl .ico{color:#000}
+.tone-light .cat:hover .ico,.tone-light .cat:focus-visible .ico,.tone-light .cat.hl .ico{--lf:#ffc640}
+.tone-light .cat:hover p,.tone-light .cat.hl p{color:#3e382f}
+.tone-light .seg button{color:#4a443a}
+.tone-light .seg .knob{background:#17140f}
+.tone-light .seg button[aria-pressed="true"],.tone-light .seg button[aria-pressed="true"] small{color:#fff}
+.tone-light .rnb:hover{border-color:#17140f}
+.tone-light .card .ph{background:#e6e0d4}
+.tone-light .card.hl .ph{outline-color:rgba(0,0,0,.6)}
+.tone-light .pj h3{color:var(--tx)}
+.tone-light .pj blockquote{color:#3a342b}
+.tone-light .pj-play:hover .pi{color:#000}
+.tone-light .vrow dd a{text-decoration-color:rgba(0,0,0,.25)}
+.tone-light .vrow dd a:hover{text-decoration-color:#000}
+.tone-light .pj-row p{color:#4a443a}
+.tone-light .pj-play{color:var(--tx)}
+.tone-light .pj-img{background:#e6e0d4}
+.tone-light .map{background:#e9e4da}
+.tone-light .map-ph p{color:#3a342b}
+.tone-light .map iframe{filter:grayscale(1) contrast(.95)}
 </style>
 </head>
 <body data-tone="warm">
@@ -959,7 +996,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
 </div>
 
 <!-- ============ categories ============ -->
-<section class="sec" id="cats" aria-labelledby="catsH">
+<section class="sec tone-light" id="cats" aria-labelledby="catsH">
   <div class="wrap">
     <div class="shead">
       <h2 class="h2" id="catsH" data-split><span class="l1"><span>מה צריך</span></span><span class="l2"><span>להאיר?</span></span></h2>
@@ -982,7 +1019,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
 </section>
 
 <!-- ============ catalog peek ============ -->
-<section class="sec" id="new" aria-labelledby="newH">
+<section class="sec tone-light" id="new" aria-labelledby="newH">
   <div class="wrap">
     <div class="shead">
       <div>
@@ -1081,7 +1118,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
 </section>
 
 <!-- ============ projects ============ -->
-<section class="sec" id="projects" aria-labelledby="projH">
+<section class="sec tone-light" id="projects" aria-labelledby="projH">
   <div class="wrap">
     <div class="shead">
       <h2 class="h2" id="projH" data-split><span class="l1"><span>בתים</span></span><span class="l2"><span>שהארנו</span></span></h2>
@@ -1165,7 +1202,7 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
 </section>
 
 <!-- ============ visit ============ -->
-<section class="sec" id="visit" aria-labelledby="visitH">
+<section class="sec tone-light" id="visit" aria-labelledby="visitH">
   <div class="wrap visit">
     <div>
       <h2 class="h2" id="visitH" data-split><span class="l1"><span>בואו לראות</span></span><span class="l2"><span>את האור</span></span></h2>
