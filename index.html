@@ -236,10 +236,10 @@ section[id]{scroll-margin-top:calc(var(--hdr) + 12px)}
 
 /* ---------- sections ---------- */
 .sec{position:relative;padding:var(--pt,120px) 0 var(--pb,120px)}
-#cats{--pt:72px;--pb:140px}
-#rooms{--pt:0px;--pb:80px}
+#cats{--pt:112px;--pb:128px}
+#rooms{--pt:120px;--pb:100px}
 #new{--pt:96px;--pb:112px}
-#calc{--pt:64px;--pb:128px}
+#calc{--pt:128px;--pb:128px}
 #why{--pt:128px;--pb:128px}
 #visit{--pt:160px;--pb:140px}
 @media (max-width:900px){.sec{padding:calc(var(--pt,120px) * .55) 0 calc(var(--pb,120px) * .55)}}
@@ -858,6 +858,14 @@ input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #000,0 0 
 .tone-light .map{background:#e9e4da}
 .tone-light .map-ph p{color:#3a342b}
 .tone-light .map iframe{filter:grayscale(1) contrast(.95)}
+.tone-light .add{border-color:rgba(23,20,15,.35);color:#17140f}
+.tone-light .add:hover{background:#17140f;color:#fff;border-color:#17140f}
+.tone-light .add.done{border-color:#17140f;background:#17140f;color:#fff}
+.tone-light .ask{border-color:rgba(23,20,15,.35);color:#17140f}
+.tone-light .ask:hover{background:#17140f;color:#fff;border-color:#17140f}
+.tone-light .sw button i{border-color:rgba(23,20,15,.3)}
+.tone-light .sw button[aria-pressed="true"] i{outline-color:#17140f}
+.tone-light .sw button .tip{background:#17140f;color:#fff}
 </style>
 </head>
 <body data-tone="warm">
