@@ -223,7 +223,12 @@ main{padding-top:var(--hdr)}
 .hk-logo img{height:clamp(30px,2.5vw,42px);width:auto;transition:opacity .4s}
 .hk-on .hk-logo img{opacity:0}
 .hk-cv{position:absolute;pointer-events:none}
-@media (max-width:600px){.hk-credit{flex-direction:column;gap:8px;text-align:center}}</style>
+@media (max-width:600px){.hk-credit{flex-direction:column;gap:8px;text-align:center}}
+.ptx{position:relative;display:inline-block;-webkit-user-select:none;user-select:none;cursor:default}
+.bye{cursor:default;-webkit-user-select:none;user-select:none}
+.pbl{display:inline-block;width:0;height:0;vertical-align:baseline}
+.ptx>canvas{position:absolute;pointer-events:none}
+.pt-on .ptx,.pt-on .ptx em{color:transparent}</style>
 </head>
 <body>
 <a class="skip" href="#main">דילוג לתוכן</a>
@@ -253,7 +258,7 @@ main{padding-top:var(--hdr)}
       <span class="hk-t">עיצוב, אפיון ופיתוח</span>
       <span class="hk-logo"><img src="assets/haim-logo.webp" alt="חיים קליין" width="480" height="120" decoding="async"></span>
       <span class="hk-t">שער הכניסה לעסקים חרדיים בדיגיטל</span>
-    </a></div><div class="bye" aria-hidden="true">ספוטליין<em>.</em></div></footer>
+    </a></div><div class="bye" aria-hidden="true"><span class="ptx">ספוטליין<em>.</em><i class="pbl"></i></span></div></footer>
 <script>
 (function(){var d=document,h=d.documentElement;
 /* כפתורים: העיגול מתרחב מהנקודה שבה העכבר נכנס, ומתכווץ לנקודה שבה יצא */
@@ -287,6 +292,75 @@ if(!a){location.replace(IDX);}else{
  function spy(){var y=innerHeight*.3,cur=0;heads.forEach(function(h,i){if(h&&h.getBoundingClientRect().top<y)cur=i});links.forEach(function(l,i){l.classList.toggle('on',i===cur)})}
  addEventListener('scroll',spy,{passive:true});spy();
 }
+</script>
+<script>
+/* v5 particle words: "כל חלום" is dark dust that lights up gold under the pointer (and under a slow idle sweep),
+   and the closing footer word "ספוטליין." is made of yellow particles that scatter and flare when touched.
+   The real text stays in the DOM for search engines and screen readers; the canvas only paints it. */
+(function(){
+  var RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function ptext(host,o){
+    var span=host.querySelector(".ptx"),mark=span&&span.querySelector(".pbl");if(!span||!mark)return;
+    var cv=document.createElement("canvas");cv.setAttribute("aria-hidden","true");span.appendChild(cv);
+    var x=cv.getContext("2d"),W=0,H=0,P=[],mx=-1e4,my=-1e4,pmx=null,pmy=null,spd=0,last=-1e4,vis=false,raf=0,t0=performance.now(),ok=false,LV=8,B=[];
+    for(var b=0;b<LV;b++)B.push([]);
+    function build(){
+      var cs=getComputedStyle(span),fs=parseFloat(cs.fontSize);if(!fs)return;
+      var padX=fs*.08,padT=fs*.35,padB=fs*.25;
+      cv.style.left=-padX+"px";cv.style.right=-padX+"px";cv.style.top=-padT+"px";cv.style.bottom=-padB+"px";
+      var sr=span.getBoundingClientRect();W=Math.round(sr.width+2*padX);H=Math.round(sr.height+padT+padB);if(W<10||H<10)return;
+      var DPR=Math.min(devicePixelRatio||1,2);cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR);cv.style.width=W+"px";cv.style.height=H+"px";x.setTransform(DPR,0,0,DPR,0,0);
+      var oc=document.createElement("canvas");oc.width=W;oc.height=H;var c=oc.getContext("2d",{willReadFrequently:true});
+      var font=cs.fontStyle+" "+cs.fontWeight+" "+fs+"px "+cs.fontFamily;c.font=font;c.direction="rtl";c.textAlign="right";c.textBaseline="alphabetic";
+      var base=mark.getBoundingClientRect().top-sr.top+padT, right=sr.width+padX, txt=o.text;
+      c.fillStyle="#000";c.fillText(txt,right,base);
+      var dotX=-1;if(o.dot){var tw=c.measureText(txt).width,dw=c.measureText(o.dot).width;dotX=right-tw+dw*1.15}
+      var d=c.getImageData(0,0,W,H).data,small=innerWidth<700,max=small?o.maxM:o.max,gap=Math.max(2,Math.round(fs/o.div)),pts;
+      for(var tries=0;tries<6;tries++){pts=[];for(var yy=0;yy<H;yy+=gap)for(var xx=0;xx<W;xx+=gap)if(d[4*(yy*W+xx)+3]>140)pts.push([xx,yy]);if(pts.length<=max)break;gap++}
+      var old=P;P=[];
+      for(var i=0;i<pts.length;i++){var q=old[i],hx=pts[i][0]+(Math.random()-.5)*gap*.7,hy=pts[i][1]+(Math.random()-.5)*gap*.7;
+        P.push({hx:hx,hy:hy,x:q?q.x:hx,y:q?q.y:hy,vx:0,vy:0,h:q?q.h:0,r:gap*o.rf*(.75+Math.random()*.5),w:dotX>0&&hx<dotX})}
+      ok=true;host.classList.add("pt-on");if(RM||!raf)draw(performance.now(),true);
+    }
+    function draw(ts,still){
+      x.clearRect(0,0,W,H);for(var b=0;b<LV;b++)B[b].length=0;
+      spd*=.94;var R=o.radius*(innerWidth<700?.75:1)*(1+spd*.1),R2=R*R,PU=o.push*(1+spd*.6),sx=-1e4,sy=-1e4,sweep=o.sweep&&!still&&ts-last>1600;
+      if(sweep){var tt=(ts-t0)/1000;sx=W*(.5+.44*Math.sin(tt*.42));sy=H*(.55+.22*Math.sin(tt*.83))}
+      for(var i=0;i<P.length;i++){var p=P[i],hot=0;
+        if(!still){
+          var dx=p.x-mx,dy=p.y-my,dd=dx*dx+dy*dy;
+          if(dd<R2){var dist=Math.sqrt(dd)||1,f=1-dist/R;hot=f;if(PU){p.vx+=dx/dist*f*PU+(Math.random()-.5)*f;p.vy+=dy/dist*f*PU+(Math.random()-.5)*f}}
+          if(sweep){var ex=p.x-sx,ey=p.y-sy,ee=ex*ex+ey*ey;if(ee<R2*1.4){var g=1-Math.sqrt(ee/(R2*1.4));if(g*.85>hot)hot=g*.85}}
+          if(hot>p.h)p.h=p.h+(hot-p.h)*.35;else p.h*=o.decay;
+          p.vx+=(p.hx-p.x)*o.k;p.vy+=(p.hy-p.y)*o.k;p.vx*=o.damp;p.vy*=o.damp;p.x+=p.vx;p.y+=p.vy;
+        }
+        var lv=Math.min(LV-1,(p.h*LV)|0);B[p.w?0:lv].push(p);
+      }
+      for(var k=0;k<LV;k++){var arr=B[k];if(!arr.length)continue;
+        x.fillStyle=o.color(k/(LV-1),k===0&&o.dot?arr:null);
+        for(var j=0;j<arr.length;j++){var q=arr[j];if(q.w)continue;var r=q.r*(1+q.h*.35);x.fillRect(q.x-r/2,q.y-r/2,r,r)}
+      }
+      if(o.dot){x.fillStyle=o.dotColor;for(var m=0;m<B[0].length;m++){var z=B[0][m];if(!z.w)continue;x.fillRect(z.x-z.r/2,z.y-z.r/2,z.r,z.r)}}
+    }
+    function loop(ts){draw(ts,false);raf=vis?requestAnimationFrame(loop):0}
+    function start(){if(ok&&vis&&!RM&&!raf)raf=requestAnimationFrame(loop)}
+    var zone=o.zone||host;
+    zone.addEventListener("pointermove",function(e){var r=cv.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top;if(pmx!==null){var v=Math.hypot(mx-pmx,my-pmy);spd=Math.min(1.2,spd*.6+v*.04)}pmx=mx;pmy=my;last=performance.now()},{passive:true});
+    zone.addEventListener("pointerleave",function(){mx=my=-1e4;pmx=pmy=null;spd=0});
+    ["pointerup","pointercancel"].forEach(function(t){zone.addEventListener(t,function(e){if(e.pointerType!=="mouse")setTimeout(function(){mx=my=-1e4},300)})});
+    if("IntersectionObserver" in window)new IntersectionObserver(function(es){vis=es[0].isIntersecting;start()},{rootMargin:"80px"}).observe(host);else{vis=true}
+    document.addEventListener("visibilitychange",function(){vis=document.visibilityState==="visible"&&vis;start()});
+    var rz;addEventListener("resize",function(){clearTimeout(rz);rz=setTimeout(function(){build();start()},260)});
+    var go=function(){build();start()};
+    if(document.fonts&&document.fonts.load){Promise.all([document.fonts.load(o.fontProbe),document.fonts.ready]).then(function(){setTimeout(go,60)},go)}else setTimeout(go,300);
+  }
+  var dream=document.getElementById("dream");
+  if(dream)ptext(dream,{text:"כל חלום",fontProbe:'700 100px "Placebo"',div:48,rf:.5,max:6000,maxM:2400,radius:120,push:1.1,k:.055,damp:.84,decay:.988,sweep:true,
+    color:function(t){var a=(.22+t*.78).toFixed(3),r=Math.round(150+105*t),g=Math.round(135+61*t),b=Math.round(115-75*t);return "rgba("+r+","+g+","+b+","+a+")"}});
+  var bye=document.querySelector(".bye");
+  if(bye)ptext(bye,{text:"ספוטליין.",dot:".",fontProbe:'900 100px "Primaries"',div:52,rf:.62,max:8000,maxM:2800,radius:110,push:1.5,k:.06,damp:.83,decay:.95,sweep:false,zone:document.getElementById("ftr"),
+    dotColor:"#ffffff",color:function(t){var r=255,g=Math.round(189+62*t),b=Math.round(0+235*t);return "rgb("+r+","+g+","+b+")"}});
+})();
 </script>
 <script>
 /* footer credit: the Haim Klain logo is drawn as particles that assemble when it comes into view and scatter under the pointer */
