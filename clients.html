@@ -1,0 +1,812 @@
+<!doctype html>
+<html lang="he" dir="rtl" data-slx-off>
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>אזור לקוחות - ספוטליין</title>
+<meta name="theme-color" content="#0a0a0a">
+<style>
+@font-face{font-family:"Primaries";src:url("assets/fonts/primaries-light-aaa.otf") format("opentype");font-weight:300;font-display:swap}
+@font-face{font-family:"Primaries";src:url("assets/fonts/primaries-regular-aaa.otf") format("opentype");font-weight:400;font-display:swap}
+@font-face{font-family:"Primaries";src:url("assets/fonts/primaries-medium-aaa.otf") format("opentype");font-weight:500;font-display:swap}
+@font-face{font-family:"Primaries";src:url("assets/fonts/primaries-bold-aaa.otf") format("opentype");font-weight:700;font-display:swap}
+@font-face{font-family:"Primaries";src:url("assets/fonts/primaries-black-aaa.otf") format("opentype");font-weight:900;font-display:swap}
+@font-face{font-family:"Placebo";src:url("assets/fonts/placebo-bold-fm.otf") format("opentype");font-weight:700;font-display:swap}
+
+:root{--y:#FFBD00;--k:#0a0a0a;--bg:#f3efe7;--panel:#fffdf9;--tx:#17140f;--mut:#5c554a;--dim:#8f897f;--line:rgba(26,21,13,.12);--line2:rgba(26,21,13,.22);--gold:#9a6c00;--ok:#2f6b3a;--bad:#a3341f;--ease:cubic-bezier(.16,1,.3,1);--side:2.5rem}
+*{box-sizing:border-box}
+html{font-size:16px;background:var(--bg);-webkit-text-size-adjust:100%}
+@media (min-width:1100px){html{font-size:calc(100vw / 90)}}
+body{margin:0;font-family:"Primaries",system-ui,sans-serif;color:var(--tx);background:var(--bg);font-size:1rem;line-height:1.45;min-height:100vh}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--y);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+[hidden]{display:none!important}
+.ltr{direction:ltr;unicode-bidi:isolate}
+
+/* buttons: a circle in the button colour grows from where the pointer came in */
+.b{position:relative;overflow:hidden;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:.5rem;height:2.75rem;padding:0 1.25rem;border:1px solid transparent;font-weight:700;font-size:.95rem;white-space:nowrap;background:none;text-decoration:none;transition:color .4s var(--ease),border-color .4s}
+.b svg{width:1.1rem;height:1.1rem;flex:none}
+.b .rip{position:absolute;z-index:-1;border-radius:50%;transform:translate(-50%,-50%) scale(0);pointer-events:none;transition:transform .55s var(--ease)}
+.b-y{background:var(--y);color:var(--k)}.b-y .rip{background:var(--k)}.b-y.hov{color:var(--y)}
+.b-k{background:var(--k);color:#fff}.b-k .rip{background:var(--y)}.b-k.hov{color:var(--k)}
+.b-o{border-color:var(--line2);color:var(--tx)}.b-o .rip{background:var(--k)}.b-o.hov{color:#fff;border-color:var(--k)}
+.b-t{color:var(--mut);height:2.25rem;padding:0 .75rem;font-weight:500}.b-t .rip{background:rgba(26,21,13,.08)}
+.b-d{color:var(--bad);border-color:rgba(163,52,31,.35)}.b-d .rip{background:var(--bad)}.b-d.hov{color:#fff}
+.dark .b-o{border-color:rgba(243,239,231,.25);color:#f3efe7}.dark .b-o .rip{background:#f3efe7}.dark .b-o.hov{color:var(--k)}
+.b-sm{height:2.25rem;padding:0 .9rem;font-size:.875rem}
+@media (prefers-reduced-motion:reduce){.b .rip{display:none}.b:hover{filter:brightness(1.08)}*{transition-duration:.01ms!important}}
+
+/* ---------- header ---------- */
+.top{position:sticky;top:0;z-index:30;background:var(--k);color:#f3efe7;display:flex;align-items:center;gap:1.25rem;height:4.25rem;padding:0 var(--side)}
+.top .lg{display:flex;align-items:center;gap:1rem;text-decoration:none}
+.top .lg svg{height:2.4rem;width:auto;color:#f3efe7}
+.lg-arc{fill:none;stroke:currentColor;stroke-width:3}.lg-stem{fill:none;stroke:currentColor;stroke-width:2.4}
+.top .lg span{font-size:.9rem;color:#a39e94;border-inline-start:1px solid rgba(243,239,231,.2);padding-inline-start:1rem;line-height:1.1}
+.top .lg span b{display:block;color:#f3efe7;font-size:1.05rem;font-weight:700}
+.top .sp{flex:1}
+.top .note{font-size:.8rem;color:#a39e94;display:flex;align-items:center;gap:.5rem}
+.top .note i{width:.5rem;height:.5rem;border-radius:50%;background:var(--y);display:inline-block}
+.menu{position:relative}
+.menu-p{position:absolute;inset-inline-end:0;top:calc(100% + .5rem);background:var(--panel);color:var(--tx);min-width:15rem;border:1px solid var(--line);box-shadow:0 1rem 2.5rem rgba(0,0,0,.18);padding:.4rem;display:grid}
+.menu-p button,.menu-p a,.menu-p label{display:flex;align-items:center;gap:.6rem;text-align:start;padding:.7rem .8rem;border:0;background:none;font-size:.92rem;text-decoration:none;cursor:pointer}
+.menu-p button:hover,.menu-p a:hover,.menu-p label:hover{background:var(--bg)}
+.menu-p hr{border:0;border-top:1px solid var(--line);margin:.3rem 0}
+
+/* ---------- layout ---------- */
+.app{display:grid;grid-template-columns:24rem 1fr;min-height:calc(100vh - 4.25rem)}
+.side{border-inline-end:1px solid var(--line);background:var(--panel);display:flex;flex-direction:column;position:sticky;top:4.25rem;height:calc(100vh - 4.25rem)}
+.side-h{padding:1.25rem 1.25rem .75rem;display:grid;gap:.75rem;border-bottom:1px solid var(--line)}
+.srch{display:flex;align-items:center;gap:.5rem;border:1px solid var(--line2);background:#fff;height:2.75rem;padding:0 .8rem}
+.srch svg{width:1.05rem;height:1.05rem;color:var(--dim);flex:none}
+.srch input{border:0;outline:0;background:none;flex:1;min-width:0;font-size:.95rem}
+.chips{display:flex;gap:.4rem;flex-wrap:wrap}
+.chip{border:1px solid var(--line2);background:none;height:2rem;padding:0 .75rem;font-size:.82rem;font-weight:500;color:var(--mut)}
+.chip[aria-pressed=true]{background:var(--k);color:#fff;border-color:var(--k)}
+.list{overflow:auto;flex:1;padding:.4rem 0}
+.ci{display:grid;grid-template-columns:2.6rem 1fr auto;gap:.15rem .8rem;align-items:center;padding:.8rem 1.25rem;border:0;background:none;width:100%;text-align:start;border-inline-start:3px solid transparent}
+.ci:hover{background:var(--bg)}
+.ci[aria-current=true]{background:var(--bg);border-inline-start-color:var(--y)}
+.av{grid-row:span 2;width:2.6rem;height:2.6rem;border-radius:50%;background:#e8e1d3;display:grid;place-items:center;font-weight:700;font-size:1rem;color:var(--tx)}
+.ci .av.live{background:var(--y)}
+.ci b{font-weight:700;font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ci small{color:var(--mut);font-size:.8rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;grid-column:2}
+.ci .when{grid-row:1;grid-column:3;font-size:.75rem;color:var(--dim)}
+.ci .st{grid-row:2;grid-column:3}
+.empty-l{padding:2rem 1.25rem;color:var(--mut);font-size:.92rem}
+
+.main{padding:2rem var(--side) 4rem;min-width:0}
+.welcome{max-width:38rem;padding-top:3rem}
+.welcome h1{font:700 2.6rem/1.1 "Placebo","Primaries",sans-serif;margin:0 0 1rem}
+.welcome h1 em{font-style:normal;color:var(--gold)}
+.welcome p{color:var(--mut);font-size:1.05rem;margin:0 0 1.75rem}
+.steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:2rem 0}
+.steps3 div{background:var(--panel);padding:1.1rem}
+.steps3 b{display:block;font-size:.95rem;margin-bottom:.25rem}
+.steps3 span{font-size:.85rem;color:var(--mut)}
+.steps3 i{font-style:normal;color:var(--gold);font-weight:700;font-size:.8rem;display:block;margin-bottom:.4rem}
+
+/* status tags */
+.tag{display:inline-flex;align-items:center;gap:.35rem;font-size:.72rem;font-weight:700;padding:.15rem .5rem;border:1px solid currentColor;white-space:nowrap;line-height:1.4}
+.tag::before{content:"";width:.4rem;height:.4rem;border-radius:50%;background:currentColor}
+.t-draft{color:var(--dim)}.t-sent{color:#1f5f8b}.t-approved{color:var(--gold)}.t-part{color:#7a5a12}.t-bought{color:var(--ok)}.t-cancel{color:var(--bad)}
+
+/* ---------- client card ---------- */
+.back{display:none}
+.ch{display:flex;align-items:flex-start;gap:1.5rem;flex-wrap:wrap;padding-bottom:1.5rem;border-bottom:1px solid var(--line)}
+.ch .av{width:4rem;height:4rem;font-size:1.5rem;grid-row:auto}
+.ch .who{flex:1;min-width:14rem}
+.ch h1{margin:0;font:700 2.2rem/1.1 "Placebo","Primaries",sans-serif}
+.ch .meta{display:flex;flex-wrap:wrap;gap:.25rem 1rem;margin-top:.5rem;color:var(--mut);font-size:.92rem}
+.ch .meta a{text-decoration:none;border-bottom:1px solid var(--line2)}
+.ch .acts{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.live-bar{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem;background:var(--k);color:#f3efe7;padding:.8rem 1rem;margin-top:1.25rem;font-size:.92rem}
+.live-bar i{width:.55rem;height:.55rem;border-radius:50%;background:var(--y);box-shadow:0 0 0 .3rem rgba(255,189,0,.2);flex:none}
+.live-bar .sp{flex:1}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}
+.stats div{padding:1.1rem 0;border-inline-start:1px solid var(--line);padding-inline-start:1.25rem}
+.stats div:first-child{border:0;padding-inline-start:0}
+.stats small{display:block;color:var(--mut);font-size:.8rem}
+.stats b{font-size:1.5rem;font-weight:700}
+.tabs{display:flex;gap:2rem;border-bottom:1px solid var(--line);margin-top:.5rem}
+.tab{border:0;background:none;padding:1rem 0 .85rem;font-weight:500;color:var(--mut);border-bottom:2px solid transparent;margin-bottom:-1px;font-size:1rem}
+.tab[aria-selected=true]{color:var(--tx);border-bottom-color:var(--y);font-weight:700}
+.tab span{color:var(--dim);font-weight:400}
+.pane{padding-top:1.5rem}
+
+/* quotes */
+.qbar{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin-bottom:1.25rem}
+.qchip{display:flex;flex-direction:column;align-items:flex-start;gap:.15rem;border:1px solid var(--line2);background:var(--panel);padding:.55rem .9rem;min-width:9rem;text-align:start}
+.qchip b{font-size:.9rem}
+.qchip small{font-size:.75rem;color:var(--mut)}
+.qchip[aria-pressed=true]{border-color:var(--k);box-shadow:inset 0 -3px 0 var(--y)}
+.qhead{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:end;background:var(--panel);border:1px solid var(--line);padding:1.25rem}
+.qhead .ttl{display:grid;gap:.35rem}
+.qhead input.qt{font:700 1.5rem/1.2 "Primaries",sans-serif;border:0;border-bottom:1px dashed var(--line2);background:none;padding:.1rem 0;width:100%;outline:0}
+.qhead input.qt:focus{border-bottom-color:var(--k)}
+.qhead .sub{display:flex;flex-wrap:wrap;gap:.25rem 1.25rem;font-size:.85rem;color:var(--mut)}
+.qhead .ctl{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+label.f{display:grid;gap:.3rem;font-size:.8rem;color:var(--mut);font-weight:500}
+.inp,select.inp,textarea.inp{border:1px solid var(--line2);background:#fff;height:2.6rem;padding:0 .7rem;font-size:.95rem;color:var(--tx);border-radius:0;width:100%}
+textarea.inp{height:auto;padding:.6rem .7rem;resize:vertical;min-height:4.5rem}
+.inp:focus{outline:0;border-color:var(--k);box-shadow:0 0 0 3px rgba(255,189,0,.35)}
+
+.lines{margin-top:1rem;background:var(--panel);border:1px solid var(--line)}
+.lh,.ln{display:grid;grid-template-columns:4rem minmax(10rem,1fr) 8rem 7rem 7rem 6.5rem 5rem 2.5rem;gap:.9rem;align-items:center;padding:.75rem 1rem}
+.lh{font-size:.75rem;color:var(--mut);font-weight:700;border-bottom:1px solid var(--line);padding-top:.6rem;padding-bottom:.6rem}
+.ln{border-bottom:1px solid var(--line)}
+.ln:last-child{border-bottom:0}
+.ln.got{background:linear-gradient(90deg,rgba(47,107,58,.06),transparent)}
+.th{width:4rem;height:4rem;background:#efe9de;display:grid;place-items:center;overflow:hidden}
+.th img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
+.th svg{width:1.6rem;height:1.6rem;color:var(--dim)}
+.pn b{display:block;font-size:.98rem;line-height:1.3}
+.pn small{display:block;color:var(--mut);font-size:.8rem}
+.pn .nt{border:0;background:none;padding:0;color:var(--gold);font-size:.78rem;font-weight:500;margin-top:.2rem}
+.pn .nt-in{margin-top:.4rem;height:2.1rem;font-size:.85rem}
+.ln .inp{height:2.4rem;font-size:.9rem}
+.qty{display:flex;align-items:center;border:1px solid var(--line2);background:#fff;height:2.4rem;width:100%}
+.qty button{width:2.2rem;height:100%;border:0;background:none;font-size:1.1rem;color:var(--mut);flex:none}
+.qty button:hover{background:var(--bg);color:var(--tx)}
+.qty input{width:100%;min-width:0;border:0;text-align:center;outline:0;height:100%;background:none;font-weight:700;-moz-appearance:textfield}
+.qty input::-webkit-inner-spin-button{display:none}
+.money{position:relative}
+.money input{padding-inline-end:1.7rem;direction:ltr;text-align:right}
+.money::before{content:"₪";position:absolute;inset-inline-end:.65rem;top:50%;transform:translateY(-50%);color:var(--dim);font-size:.85rem;pointer-events:none}
+.money.miss input{border-color:rgba(163,52,31,.45);background:#fff8f5}
+.sum{font-weight:700;font-size:.98rem;direction:ltr;text-align:right}
+.sum.dash{color:var(--dim);font-weight:400}
+.got-c{display:flex;align-items:center;gap:.4rem;font-size:.8rem;color:var(--mut);cursor:pointer;user-select:none}
+.got-c input{width:1.15rem;height:1.15rem;accent-color:var(--ok);margin:0}
+.got-c.on{color:var(--ok);font-weight:700}
+.rm{border:0;background:none;width:2.2rem;height:2.2rem;display:grid;place-items:center;color:var(--dim)}
+.rm:hover{color:var(--bad);background:#fff1ec}
+.rm svg{width:1rem;height:1rem}
+.nolines{padding:2.5rem 1.25rem;text-align:center;color:var(--mut)}
+.nolines b{display:block;color:var(--tx);font-size:1.1rem;margin-bottom:.3rem}
+
+.addrow{display:flex;gap:.75rem;align-items:flex-start;padding:1rem;border-top:1px solid var(--line);background:#fbf8f2;flex-wrap:wrap}
+.pick{position:relative;flex:1;min-width:16rem}
+.pick .res{position:absolute;inset-inline:0;top:calc(100% + .25rem);background:#fff;border:1px solid var(--line2);box-shadow:0 1rem 2rem rgba(0,0,0,.12);z-index:20;max-height:22rem;overflow:auto}
+.pick .res button{display:grid;grid-template-columns:2.8rem 1fr;gap:.7rem;align-items:center;width:100%;border:0;background:none;padding:.5rem .7rem;text-align:start;border-bottom:1px solid var(--line)}
+.pick .res button:hover,.pick .res button.on{background:var(--bg)}
+.pick .res .th{width:2.8rem;height:2.8rem}
+.pick .res b{font-size:.9rem;display:block}
+.pick .res small{font-size:.75rem;color:var(--mut)}
+.pick .res .none{padding:.9rem;color:var(--mut);font-size:.88rem}
+
+.qfoot{display:grid;grid-template-columns:1fr 24rem;gap:1.5rem;margin-top:1.25rem;align-items:start}
+.notes{display:grid;gap:1rem}
+.tot{background:var(--panel);border:1px solid var(--line);padding:1.1rem 1.25rem;display:grid;gap:.55rem}
+.tot .r{display:flex;justify-content:space-between;align-items:center;font-size:.95rem;gap:1rem}
+.tot .r span:last-child{direction:ltr;font-weight:500}
+.tot .r.big{border-top:1px solid var(--line2);padding-top:.75rem;margin-top:.25rem;font-size:1.25rem;font-weight:700}
+.tot .r.big span:last-child{font-weight:700}
+.tot .r.mut{color:var(--mut);font-size:.85rem}
+.tot .disc{display:flex;gap:.4rem;align-items:center}
+.tot .disc input{width:5.5rem;height:2.2rem;direction:ltr;text-align:right}
+.tot .disc select{width:3.4rem;height:2.2rem;padding:0 .3rem}
+.tot .warn{font-size:.8rem;color:var(--bad)}
+.tgl{display:flex;align-items:center;gap:.5rem;font-size:.85rem;color:var(--mut);cursor:pointer}
+.tgl input{accent-color:var(--k);width:1rem;height:1rem;margin:0}
+.qacts{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--line)}
+.qacts .sp{flex:1}
+
+/* purchases + log */
+.buy-g{margin-bottom:1.75rem}
+.buy-g h3{font-size:.85rem;color:var(--mut);font-weight:700;margin:0 0 .5rem;display:flex;gap:.75rem;align-items:baseline}
+.buy-g h3 span{font-weight:400}
+.buy{display:grid;grid-template-columns:3rem 1fr 5rem 7rem 7rem;gap:.9rem;align-items:center;padding:.6rem 1rem;background:var(--panel);border:1px solid var(--line);border-bottom:0}
+.buy:last-child{border-bottom:1px solid var(--line)}
+.buy .th{width:3rem;height:3rem}
+.buy b{font-size:.92rem;display:block}
+.buy small{font-size:.78rem;color:var(--mut)}
+.buy .n{text-align:center;font-weight:700}
+.buy .m{direction:ltr;text-align:right}
+.buy-tot{display:flex;justify-content:space-between;background:var(--k);color:#f3efe7;padding:1rem 1.25rem;font-size:1.1rem;font-weight:700;margin-bottom:1.75rem}
+.buy-tot span:last-child{direction:ltr;color:var(--y)}
+.log-add{display:flex;gap:.6rem;margin-bottom:1.25rem}
+.log-add textarea{min-height:2.75rem;height:2.75rem}
+.log{list-style:none;margin:0;padding:0;border-inline-start:2px solid var(--line2)}
+.log li{position:relative;padding:0 1.25rem 1.1rem}
+.log li::before{content:"";position:absolute;inset-inline-start:-.36rem;top:.35rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--bg);border:2px solid var(--dim)}
+.log li.man::before{background:var(--y);border-color:var(--y)}
+.log time{display:block;font-size:.75rem;color:var(--dim)}
+.log p{margin:.1rem 0 0;font-size:.95rem;white-space:pre-wrap}
+.det{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;max-width:46rem}
+.det .full{grid-column:1/-1}
+
+/* dialogs */
+dialog{border:0;padding:0;background:var(--panel);color:var(--tx);width:min(34rem,calc(100vw - 2rem));box-shadow:0 2rem 5rem rgba(0,0,0,.35)}
+dialog::backdrop{background:rgba(10,10,10,.6)}
+.dl-h{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.4rem;border-bottom:1px solid var(--line)}
+.dl-h h2{margin:0;font-size:1.25rem}
+.dl-b{padding:1.4rem;display:grid;gap:1rem}
+.dl-f{padding:1rem 1.4rem;border-top:1px solid var(--line);display:flex;gap:.6rem;justify-content:flex-start}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.err{color:var(--bad);font-size:.78rem;font-weight:500}
+.x{border:0;background:none;width:2.4rem;height:2.4rem;display:grid;place-items:center;color:var(--mut)}
+.x:hover{background:var(--bg)}
+.x svg{width:1.1rem;height:1.1rem}
+
+/* login */
+.gate{min-height:100vh;display:grid;place-items:center;background:var(--k);color:#f3efe7;padding:2rem}
+.gate-in{width:min(24rem,100%);text-align:center}
+.gate svg.lgo{height:4.5rem;width:auto;margin-bottom:2rem}
+.gate h1{font:700 1.6rem/1.2 "Placebo","Primaries",sans-serif;margin:0 0 .5rem}
+.gate p{color:#a39e94;margin:0 0 1.75rem;font-size:.95rem}
+.pin{display:flex;gap:.6rem;justify-content:center;margin-bottom:1rem;direction:ltr}
+.pin input{width:3.2rem;height:3.8rem;text-align:center;font-size:1.6rem;font-weight:700;background:#151413;border:1px solid rgba(243,239,231,.2);color:#fff;outline:0}
+.pin input:focus{border-color:var(--y);box-shadow:0 0 0 3px rgba(255,189,0,.25)}
+.gate .err{min-height:1.2rem;color:#ff8f75;margin-bottom:1rem}
+.gate .b{width:100%}
+.gate small{display:block;margin-top:1.5rem;color:#6f6a62;font-size:.8rem}
+.shake{animation:sh .4s}
+@keyframes sh{20%,60%{transform:translateX(-.5rem)}40%,80%{transform:translateX(.5rem)}}
+
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translate(-50%,150%);visibility:hidden;background:var(--k);color:#f3efe7;padding:.85rem 1.25rem;font-size:.92rem;z-index:100;transition:transform .45s var(--ease);display:flex;gap:1rem;align-items:center;max-width:calc(100vw - 2rem)}
+.toast.on{transform:translate(-50%,0);visibility:visible}
+.toast button{border:0;background:none;color:var(--y);font-weight:700;padding:0}
+
+/* ---------- tablet / phone ---------- */
+@media (max-width:1180px){
+  .lh,.ln{grid-template-columns:3.4rem minmax(0,1fr) 7rem 7.5rem 7.5rem 2.4rem;grid-template-areas:"th pn qty pr sum rm" "th room room got got rm"}
+  .lh{display:none}
+  .ln .th{grid-area:th;width:3.4rem;height:3.4rem;align-self:start}.ln .pn{grid-area:pn}.ln .c-room{grid-area:room}.ln .qty{grid-area:qty}.ln .money{grid-area:pr}.ln .sum{grid-area:sum}.ln .c-got{grid-area:got;justify-self:end}.ln .rm{grid-area:rm;align-self:start}
+  .qfoot{grid-template-columns:1fr}
+}
+@media (max-width:900px){
+  :root{--side:1rem}
+  .app{grid-template-columns:1fr}
+  .side{position:static;height:auto;border:0;min-height:calc(100vh - 4.25rem)}
+  .app.open .side{display:none}
+  .app:not(.open) .main{display:none}
+  .back{display:inline-flex;margin-bottom:1rem}
+  .top{gap:.75rem;height:3.75rem}
+  .top .note{display:none}
+  .top .lg svg{height:2rem}
+  .top .lg span{display:none}
+  .main{padding-top:1.25rem}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stats div:nth-child(3){border:0;padding-inline-start:0}
+  .stats div:nth-child(n+3){border-top:1px solid var(--line)}
+  .tabs{gap:1.25rem;overflow-x:auto}
+  .tab{white-space:nowrap}
+  .qhead{grid-template-columns:1fr}
+  .det{grid-template-columns:1fr}
+  .welcome h1{font-size:2rem}
+  .live-bar .sp{display:none}
+  .live-bar>span:not(.sp){flex:1 1 14rem}
+  .steps3{grid-template-columns:1fr}
+  .ch h1{font-size:1.75rem}
+  .buy{grid-template-columns:2.6rem 1fr 3rem 5.5rem}
+  .buy .m.u{display:none}
+}
+@media (max-width:560px){
+  .lh,.ln{grid-template-columns:3rem minmax(0,1fr) minmax(0,1fr) 2.2rem;grid-template-areas:"th pn pn rm" "qty qty pr pr" "room room sum sum" "got got got got";gap:.6rem}
+  .ln .sum{text-align:left;padding-inline-end:.2rem}
+  .ln .c-got{justify-self:start}
+  .ln .th{width:3rem;height:3rem}
+  .rm{width:2.75rem;height:2.75rem}.qty{height:2.75rem}.qty button{width:2.75rem}.got-c{min-height:2.75rem}.got-c input{width:1.4rem;height:1.4rem}.pn .nt{padding:.5rem 0}
+  .two{grid-template-columns:1fr}
+  .ch .acts{width:100%}
+  .ch .acts .b{flex:1}
+  .top .b-y .lbl{display:none}
+}
+
+/* ---------- printed quote (A4) ---------- */
+#doc{display:none}
+@media print{
+  @page{size:A4;margin:12mm 12mm 14mm}
+  html{font-size:10.5pt;background:#fff}
+  body{background:#fff}
+  body>*:not(#doc){display:none!important}
+  #doc{display:block;color:#111;font-family:"Primaries",Arial,sans-serif}
+  .d-h{display:flex;justify-content:space-between;align-items:flex-end;padding-bottom:5mm;border-bottom:2.5pt solid #111}
+  .d-h svg{height:17mm;width:auto;color:#111}
+  .d-h .st{text-align:left;font-size:9pt;line-height:1.55;color:#333}
+  .d-t{display:flex;justify-content:space-between;align-items:flex-start;margin:7mm 0 6mm}
+  .d-t h1{font:700 24pt/1 "Placebo","Primaries",sans-serif;margin:0}
+  .d-t h1 small{display:block;font:400 10pt "Primaries",sans-serif;color:#555;margin-top:2mm}
+  .d-t dl{margin:0;display:grid;grid-template-columns:auto auto;gap:1mm 5mm;font-size:9.5pt}
+  .d-t dt{color:#666}.d-t dd{margin:0;font-weight:700}
+  .d-c{border:1pt solid #ddd;padding:3.5mm 4.5mm;display:grid;grid-template-columns:repeat(3,1fr);gap:2mm 6mm;font-size:9.5pt;margin-bottom:6mm}
+  .d-c small{display:block;color:#666;font-size:8pt}
+  .d-c b{font-weight:700}
+  table.d{width:100%;border-collapse:collapse;font-size:9.5pt}
+  table.d th{text-align:right;font-size:8pt;color:#555;font-weight:700;border-bottom:1pt solid #111;padding:2mm 1.5mm}
+  table.d td{border-bottom:.6pt solid #ddd;padding:2.2mm 1.5mm;vertical-align:middle}
+  table.d tr{break-inside:avoid}
+  table.d .im{width:14mm}
+  table.d .im img{width:12mm;height:12mm;object-fit:contain;display:block}
+  table.d .nm b{display:block}
+  table.d .nm small{color:#666;font-size:8pt}
+  table.d .num{text-align:left;direction:ltr;white-space:nowrap}
+  table.d .c{text-align:center}
+  table.d tr.room td{background:#f4f0e8;font-weight:700;font-size:8.5pt;padding:1.4mm 1.5mm;border-bottom:0}
+  .d-f{display:flex;justify-content:space-between;gap:10mm;margin-top:6mm;break-inside:avoid}
+  .d-f .nt{flex:1;font-size:9pt;line-height:1.6;color:#333}
+  .d-f .nt h4{margin:0 0 1.5mm;font-size:9pt;color:#111}
+  .d-f .nt p{margin:0 0 3mm;white-space:pre-wrap}
+  .d-f .tt{width:68mm;font-size:10pt}
+  .d-f .tt div{display:flex;justify-content:space-between;padding:1.3mm 0}
+  .d-f .tt div span:last-child{direction:ltr}
+  .d-f .tt .g{border-top:1.5pt solid #111;margin-top:1.5mm;padding-top:2.5mm;font-size:13pt;font-weight:700}
+  .d-f .tt .y{height:1.5mm;background:#FFBD00;padding:0;margin-top:1mm}
+  .d-s{display:flex;justify-content:space-between;margin-top:14mm;font-size:9pt;color:#444;break-inside:avoid}
+  .d-s div{width:60mm;border-top:.8pt solid #111;padding-top:1.5mm}
+  .d-b{margin-top:8mm;padding-top:3mm;border-top:.6pt solid #ddd;font-size:8pt;color:#777;display:flex;justify-content:space-between}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></g></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.2 1 2V16h5.2v-.2c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></g></symbol>
+  <symbol id="i-dots" viewBox="0 0 24 24"><g fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></g></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></symbol>
+  <symbol id="i-print" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M7 9V3h10v6M7 17H4v-7h16v7h-3"/><path d="M7 14h10v7H7z"/></g></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M14 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M10 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<!-- ============ login ============ -->
+<section class="gate" id="gate" hidden>
+  <form class="gate-in" id="gateF" novalidate>
+    <svg class="lgo" data-logo aria-label="ספוטליין" role="img"></svg>
+    <h1 id="gateT">אזור לקוחות</h1>
+    <p id="gateP">כניסת צוות החנות. הקלידו את קוד הכניסה.</p>
+    <div class="pin" id="pin"><input inputmode="numeric" maxlength="1" aria-label="ספרה 1" autocomplete="off"><input inputmode="numeric" maxlength="1" aria-label="ספרה 2" autocomplete="off"><input inputmode="numeric" maxlength="1" aria-label="ספרה 3" autocomplete="off"><input inputmode="numeric" maxlength="1" aria-label="ספרה 4" autocomplete="off"></div>
+    <div class="err" id="gateE" role="alert"></div>
+    <button class="b b-y" type="submit" id="gateB">כניסה</button>
+    <small>הכניסה נשמרת במכשיר הזה ל-12 שעות.</small>
+  </form>
+</section>
+
+<!-- ============ app ============ -->
+<div id="appWrap" hidden>
+<header class="top">
+  <a class="lg" href="index.html" aria-label="ספוטליין - לאתר"><svg data-logo aria-hidden="true"></svg><span><b>אזור לקוחות</b>צוות החנות</span></a>
+  <div class="sp"></div>
+  <div class="note" title="בתצוגה הזו הנתונים נשמרים בדפדפן של המכשיר. באתר החי הם יישמרו בשרת, ויופיעו בכל מכשיר."><i></i>נשמר במכשיר הזה</div>
+  <button class="b b-y b-sm" type="button" id="newC"><svg aria-hidden="true"><use href="#i-plus"/></svg><span class="lbl">לקוח חדש</span></button>
+  <div class="menu dark">
+    <button class="b b-o b-sm" type="button" id="menuB" aria-expanded="false" aria-haspopup="true" aria-label="עוד"><svg aria-hidden="true"><use href="#i-dots"/></svg></button>
+    <div class="menu-p" id="menuP" hidden>
+      <a href="index.html">לאתר</a>
+      <button type="button" id="exp">גיבוי: הורדת כל הלקוחות לקובץ</button>
+      <label>שחזור מקובץ גיבוי<input type="file" id="imp" accept="application/json,.json" class="sr"></label>
+      <button type="button" id="chPin">החלפת קוד כניסה</button>
+      <hr>
+      <button type="button" id="out">יציאה</button>
+    </div>
+  </div>
+</header>
+<div class="app" id="app">
+  <aside class="side" aria-label="רשימת לקוחות">
+    <div class="side-h">
+      <label class="srch"><svg aria-hidden="true"><use href="#i-search"/></svg><span class="sr">חיפוש לקוח</span><input id="q" type="search" placeholder="חיפוש לפי שם, טלפון או עיר" autocomplete="off"></label>
+      <div class="chips" role="group" aria-label="סינון">
+        <button class="chip" type="button" data-f="all" aria-pressed="true">הכול</button>
+        <button class="chip" type="button" data-f="open" aria-pressed="false">הצעות פתוחות</button>
+        <button class="chip" type="button" data-f="bought" aria-pressed="false">קנו</button>
+        <button class="chip" type="button" data-f="pro" aria-pressed="false">מעצבות ואדריכלים</button>
+      </div>
+    </div>
+    <div class="list" id="list"></div>
+  </aside>
+  <main class="main" id="main"></main>
+</div>
+</div>
+
+<!-- ============ client dialog ============ -->
+<dialog id="dlgC" aria-labelledby="dlgCt">
+  <form method="dialog" id="fC" novalidate>
+    <div class="dl-h"><h2 id="dlgCt">לקוח חדש</h2><button class="x" type="button" data-close aria-label="סגירה"><svg aria-hidden="true"><use href="#i-x"/></svg></button></div>
+    <div class="dl-b">
+      <label class="f">שם הלקוח<input class="inp" name="name" required placeholder="למשל: משפחת כהן" autocomplete="off"><span class="err" id="eName" hidden>נא לכתוב שם</span></label>
+      <div class="two">
+        <label class="f">טלפון<input class="inp" name="phone" type="tel" inputmode="tel" placeholder="050-0000000" autocomplete="off"><span class="err" id="ePhone" hidden>מספר לא תקין</span></label>
+        <label class="f">עיר<input class="inp" name="city" placeholder="ראשון לציון" autocomplete="off"></label>
+      </div>
+      <div class="two">
+        <label class="f">סוג לקוח<select class="inp" name="type"><option value="private">לקוח פרטי</option><option value="designer">מעצבת פנים</option><option value="architect">אדריכל</option><option value="contractor">קבלן או חשמלאי</option><option value="inst">בית כנסת או מוסד</option><option value="biz">עסק או משרד</option></select></label>
+        <label class="f">הגיע דרך (לא חובה)<input class="inp" name="ref" placeholder="מעצבת, המלצה, מודעה" autocomplete="off"></label>
+      </div>
+      <label class="f">על הפרויקט (לא חובה)<textarea class="inp" name="about" rows="2" placeholder="דירה חדשה, 5 חדרים, כניסה בעוד חודשיים"></textarea></label>
+    </div>
+    <div class="dl-f"><button class="b b-k" type="submit" id="fCb">פתיחת כרטיס</button><button class="b b-t" type="button" data-close>ביטול</button></div>
+  </form>
+</dialog>
+
+<!-- ============ generic confirm ============ -->
+<dialog id="dlgQ" aria-labelledby="dlgQt">
+  <div class="dl-h"><h2 id="dlgQt"></h2></div>
+  <div class="dl-b"><p id="dlgQp" style="margin:0;color:var(--mut)"></p></div>
+  <div class="dl-f"><button class="b b-k" type="button" id="dlgQy"></button><button class="b b-t" type="button" id="dlgQn">ביטול</button></div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastT"></span><button type="button" id="toastU" hidden>ביטול</button></div>
+<div id="doc"></div>
+
+<script src="assets/staff.js?v=2"></script>
+<script>
+"use strict";
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const S=window.SLStaff;
+const VAT=0.18,STORE={name:"ספוטליין",line:"ייעוץ ושיווק תאורה",addr:"משה לוי 9, ראשון לציון · קומה 2",phone:"08-6377033",wa:"97286377033"};
+const TYPES={private:"לקוח פרטי",designer:"מעצבת פנים",architect:"אדריכל",contractor:"קבלן או חשמלאי",inst:"בית כנסת או מוסד",biz:"עסק או משרד"};
+const ST={draft:["טיוטה","t-draft"],sent:["נשלחה ללקוח","t-sent"],approved:["אושרה","t-approved"],part:["נקנתה בחלקה","t-part"],bought:["נקנתה","t-bought"],cancel:["בוטלה","t-cancel"]};
+const ROOMS=["סלון","פינת אוכל","מטבח","חדר שינה הורים","חדר ילדים","חדר רחצה","מסדרון","כניסה","מרפסת","חוץ וגינה","משרד","בית כנסת"];
+const DEMO=[["SL-1042","ספוט מסילה טרוורטין","assets/p1.jpg"],["SL-2210","מנורת קיר גלובוס על אבן","assets/p2.jpg"],["SL-2236","מנורת קיר עגולה עם ספוט עץ","assets/p3.jpg"],["SL-3105","מנורה תלויה כיפה טרוורטין","assets/p5.jpg"],["SL-2248","מנורת קיר אנכית טרוורטין","assets/p4.jpg"],["SL-3120","מנורה תלויה דיסק","assets/p6.jpg"],["SL-4011","מנורת שולחן פטרייה","assets/p7.jpg"]];
+
+/* ---------------- data ---------------- */
+let db=S.load();
+function fresh(){return{v:1,seq:0,clients:[],prices:{},active:null,staff:0,pin:null,saved:0}}
+if(!db)db=fresh();
+const commit=()=>{S.save(db)};
+const uid=p=>p+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const now=()=>Date.now();
+const C=id=>db.clients.find(c=>c.id===id);
+function log(c,t,man){c.log=c.log||[];c.log.unshift({d:now(),t,man:!!man});c.updated=now()}
+function newQuote(c,title){db.seq=(db.seq||0)+1;const q={id:uid("q"),no:`${new Date().getFullYear()}-${String(db.seq).padStart(4,"0")}`,title:title||`הצעה ${c.quotes.length+1}`,status:"draft",created:now(),updated:now(),valid:14,disc:0,discT:"p",vatIn:true,note:"",inote:"",lines:[]};c.quotes.unshift(q);return q}
+
+/* line maths */
+const lineTot=l=>l.price==null||l.price===""?null:+l.price*(+l.q||0);
+function totals(q){
+  const L=q.lines,miss=L.filter(l=>lineTot(l)==null).length,sub=L.reduce((s,l)=>s+(lineTot(l)||0),0);
+  const dv=Math.max(0,+q.disc||0),disc=q.discT==="p"?sub*(Math.min(100,dv)/100):Math.min(sub,dv);
+  const after=sub-disc;let net,vat,gross;
+  if(q.vatIn){gross=after;net=after/(1+VAT);vat=gross-net}else{net=after;vat=after*VAT;gross=net+vat}
+  return{sub,disc,net,vat,gross,miss,items:L.reduce((s,l)=>s+(+l.q||0),0)};
+}
+const ils=n=>{const r=Math.round(n*100)/100;return"₪"+r.toLocaleString("he-IL",{minimumFractionDigits:r%1?2:0,maximumFractionDigits:2})};
+function qStatus(q){const L=q.lines;if(!L.length||q.status==="cancel")return q.status;const all=L.every(l=>l.bought>=l.q&&l.q>0),some=L.some(l=>l.bought>0);
+  if(all)return"bought";if(some)return"part";return q.status==="bought"||q.status==="part"?"approved":q.status}
+function refreshStatus(q){q.status=qStatus(q)}
+const tagHTML=s=>`<span class="tag ${ST[s][1]}">${ST[s][0]}</span>`;
+function rel(t){if(!t)return"";const d=new Date(t),n=new Date(),days=Math.floor((new Date(n.toDateString())-new Date(d.toDateString()))/864e5);
+  if(days<=0)return d.toLocaleTimeString("he-IL",{hour:"2-digit",minute:"2-digit"});if(days===1)return"אתמול";if(days<7)return`לפני ${days} ימים`;return d.toLocaleDateString("he-IL",{day:"numeric",month:"numeric",year:"2-digit"})}
+const dmy=t=>new Date(t).toLocaleDateString("he-IL",{day:"numeric",month:"numeric",year:"numeric"});
+const ini=n=>{const w=String(n||"?").replace(/^(משפחת|מש'|הרב|ר'|גב'|מר)\s+/,"").trim().split(/\s+/);return(w[0]||"?")[0]+(w[1]?w[1][0]:"")};
+const PHONE=/^(0|\+?972-?)(5\d-?\d{7}|[2-9]-?\d{7}|7\d-?\d{7})$/;
+const waNum=p=>{const d=String(p||"").replace(/\D/g,"");return d.startsWith("0")?"972"+d.slice(1):d};
+const normPh=p=>{const d=String(p||"").replace(/\D/g,"");return d.startsWith("972")?"0"+d.slice(3):d};
+const imgHTML=src=>src?`<img src="${esc(src)}" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElementNS('http://www.w3.org/2000/svg','svg'),{innerHTML:'<use href=&quot;#i-bulb&quot;/>'}))">`:`<svg aria-hidden="true"><use href="#i-bulb"/></svg>`;
+
+/* products for the in-card picker */
+let PRODS=null;
+function loadProds(){if(PRODS)return Promise.resolve(PRODS);
+  return fetch("assets/products.json").then(r=>r.json()).then(a=>{PRODS=DEMO.map(([id,n,img])=>({id,n,img,demo:1,v:[{sku:id,c:"",img}],sub:"מהקולקציה"})).concat(a);return PRODS}).catch(()=>{PRODS=[];return PRODS})}
+
+/* ---------------- ui helpers ---------------- */
+function ripple(el){if(el._r)return;el._r=1;const r=document.createElement("span");r.className="rip";el.prepend(r);
+  const at=e=>{const b=el.getBoundingClientRect(),x=e.clientX-b.left,y=e.clientY-b.top,R=2*Math.hypot(Math.max(x,b.width-x),Math.max(y,b.height-y));Object.assign(r.style,{left:x+"px",top:y+"px",width:R+"px",height:R+"px"})};
+  el.addEventListener("pointerenter",e=>{if(e.pointerType==="touch")return;at(e);r.style.transform="translate(-50%,-50%) scale(1)";el.classList.add("hov")});
+  el.addEventListener("pointerleave",e=>{at(e);r.style.transform="translate(-50%,-50%) scale(0)";el.classList.remove("hov")})}
+const rip=root=>$$(".b",root).forEach(ripple);
+let tT,undoFn=null;
+function toast(t,undo){$("#toastT").textContent=t;undoFn=undo||null;$("#toastU").hidden=!undo;$("#toast").classList.add("on");clearTimeout(tT);tT=setTimeout(()=>{$("#toast").classList.remove("on");undoFn=null},undo?6000:3200)}
+$("#toastU").addEventListener("click",()=>{if(undoFn){undoFn();undoFn=null}$("#toast").classList.remove("on")});
+function ask(title,text,yes,danger){return new Promise(res=>{const d=$("#dlgQ");$("#dlgQt").textContent=title;$("#dlgQp").textContent=text;const y=$("#dlgQy");y.textContent=yes;y.className="b "+(danger?"b-d":"b-k");rip(d);
+  const done=v=>{d.close();y.onclick=$("#dlgQn").onclick=null;res(v)};y.onclick=()=>done(true);$("#dlgQn").onclick=()=>done(false);d.onclose=()=>res(false);d.showModal()})}
+
+/* logo: the same inline svg as the site header */
+const LOGO_IN='<defs><clipPath id="lgCut-x"><rect x="0" y="66" width="306.29" height="98.94"/></clipPath></defs><path class="lg-word" fill="currentColor" clip-path="url(#lgCut-x)" d="M304.29 109.67C304.29 116.82 301.88 122.66 297.04 127.18C292.21 131.71 285.97 133.97 278.31 133.97C270.66 133.97 264.41 131.71 259.58 127.18C254.75 122.66 252.33 116.82 252.33 109.67L252.33 82.85L304.29 82.85ZM111.08 109.00C111.08 116.32 108.75 122.31 104.08 126.97C99.42 131.64 93.37 133.97 85.94 133.97C78.51 133.97 72.46 131.64 67.79 126.97C63.13 122.31 60.80 116.32 60.80 109.00L74.79 109.00C74.79 112.74 75.80 115.74 77.81 118.01C79.82 120.27 82.53 121.40 85.94 121.40C89.35 121.40 92.06 120.27 94.07 118.01C96.08 115.74 97.09 112.74 97.09 109.00L97.09 95.42L60.80 95.42L60.80 74.66L72.82 72.23C72.86 71.73 72.88 71.22 72.88 70.72L72.88 56.98C72.88 26.66 98.41 2.00 129.78 2.00C161.13 2.00 186.66 26.66 186.66 56.98L186.66 66.02L191.80 66.02C192.55 66.02 193.16 66.61 193.16 67.34C193.16 67.70 193.01 68.03 192.77 68.27L193.04 68.27C193.95 68.27 194.69 68.99 194.69 69.87C194.69 70.23 194.56 70.57 194.35 70.84C195.39 70.87 196.23 71.71 196.23 72.72C196.23 73.33 195.93 73.87 195.47 74.22L196.02 74.22C197.30 74.22 198.35 75.24 198.35 76.49C198.35 77.74 197.30 78.76 196.02 78.76L175.71 78.76C174.42 78.76 173.38 77.74 173.38 76.49C173.38 75.24 174.42 74.22 175.71 74.22L176.25 74.22C175.79 73.87 175.49 73.33 175.49 72.72C175.49 71.71 176.33 70.87 177.38 70.84C177.17 70.57 177.04 70.23 177.04 69.87C177.04 68.99 177.78 68.27 178.68 68.27L178.95 68.27C178.71 68.03 178.56 67.70 178.56 67.34C178.56 66.61 179.17 66.02 179.93 66.02L185.15 66.02L185.15 56.98C185.15 27.48 160.30 3.46 129.76 3.46C99.24 3.46 74.41 27.48 74.41 56.98L74.41 82.85L111.08 82.85ZM173.28 109.67C173.28 116.82 170.79 122.66 165.82 127.18C160.85 131.71 154.48 133.97 146.71 133.97C138.94 133.97 132.58 131.71 127.60 127.18C122.63 122.66 120.14 116.82 120.14 109.67L120.14 82.85L134.14 82.85L134.14 108.83C134.14 112.63 135.30 115.67 137.62 117.96C139.94 120.26 142.97 121.40 146.71 121.40C150.46 121.40 153.49 120.26 155.81 117.96C158.12 115.67 159.28 112.63 159.28 108.83L159.28 97.51L142.86 110.50L142.86 95.84L159.28 82.85L173.28 82.85ZM224.21 133.13L198.57 133.13L198.57 120.56L221.95 120.56C226.25 120.56 229.56 119.47 231.88 117.29C234.20 115.11 235.36 112.04 235.36 108.07C235.36 104.05 234.20 100.94 231.88 98.73C229.56 96.52 226.25 95.42 221.95 95.42L212.31 95.42L212.31 108.41L198.57 108.41L198.57 82.85L224.21 82.85C232.37 82.85 238.61 85.07 242.94 89.51C247.27 93.95 249.41 100.14 249.36 108.07C249.30 116.01 247.11 122.17 242.78 126.55C238.44 130.94 232.26 133.13 224.21 133.13ZM2.00 82.85L16.00 82.85L16.00 162.94L2.00 162.94ZM178.78 82.85L192.78 82.85L192.78 133.13L178.78 133.13ZM266.33 95.42L266.33 108.83C266.33 112.63 267.42 115.67 269.59 117.96C271.78 120.26 274.68 121.40 278.31 121.40C281.94 121.40 284.85 120.26 287.03 117.96C289.21 115.67 290.30 112.63 290.30 108.83L290.30 95.42ZM55.43 111.18L41.44 111.18L41.44 86.46L55.43 82.85ZM35.75 111.18L21.76 111.18L21.76 86.91L35.75 82.85Z"/><path class="lg-stem" d="M72.95 73.2V56.98"/><path class="lg-arc" pathLength="1" d="M72.95 56.98A56.475 54.25 0 0 1 185.9 56.98V66.6"/><path class="lg-bulb" fill="#FFBD00" d="M178.61 78.85L193.15 78.85C193.19 79.11 193.21 79.37 193.21 79.64C193.21 83.58 189.92 86.78 185.88 86.78C181.83 86.78 178.55 83.58 178.55 79.64C178.55 79.37 178.56 79.11 178.61 78.85Z"/>';
+const LOGO=`<svg viewBox="0 0 306.29 164.94" aria-hidden="true">${LOGO_IN}</svg>`;
+$$("svg[data-logo]").forEach(s=>{s.setAttribute("viewBox","0 0 306.29 164.94");s.innerHTML=LOGO_IN});
+
+/* ---------------- login ---------------- */
+async function hash(s){try{const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode("spotline:"+s));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}catch(e){return"p"+s}}
+const pins=$$("#pin input");
+let setting=false,firstPin=null;
+function gate(){
+  const g=$("#gate");$("#appWrap").hidden=true;g.hidden=false;
+  setting=!db.pin;firstPin=null;
+  $("#gateT").textContent=setting?"קוד כניסה חדש":"אזור לקוחות";
+  $("#gateP").textContent=setting?"פעם ראשונה כאן. בחרו קוד של 4 ספרות לצוות החנות.":"כניסת צוות החנות. הקלידו את קוד הכניסה.";
+  $("#gateB").textContent=setting?"המשך":"כניסה";
+  pins.forEach(i=>i.value="");$("#gateE").textContent="";setTimeout(()=>pins[0].focus(),50);rip(g);
+}
+pins.forEach((inp,i)=>{
+  inp.addEventListener("input",()=>{inp.value=inp.value.replace(/\D/g,"").slice(-1);if(inp.value&&i<3)pins[i+1].focus();if(pins.every(x=>x.value))$("#gateF").requestSubmit()});
+  inp.addEventListener("keydown",e=>{if(e.key==="Backspace"&&!inp.value&&i>0){pins[i-1].focus();pins[i-1].value=""}});
+  inp.addEventListener("paste",e=>{const t=(e.clipboardData.getData("text")||"").replace(/\D/g,"").slice(0,4);if(t.length===4){e.preventDefault();t.split("").forEach((c,j)=>pins[j].value=c);$("#gateF").requestSubmit()}});
+});
+$("#gateF").addEventListener("submit",async e=>{e.preventDefault();const v=pins.map(x=>x.value).join("");
+  const bad=m=>{$("#gateE").textContent=m;const p=$("#pin");p.classList.remove("shake");void p.offsetWidth;p.classList.add("shake");pins.forEach(x=>x.value="");pins[0].focus()};
+  if(v.length<4)return bad("צריך 4 ספרות");
+  if(setting){if(!firstPin){firstPin=v;$("#gateP").textContent="עוד פעם, לאישור.";pins.forEach(x=>x.value="");pins[0].focus();$("#gateE").textContent="";return}
+    if(firstPin!==v){firstPin=null;$("#gateP").textContent="בחרו קוד של 4 ספרות לצוות החנות.";return bad("הקודים לא תאמו. מתחילים מחדש")}
+    db.pin=await hash(v)}
+  else if(await hash(v)!==db.pin)return bad("הקוד לא נכון");
+  db.staff=now()+12*3600e3;commit();enter()});
+
+/* ---------------- app ---------------- */
+let filter="all",cur=null,curQ=null,tab="q";
+function enter(){$("#gate").hidden=true;$("#appWrap").hidden=false;rip(document);route();renderList()}
+function route(){const h=new URLSearchParams(location.hash.slice(1)),c=h.get("c");
+  if(c&&C(c)){cur=c;const q=h.get("q");curQ=q&&C(c).quotes.some(x=>x.id===q)?q:(C(c).quotes[0]||{}).id;tab=h.get("t")||"q"}else{cur=null}
+  renderMain()}
+function go(c,q,t){const p=new URLSearchParams();if(c)p.set("c",c);if(q)p.set("q",q);if(t&&t!=="q")p.set("t",t);history.pushState(null,"","#"+p);route();renderList();window.scrollTo({top:0})}
+addEventListener("popstate",()=>{route();renderList()});
+
+function lastQ(c){return c.quotes.slice().sort((a,b)=>b.updated-a.updated)[0]}
+function renderList(){
+  const s=$("#q").value.trim().toLowerCase();
+  let L=db.clients.slice().sort((a,b)=>b.updated-a.updated);
+  if(s)L=L.filter(c=>[c.name,c.phone,c.city,c.ref].join(" ").toLowerCase().includes(s)||String(c.phone||"").replace(/\D/g,"").includes(s.replace(/\D/g,"")||"#"));
+  if(filter==="open")L=L.filter(c=>c.quotes.some(q=>["draft","sent","approved"].includes(q.status)&&q.lines.length));
+  if(filter==="bought")L=L.filter(c=>c.quotes.some(q=>q.lines.some(l=>l.bought>0)));
+  if(filter==="pro")L=L.filter(c=>["designer","architect"].includes(c.type));
+  const act=db.active&&db.active.cid;
+  $("#list").innerHTML=L.length?L.map(c=>{const q=lastQ(c);return`<button class="ci" type="button" data-c="${c.id}" aria-current="${c.id===cur}"><span class="av${c.id===act?" live":""}" aria-hidden="true">${esc(ini(c.name))}</span><b>${esc(c.name)}</b><span class="when">${rel(c.updated)}</span><small>${esc([TYPES[c.type]!=="לקוח פרטי"?TYPES[c.type]:"",c.city,c.phone].filter(Boolean).join(" · ")||"בלי פרטים")}</small><span class="st">${q&&q.lines.length?tagHTML(q.status):""}</span></button>`}).join("")
+    :`<div class="empty-l">${db.clients.length?"אין לקוח שמתאים לחיפוש.":"עוד אין לקוחות. לוחצים על \"לקוח חדש\" ומתחילים."}</div>`;
+  $("#app").classList.toggle("open",!!cur);
+}
+$("#list").addEventListener("click",e=>{const b=e.target.closest("[data-c]");if(b)go(b.dataset.c)});
+$("#q").addEventListener("input",renderList);
+$$(".chip").forEach(ch=>ch.addEventListener("click",()=>{filter=ch.dataset.f;$$(".chip").forEach(x=>x.setAttribute("aria-pressed",x===ch));renderList()}));
+
+/* ---------------- main ---------------- */
+function renderMain(){
+  const m=$("#main");
+  if(!cur){m.innerHTML=`<div class="welcome"><h1>כל לקוח, <em>והרשימה שלו.</em></h1><p>יושבים עם לקוח בחנות, פותחים לו כרטיס, ובוחרים יחד גופים מהאתר. הכול נשמר בכרטיס שלו: מה בחר, הצעת המחיר, ומה קנה בסוף.</p>
+    <button class="b b-k" type="button" data-new><svg aria-hidden="true"><use href="#i-plus"/></svg>לקוח חדש</button>
+    <div class="steps3"><div><i>01</i><b>פותחים כרטיס</b><span>שם וטלפון, וזהו.</span></div><div><i>02</i><b>בוחרים באתר</b><span>כל מה שנכנס לסל נשמר אצל הלקוח.</span></div><div><i>03</i><b>מחיר ושליחה</b><span>מוסיפים מחירים, מדפיסים או שולחים בוואטסאפ.</span></div></div></div>`;
+    rip(m);return}
+  const c=C(cur),q=c.quotes.find(x=>x.id===curQ),live=db.active&&db.active.cid===c.id;
+  const bought=c.quotes.flatMap(q=>q.lines.filter(l=>l.bought>0)),bSum=bought.reduce((s,l)=>s+(l.price!=null?+l.price*l.bought:0),0);
+  const open=c.quotes.filter(q=>!["bought","cancel"].includes(q.status));
+  m.innerHTML=`
+  <button class="b b-t back" type="button" data-back><svg aria-hidden="true"><use href="#i-back"/></svg>כל הלקוחות</button>
+  <div class="ch">
+    <span class="av${live?" live":""}" aria-hidden="true">${esc(ini(c.name))}</span>
+    <div class="who"><h1>${esc(c.name)}</h1><div class="meta">${c.phone?`<a class="ltr" href="tel:${esc(c.phone)}">${esc(c.phone)}</a>`:""}<span>${esc(TYPES[c.type]||"")}</span>${c.city?`<span>${esc(c.city)}</span>`:""}${c.ref?`<span>הגיע דרך ${esc(c.ref)}</span>`:""}<span>לקוח מ-${dmy(c.created)}</span></div></div>
+    <div class="acts">${live?"":`<button class="b b-y" type="button" data-shop>בחירת מוצרים באתר<svg aria-hidden="true"><use href="#i-arrow"/></svg></button>`}${c.phone?`<a class="b b-o" href="https://wa.me/${waNum(c.phone)}" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>וואטסאפ</a>`:""}</div>
+  </div>
+  ${live?`<div class="live-bar dark"><i aria-hidden="true"></i><span>כל מה שנכנס עכשיו לסל באתר נשמר ב<b>${esc((c.quotes.find(x=>x.id===db.active.qid)||{}).title||"")}</b>.</span><span class="sp"></span><a class="b b-y b-sm" href="index.html#cats">להמשיך לבחור</a><button class="b b-o b-sm" type="button" data-end>סיום</button></div>`:""}
+  <div class="stats"><div><small>הצעות פתוחות</small><b>${open.length}</b></div><div><small>פריטים בהצעה הזאת</small><b id="stItems">${q?totals(q).items:0}</b></div><div><small>קנה עד היום</small><b class="ltr">${bSum?ils(bSum):"-"}</b></div><div><small>פעילות אחרונה</small><b style="font-size:1.1rem">${rel(c.updated)}</b></div></div>
+  <div class="tabs" role="tablist"><button class="tab" role="tab" type="button" data-tab="q" aria-selected="${tab==="q"}">הצעות מחיר <span>${c.quotes.length}</span></button><button class="tab" role="tab" type="button" data-tab="b" aria-selected="${tab==="b"}">מה קנה <span>${bought.length}</span></button><button class="tab" role="tab" type="button" data-tab="l" aria-selected="${tab==="l"}">יומן והערות</button><button class="tab" role="tab" type="button" data-tab="d" aria-selected="${tab==="d"}">פרטים</button></div>
+  <div class="pane" id="pane"></div>`;
+  ({q:paneQuotes,b:paneBought,l:paneLog,d:paneDetails}[tab]||paneQuotes)(c,q);
+  rip(m);
+}
+
+/* ---------- quotes ---------- */
+function paneQuotes(c,q){
+  const p=$("#pane"),live=db.active&&db.active.qid;
+  const chips=c.quotes.map(x=>`<button class="qchip" type="button" data-q="${x.id}" aria-pressed="${x.id===(q&&q.id)}"><b>${esc(x.title)}${x.id===live?" ●":""}</b><small>${x.lines.length} שורות · ${ST[x.status][0]}</small></button>`).join("");
+  if(!q){p.innerHTML=`<div class="qbar">${chips}<button class="b b-o b-sm" type="button" data-newq><svg aria-hidden="true"><use href="#i-plus"/></svg>הצעה חדשה</button></div><div class="lines"><div class="nolines"><b>אין עדיין הצעה</b>פותחים הצעה חדשה ומתחילים לבחור.</div></div>`;return}
+  const t=totals(q),valid=new Date((q.issued||now())+q.valid*864e5);
+  p.innerHTML=`<div class="qbar">${chips}<button class="b b-o b-sm" type="button" data-newq><svg aria-hidden="true"><use href="#i-plus"/></svg>הצעה חדשה</button></div>
+  <div class="qhead">
+    <div class="ttl"><label class="sr" for="qt">שם ההצעה</label><input class="qt" id="qt" value="${esc(q.title)}" data-qf="title"><div class="sub"><span>הצעה מס׳ <b class="ltr">${q.no}</b></span><span>נפתחה ${dmy(q.created)}</span><span>בתוקף עד ${dmy(valid)}</span>${q.id===live?`<span style="color:var(--gold);font-weight:700">מתמלאת עכשיו מהאתר</span>`:""}</div></div>
+    <div class="ctl"><label class="f">סטטוס<select class="inp" data-qf="status" style="width:10rem">${Object.entries(ST).map(([k,v])=>`<option value="${k}"${k===q.status?" selected":""}>${v[0]}</option>`).join("")}</select></label>
+    <label class="f">תוקף (ימים)<input class="inp" type="number" min="1" max="120" value="${q.valid}" data-qf="valid" style="width:6rem"></label></div>
+  </div>
+  <div class="lines" id="lines">
+    <div class="lh" aria-hidden="true"><span></span><span>מוצר</span><span>חלל</span><span>כמות</span><span>מחיר ליחידה</span><span>סה״כ</span><span>נקנה</span><span></span></div>
+    ${q.lines.length?q.lines.map(lineHTML).join(""):`<div class="nolines"><b>ההצעה ריקה</b>מוסיפים מוצרים מהחיפוש למטה, או לוחצים "בחירת מוצרים באתר" ובוחרים יחד עם הלקוח.</div>`}
+    <div class="addrow"><div class="pick"><label class="srch"><svg aria-hidden="true"><use href="#i-search"/></svg><span class="sr">הוספת מוצר</span><input id="pk" type="search" placeholder="הוספת מוצר: שם או מק״ט" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="pkr"></label><div class="res" id="pkr" role="listbox" hidden></div></div>
+    <button class="b b-o" type="button" data-free><svg aria-hidden="true"><use href="#i-plus"/></svg>שורה חופשית</button>${q.id===live?"":`<button class="b b-k" type="button" data-shopq>בחירה באתר להצעה הזאת</button>`}</div>
+  </div>
+  <div class="qfoot">
+    <div class="notes">
+      <label class="f">הערות ללקוח (מודפס בהצעה)<textarea class="inp" data-qf="note" rows="3" placeholder="למשל: התקנה לא כלולה. זמן אספקה עד 10 ימי עבודה.">${esc(q.note)}</textarea></label>
+      <label class="f">הערה פנימית (רק לצוות)<textarea class="inp" data-qf="inote" rows="2" placeholder="למשל: לחזור אליה אחרי שהחשמלאי מודד">${esc(q.inote)}</textarea></label>
+    </div>
+    <div class="tot" id="tot">${totHTML(q,t)}</div>
+  </div>
+  <div class="qacts">
+    <button class="b b-k" type="button" data-print><svg aria-hidden="true"><use href="#i-print"/></svg>הדפסה או PDF</button>
+    <button class="b b-y" type="button" data-send${c.phone?"":" disabled title=\"אין טלפון בכרטיס\""}><svg aria-hidden="true"><use href="#i-wa"/></svg>שליחה בוואטסאפ</button>
+    <button class="b b-o" type="button" data-allgot>סימון הכול כנקנה</button>
+    <span class="sp"></span>
+    <button class="b b-t" type="button" data-dup>שכפול לגרסה חדשה</button>
+    <button class="b b-t" type="button" data-delq>מחיקת ההצעה</button>
+  </div>`;
+}
+function lineHTML(l){
+  const tot=lineTot(l),got=l.bought>=l.q&&l.q>0;
+  const sub=[l.sku?`מק״ט <span class="ltr">${esc(l.sku)}</span>`:"",l.fin?esc(l.fin):"",l.k?esc(l.k):"",l.kind==="calc"?"מהמחשבון":"",l.kind==="profile"?"פרופיל במידה":"",l.kind==="free"?"שורה חופשית":""].filter(Boolean).join(" · ");
+  return`<div class="ln${got?" got":""}" data-l="${l.lid}">
+    <div class="th">${imgHTML(l.img)}</div>
+    <div class="pn">${l.kind==="free"?`<input class="inp" value="${esc(l.n)}" data-lf="n" aria-label="תיאור" placeholder="תיאור הפריט">`:`<b>${esc(l.n)}</b>`}<small>${sub}</small>${l.note||l._note?`<input class="inp nt-in" value="${esc(l.note)}" data-lf="note" placeholder="הערה לשורה" aria-label="הערה לשורה">`:`<button class="nt" type="button" data-note>+ הערה</button>`}</div>
+    <input class="inp c-room" list="rooms" value="${esc(l.room)}" data-lf="room" placeholder="חלל" aria-label="חלל">
+    <div class="qty"><button type="button" data-inc aria-label="הוספה">+</button><input type="number" min="1" max="999" value="${l.q}" data-lf="q" aria-label="כמות"><button type="button" data-dec aria-label="הפחתה">−</button></div>
+    <label class="money${l.price==null||l.price===""?" miss":""}"><span class="sr">מחיר ליחידה</span><input class="inp" type="number" min="0" step="1" inputmode="decimal" value="${l.price==null?"":l.price}" data-lf="price" placeholder="0"></label>
+    <div class="sum${tot==null?" dash":""}" data-sum>${tot==null?"חסר מחיר":ils(tot)}</div>
+    <label class="got-c c-got${got?" on":""}"><input type="checkbox" data-got${got?" checked":""}>${got?(l.boughtAt?dmy(l.boughtAt):"נקנה"):"נקנה"}</label>
+    <button class="rm" type="button" data-rm aria-label="הסרת ${esc(l.n)}"><svg aria-hidden="true"><use href="#i-x"/></svg></button>
+  </div>`;
+}
+function totHTML(q,t){
+  return`<div class="r"><span>${t.items} פריטים</span><span>${ils(t.sub)}</span></div>
+  <div class="r"><span>הנחה</span><span class="disc"><input class="inp" type="number" min="0" value="${q.disc||""}" placeholder="0" data-qf="disc" aria-label="הנחה"><select class="inp" data-qf="discT" aria-label="סוג הנחה"><option value="p"${q.discT==="p"?" selected":""}>%</option><option value="s"${q.discT==="s"?" selected":""}>₪</option></select></span></div>
+  ${t.disc?`<div class="r mut"><span>אחרי הנחה</span><span>${ils(t.sub-t.disc)}</span></div>`:""}
+  <div class="r mut"><span>${q.vatIn?"מתוכו מע״מ 18%":"מע״מ 18%"}</span><span>${ils(t.vat)}</span></div>
+  <div class="r big"><span>סה״כ לתשלום</span><span>${ils(t.gross)}</span></div>
+  <label class="tgl"><input type="checkbox" data-qf="vatIn"${q.vatIn?" checked":""}>המחירים שהוקלדו כוללים מע״מ</label>
+  ${t.miss?`<div class="warn">${t.miss===1?"לשורה אחת":`ל-${t.miss} שורות`} אין מחיר עדיין.</div>`:""}`;
+}
+const datalist=document.createElement("datalist");datalist.id="rooms";datalist.innerHTML=ROOMS.map(r=>`<option value="${r}">`).join("");document.body.appendChild(datalist);
+
+/* quote events (delegated on #main) */
+const curC=()=>C(cur),curQuote=()=>{const c=curC();return c&&c.quotes.find(x=>x.id===curQ)};
+const lineOf=el=>{const q=curQuote(),r=el.closest("[data-l]");return r&&q.lines.find(l=>l.lid===r.dataset.l)};
+function pushToCart(q){/* keep the site basket equal to the active quote */if(db.active&&db.active.qid===q.id)localStorage.setItem(S.CART,JSON.stringify(q.lines.filter(l=>l.raw).map(l=>Object.assign({},l.raw,{q:l.q}))))}
+function touch(q){const c=curC();q.updated=c.updated=now();refreshStatus(q);commit();pushToCart(q);db=S.load()||db}
+function softUpdate(){/* totals and line sums without re-rendering inputs */
+  const q=curQuote();if(!q)return;
+  $$("#lines .ln").forEach(r=>{const l=q.lines.find(x=>x.lid===r.dataset.l);if(!l)return;const t=lineTot(l),s=$("[data-sum]",r);s.textContent=t==null?"חסר מחיר":ils(t);s.classList.toggle("dash",t==null);$(".money",r).classList.toggle("miss",l.price==null||l.price==="")});
+  const si=$("#stItems");if(si)si.textContent=totals(q).items;
+  const f=document.activeElement,inTot=f&&f.closest("#tot");if(!inTot)$("#tot").innerHTML=totHTML(q,totals(q));
+  else{const t=totals(q),rows=$$("#tot .r");/* keep focus in the discount field */rows[0].lastElementChild.textContent=ils(t.sub);$("#tot .big span:last-child").textContent=ils(t.gross);const vr=$$("#tot .r.mut");vr.length&&(vr[vr.length-1].lastElementChild.textContent=ils(t.vat))}
+}
+$("#main").addEventListener("input",e=>{
+  const q=curQuote();if(!q)return;const t=e.target;
+  if(t.dataset.qf){const k=t.dataset.qf;if(k==="vatIn")return;q[k]=t.type==="number"?(t.value===""?0:+t.value):t.value;if(k==="valid")q.valid=Math.max(1,Math.min(120,+t.value||14));touch(q);softUpdate();if(k==="title")$$(`.qchip[data-q="${q.id}"] b`).forEach(b=>b.textContent=q.title);return}
+  const l=lineOf(t);if(!l||!t.dataset.lf)return;const k=t.dataset.lf;
+  if(k==="q"){l.q=Math.max(1,Math.min(999,parseInt(t.value,10)||1))}
+  else if(k==="price"){l.price=t.value===""?null:Math.max(0,+t.value);if(l.sku&&l.price!=null){db.prices[l.sku]={p:l.price,d:now()}}}
+  else l[k]=t.value;
+  touch(q);softUpdate();
+});
+$("#main").addEventListener("change",e=>{
+  const q=curQuote(),t=e.target;if(!q)return;
+  if(t.dataset.qf==="vatIn"){q.vatIn=t.checked;touch(q);$("#tot").innerHTML=totHTML(q,totals(q));return}
+  if(t.dataset.qf==="status"){const c=curC();q.status=t.value;log(c,`${q.title}: הסטטוס שונה ל"${ST[q.status][0]}"`);if(q.status==="bought")q.lines.forEach(l=>{if(l.bought<l.q){l.bought=l.q;l.boughtAt=l.boughtAt||now()}});touch(q);renderMain();renderList();return}
+  if(t.dataset.qf==="discT"||t.dataset.qf==="disc"){if(q.disc<0)q.disc=0;touch(q);$("#tot").innerHTML=totHTML(q,totals(q));return}
+  if(t.dataset.lf==="q"){const l=lineOf(t);t.value=l.q}
+  if(t.matches("[data-got]")){const l=lineOf(t),c=curC();if(t.checked){l.bought=l.q;l.boughtAt=now();log(c,`נקנה: ${l.n} × ${l.q}`)}else{l.bought=0;l.boughtAt=""}touch(q);renderMain();renderList()}
+});
+$("#main").addEventListener("click",async e=>{
+  const t=e.target,c=curC();
+  if(t.closest("[data-new]")){openClient();return}
+  if(t.closest("[data-back]")){go(null);return}
+  const tb=t.closest("[data-tab]");if(tb){tab=tb.dataset.tab;go(cur,curQ,tab);return}
+  const qc=t.closest("[data-q]");if(qc){go(cur,qc.dataset.q);return}
+  if(t.closest("[data-shop]")){shop(c,curQ||newQuote(c).id);return}
+  if(t.closest("[data-shopq]")){shop(c,curQ);return}
+  if(t.closest("[data-end]")){S.endClient();db=S.load();toast("סיימנו עם הלקוח. הסל באתר חזר להיות רגיל.");renderMain();renderList();return}
+  if(t.closest("[data-newq]")){const q=newQuote(c);log(c,`נפתחה ${q.title}`);touch(q);go(cur,q.id);return}
+  const q=curQuote();if(!q)return;
+  if(t.closest("[data-inc],[data-dec]")){const l=lineOf(t);l.q=Math.max(1,Math.min(999,l.q+(t.closest("[data-inc]")?1:-1)));$("[data-lf=q]",t.closest(".ln")).value=l.q;touch(q);softUpdate();return}
+  if(t.closest("[data-note]")){const l=lineOf(t);l._note=1;const r=t.closest(".ln");r.outerHTML=lineHTML(l);const inp=$(`[data-l="${l.lid}"] [data-lf=note]`);inp&&inp.focus();delete l._note;return}
+  if(t.closest("[data-rm]")){const l=lineOf(t),i=q.lines.indexOf(l);q.lines.splice(i,1);touch(q);renderMain();toast(`הוסר: ${l.n}`,()=>{const qq=curQuote();if(!qq)return;qq.lines.splice(Math.min(i,qq.lines.length),0,l);touch(qq);renderMain()});return}
+  if(t.closest("[data-free]")){q.lines.push({lid:uid("l"),manual:true,kind:"free",n:"",sku:"",q:1,price:null,room:"",note:"",bought:0,boughtAt:"",added:now()});touch(q);renderMain();const ins=$$("#lines [data-lf=n]");ins.length&&ins[ins.length-1].focus();return}
+  if(t.closest("[data-print]")){printQuote(c,q);return}
+  if(t.closest("[data-send]")){sendWA(c,q);return}
+  if(t.closest("[data-allgot]")){if(!q.lines.length)return;if(!await ask("לסמן את כל ההצעה כנקנתה?",`${q.lines.length} שורות יסומנו כנקנו היום, ויופיעו בלשונית "מה קנה".`,"כן, נקנה"))return;
+    q.lines.forEach(l=>{if(l.bought<l.q){l.bought=l.q;l.boughtAt=now()}});log(c,`${q.title} נקנתה (${ils(totals(q).gross)})`);touch(q);renderMain();renderList();toast("סומן כנקנה");return}
+  if(t.closest("[data-dup]")){db.seq++;const n=JSON.parse(JSON.stringify(q));Object.assign(n,{id:uid("q"),no:`${new Date().getFullYear()}-${String(db.seq).padStart(4,"0")}`,title:q.title+" (גרסה חדשה)",status:"draft",created:now(),updated:now()});n.lines.forEach(l=>{l.lid=uid("l");l.bought=0;l.boughtAt=""});c.quotes.unshift(n);log(c,`שוכפלה ${q.title}`);touch(n);go(cur,n.id);toast("נוצרה גרסה חדשה של ההצעה");return}
+  if(t.closest("[data-delq]")){if(!await ask("למחוק את ההצעה?",`"${q.title}" עם ${q.lines.length} שורות תימחק מהכרטיס. אי אפשר לשחזר.`,"מחיקה",true))return;
+    if(db.active&&db.active.qid===q.id){S.endClient();db=S.load()}const cc=curC();cc.quotes=cc.quotes.filter(x=>x.id!==q.id);log(cc,`נמחקה ${q.title}`);cc.updated=now();commit();go(cur,(cc.quotes[0]||{}).id);return}
+});
+/* go shopping on the site for this client */
+function shop(c,qid){const q=c.quotes.find(x=>x.id===qid);log(c,`בחירת מוצרים באתר: ${q.title}`);c.updated=now();commit();S.startClient(c.id,qid);location.href="index.html#cats"}
+
+/* product picker */
+let pkT,pkSel=-1,pkList=[];
+$("#main").addEventListener("input",e=>{if(e.target.id!=="pk")return;clearTimeout(pkT);pkT=setTimeout(()=>pkSearch(e.target.value),120)});
+$("#main").addEventListener("keydown",e=>{if(e.target.id!=="pk")return;const r=$("#pkr");if(r.hidden)return;const bs=$$("button",r);
+  if(e.key==="ArrowDown"||e.key==="ArrowUp"){e.preventDefault();pkSel=(pkSel+(e.key==="ArrowDown"?1:-1)+bs.length)%bs.length;bs.forEach((b,i)=>b.classList.toggle("on",i===pkSel));bs[pkSel]&&bs[pkSel].scrollIntoView({block:"nearest"})}
+  if(e.key==="Enter"&&bs[pkSel]){e.preventDefault();bs[pkSel].click()}if(e.key==="Escape"){r.hidden=true}});
+document.addEventListener("click",e=>{const r=$("#pkr");if(r&&!e.target.closest(".pick"))r.hidden=true});
+async function pkSearch(v){const r=$("#pkr");v=v.trim().toLowerCase();if(!v){r.hidden=true;return}
+  const P=await loadProds(),words=v.split(/\s+/);
+  pkList=[];P.forEach(p=>{const hay=(p.n+" "+p.id+" "+(p.sub||"")+" "+p.v.map(x=>x.sku+" "+x.c).join(" ")).toLowerCase();if(!words.every(w=>hay.includes(w)))return;
+    const seen=new Set();p.v.forEach(x=>{const key=x.c||"";if(seen.has(key))return;seen.add(key);pkList.push({p,v:x})})});
+  pkList=pkList.slice(0,40);pkSel=-1;
+  r.innerHTML=pkList.length?pkList.map((o,i)=>`<button type="button" role="option" data-pk="${i}"><span class="th">${imgHTML(o.v.img||o.p.img)}</span><span><b>${esc(o.p.n)}</b><small>${esc([o.v.sku,o.v.c,o.p.sub].filter(Boolean).join(" · "))}</small></span></button>`).join(""):`<div class="none">לא מצאנו. אפשר להוסיף "שורה חופשית".</div>`;
+  r.hidden=false;$("#pk").setAttribute("aria-expanded","true")}
+$("#main").addEventListener("click",e=>{const b=e.target.closest("[data-pk]");if(!b)return;const o=pkList[+b.dataset.pk],q=curQuote();
+  const raw=o.p.demo?{id:o.p.id,q:1}:{id:o.v.sku+"|"+(o.v.c||""),q:1,src:"cat",pid:o.p.id,sku:o.v.sku,n:o.p.n,fin:o.v.c||"",img:o.v.img||o.p.img||"",k:o.p.k||""};
+  const ex=q.lines.find(l=>l.key===raw.id);
+  if(ex){ex.q=Math.min(999,ex.q+1);toast(`${o.p.n}: הכמות עלתה ל-${ex.q}`)}
+  else{const f=S.fromCart(raw);q.lines.push(Object.assign({lid:uid("l"),price:null,room:"",note:"",bought:0,boughtAt:"",added:now(),manual:true},f,{price:db.prices[f.sku]?db.prices[f.sku].p:null}));toast(`נוסף: ${o.p.n}`)}
+  touch(q);renderMain();const pk=$("#pk");pk&&pk.focus()});
+
+/* ---------- bought ---------- */
+function paneBought(c){
+  const rows=c.quotes.flatMap(q=>q.lines.filter(l=>l.bought>0).map(l=>({l,q})));
+  if(!rows.length){$("#pane").innerHTML=`<div class="lines"><div class="nolines"><b>עוד לא נקנה כלום</b>כשהלקוח קונה, מסמנים "נקנה" ליד השורה בהצעת המחיר, והיא מופיעה כאן עם התאריך.</div></div>`;return}
+  const by={};rows.forEach(r=>{const d=new Date(r.l.boughtAt||r.q.updated).toDateString();(by[d]=by[d]||[]).push(r)});
+  const sum=rows.reduce((s,r)=>s+(r.l.price!=null?r.l.price*r.l.bought:0),0),units=rows.reduce((s,r)=>s+r.l.bought,0);
+  $("#pane").innerHTML=`<div class="buy-tot"><span>סה״כ קנה אצלנו · ${units} יחידות</span><span>${ils(sum)}</span></div>`+Object.keys(by).sort((a,b)=>new Date(b)-new Date(a)).map(d=>{const g=by[d],gs=g.reduce((s,r)=>s+(r.l.price!=null?r.l.price*r.l.bought:0),0);
+    return`<div class="buy-g"><h3>${dmy(new Date(d))} <span>${g.length} שורות · ${ils(gs)}</span></h3>${g.map(({l,q})=>`<div class="buy"><div class="th">${imgHTML(l.img)}</div><div><b>${esc(l.n)}</b><small>${esc([l.sku,l.fin,l.room,q.title].filter(Boolean).join(" · "))}</small></div><div class="n">× ${l.bought}</div><div class="m u">${l.price!=null?ils(l.price):"-"}</div><div class="m"><b>${l.price!=null?ils(l.price*l.bought):"-"}</b></div></div>`).join("")}</div>`}).join("");
+}
+/* ---------- log ---------- */
+function paneLog(c){
+  $("#pane").innerHTML=`<div class="log-add"><textarea class="inp" id="lgT" placeholder="הערה על הלקוח: מה דיברנו, מה חסר, מתי לחזור" aria-label="הערה חדשה"></textarea><button class="b b-k" type="button" id="lgB">הוספה</button></div>
+  <ul class="log">${(c.log||[]).map(x=>`<li class="${x.man?"man":""}"><time>${dmy(x.d)} · ${new Date(x.d).toLocaleTimeString("he-IL",{hour:"2-digit",minute:"2-digit"})}</time><p>${esc(x.t)}</p></li>`).join("")}</ul>`;
+  rip($("#pane"));
+  $("#lgB").onclick=()=>{const v=$("#lgT").value.trim();if(!v)return $("#lgT").focus();db=S.load()||db;const cc=C(cur);log(cc,v,true);commit();paneLog(cc);renderList()};
+}
+/* ---------- details ---------- */
+function paneDetails(c){
+  $("#pane").innerHTML=`<form class="det" id="detF" novalidate>
+    <label class="f">שם<input class="inp" name="name" value="${esc(c.name)}"></label>
+    <label class="f">טלפון<input class="inp ltr" name="phone" type="tel" value="${esc(c.phone)}" style="text-align:right"></label>
+    <label class="f">עיר<input class="inp" name="city" value="${esc(c.city)}"></label>
+    <label class="f">סוג לקוח<select class="inp" name="type">${Object.entries(TYPES).map(([k,v])=>`<option value="${k}"${k===c.type?" selected":""}>${v}</option>`).join("")}</select></label>
+    <label class="f">הגיע דרך<input class="inp" name="ref" value="${esc(c.ref)}"></label>
+    <label class="f">אימייל (לא חובה)<input class="inp ltr" name="email" type="email" value="${esc(c.email)}" style="text-align:right"></label>
+    <label class="f full">כתובת הפרויקט (לא חובה)<input class="inp" name="addr" value="${esc(c.addr)}"></label>
+    <label class="f full">על הפרויקט<textarea class="inp" name="about" rows="3">${esc(c.about)}</textarea></label>
+    <div class="full" style="display:flex;gap:.6rem;flex-wrap:wrap"><button class="b b-k" type="submit">שמירה</button><span style="flex:1"></span><button class="b b-d" type="button" id="delC">מחיקת הלקוח</button></div></form>`;
+  rip($("#pane"));
+  $("#detF").onsubmit=e=>{e.preventDefault();db=S.load()||db;const c=C(cur);const f=e.target,ph=f.phone.value.trim();if(!f.name.value.trim())return f.name.focus();if(ph&&!PHONE.test(ph.replace(/\s/g,"")))return toast("מספר הטלפון לא תקין"),f.phone.focus();
+    ["name","phone","city","type","ref","email","addr","about"].forEach(k=>c[k]=f[k].value.trim());log(c,"הפרטים עודכנו");commit();renderMain();renderList();toast("נשמר")};
+  $("#delC").onclick=async()=>{db=S.load()||db;const c=C(cur);if(!await ask(`למחוק את ${c.name}?`,`הכרטיס, ${c.quotes.length} הצעות והיסטוריית הקניות יימחקו מהמכשיר. אי אפשר לשחזר, חוץ מקובץ גיבוי.`,"מחיקה סופית",true))return;
+    if(db.active&&db.active.cid===c.id){S.endClient();db=S.load()}db.clients=db.clients.filter(x=>x.id!==c.id);commit();go(null);toast("הלקוח נמחק")};
+}
+
+/* ---------------- new client ---------------- */
+function openClient(){const d=$("#dlgC"),f=$("#fC");f.reset();$("#eName").hidden=$("#ePhone").hidden=true;rip(d);d.showModal();setTimeout(()=>f.name.focus(),30)}
+$("#newC").addEventListener("click",openClient);
+$$("#dlgC [data-close]").forEach(b=>b.addEventListener("click",()=>$("#dlgC").close()));
+$("#fC").addEventListener("submit",e=>{e.preventDefault();const f=e.target,name=f.name.value.trim(),ph=f.phone.value.trim().replace(/\s/g,"");
+  $("#eName").hidden=!!name;const badP=ph&&!PHONE.test(ph);$("#ePhone").hidden=!badP;if(!name)return f.name.focus();if(badP)return f.phone.focus();
+  const dup=ph&&db.clients.find(c=>normPh(c.phone)===normPh(ph));
+  if(dup){$("#dlgC").close();go(dup.id);toast(`${dup.name} כבר במערכת עם המספר הזה. פתחנו את הכרטיס שלו.`);return}
+  const c={id:uid("c"),name,phone:ph,city:f.city.value.trim(),type:f.type.value,ref:f.ref.value.trim(),about:f.about.value.trim(),email:"",addr:"",created:now(),updated:now(),quotes:[],log:[]};
+  db.clients.push(c);const q=newQuote(c);log(c,"נפתח כרטיס");commit();$("#dlgC").close();go(c.id,q.id)});
+
+/* ---------------- WhatsApp + print ---------------- */
+function quoteText(c,q){const t=totals(q),by=groupRooms(q.lines);
+  let s=`שלום ${c.name.replace(/^משפחת\s+/,"")},\nמצורפת הצעת המחיר מספוטליין (מס׳ ${q.no}):\n`;
+  by.forEach(([room,L])=>{if(room)s+=`\n*${room}*\n`;else if(by.length>1)s+="\n";L.forEach(l=>{s+=`• ${l.n}${l.fin?` (${l.fin})`:""} × ${l.q}${lineTot(l)!=null?` - ${ils(lineTot(l))}`:""}\n`})});
+  if(t.disc)s+=`\nהנחה: ${ils(t.disc)}`;s+=`\n*סה״כ: ${ils(t.gross)}* כולל מע״מ\n`;
+  if(t.miss)s+=`(${t.miss} פריטים יתומחרו בנפרד)\n`;
+  if(q.note)s+=`\n${q.note}\n`;
+  s+=`\nההצעה בתוקף עד ${dmy(q.issued+q.valid*864e5)}.\nספוטליין · ${STORE.addr} · ${STORE.phone}`;return s}
+function sendWA(c,q){if(!c.phone)return;q.issued=now();if(q.status==="draft"){q.status="sent";q.sentAt=now()}log(c,`${q.title} נשלחה בוואטסאפ (${ils(totals(q).gross)})`);touch(q);renderMain();renderList();
+  window.open(`https://wa.me/${waNum(c.phone)}?text=${encodeURIComponent(quoteText(c,q))}`,"_blank","noopener")}
+function groupRooms(L){const m=new Map();L.forEach(l=>{const k=(l.room||"").trim();if(!m.has(k))m.set(k,[]);m.get(k).push(l)});const a=[...m.entries()];a.sort((x,y)=>(x[0]===""?1:0)-(y[0]===""?1:0));return a}
+function printQuote(c,q){
+  q.issued=now();
+  const t=totals(q),G=groupRooms(q.lines),rooms=G.length>1||G[0]&&G[0][0];
+  $("#doc").innerHTML=`<div class="d-h">${LOGO}<div class="st"><b>${STORE.name}</b> · ${STORE.line}<br>${STORE.addr}<br><span class="ltr">${STORE.phone}</span></div></div>
+  <div class="d-t"><h1>הצעת מחיר<small>${esc(q.title)}</small></h1><dl><dt>מספר</dt><dd class="ltr">${q.no}</dd><dt>תאריך</dt><dd>${dmy(now())}</dd><dt>בתוקף עד</dt><dd>${dmy(q.issued+q.valid*864e5)}</dd></dl></div>
+  <div class="d-c"><div><small>לכבוד</small><b>${esc(c.name)}</b></div><div><small>טלפון</small><b class="ltr">${esc(c.phone||"-")}</b></div><div><small>${c.addr?"כתובת":"עיר"}</small><b>${esc(c.addr||c.city||"-")}</b></div></div>
+  <table class="d"><thead><tr><th class="im"></th><th>פריט</th><th class="c">כמות</th><th class="num">מחיר ליחידה</th><th class="num">סה״כ</th></tr></thead><tbody>
+  ${G.map(([room,L])=>(rooms?`<tr class="room"><td colspan="5">${esc(room||"כללי")}</td></tr>`:"")+L.map(l=>`<tr><td class="im">${l.img?`<img src="${esc(l.img)}" alt="" onerror="this.remove()">`:""}</td><td class="nm"><b>${esc(l.n||"פריט")}</b><small>${esc([l.sku?"מק״ט "+l.sku:"",l.fin,l.k,l.note].filter(Boolean).join(" · "))}</small></td><td class="c">${l.q}</td><td class="num">${l.price!=null&&l.price!==""?ils(l.price):"-"}</td><td class="num">${lineTot(l)!=null?ils(lineTot(l)):"-"}</td></tr>`).join("")).join("")}
+  </tbody></table>
+  <div class="d-f"><div class="nt">${q.note?`<h4>הערות</h4><p>${esc(q.note)}</p>`:""}<h4>תנאים</h4><p>ההצעה בתוקף ${q.valid} ימים ממועד הוצאתה. ${q.vatIn?"המחירים כוללים מע״מ.":"המחירים לפני מע״מ."} זמני אספקה ייקבעו בעת ההזמנה, לפי מלאי הספק.${t.miss?` פריטים בלי מחיר יתומחרו בנפרד.`:""}</p></div>
+  <div class="tt"><div><span>סכום ביניים</span><span>${ils(t.sub)}</span></div>${t.disc?`<div><span>הנחה</span><span>-${ils(t.disc)}</span></div>`:""}${q.vatIn?`<div><span>מתוכו מע״מ</span><span>${ils(t.vat)}</span></div>`:`<div><span>לפני מע״מ</span><span>${ils(t.net)}</span></div><div><span>מע״מ 18%</span><span>${ils(t.vat)}</span></div>`}<div class="g"><span>סה״כ לתשלום</span><span>${ils(t.gross)}</span></div><div class="y"></div></div></div>
+  <div class="d-s"><div>חתימת הלקוח</div><div>בשם ספוטליין</div></div>
+  <div class="d-b"><span>ספוטליין · מדליקים לכם כל חלום</span><span>הצעה ${q.no}</span></div>`;
+  log(c,`${q.title} הודפסה`);c.updated=now();commit();
+  const tt=document.title;document.title=`הצעת מחיר ${q.no} - ${c.name}`;
+  const imgs=$$("#doc img");Promise.all(imgs.map(i=>i.complete?1:new Promise(r=>{i.onload=i.onerror=r;setTimeout(r,2500)}))).then(()=>{$$("#doc img").forEach(i=>{if(!i.naturalWidth)i.remove()});window.print();document.title=tt;renderMain();renderList()});
+}
+
+/* ---------------- menu ---------------- */
+const menuB=$("#menuB"),menuP=$("#menuP");
+menuB.addEventListener("click",()=>{const o=menuP.hidden;menuP.hidden=!o;menuB.setAttribute("aria-expanded",o)});
+document.addEventListener("click",e=>{if(!e.target.closest(".menu")){menuP.hidden=true;menuB.setAttribute("aria-expanded","false")}});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!menuP.hidden){menuP.hidden=true;menuB.focus()}});
+$("#out").addEventListener("click",()=>{if(db.active)S.endClient();db=S.load()||db;db.staff=0;commit();location.hash="";gate()});
+$("#chPin").addEventListener("click",async()=>{if(!await ask("להחליף את קוד הכניסה?","הקוד הנוכחי יימחק, ותבחרו קוד חדש של 4 ספרות.","החלפה"))return;db.pin=null;db.staff=0;commit();gate()});
+$("#exp").addEventListener("click",()=>{const b=new Blob([JSON.stringify(db,null,1)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=`ספוטליין-לקוחות-${new Date().toISOString().slice(0,10)}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);toast(`ירד קובץ עם ${db.clients.length} לקוחות`)});
+$("#imp").addEventListener("change",async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;let d;try{d=JSON.parse(await f.text())}catch(x){return toast("הקובץ לא נקרא. צריך קובץ גיבוי של אזור הלקוחות.")}
+  if(!d||d.v!==1||!Array.isArray(d.clients))return toast("זה לא קובץ גיבוי של אזור הלקוחות.");
+  const add=d.clients.filter(c=>!C(c.id));if(!await ask("לשחזר מהגיבוי?",`בקובץ ${d.clients.length} לקוחות. ${add.length} חדשים יתווספו, ולקוחות שכבר קיימים יישארו כמו שהם.`,"שחזור"))return;
+  db.clients.push(...add);db.prices=Object.assign({},d.prices||{},db.prices);db.seq=Math.max(db.seq||0,d.seq||0);commit();renderList();toast(`נוספו ${add.length} לקוחות`)});
+
+/* other tabs (the site in another tab adds to the basket) */
+addEventListener("storage",e=>{if(e.key===S.DBK){const n=S.load();if(!n)return;const f=document.activeElement;db=n;if(f&&f.closest&&f.closest("#main")&&/INPUT|TEXTAREA|SELECT/.test(f.tagName))return;renderMain();renderList()}});
+
+/* start */
+db.staff>now()&&db.pin?enter():gate();
+</script>
+</body>
+</html>

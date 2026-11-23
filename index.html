@@ -1693,14 +1693,15 @@ document.addEventListener("click",e=>{
   const ci=e.target.closest(".ci");
   if(ci){const it=cart.find(x=>x.id===ci.dataset.id);const inpQ=$("input",ci);
     if(e.target.closest("[data-rm]")){cart.splice(cart.indexOf(it),1);renderCart();const nx=$(".ci [data-rm]",drawer)||$("#emptyGo")||$(".x",drawer);nx&&nx.focus({preventScroll:true});return}
-    if(e.target.closest("[data-inc]")){it.q=Math.min(99,it.q+1);inpQ.value=it.q;badge.textContent=count();renderBarText();return}
-    if(e.target.closest("[data-dec]")){it.q=Math.max(1,it.q-1);inpQ.value=it.q;badge.textContent=count();renderBarText();return}
+    if(e.target.closest("[data-inc]")){it.q=Math.min(99,it.q+1);inpQ.value=it.q;badge.textContent=count();renderBarText();save();return}
+    if(e.target.closest("[data-dec]")){it.q=Math.max(1,it.q-1);inpQ.value=it.q;badge.textContent=count();renderBarText();save();return}
   }
   if(e.target.closest("#emptyGo")){e.preventDefault();e.stopPropagation();closeCart(true);setTimeout(()=>scrollToEl($("#cats")),60)}
 },true);
 function renderBarText(){const c=count();$("#bbarT").textContent=`סל הצעת מחיר · ${c===1?"מוצר אחד":c+" מוצרים"}`}
 function renderCartMeta(){$$(".ci",drawer).forEach(ci=>{const s=$$("small",ci)[1];if(s)s.textContent=metaLine(ci.dataset.id)})}
-$("#cartList").addEventListener("change",e=>{const i=e.target.closest(".qty input");if(!i)return;const it=cart.find(x=>x.id===i.closest(".ci").dataset.id);it.q=Math.max(1,Math.min(99,parseInt(i.value,10)||1));i.value=it.q;badge.textContent=count();renderBarText()});
+$("#cartList").addEventListener("change",e=>{const i=e.target.closest(".qty input");if(!i)return;const it=cart.find(x=>x.id===i.closest(".ci").dataset.id);it.q=Math.max(1,Math.min(99,parseInt(i.value,10)||1));i.value=it.q;badge.textContent=count();renderBarText();save()});
+addEventListener("storage",e=>{if(e.key===KEY)location.reload()});
 $("#toastB").addEventListener("click",()=>{$("#toast").classList.remove("on");openCart()});
 const PHONE=/^0(5\d-?\d{7}|[2-9]-?\d{7})$/;
 $("#cartForm").addEventListener("submit",e=>{
@@ -2266,5 +2267,6 @@ window.__sl=true;
   if(img.complete&&img.naturalWidth)build();else img.addEventListener("load",build);
 })();
 </script>
+<script src="assets/staff.js?v=2" defer></script>
 </body>
 </html>
